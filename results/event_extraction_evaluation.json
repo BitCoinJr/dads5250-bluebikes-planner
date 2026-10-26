@@ -1,0 +1,66 @@
+{
+  "provider": "openai",
+  "analysis_mode": "recorded",
+  "live_llm_verified": true,
+  "api_calls_this_analysis": 0,
+  "original_live_api_calls": 4,
+  "actual_model_snapshots": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "validated_live_records": 4,
+  "fixture_records": 4,
+  "fixture_api_calls": 0,
+  "fixture_model_accuracy": null,
+  "reference_status": "provisional_agent_draft_labels_human_review_pending",
+  "metric": "exact agreement with frozen provisional agent references",
+  "correct_fields": 19,
+  "total_fields": 20,
+  "exact_agreement": 0.95,
+  "by_field": [
+    {
+      "field": "city",
+      "matching": 4,
+      "total": 4
+    },
+    {
+      "field": "end_date",
+      "matching": 4,
+      "total": 4
+    },
+    {
+      "field": "expected_crowd_size",
+      "matching": 4,
+      "total": 4
+    },
+    {
+      "field": "location",
+      "matching": 3,
+      "total": 4
+    },
+    {
+      "field": "start_date",
+      "matching": 4,
+      "total": 4
+    }
+  ],
+  "disagreements": [
+    {
+      "source_id": "cambridge_science_2026",
+      "field": "location",
+      "correct": false,
+      "expected": "Kendall/MIT Open Space, 292 Main Street",
+      "predicted": "Kendall/MIT Open Space, 292 Main Street Cambridge, MA 02142"
+    }
+  ],
+  "input_tokens": 2598,
+  "output_tokens": 623,
+  "request_latency_seconds_sum": 15.79,
+  "reference_files_sha256": {
+    "fixtures/event_documents.json": "3895ea1889a90a2be644a75c6b13ccbd5c963e37be3f5a0e086fa0fc8cd6ece4",
+    "prompts/event_extraction_v1.txt": "80c752920ea81817756f1bbf5dd8c3a85e947d78bd4c0e5765ea306275dc7a61",
+    "prompts/event_schema.json": "a5978ee3d4f79054f4f82483aa1588e4b38ffc8de4774a74f7a69f391c93a556"
+  },
+  "semantic_review_note": "Frozen references are AI drafts, not human-reviewed gold. Four curated cases all have null crowd; the 20 scored fields exclude ambiguity text.",
+  "unscored_review_caveat": "The HOCR ambiguity about the event being known to span multiple locations goes beyond the supplied excerpt. Preserve raw output and obtain human review.",
+  "human_review_complete": false
+}

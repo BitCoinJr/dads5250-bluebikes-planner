@@ -1,0 +1,79 @@
+{
+  "status": "fixture_contract_validated",
+  "mode": "fixture",
+  "provider": "openai",
+  "events": [
+    {
+      "event_name": "130th Boston Marathon",
+      "start_date": "2026-04-20",
+      "end_date": "2026-04-20",
+      "location": "Hopkinton to Boston",
+      "city": "Boston",
+      "expected_crowd_size": null,
+      "source_url": "https://www.baa.org/news/media-resources-schedule-of-events-for-the-130th-boston-marathon-presented-by-bank-of-america/",
+      "evidence_text": "130th Boston Marathon ... Monday, April 20, 2026 ... Hopkinton to Boston ... A field of 30,000 athletes",
+      "missing_info": [
+        "expected_crowd_size"
+      ],
+      "ambiguities": [
+        "The route spans multiple municipalities; Boston is the explicitly named endpoint, not an allocation across all route cities.",
+        "30,000 is an athlete count, not an expected audience count."
+      ]
+    },
+    {
+      "event_name": "2026 July 4 Fireworks Spectacular",
+      "start_date": "2026-07-04",
+      "end_date": "2026-07-04",
+      "location": "Hatch Shell on the Charles River Esplanade",
+      "city": "Boston",
+      "expected_crowd_size": null,
+      "source_url": "https://www.bso.org/press/boston-pops-announces-lainey-wilson-chance-the-rapper-and-trombone-shorty-as-special-guest-artists-at-2026-july-4-fireworks-spectacular-celebrating-massachusetts-and-america-250",
+      "evidence_text": "2026 July 4 Fireworks Spectacular ... (Boston, MA) ... Hatch Shell on the Charles River Esplanade ... Saturday, July 4",
+      "missing_info": [
+        "expected_crowd_size"
+      ],
+      "ambiguities": []
+    },
+    {
+      "event_name": "Cambridge Science Festival 2026",
+      "start_date": "2026-10-04",
+      "end_date": "2026-10-04",
+      "location": "Kendall/MIT Open Space, 292 Main Street",
+      "city": "Cambridge",
+      "expected_crowd_size": null,
+      "source_url": "https://www.cambridgema.gov/citycalendar/2026/10/04/cambridgesciencefestival2026",
+      "evidence_text": "Cambridge Science Festival 2026 ... Sunday October 4, 2026 ... Kendall/MIT Open Space, 292 Main Street Cambridge, MA 02142",
+      "missing_info": [
+        "expected_crowd_size"
+      ],
+      "ambiguities": [
+        "Official page title calls this Science Festival; description calls it Science Carnival."
+      ]
+    },
+    {
+      "event_name": "Head Of The Charles Regatta",
+      "start_date": "2026-10-16",
+      "end_date": "2026-10-18",
+      "location": "Eliot Bridge Enclosure and Directors' Lounge",
+      "city": null,
+      "expected_crowd_size": null,
+      "source_url": "https://hocr.org/",
+      "evidence_text": "HEAD OF THE CHARLES REGATTA - OCT. 16-18, 2026 ... Eliot Bridge Enclosure and Directors' Lounge",
+      "missing_info": [
+        "city",
+        "expected_crowd_size"
+      ],
+      "ambiguities": [
+        "No municipality is stated in this short excerpt; a landmark cannot establish the city without additional evidence."
+      ]
+    }
+  ],
+  "api_calls": 0,
+  "evaluation": {
+    "status": "not_run",
+    "accuracy": null,
+    "reason": "Agent-authored contract fixtures are not LLM predictions or human-reviewed gold"
+  },
+  "fixture_schema_valid_count": 4,
+  "live_llm_verified": false
+}

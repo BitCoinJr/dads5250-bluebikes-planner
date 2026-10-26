@@ -62,6 +62,38 @@ def run_analysis(root=None, event_mode="fixture"):
         "api_calls":0,"live_llm_verified":False,"key_value_logged":False}
     _json(out/"live_llm_check.json",live_check)
     _json(out/"event_extraction.json",events)
+    fixture_result=run_extraction("fixture",root)
+    _json(out/"event_extraction_fixture.json",fixture_result)
+    detail=events["evaluation"].get("details",[])
+    fields=sorted({row["field"] for row in detail})
+    calls=events.get("calls",[])
+    evaluation_report={
+        "provider":"openai","analysis_mode":event_mode,
+        "live_llm_verified":events["live_llm_verified"],
+        "api_calls_this_analysis":events["api_calls"],
+        "original_live_api_calls":events.get("recorded_api_calls",events["api_calls"]),
+        "actual_model_snapshots":sorted({call["model"] for call in calls}),
+        "validated_live_records":len(events["events"]) if events["live_llm_verified"] else 0,
+        "fixture_records":fixture_result["fixture_schema_valid_count"],"fixture_api_calls":0,
+        "fixture_model_accuracy":None,
+        "reference_status":events["evaluation"].get("reference_status","not_scored"),
+        "metric":"exact agreement with frozen provisional agent references",
+        "correct_fields":events["evaluation"].get("correct_fields"),
+        "total_fields":events["evaluation"].get("total_fields"),
+        "exact_agreement":events["evaluation"].get("accuracy"),
+        "by_field":[{"field":field,"matching":sum(row["correct"] for row in detail if row["field"]==field),
+                     "total":sum(row["field"]==field for row in detail)} for field in fields],
+        "disagreements":[row for row in detail if not row["correct"]],
+        "input_tokens":sum(call.get("usage",{}).get("input_tokens",0) for call in calls),
+        "output_tokens":sum(call.get("usage",{}).get("output_tokens",0) for call in calls),
+        "request_latency_seconds_sum":round(sum(call.get("latency_seconds",0) for call in calls),3),
+        "reference_files_sha256":{name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in
+                                  ["fixtures/event_documents.json","prompts/event_extraction_v1.txt","prompts/event_schema.json"]},
+        "semantic_review_note":"Frozen references are AI drafts, not human-reviewed gold. Four curated cases all have null crowd; the 20 scored fields exclude ambiguity text.",
+        "unscored_review_caveat":("The HOCR ambiguity about the event being known to span multiple locations goes beyond the supplied excerpt. Preserve raw output and obtain human review." if events["live_llm_verified"] else "No actual API output evaluated in fixture mode; model semantic quality is not measured."),
+        "human_review_complete":False,
+    }
+    _json(out/"event_extraction_evaluation.json",evaluation_report)
     base_event=event_adjustments(forecast,events["events"],extra_moves_per_event=0)
     # This is an incremental stress scenario, not a fitted event prediction.
     event_scenario=event_adjustments(forecast,events["events"],extra_moves_per_event=3000)
@@ -136,11 +168,12 @@ def run_analysis(root=None, event_mode="fixture"):
              "event_comparison_status":"retrospective uncalibrated stress scenario; sources not all available in January 2026",
              "event_default_increment":0,"events_status":events["status"],
              "live_llm_verified":events["live_llm_verified"],
+             "event_extraction_evaluation":evaluation_report,
              "api_calls_this_run":events["api_calls"],"recorded_api_calls":events.get("recorded_api_calls",0),
              "proposed":ps,"initial_crews":bs,"event_scenario":es,
              "dedicated_city_scenario":{**dedicated_summary,"backtest":_performance(dedicated_eval)},
              "backtest_comparison":eval_table.to_dict("records"),
-             "unfinished":["TA confirmation","live LLM API evidence and human-gold evaluation" if not events["live_llm_verified"] else "human review of LLM outputs",
+             "unfinished":["TA confirmation","live LLM API evidence and human-gold evaluation" if not events["live_llm_verified"] else "human review of LLM outputs and frozen provisional reference labels",
                            "all members' review and contributions","3-minute video recording/upload","Canvas submission"]}
     _json(out/"summary.json",summary)
     _json(out/"planning_config.json",asdict(cfg))
@@ -199,6 +232,9 @@ def _demo(s,root):
     p=s["proposed"]; actual=b["proposed"]; initial=b["initial_crews"]
     api_sentence="We replay recorded real API extractions, with source and prompt provenance checked." if s['live_llm_verified'] else "This run uses agent-authored fixtures; no live API call has been verified."
     api_todo="" if s['live_llm_verified'] else "live API evidence, "
+    score=s['event_extraction_evaluation']
+    score_sentence=(f"Exact agreement with draft labels is {score['correct_fields']} of {score['total_fields']} fields; human review remains pending."
+                    if s['live_llm_verified'] else "Fixture agreement is not model accuracy.")
     text=f"""# Three-minute demo script (English)
 
 AI-generated draft; all three members must review and contribute. Numbers below are generated from `results/summary.json`, not manually typed claims. Recording and upload are **not done**. Speak only the paragraphs, not the headings or stage directions; rehearse timing to three minutes.
@@ -211,7 +247,7 @@ Show `results/figures/demand_forecast.png`.
 
 ## 0:30-1:05 Event input and GenAI
 
-Here is an official event announcement. Our prompt asks OpenAI for dates, location, city, crowd size and evidence in JSON. Structured output and local validation preserve null when crowd size is absent. {api_sentence} Draft reference labels still require human review. Extracted facts remain separate from assumed demand effects.
+Here is an official event announcement. Our prompt asks OpenAI for dates, location, city, crowd size and evidence in JSON. Structured output and local validation preserve null when crowd size is absent. {api_sentence} {score_sentence} Extracted facts remain separate from assumed demand effects.
 
 Show Notebook event input, prompt and validated JSON.
 

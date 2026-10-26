@@ -39,7 +39,7 @@ Status: reviewable implementation in progress; **submission incomplete**. Check 
 ## GenAI evidence
 
 - [ ] Have humans inspect and correct all four initial event answer keys; record reviewer and disagreements. Existing labels were authored by the implementation agent and are not genuine human-reviewed gold yet.
-- [ ] Configure `OPENAI_API_KEY` locally in process/user environment or the ignored project `.env` without committing or displaying it. Run the actual OpenAI Responses API and retain model, usage, timestamp, response ID and request/output hash evidence.
+- [x] Configure `OPENAI_API_KEY` locally without committing or displaying it. Four actual OpenAI Responses API calls completed; credential-free model, usage, timestamps, response IDs and request/output hashes are recorded in `results/event_extraction_live.json`.
 - [ ] Inspect prompt instructions, the example, strict Structured Outputs and local schema validation. Review dates, URL/evidence grounding, crowd-size nulls and ambiguity handling manually.
 - [ ] Evaluate live extracted fields against the human-reviewed answer keys. Report the actual score and errors; never score expected fixtures against themselves as LLM accuracy.
 - [ ] Confirm the no-key live path reports blocked/unverified with zero API calls. Mocked HTTP tests establish the contract only. Verify recorded mode reuses actual live outputs only after checking prompt/source/schema and output hashes, without issuing new API calls.
@@ -70,6 +70,6 @@ Available work includes checking a raw month against its aggregate, independentl
 
 ## Highest-value improvements before the deadline
 
-1. **Live extraction and human evaluation:** supply the provider credential, validate genuine outputs, and replace the provisional agent-authored labels with human-reviewed answers.
+1. **Human evaluation of real extraction:** review the four saved API outputs and the frozen provisional labels; retain the measured 19/20 exact agreement and inspect the unscored HOCR ambiguity caveat. Live API execution is complete; human-reviewed reference answers remain pending.
 2. **Model interpretation:** settle capacity counting and other-city sharing, then review their sensitivity and late-year full-time hiring before endorsing a staffing recommendation.
 3. **Finish the actual submission:** obtain team review/contributions, record and upload the demo, verify grader access, and complete the manual Canvas workflow. Do not mark the project complete before these are done.

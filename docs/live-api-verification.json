@@ -1,0 +1,40 @@
+{
+  "working_root": "C:\\dev\\university\\dads5250-bluebikes-planner",
+  "provider": "openai",
+  "actual_models": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "original_real_api_calls": 4,
+  "notebook_replay_additional_api_calls": 0,
+  "live_schema_and_provenance_valid_records": 4,
+  "fixture_api_calls": 0,
+  "fixture_model_accuracy": null,
+  "frozen_reference_agreement": {
+    "matching": 19,
+    "total": 20,
+    "ratio": 0.95,
+    "human_reviewed": false
+  },
+  "unscored_semantic_caveat_preserved": true,
+  "prompt_schema_reference_hashes_unchanged": true,
+  "tests_passed": 37,
+  "tests_failed": 0,
+  "notebook_code_cells": 10,
+  "notebook_executed_with_outputs": 10,
+  "notebook_cell_errors": 0,
+  "notebook_sha256": "da1656881bf407605a6380586b0861b4afb3e5798403018672875c5b73703eac",
+  "key_value_logged": false,
+  "local_env_ignored_by_task_and_ancestor": true,
+  "remaining": [
+    "human reference/output review",
+    "capacity-unit and shared-city review",
+    "all-member contributions and review",
+    "TA confirmation",
+    "demo video recording and upload",
+    "teaching-team repository/video access",
+    "manual Canvas submission"
+  ],
+  "fixture_notebook_code_cells_verified": 10,
+  "fixture_notebook_errors": 0,
+  "final_notebook_mode": "recorded"
+}

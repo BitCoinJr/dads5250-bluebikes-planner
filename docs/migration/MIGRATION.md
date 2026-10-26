@@ -1,5 +1,7 @@
 # University workspace migration
 
+Historical migration checkpoint. The blank-key and blocked-API observations below were true at migration time. A later verified live API run is documented in `../event_extraction_review.md`; do not interpret the historical key state as current.
+
 Canonical root: `C:\dev\university\dads5250-bluebikes-planner`.
 Ignored credential file: `C:\dev\university\dads5250-bluebikes-planner\.env`.
 

@@ -2,7 +2,7 @@
 
 DADS5250 — Generative AI in Practice, Group 8. This reviewable first version connects official trip data, a transparent inventory-demand proxy, an event extraction API, monthly crew planning, and a reproducible submission Notebook.
 
-**Submission is incomplete.** TA confirmation, a verified live LLM run and human-reviewed extraction labels, team contributions/review, the recorded and uploaded three-minute demo, and Canvas submission remain outstanding. A working analysis is not a completed submission.
+**Submission is incomplete.** TA confirmation, human-reviewed extraction labels, team contributions/review, the recorded and uploaded three-minute demo, and Canvas submission remain outstanding. A working analysis is not a completed submission.
 
 Members: Satoshi Nakamura / Vinay Manikandan Nagarajan / Aditi Rao. Membership does not establish contribution; see the [review checklist](docs/REVIEW_CHECKLIST.md).
 
@@ -15,9 +15,9 @@ Members: Satoshi Nakamura / Vinay Manikandan Nagarajan / Aditi Rao. Membership d
 
 ## Run from the repository root
 
-Python **3.13.2** is the implementation environment. Exact package versions are pinned in [requirements.txt](requirements.txt). The cached monthly aggregates are intended to make the analysis and fixture-mode Notebook runnable without downloading raw trip files or supplying an API key.
+Python **3.13.2** is the implementation environment. Exact package versions are pinned in [requirements.txt](requirements.txt). The cached monthly aggregates and recorded real OpenAI outputs make the analysis and Notebook runnable without downloading raw trip files, supplying an API key, or repeating API calls. Their default event mode is `recorded`; fixture mode remains an explicit offline contract test.
 
-Canonical working directory: `C:\dev\university\dads5250-bluebikes-planner`. The local ignored credential file is `C:\dev\university\dads5250-bluebikes-planner\.env`; `OPENAI_API_KEY` is initially blank. Do not use the retired world-group task directory.
+Canonical working directory: `C:\dev\university\dads5250-bluebikes-planner`. The local ignored credential file is `C:\dev\university\dads5250-bluebikes-planner\.env`. Keep its `OPENAI_API_KEY` value local; the completed API run is preserved without credentials. Do not use the retired world-group task directory.
 
 In PowerShell:
 
@@ -43,7 +43,7 @@ Optional full acquisition and aggregation, with network access and enough local 
 
 The first command exercises January 2024 Boston and Cambridge. The second expands to the requested periods and all station-list municipalities. Downloads and station-hour caches stay local. Check the bucket manifest for file sizes before rebuilding; raw archives are not committed. A rerun uses existing caches, so use a separate checkout/cache location when intentionally refreshing the station snapshot or changing ingestion logic.
 
-For actual event extraction, configure `OPENAI_API_KEY` in the local process environment or the Git-ignored project `.env`; [.env.example](.env.example) shows the format without a secret. Optionally set `OPENAI_MODEL`. Existing Windows user-level environment settings are also read when this process predates the change. Check only safe presence/source metadata, then run:
+The completed live extraction artifact is already included; the default commands above replay it without a key. To deliberately generate new live event extraction evidence, configure `OPENAI_API_KEY` in the local process environment or the Git-ignored project `.env`; [.env.example](.env.example) shows the format without a secret. Optionally set `OPENAI_MODEL`. Existing Windows user-level environment settings are also read when this process predates the change. Check only safe presence/source metadata, then run:
 
 ```powershell
 .\.venv\Scripts\python.exe -m bluebikes.events --check-config
@@ -55,7 +55,9 @@ Never place credentials in the Notebook or tracked files. OpenAI is the sole run
 
 ## Artifacts and results
 
-The real-data pipeline processed 33 requested months across 13 municipalities (429 city-months). It retained 12,893,134 trips from 12,893,499 rows after excluding 143 invalid timestamp/duration rows and 222 cross-archive duplicates. Source files are all available; internal partition gaps and final-month censoring mean this is not complete event ground truth. The selected capped-growth forecast has January-September 2026 WAPE 9.68% (January-August 10.29%). Initial staffing leaves 326,681 observed-proxy tasks uncovered; the proposed frozen plan leaves 48,127. Annual crew cash cost rises from $1,008,000 to $1,837,200. These are conditional monthly-model results, not observed customer losses. See [summary.json](results/summary.json), [crew plan](results/plan_2026.csv), and [migration verification](docs/migration/verification.json). Live OpenAI execution remains pending the intentionally blank local key.
+The real-data pipeline processed 33 requested months across 13 municipalities (429 city-months). It retained 12,893,134 trips from 12,893,499 rows after excluding 143 invalid timestamp/duration rows and 222 cross-archive duplicates. Source files are all available; internal partition gaps and final-month censoring mean this is not complete event ground truth. The selected capped-growth forecast has January-September 2026 WAPE 9.68% (January-August 10.29%). Initial staffing leaves 326,681 observed-proxy tasks uncovered; the proposed frozen plan leaves 48,127. Annual crew cash cost rises from $1,008,000 to $1,837,200. These are conditional monthly-model results, not observed customer losses. See [summary.json](results/summary.json), [crew plan](results/plan_2026.csv), and [migration verification](docs/migration/verification.json).
+
+A genuine OpenAI run completed on **27 October 2026 JST**: **four API calls**, all four outputs accepted by local schema/provenance validation, using the returned model **`gpt-4.1-mini-2025-04-14`**. The result has **19/20 (95%) exact field agreement with provisional agent-authored labels**, not measured accuracy against human-reviewed gold. The Cambridge location includes the source-supported city/state/ZIP beyond the shorter reference address; it is the sole exact-match disagreement across the five scored fields. An **unscored semantic caveat** remains: the Head Of The Charles ambiguity says the event is known to span multiple locations, beyond the supplied short excerpt. This requires human review and is outside the 19/20 score; the raw output is unchanged. See [live extraction evidence](results/event_extraction_live.json) and the [extraction review](docs/event_extraction_review.md).
 
 | Artifact | Purpose |
 |---|---|
@@ -67,6 +69,8 @@ The real-data pipeline processed 33 requested months across 13 municipalities (4
 | [All-city capacity allocation](results/city_capacity_allocation_2026.csv) | Dedicated core-city crews and fractional shares of the other-city pool |
 | [Dedicated-city scenario](results/dedicated_city_plan_2026.csv) | Alternative integer staffing without the shared-city exception |
 | [Backtest comparison](results/backtest_comparison.csv) | Initial crews, proposed frozen plan and event scenario |
+| [Real OpenAI extraction](results/event_extraction_live.json) | Four actual calls, returned model/usage/timestamps, validated JSON and provisional field comparisons |
+| [Separate fixture evidence](results/event_extraction_fixture.json) | Agent-authored contract fixtures; zero API calls and no LLM accuracy claim |
 | [Sensitivity results](results/sensitivity.csv) | Demand ±20%, productivity and counting-unit assumptions |
 | [Customer-conversion sensitivity](results/loss_conversion_sensitivity.csv) | Assumed affected users per uncovered proxy action |
 | [Figures](results/figures/) | Demand/forecast, crew plan, backtest shortfall and demand sensitivity |
@@ -82,7 +86,7 @@ The requested analysis uses **2024–2025 for forecasting** and **January–Sept
 
 Each station-day starts at `floor(docks / 2)`. Arrivals and departures within the same local hour are netted before correcting inventory below zero or above dock capacity. A virtual depot supplies shortages and collects overflow; the work needed to reset inventory is counted separately. Supply, collection and reset actions satisfy daily conservation, but depot stock, routes and within-hour ordering are not simulated. Timestamps are interpreted as America/New_York wall time; repeated fall-back hours are combined, rather than assigned a fabricated UTC offset. The measure is **proxy bike-handling work**, not observed rebalancing, unmet trips or lost riders. It is not the monthly departure-minus-arrival difference.
 
-**Forecast and events.** Two explainable seasonal baselines are selected using a July–December 2025 holdout and then refit with 2024–2025 only. No 2026 observed demand is used for model selection or plan calibration. Real event excerpts are mapped to dates, location, city, optional crowd size, evidence and missing information through an explicit prompt and JSON schema. Original texts do not establish audience numbers, so crowd estimates remain null. The offline answer keys were authored by the implementation agent and await human review; they are not genuine human annotations or LLM predictions.
+**Forecast and events.** Two explainable seasonal baselines are selected using a July–December 2025 holdout and then refit with 2024–2025 only. No 2026 observed demand is used for model selection or plan calibration. Real event excerpts are mapped to dates, location, city, optional crowd size, evidence and missing information through an explicit prompt and JSON schema. Original texts do not establish audience numbers, so crowd estimates remain null. The provisional answer keys were authored by the implementation agent and await human review; they are distinct from the saved real LLM predictions. The original prompt and labels were retained after observing the live responses. The four curated examples all lack a stated audience size, so the result does not establish positive crowd-count extraction or generalization to new text.
 
 The base event uplift is **zero** to avoid double-counting events already in seasonal demand. A separate **+3,000 handling actions per eligible event** case demonstrates demand and crew-plan wiring. This coefficient is an uncalibrated assumption. The source pages were retrieved in October 2026 and were not all available in January, so this is a **retrospective stress scenario**, not an information-available event backtest or demonstrated causal improvement. Results must be reported even when the adjustment worsens forecast error.
 
@@ -100,13 +104,13 @@ Before submission, obtain the exact GitHub usernames of the grader/teaching team
 
 Official data entry points are [Bluebikes System Data](https://bluebikes.com/system-data) and the [official trip-data bucket](https://s3.amazonaws.com/hubway-data/index.html). The exact station download, bucket object names, byte counts and hashes are preserved under `data/metadata/`. Event source links and API documentation are in [event_sources.md](docs/event_sources.md). The saved course reference was read without modification; only its provenance/hash is recorded in [reference_manifest.json](docs/reference_manifest.json). Synced reference materials are not edited or copied into the implementation.
 
-Codex/ChatGPT assisted the initial code, tests, documentation, prompt, event answer keys, figures and demo-script draft. Every initial artifact needs team review. The runtime GenAI feature is specifically the OpenAI structured-extraction adapter; offline fixtures and mocked tests do not establish successful runtime GenAI use. Secrets, raw bulk trips, local environments and intermediate Parquet caches are excluded from Git.
+Codex/ChatGPT assisted the initial code, tests, documentation, prompt, event answer keys, figures and demo-script draft. Every initial artifact needs team review. The runtime GenAI feature is the OpenAI structured-extraction adapter, with four genuine calls recorded separately from the zero-call fixtures and mocked tests. The 95% result is provisional label agreement, not human-reviewed extraction accuracy. Secrets, raw bulk trips, local environments and intermediate Parquet caches are excluded from Git.
 
 ## Next review
 
 Use the [review checklist](docs/REVIEW_CHECKLIST.md) to capture evidence and member participation. Highest-value remaining work:
 
-1. Configure and run the live API; have humans review the answer keys and extraction errors.
+1. Have humans independently review the frozen answer keys and all real extraction outputs, record the Cambridge address disagreement, and test harder text including explicitly stated audience counts.
 2. Resolve handling-versus-relocation units and the shared-city policy, then review sensitivity and late-year employment decisions.
 3. Have all members contribute to each deliverable, rehearse/record/upload the three-minute demo, verify grader access, and perform the required submission manually.
 

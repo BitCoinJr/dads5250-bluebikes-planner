@@ -10,7 +10,7 @@ Show `results/figures/demand_forecast.png`.
 
 ## 0:30-1:05 Event input and GenAI
 
-Here is an official event announcement. Our prompt asks OpenAI for dates, location, city, crowd size and evidence in JSON. Structured output and local validation preserve null when crowd size is absent. This run uses agent-authored fixtures; no live API call has been verified. Draft reference labels still require human review. Extracted facts remain separate from assumed demand effects.
+Here is an official event announcement. Our prompt asks OpenAI for dates, location, city, crowd size and evidence in JSON. Structured output and local validation preserve null when crowd size is absent. We replay recorded real API extractions, with source and prompt provenance checked. Exact agreement with draft labels is 19 of 20 fields; human review remains pending. Extracted facts remain separate from assumed demand effects.
 
 Show Notebook event input, prompt and validated JSON.
 
@@ -28,6 +28,6 @@ Show backtest and sensitivity figures.
 
 ## 2:25-3:00 Architecture and strength
 
-The notebook connects small Python modules for data, inventory, forecasting, extraction and optimization. Figures and this script share the same results. Our strength is traceability with hand-checkable tests. Capacity units and shared-city crews require review; dedicated-city results are also available. Before submission we still need TA confirmation, live API evidence, all-member review, and the recorded, uploaded demo.
+The notebook connects small Python modules for data, inventory, forecasting, extraction and optimization. Figures and this script share the same results. Our strength is traceability with hand-checkable tests. Capacity units and shared-city crews require review; dedicated-city results are also available. Before submission we still need TA confirmation, all-member review, and the recorded, uploaded demo.
 
 Show `docs/architecture.md`. Do not describe the submission as complete until the video link and required reviews exist.

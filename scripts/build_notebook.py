@@ -11,7 +11,7 @@ from nbclient import NotebookClient
 ROOT=Path(__file__).resolve().parents[1]
 
 
-def build(event_mode='fixture'):
+def build(event_mode='recorded'):
     cells=[]
     md=lambda text:cells.append(nbf.v4.new_markdown_cell(text))
     code=lambda text:cells.append(nbf.v4.new_code_cell(text))
@@ -92,7 +92,7 @@ display(Image(filename=str(ROOT / 'results/figures/demand_forecast.png')))""")
 
 The external API adapter calls the OpenAI Responses API with a versioned prompt and strict JSON Schema Structured Outputs. `OPENAI_API_KEY` is loaded from local configuration without displaying it; `OPENAI_MODEL` is configurable. Local validation checks types, nulls, dates, source URL and literal evidence. These checks do not prove semantic correctness. Short official-source excerpts and their provenance are saved in `fixtures/`; no audience size is invented. Athlete counts are not assumed to be crowd sizes. Multi-city ambiguity can leave city null.
 
-The code below displays the actual extraction mode, API evidence and evaluation. **Fixture mode** uses agent-authored contract fixtures with zero API calls and no model accuracy. **Recorded mode** replays saved real API results after validating their source/prompt provenance; it avoids another paid call on Notebook reruns. Draft reference annotations require actual team human review, so agreement with these drafts is provisional and is not a human-gold accuracy claim. HTTP mocks test the adapter, not a real model. Configure `OPENAI_API_KEY` locally and run `python -m bluebikes.events --mode live --output results/event_extraction_live.json` for actual evidence. Never paste a key into this Notebook or commit it.
+The code below displays the actual extraction mode, API evidence and evaluation. **Fixture mode** uses agent-authored contract fixtures with zero API calls and no model accuracy. **Recorded mode** replays saved real API results after validating their source/prompt provenance; it avoids another paid call on Notebook reruns. Draft reference annotations require actual team human review, so agreement with these drafts is provisional and is not a human-gold accuracy claim. The score covers five fields per event; ambiguity text needs a separate review. The HOCR response contains a knowledge-like claim beyond the supplied excerpt, which remains flagged rather than silently corrected. HTTP mocks test the adapter, not a real model. Configure `OPENAI_API_KEY` locally and run `python -m bluebikes.events --mode live --output results/event_extraction_live.json` for actual evidence. Never paste a key into this Notebook or commit it.
 
 Recurring event effects may already be in monthly seasonality. Default extra demand is **zero**. We also show an explicitly assumed **+3,000 handling actions per eligible event** scenario, prorated across months. This coefficient is not extracted from text and is not calibrated on 2026 outcomes. Event source dates extend into 2026: the nonzero comparison is **retrospective stress analysis**, not a forecast possible with information available in January 2026.
 """)
@@ -105,9 +105,24 @@ print((ROOT / 'prompts/event_extraction_v1.txt').read_text())
 events = json.loads((ROOT / 'results/event_extraction.json').read_text())
 print('Extraction status:', events['status'], 'API evidence calls:', events['api_calls'])
 print('Previously recorded real API calls:', events.get('recorded_api_calls',0))
-display(pd.DataFrame(events['events'])[['event_name','start_date','end_date','city','expected_crowd_size','ambiguities']])
-print('LLM evaluation:', events['evaluation'])
-print('Live connection check:', json.loads((ROOT / 'results/live_llm_check.json').read_text()))""")
+display(pd.DataFrame(events['events'])[['event_name','start_date','end_date','location','city','expected_crowd_size','ambiguities']])
+print('Representative actual API extraction:' if events['live_llm_verified'] else 'Representative agent-authored fixture (not an API response):')
+print(json.dumps(events['events'][0],indent=2,ensure_ascii=False))
+display(pd.DataFrame(events.get('calls',[]),columns=['source_id','model','response_status','latency_seconds','executed_at_utc']))
+evaluation = json.loads((ROOT / 'results/event_extraction_evaluation.json').read_text())
+print('Actual model snapshots:', evaluation['actual_model_snapshots'])
+print('Exact agreement with frozen draft labels:', evaluation['correct_fields'], '/', evaluation['total_fields'])
+print('Reference status:', evaluation['reference_status'])
+display(pd.DataFrame(evaluation['by_field']))
+display(pd.DataFrame(evaluation['disagreements']))
+fixture = json.loads((ROOT / 'results/event_extraction_fixture.json').read_text())
+display(pd.DataFrame([
+    {'mode':'fixture contract','live_outputs':False,'new_api_calls':fixture['api_calls'],'recorded_api_calls':0,'model_agreement':None},
+    {'mode':events['mode'],'live_outputs':events['live_llm_verified'],'new_api_calls':events['api_calls'],'recorded_api_calls':events.get('recorded_api_calls',0),'model_agreement':evaluation['exact_agreement']}
+]))
+print('Recorded token usage:', evaluation['input_tokens'], 'input,', evaluation['output_tokens'], 'output')
+print('Semantic caveat outside scored fields:', evaluation['unscored_review_caveat'])
+print('Human-reviewed gold labels complete:', evaluation['human_review_complete'])""")
     md("""## Staffing model and cost
 
 One crew is a driver plus van. Monthly capacity = `120 × 6 × calendar_days/7`. This is an aggregate budget; daily station service and route feasibility are not guaranteed. Existing January crews are assumed full-time: Boston 6, Cambridge 4, Somerville 1, Brookline 1, other cities share 2. January is fixed because no December 2025 hiring decision is assumed.
@@ -168,7 +183,7 @@ Primary data sources and hashes: `data/metadata/station_source.json`, `bucket_ma
 
 Private repository: https://github.com/BitCoinJr/dads5250-bluebikes-planner . The teaching team needs access before submission. README explains inviting confirmed grader accounts; no invitations are sent automatically. Cached real aggregates allow code/Notebook reruns without raw trip downloads or an API key. Live LLM demonstration needs the local credential.
 
-Highest-value next work: (1) real API run plus actual human-reviewed extraction labels; (2) review proxy/capacity units, station matching and shared-city interpretation; (3) complete all-member review and record/upload the three-minute demo. TA confirmation and manual Canvas submission remain separate unresolved requirements.
+Highest-value next work: (1) human review of the frozen extraction labels and actual API outputs, including the unscored ambiguity caveat; (2) review proxy/capacity units, station matching and shared-city interpretation; (3) complete all-member review and record/upload the three-minute demo. TA confirmation and manual Canvas submission remain separate unresolved requirements.
 """)
     code("""print('Required remaining items:')
 for item in summary['unfinished']:
@@ -180,7 +195,7 @@ print('Teaching-team access: must be granted and verified manually')""")
 
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--execute',action='store_true'); p.add_argument('--event-mode',choices=['fixture','recorded'],default='fixture'); args=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--execute',action='store_true'); p.add_argument('--event-mode',choices=['fixture','recorded'],default='recorded'); args=p.parse_args()
     target=ROOT/'notebooks/bluebikes_submission.ipynb'; target.parent.mkdir(exist_ok=True)
     notebook=build(args.event_mode)
     if args.execute:

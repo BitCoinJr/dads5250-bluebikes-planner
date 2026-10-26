@@ -1,6 +1,6 @@
 {
-  "status": "fixture_contract_validated",
-  "mode": "fixture",
+  "status": "recorded_live_outputs_validated",
+  "mode": "recorded",
   "provider": "openai",
   "events": [
     {
@@ -16,8 +16,7 @@
         "expected_crowd_size"
       ],
       "ambiguities": [
-        "The route spans multiple municipalities; Boston is the explicitly named endpoint, not an allocation across all route cities.",
-        "30,000 is an athlete count, not an expected audience count."
+        "location is a route from Hopkinton to Boston, city is set to Boston as endpoint but event spans multiple municipalities"
       ]
     },
     {
@@ -38,7 +37,7 @@
       "event_name": "Cambridge Science Festival 2026",
       "start_date": "2026-10-04",
       "end_date": "2026-10-04",
-      "location": "Kendall/MIT Open Space, 292 Main Street",
+      "location": "Kendall/MIT Open Space, 292 Main Street Cambridge, MA 02142",
       "city": "Cambridge",
       "expected_crowd_size": null,
       "source_url": "https://www.cambridgema.gov/citycalendar/2026/10/04/cambridgesciencefestival2026",
@@ -46,9 +45,7 @@
       "missing_info": [
         "expected_crowd_size"
       ],
-      "ambiguities": [
-        "Official page title calls this Science Festival; description calls it Science Carnival."
-      ]
+      "ambiguities": []
     },
     {
       "event_name": "Head Of The Charles Regatta",
@@ -64,16 +61,268 @@
         "expected_crowd_size"
       ],
       "ambiguities": [
-        "No municipality is stated in this short excerpt; a landmark cannot establish the city without additional evidence."
+        "The city is not explicitly stated; the event is known to span multiple locations but no specific city is given in the text."
       ]
     }
   ],
   "api_calls": 0,
+  "calls": [
+    {
+      "source_id": "boston_marathon_2026",
+      "provider": "openai",
+      "mode": "live",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "usage": {
+        "input_tokens": 651,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 157,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 808
+      },
+      "requested_model": "gpt-4.1-mini",
+      "response_id": "resp_07a41d9035148045016adfe3a1d66087d0b54cadc3917c0a67",
+      "request_sha256": "03b4de2ff788499ad6c9a085c32017c5b24353956ee3dd4766d181b8e12d52ea",
+      "output_sha256": "d2df9f3923a1de0705ba3088814f5089cd032a07c2f0f957491d02bb4c8c7921",
+      "response_status": "completed",
+      "latency_seconds": 7.146,
+      "executed_at_utc": "2026-10-26T23:35:00.438740+00:00"
+    },
+    {
+      "source_id": "boston_pops_2026",
+      "provider": "openai",
+      "mode": "live",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "usage": {
+        "input_tokens": 685,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 176,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 861
+      },
+      "requested_model": "gpt-4.1-mini",
+      "response_id": "resp_028d18989c17d4c7016adfe3a4a68887d08b47880106778c4b",
+      "request_sha256": "c82c45330d65034f5cb577b8897d8bd111d403bd8538ee33972d8e96e4e49792",
+      "output_sha256": "7618904d9857ced24ece9025df747715f151f965c2a83031b96f7cdfde830d29",
+      "response_status": "completed",
+      "latency_seconds": 3.177,
+      "executed_at_utc": "2026-10-26T23:35:03.617811+00:00"
+    },
+    {
+      "source_id": "cambridge_science_2026",
+      "provider": "openai",
+      "mode": "live",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "usage": {
+        "input_tokens": 644,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 148,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 792
+      },
+      "requested_model": "gpt-4.1-mini",
+      "response_id": "resp_0c389bb0fa5c1ef5016adfe3a822a487d09d1f19403ad74e10",
+      "request_sha256": "859479b99f27e26e432476c2b75fe7b14365fd377a13e0095bd1de0675226290",
+      "output_sha256": "b56f8963016aa1f9b0f9577057094baed019b1945ebc5d185d706bc442343818",
+      "response_status": "completed",
+      "latency_seconds": 3.221,
+      "executed_at_utc": "2026-10-26T23:35:06.841292+00:00"
+    },
+    {
+      "source_id": "head_of_charles_2026",
+      "provider": "openai",
+      "mode": "live",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "usage": {
+        "input_tokens": 618,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 142,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 760
+      },
+      "requested_model": "gpt-4.1-mini",
+      "response_id": "resp_0c2873cfa5e42c2d016adfe3aae9f087d0a9ac3da345c5ccc7",
+      "request_sha256": "98b09f1fd7255193a76e0668e7d26553bf61accfebdac6a6912021f3037adedc",
+      "output_sha256": "fd1fbb41aeccc803749ee6f540506281429bdfd415e13ffcb93ec59544180104",
+      "response_status": "completed",
+      "latency_seconds": 2.246,
+      "executed_at_utc": "2026-10-26T23:35:09.089263+00:00"
+    }
+  ],
+  "live_llm_verified": true,
   "evaluation": {
-    "status": "not_run",
-    "accuracy": null,
-    "reason": "Agent-authored contract fixtures are not LLM predictions or human-reviewed gold"
+    "metric": "field_exact_match",
+    "examples": 4,
+    "reference_status": "provisional_agent_draft_labels_human_review_pending",
+    "correct_fields": 19,
+    "total_fields": 20,
+    "accuracy": 0.95,
+    "details": [
+      {
+        "source_id": "boston_marathon_2026",
+        "field": "start_date",
+        "correct": true,
+        "expected": "2026-04-20",
+        "predicted": "2026-04-20"
+      },
+      {
+        "source_id": "boston_marathon_2026",
+        "field": "end_date",
+        "correct": true,
+        "expected": "2026-04-20",
+        "predicted": "2026-04-20"
+      },
+      {
+        "source_id": "boston_marathon_2026",
+        "field": "location",
+        "correct": true,
+        "expected": "Hopkinton to Boston",
+        "predicted": "Hopkinton to Boston"
+      },
+      {
+        "source_id": "boston_marathon_2026",
+        "field": "city",
+        "correct": true,
+        "expected": "Boston",
+        "predicted": "Boston"
+      },
+      {
+        "source_id": "boston_marathon_2026",
+        "field": "expected_crowd_size",
+        "correct": true,
+        "expected": null,
+        "predicted": null
+      },
+      {
+        "source_id": "boston_pops_2026",
+        "field": "start_date",
+        "correct": true,
+        "expected": "2026-07-04",
+        "predicted": "2026-07-04"
+      },
+      {
+        "source_id": "boston_pops_2026",
+        "field": "end_date",
+        "correct": true,
+        "expected": "2026-07-04",
+        "predicted": "2026-07-04"
+      },
+      {
+        "source_id": "boston_pops_2026",
+        "field": "location",
+        "correct": true,
+        "expected": "Hatch Shell on the Charles River Esplanade",
+        "predicted": "Hatch Shell on the Charles River Esplanade"
+      },
+      {
+        "source_id": "boston_pops_2026",
+        "field": "city",
+        "correct": true,
+        "expected": "Boston",
+        "predicted": "Boston"
+      },
+      {
+        "source_id": "boston_pops_2026",
+        "field": "expected_crowd_size",
+        "correct": true,
+        "expected": null,
+        "predicted": null
+      },
+      {
+        "source_id": "cambridge_science_2026",
+        "field": "start_date",
+        "correct": true,
+        "expected": "2026-10-04",
+        "predicted": "2026-10-04"
+      },
+      {
+        "source_id": "cambridge_science_2026",
+        "field": "end_date",
+        "correct": true,
+        "expected": "2026-10-04",
+        "predicted": "2026-10-04"
+      },
+      {
+        "source_id": "cambridge_science_2026",
+        "field": "location",
+        "correct": false,
+        "expected": "Kendall/MIT Open Space, 292 Main Street",
+        "predicted": "Kendall/MIT Open Space, 292 Main Street Cambridge, MA 02142"
+      },
+      {
+        "source_id": "cambridge_science_2026",
+        "field": "city",
+        "correct": true,
+        "expected": "Cambridge",
+        "predicted": "Cambridge"
+      },
+      {
+        "source_id": "cambridge_science_2026",
+        "field": "expected_crowd_size",
+        "correct": true,
+        "expected": null,
+        "predicted": null
+      },
+      {
+        "source_id": "head_of_charles_2026",
+        "field": "start_date",
+        "correct": true,
+        "expected": "2026-10-16",
+        "predicted": "2026-10-16"
+      },
+      {
+        "source_id": "head_of_charles_2026",
+        "field": "end_date",
+        "correct": true,
+        "expected": "2026-10-18",
+        "predicted": "2026-10-18"
+      },
+      {
+        "source_id": "head_of_charles_2026",
+        "field": "location",
+        "correct": true,
+        "expected": "Eliot Bridge Enclosure and Directors' Lounge",
+        "predicted": "Eliot Bridge Enclosure and Directors' Lounge"
+      },
+      {
+        "source_id": "head_of_charles_2026",
+        "field": "city",
+        "correct": true,
+        "expected": null,
+        "predicted": null
+      },
+      {
+        "source_id": "head_of_charles_2026",
+        "field": "expected_crowd_size",
+        "correct": true,
+        "expected": null,
+        "predicted": null
+      }
+    ]
   },
-  "fixture_schema_valid_count": 4,
-  "live_llm_verified": false
+  "recorded_api_calls": 4,
+  "recorded_artifact": "results/event_extraction_live.json"
 }

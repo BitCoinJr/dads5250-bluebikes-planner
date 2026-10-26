@@ -22,13 +22,43 @@ Official API documentation checked on 2026-10-26:
 - [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
 - [GPT-4.1 mini model](https://developers.openai.com/api/docs/models/gpt-4.1-mini)
 
-The first OpenAI configuration check found no key. Until an actual API run
-succeeds, provider access, model output quality, token usage and latency remain
-unverified; the actual status belongs in `results/live_llm_check.json` and any
-completed `results/event_extraction_live.json`. The
-offline run reports no extraction accuracy. It does not label agent-authored
-contract fixtures as live LLM results or human-reviewed gold. A requested live
-run without a key returns an explicit blocked status and zero API calls.
+The first configuration check found no key; this was a historical setup
+state. A genuine run subsequently completed on **27 October 2026 JST**, with
+**four OpenAI API calls** and `live_llm_verified: true`. All four responses passed
+the local schema and provenance validator. The returned model was
+**`gpt-4.1-mini-2025-04-14`**. The saved call completion timestamps are
+2026-10-26 23:35:00.439 through 23:35:09.089 UTC, equivalent to
+27 October 2026 08:35:00.439 through 08:35:09.089 JST. Recorded usage totals
+**2,598 input tokens + 623 output tokens = 3,221 tokens**; the sum of individual
+request latencies is **15.790 seconds**, not a claim about model-only latency.
+
+The original credential-free evidence is
+[`results/event_extraction_live.json`](../results/event_extraction_live.json),
+including model, usage, timestamps, response IDs, request/output hashes and each
+field comparison. Its score is **19/20 fields (95%) exact agreement against
+provisional agent-authored labels**, not accuracy against human-reviewed gold.
+The only mismatch is the Cambridge location: the draft label stops at
+`Kendall/MIT Open Space, 292 Main Street`, while the live output includes the
+source-supported `Cambridge, MA 02142`. Exact match counts this as a disagreement;
+it is not evidence of a fabricated address. The prompt and reference labels
+were retained after the responses rather than changed to improve the score.
+
+The 19/20 metric covers only start date, end date, location, city and audience
+count. It does **not** score the ambiguity text or establish that every semantic
+claim is grounded. Independent AI review flagged the Head Of The Charles
+ambiguity phrase `event is known to span multiple locations` as broader than the
+supplied short excerpt. Human review is still pending; the raw response and the
+original 19/20 score remain unchanged. See the
+[extraction review](event_extraction_review.md) for this unscored concern.
+
+The separate
+[`results/event_extraction_fixture.json`](../results/event_extraction_fixture.json)
+records **zero API calls** and **no extraction accuracy**. Agent-authored fixtures
+are neither live LLM predictions nor human-reviewed gold. A requested new live
+run without a key still returns an explicit blocked status and zero API calls.
+The default analysis and Notebook use recorded mode, replaying the validated
+real outputs without additional API calls; current replay metadata is in
+`results/live_llm_check.json`.
 
 ## Sources and annotation
 
@@ -58,8 +88,10 @@ not become expected in-person crowd sizes.
 
 Live evaluation uses exact match on start date, end date, location, city and
 audience count: 20 fields across four examples. The report preserves each field
-comparison. Location exact match penalizes equivalent wording, and four examples
-cannot establish generalization. The first team review should inspect evidence,
+comparison. Location exact match penalizes equivalent wording, as the Cambridge
+address mismatch demonstrates. All four curated examples have null audience
+counts; they do not test extraction of a positive audience estimate, and four
+examples cannot establish generalization. The first team review should inspect evidence,
 dates and nullable fields, then add adversarial and positive audience-count
 examples. These are provisional agent-authored reference labels, not human-
 reviewed gold. The evaluator records this reference status in its output, even
