@@ -1,0 +1,927 @@
+{
+  "audit_executed_utc": "2026-10-26T11:10:28.086449+00:00",
+  "scope": "Only rows with a valid started_at or ended_at month outside the filename month are retained and compared. Detection requires boundary rows in at least two archives. This is not an all-row cross-archive uniqueness proof: an in-month original duplicated into a wrong-month file can be missed because only the wrong-month copy is retained. The scope detects overlap caused by an otherwise honest change between start-month and end-month partition conventions.",
+  "source_partition_warning": "Observed monthly archive partition varies, including switches during 2024 and 2026. Complete acquisition of all files does not establish complete trip coverage: partition switches may create overlaps or unquantified gaps. Assign endpoints to actual timestamps, correct observed repeated IDs, disclose gaps and September 2026 right-censoring, and do not impute missing trips.",
+  "partition_transitions": [
+    {
+      "earlier_source_month": "202405",
+      "later_source_month": "202406",
+      "change": "start-month to end-month",
+      "risk": "Cross-boundary trips can occur in both archives; observed duplicate IDs require correction."
+    },
+    {
+      "earlier_source_month": "202603",
+      "later_source_month": "202604",
+      "change": "end-month to start-month",
+      "risk": "Cross-boundary trips starting in the earlier month and ending in the later month may be absent from both official files. Their number cannot be established from these archives; no imputation is justified."
+    },
+    {
+      "earlier_source_month": "202604",
+      "later_source_month": "202605",
+      "change": "start-month to end-month",
+      "risk": "Cross-boundary trips can occur in both archives; observed duplicate IDs require correction."
+    }
+  ],
+  "requested_months": [
+    "202312",
+    "202401",
+    "202402",
+    "202403",
+    "202404",
+    "202405",
+    "202406",
+    "202407",
+    "202408",
+    "202409",
+    "202410",
+    "202411",
+    "202412",
+    "202501",
+    "202502",
+    "202503",
+    "202504",
+    "202505",
+    "202506",
+    "202507",
+    "202508",
+    "202509",
+    "202510",
+    "202511",
+    "202512",
+    "202601",
+    "202602",
+    "202603",
+    "202604",
+    "202605",
+    "202606",
+    "202607",
+    "202608",
+    "202609"
+  ],
+  "audited_months": [
+    "202312",
+    "202401",
+    "202402",
+    "202403",
+    "202404",
+    "202405",
+    "202406",
+    "202407",
+    "202408",
+    "202409",
+    "202410",
+    "202411",
+    "202412",
+    "202501",
+    "202502",
+    "202503",
+    "202504",
+    "202505",
+    "202506",
+    "202507",
+    "202508",
+    "202509",
+    "202510",
+    "202511",
+    "202512",
+    "202601",
+    "202602",
+    "202603",
+    "202604",
+    "202605",
+    "202606",
+    "202607",
+    "202608",
+    "202609"
+  ],
+  "missing_raw_files": [],
+  "all_34_expected_raw_archives_audited": true,
+  "raw_rows_scanned": 13062879,
+  "boundary_rows_examined": 2185,
+  "distinct_boundary_ride_ids": 1963,
+  "cross_archive_duplicate_ride_ids": 222,
+  "cross_archive_duplicate_boundary_rows": 444,
+  "duplicate_file_pairs": [
+    {
+      "source_month_a": "202405",
+      "source_month_b": "202406",
+      "duplicate_ride_ids": 141
+    },
+    {
+      "source_month_a": "202604",
+      "source_month_b": "202605",
+      "duplicate_ride_ids": 81
+    }
+  ],
+  "hashed_duplicate_id_examples": [
+    {
+      "ride_id_sha256": "4f5cedc94b371a27867c19f3afa3a3d98c3f1a736c7fa165bfd1410a3b007a09",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "4f58ce658f4e1cc35d23d46b944d84719e8f2b84ac9326bf9809c9e90c0dd9d3",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "56ab7377ec27970f714f10a18b57c6395e8eebe6cc793d840b31a67d36423def",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "8b3eb960195eccb34c8df98759d78cf4e1ced925612c861340396c9996b55971",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "3c20ed30109279dcadf25e3660de4073908d5e8dba878c4b2a13a47a28e2c7a8",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "61b2f768a0ca472f4a252209dbb94067784c4baf92841ea9b39d5c8ff6cf7ec6",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "989062e3894875dc7f3c98bfc774f09a6d527647369c4aa50da2fe158e21664a",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "3eb4c434edf678a9c81508f82d599efdefb3b61292ec17eb8f5ef0b7511a103d",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "b5d55583c38bb4c6f1b129cd3281aee6d0899ca3fdd4fed4f1e60c8357f3a477",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "19ba96b2ed9f86d13379a3af2b9aaaa2af839de3920ec71a20f2915f229ec71d",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "3e121b86425a2b3d74f44053cef53d7e591a8df53f4ac2f1c82d29a35ac5c0aa",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "b041c933b450e50f0492dd838c6b8cba55985066c881a4007dc21ccade18de44",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "cbea4b626e56a136f020757236608372b4d8afe1a7d4af7aae32b6fd1d1120ee",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "f335fdf8e5c8f7926e3a0a4d19ce3b42b63ac6b9e3eb5a9def3aae038660fec0",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "28d9e5ba1c2bea402cfeaba6fc754074efea3743c359d657249c3bfd73a11fcf",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "3c0273f573a868e8faaedea5ba728d265d581c15553854f22dd62446f4db1a1c",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "5759b4ea5658ed73ce73b743dcd4931ed9d805200f7f2a94cbae92ff5f1f03e7",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "0b4a0a91094cae32d72f003bff8b3ca5b12dcb3a083364d92117d4f359bad36a",
+      "source_months": [
+        "202604",
+        "202605"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "c2f5b90d7325365d687402eb90965016f91b8607faf7cb8930819868cccfb74d",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    },
+    {
+      "ride_id_sha256": "3e830736371731284fd578d2646f9f2db404c144f7a774da707b5f7716526470",
+      "source_months": [
+        "202405",
+        "202406"
+      ],
+      "boundary_occurrences": 2
+    }
+  ],
+  "private_local_correction_detail_rows": 444,
+  "files": [
+    {
+      "source_month": "202312",
+      "file": "202312-bluebikes-tripdata.zip",
+      "raw_rows": 169380,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 0,
+      "end_outside_source_month": 61,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 61,
+      "local_file_signature": {
+        "bytes": 6809751,
+        "mtime_ns": 1793012022795323300,
+        "expected_etag": "\"acf53796496d4af4102a78983593d330\""
+      },
+      "partition_diagnostic": "start-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202401",
+      "file": "202401-bluebikes-tripdata.zip",
+      "raw_rows": 166699,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 0,
+      "end_outside_source_month": 25,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 25,
+      "local_file_signature": {
+        "bytes": 6141192,
+        "mtime_ns": 1793011661708799100,
+        "expected_etag": "\"76cabe6d7c3533fbfdd6ab98809092a1\""
+      },
+      "partition_diagnostic": "start-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202402",
+      "file": "202402-bluebikes-tripdata.zip",
+      "raw_rows": 231947,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 0,
+      "end_outside_source_month": 12,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 12,
+      "local_file_signature": {
+        "bytes": 8494334,
+        "mtime_ns": 1793011923299624700,
+        "expected_etag": "\"3e9f7b4484aaec9f122821bbd42b8815\""
+      },
+      "partition_diagnostic": "start-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202403",
+      "file": "202403-bluebikes-tripdata.zip",
+      "raw_rows": 261687,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 0,
+      "end_outside_source_month": 25,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 25,
+      "local_file_signature": {
+        "bytes": 10810899,
+        "mtime_ns": 1793012066643977700,
+        "expected_etag": "\"85555af654c9fb0b62f79c50a8242c8f\""
+      },
+      "partition_diagnostic": "start-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202404",
+      "file": "202404-bluebikes-tripdata.zip",
+      "raw_rows": 356327,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 0,
+      "end_outside_source_month": 38,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 38,
+      "local_file_signature": {
+        "bytes": 12940120,
+        "mtime_ns": 1793012059939645200,
+        "expected_etag": "\"bb2bf9850ada6f188b5a3800e7c0026c\""
+      },
+      "partition_diagnostic": "start-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202405",
+      "file": "202405-bluebikes-tripdata.zip",
+      "raw_rows": 440534,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 0,
+      "end_outside_source_month": 141,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 141,
+      "local_file_signature": {
+        "bytes": 17254849,
+        "mtime_ns": 1793012110108293200,
+        "expected_etag": "\"b30b8b71040981c0116e43610bcbe203-2\""
+      },
+      "partition_diagnostic": "start-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202406",
+      "file": "202406-bluebikes-tripdata.zip",
+      "raw_rows": 478860,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 141,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 141,
+      "local_file_signature": {
+        "bytes": 20279341,
+        "mtime_ns": 1793012062808621800,
+        "expected_etag": "\"b4996912a19487a43a72e0352d52cfb3-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202407",
+      "file": "202407-bluebikes-tripdata.zip",
+      "raw_rows": 542622,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 63,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 63,
+      "local_file_signature": {
+        "bytes": 23681745,
+        "mtime_ns": 1793012122518441000,
+        "expected_etag": "\"8cc94b120a911fc8a532e7caabf8e4de-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202408",
+      "file": "202408-bluebikes-tripdata.zip",
+      "raw_rows": 538262,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 87,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 87,
+      "local_file_signature": {
+        "bytes": 23212647,
+        "mtime_ns": 1793012112939454300,
+        "expected_etag": "\"9b1e861cb9404394eb6080fe52bb6fc4-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202409",
+      "file": "202409-bluebikes-tripdata.zip",
+      "raw_rows": 582679,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 151,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 151,
+      "local_file_signature": {
+        "bytes": 23303005,
+        "mtime_ns": 1793012353778155500,
+        "expected_etag": "\"a531bca287ffbaa0545ccf42bcb7c23a-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202410",
+      "file": "202410-bluebikes-tripdata.zip",
+      "raw_rows": 564156,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 42,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 42,
+      "local_file_signature": {
+        "bytes": 23871387,
+        "mtime_ns": 1793012370149969800,
+        "expected_etag": "\"b98be6501289b865872ce83a20f4c326-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202411",
+      "file": "202411-bluebikes-tripdata.zip",
+      "raw_rows": 397406,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 122,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 122,
+      "local_file_signature": {
+        "bytes": 15566159,
+        "mtime_ns": 1793012270399465800,
+        "expected_etag": "\"ce74d399248f39745eb39dddb87a7f5d\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202412",
+      "file": "202412-bluebikes-tripdata.zip",
+      "raw_rows": 190611,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 26,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 26,
+      "local_file_signature": {
+        "bytes": 8672127,
+        "mtime_ns": 1793012344551355900,
+        "expected_etag": "\"0873d591361cb34561c8cfa9454af332\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202501",
+      "file": "202501-bluebikes-tripdata.zip",
+      "raw_rows": 162316,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 33,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 33,
+      "local_file_signature": {
+        "bytes": 7447368,
+        "mtime_ns": 1793012123490008500,
+        "expected_etag": "\"7f56411e57cc88f98043d8aa170e9009\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202502",
+      "file": "202502-bluebikes-tripdata.zip",
+      "raw_rows": 166022,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 19,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 19,
+      "local_file_signature": {
+        "bytes": 6731487,
+        "mtime_ns": 1793012132024144900,
+        "expected_etag": "\"c419d4854bfa07eeb72de2310538d339\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202503",
+      "file": "202503-bluebikes-tripdata.zip",
+      "raw_rows": 272088,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 35,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 35,
+      "local_file_signature": {
+        "bytes": 10531517,
+        "mtime_ns": 1793012267774676400,
+        "expected_etag": "\"11c132e799fdbb8922e922dfde5bade9\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202504",
+      "file": "202504-bluebikes-tripdata.zip",
+      "raw_rows": 373940,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 10,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 10,
+      "local_file_signature": {
+        "bytes": 14787572,
+        "mtime_ns": 1793012358948331300,
+        "expected_etag": "\"c196c720f46e930dd1664ef497cc43c0\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202505",
+      "file": "202505-bluebikes-tripdata.zip",
+      "raw_rows": 429840,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 42,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 42,
+      "local_file_signature": {
+        "bytes": 18495452,
+        "mtime_ns": 1793012389617352300,
+        "expected_etag": "\"d49bef2bb463198c5e652521c9ada4a5-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202506",
+      "file": "202506-bluebikes-tripdata.zip",
+      "raw_rows": 488202,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 59,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 59,
+      "local_file_signature": {
+        "bytes": 21483092,
+        "mtime_ns": 1793012249234885000,
+        "expected_etag": "\"147632da42301165122464823ed924cb-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202507",
+      "file": "202507-bluebikes-tripdata.zip",
+      "raw_rows": 539711,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 86,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 86,
+      "local_file_signature": {
+        "bytes": 22587960,
+        "mtime_ns": 1793012354775290000,
+        "expected_etag": "\"cb3af70780e70447c6cdcc314a0fe6bd-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202508",
+      "file": "202508-bluebikes-tripdata.zip",
+      "raw_rows": 549014,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 24,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 24,
+      "local_file_signature": {
+        "bytes": 22600095,
+        "mtime_ns": 1793012331508949600,
+        "expected_etag": "\"b9349cd0fe7f175c996e08b6cfae4bd7-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202509",
+      "file": "202509-bluebikes-tripdata.zip",
+      "raw_rows": 586979,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 109,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 109,
+      "local_file_signature": {
+        "bytes": 25255496,
+        "mtime_ns": 1793012374019142600,
+        "expected_etag": "\"dff6265044c2cdd03ad258a7176cd349-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202510",
+      "file": "202510-bluebikes-tripdata.zip",
+      "raw_rows": 513531,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 57,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 57,
+      "local_file_signature": {
+        "bytes": 21420071,
+        "mtime_ns": 1793012332824623200,
+        "expected_etag": "\"11dbf36f0474ab2bfb59811ecaeea67a-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202511",
+      "file": "202511-bluebikes-tripdata.csv.zip",
+      "raw_rows": 344841,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 120,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 120,
+      "local_file_signature": {
+        "bytes": 15143886,
+        "mtime_ns": 1793012319659824000,
+        "expected_etag": "\"9456f05f1b6889db12b3c29757bee48e\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202512",
+      "file": "202512-bluebikes-tripdata.zip",
+      "raw_rows": 187816,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 17,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 17,
+      "local_file_signature": {
+        "bytes": 7759874,
+        "mtime_ns": 1793012339339433800,
+        "expected_etag": "\"1dab9eeb1e3c7a8ab05c12cbcc773773\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202601",
+      "file": "202601-bluebikes-tripdata.zip",
+      "raw_rows": 152074,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 30,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 30,
+      "local_file_signature": {
+        "bytes": 6763019,
+        "mtime_ns": 1793012409373849600,
+        "expected_etag": "\"47ef9ea10f0c26f4bea48b05485db2f5\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202602",
+      "file": "202602-bluebikes-tripdata.zip",
+      "raw_rows": 136508,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 37,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 37,
+      "local_file_signature": {
+        "bytes": 5673067,
+        "mtime_ns": 1793012408969562900,
+        "expected_etag": "\"afd2d1cfb7deee47a20c16c80a005f13\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202603",
+      "file": "202603-bluebikes-tripdata.zip",
+      "raw_rows": 253780,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 35,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 35,
+      "local_file_signature": {
+        "bytes": 10250023,
+        "mtime_ns": 1793012412098326500,
+        "expected_etag": "\"18fff95d89945517c8fa96933d0be1f6\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202604",
+      "file": "202604-bluebikes-tripdata.zip",
+      "raw_rows": 368431,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 0,
+      "end_outside_source_month": 81,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 81,
+      "local_file_signature": {
+        "bytes": 15084767,
+        "mtime_ns": 1793012898683887700,
+        "expected_etag": "\"40dce48ef28b35faa22132ecdf0ed387\""
+      },
+      "partition_diagnostic": "start-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202605",
+      "file": "202605-bluebikes-tripdata.zip",
+      "raw_rows": 432675,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 81,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 81,
+      "local_file_signature": {
+        "bytes": 16872309,
+        "mtime_ns": 1793012899680057700,
+        "expected_etag": "\"9494da095de0d992bec94d24a0b6babc\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202606",
+      "file": "202606-bluebikes-tripdata.zip",
+      "raw_rows": 515776,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 43,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 43,
+      "local_file_signature": {
+        "bytes": 21696143,
+        "mtime_ns": 1793012918529952900,
+        "expected_etag": "\"040c2e9724d89a91a9b94a5815289502-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202607",
+      "file": "202607-bluebikes-tripdata.zip",
+      "raw_rows": 530297,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 87,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 87,
+      "local_file_signature": {
+        "bytes": 21350439,
+        "mtime_ns": 1793012916703631400,
+        "expected_etag": "\"f973850764bf1965c2fad61285f8908d-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202608",
+      "file": "202608-bluebikes-tripdata.zip",
+      "raw_rows": 582663,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 162,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 162,
+      "local_file_signature": {
+        "bytes": 22461227,
+        "mtime_ns": 1793012914433237300,
+        "expected_etag": "\"001ce8510a2275200aed2fcc6973f251-2\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    },
+    {
+      "source_month": "202609",
+      "file": "202609-bluebikes-tripdata.csv",
+      "raw_rows": 555205,
+      "missing_or_invalid_start_timestamp": 0,
+      "missing_or_invalid_end_timestamp": 0,
+      "missing_ride_id": 0,
+      "start_outside_source_month": 84,
+      "end_outside_source_month": 0,
+      "both_endpoints_outside_source_month": 0,
+      "boundary_rows": 84,
+      "local_file_signature": {
+        "bytes": 132839377,
+        "mtime_ns": 1793012407097063200,
+        "expected_etag": "\"2a9a558a6be6be0e762a7bd9b6e8c12f-8\""
+      },
+      "partition_diagnostic": "end-month partition consistent",
+      "boundary_duplicate_ids_within_archive": 0
+    }
+  ]
+}

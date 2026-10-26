@@ -1,0 +1,225 @@
+{
+  "artifact_status": "reviewable_initial_version_submission_incomplete",
+  "data_periods": [
+    "2024-01",
+    "2024-02",
+    "2024-03",
+    "2024-04",
+    "2024-05",
+    "2024-06",
+    "2024-07",
+    "2024-08",
+    "2024-09",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10",
+    "2025-11",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+  ],
+  "cities": [
+    "Arlington",
+    "Boston",
+    "Brookline",
+    "Cambridge",
+    "Chelsea",
+    "Everett",
+    "Malden",
+    "Medford",
+    "Newton",
+    "Revere",
+    "Salem",
+    "Somerville",
+    "Watertown"
+  ],
+  "training_years": [
+    2024,
+    2025
+  ],
+  "data_quality": {
+    "status": "real_archive_diagnostics",
+    "raw_trips": 12893499,
+    "valid_trips": 12893134,
+    "invalid_rows": 143,
+    "duplicate_ride_ids_removed": 0,
+    "weighted_start_join_rate": 0.9808912247402377,
+    "weighted_end_join_rate": 0.9797842789813554,
+    "station_snapshot_effective_date": "2026-08-21",
+    "station_snapshot_checked_utc": "2026-10-26T11:08:48.297414+00:00",
+    "cross_archive_duplicate_rows_removed": 222,
+    "coverage_limitations": {
+      "all_requested_files_available_is_not_complete_event_coverage": true,
+      "internal_gap": {
+        "transition": "202603_end_month_to_202604_start_month",
+        "affected_event_months": [
+          "202603",
+          "202604"
+        ],
+        "description": "Trips starting in March and ending in April may be absent from both official archives",
+        "missing_trip_count": null
+      },
+      "right_censoring": {
+        "event_month": "202609",
+        "description": "September departures returning in October are unavailable until October archive publication",
+        "missing_trip_count": null
+      },
+      "imputation_performed": false,
+      "current_station_metadata_applied_retrospectively": true,
+      "unmatched_endpoints_excluded": true
+    }
+  },
+  "backtest_months": "2026-01 through 2026-09",
+  "selected_model": "capped_growth",
+  "forecast_backtest": {
+    "n": 117,
+    "mae_bikes": 567.2641723109466,
+    "wape": 0.09677551775831131,
+    "bias_bikes": -46795.923236489005
+  },
+  "event_scenario_backtest": {
+    "n": 117,
+    "mae_bikes": 521.2161278425348,
+    "wape": 0.08891970108116434,
+    "bias_bikes": -40795.923236489005
+  },
+  "forecast_backtest_jan_aug": {
+    "n": 104,
+    "mae_bikes": 578.1171537990745,
+    "wape": 0.10285902176980435,
+    "bias_bikes": -48727.01325894267
+  },
+  "backtest_boundary_note": "September 2026 end-month archive omits September departures returning in unpublished October archive. Jan-Mar 2026 are end-month partitioned but April is start-month partitioned: March-start/April-end trips may be absent from both. Counts are observed available-file proxy, not complete trip ground truth; no trips imputed. Jan-Aug comparison removes only the final right boundary, not the internal gap.",
+  "event_increment_moves_per_event_assumption": 3000,
+  "event_comparison_status": "retrospective uncalibrated stress scenario; sources not all available in January 2026",
+  "event_default_increment": 0,
+  "events_status": "fixture_contract_validated",
+  "live_llm_verified": false,
+  "api_calls_this_run": 0,
+  "recorded_api_calls": 0,
+  "proposed": {
+    "crew_cost_2026": 1837200.0,
+    "terminal_seasonal_committed_cost_2027": 0.0,
+    "total_committed_crew_cost": 1837200.0,
+    "unmet_proxy_bikes": 10006.64925488687,
+    "assumed_affected_users_per_proxy_bike": 1.0,
+    "assumed_service_loss": 57037.90075285516,
+    "objective_with_assumed_loss": 1894237.9007528552,
+    "max_simultaneous_seasonal": 8,
+    "december_full_time": 24,
+    "january_2027_continuing_ft_monthly_run_rate": 144000.0,
+    "other_city_policy": "shared capacity pool (explicit city-rule exception)",
+    "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+    "method": "mixed-integer linear programming",
+    "solver_status": 0,
+    "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "solver_mip_gap": 0.0,
+    "optimality_note": "Solver tolerance/gap applies to the assumed model only; staffing is not validated as a real operational optimum."
+  },
+  "initial_crews": {
+    "crew_cost_2026": 1008000.0,
+    "terminal_seasonal_committed_cost_2027": 0.0,
+    "total_committed_crew_cost": 1008000.0,
+    "unmet_proxy_bikes": 365295.14056398737,
+    "assumed_affected_users_per_proxy_bike": 1.0,
+    "assumed_service_loss": 2082182.301214728,
+    "objective_with_assumed_loss": 3090182.301214728,
+    "max_simultaneous_seasonal": 0,
+    "december_full_time": 14,
+    "january_2027_continuing_ft_monthly_run_rate": 84000.0,
+    "other_city_policy": "shared capacity pool (explicit city-rule exception)",
+    "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+    "method": "Maintain initial full-time crews"
+  },
+  "event_scenario": {
+    "crew_cost_2026": 1852200.0,
+    "terminal_seasonal_committed_cost_2027": 0.0,
+    "total_committed_crew_cost": 1852200.0,
+    "unmet_proxy_bikes": 11037.72375007025,
+    "assumed_affected_users_per_proxy_bike": 1.0,
+    "assumed_service_loss": 62915.02537540042,
+    "objective_with_assumed_loss": 1915115.0253754004,
+    "max_simultaneous_seasonal": 7,
+    "december_full_time": 25,
+    "january_2027_continuing_ft_monthly_run_rate": 150000.0,
+    "other_city_policy": "shared capacity pool (explicit city-rule exception)",
+    "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+    "method": "mixed-integer linear programming",
+    "solver_status": 0,
+    "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "solver_mip_gap": 0.0,
+    "optimality_note": "Solver tolerance/gap applies to the assumed model only; staffing is not validated as a real operational optimum."
+  },
+  "dedicated_city_scenario": {
+    "crew_cost_2026": 1732200.0,
+    "terminal_seasonal_committed_cost_2027": 0.0,
+    "total_committed_crew_cost": 1732200.0,
+    "unmet_proxy_bikes": 59985.95686818317,
+    "assumed_affected_users_per_proxy_bike": 1.0,
+    "assumed_service_loss": 341919.9541486441,
+    "objective_with_assumed_loss": 2074119.954148644,
+    "max_simultaneous_seasonal": 8,
+    "december_full_time": 22,
+    "january_2027_continuing_ft_monthly_run_rate": 132000.0,
+    "other_city_policy": "dedicated cities",
+    "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+    "method": "mixed-integer linear programming",
+    "solver_status": 0,
+    "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "solver_mip_gap": 0.0,
+    "optimality_note": "Solver tolerance/gap applies to the assumed model only; staffing is not validated as a real operational optimum.",
+    "backtest": {
+      "actual_proxy_bikes": 685813.0,
+      "uncovered_proxy_bikes": 84997.85714285714,
+      "crew_cost_in_evaluated_months": 1273800.0,
+      "assumed_service_loss": 484487.78571428574
+    }
+  },
+  "backtest_comparison": [
+    {
+      "plan": "initial_crews",
+      "actual_proxy_bikes": 685813.0,
+      "uncovered_proxy_bikes": 326680.8571428572,
+      "crew_cost_in_evaluated_months": 756000.0,
+      "assumed_service_loss": 1862080.8857142858
+    },
+    {
+      "plan": "proposed",
+      "actual_proxy_bikes": 685813.0,
+      "uncovered_proxy_bikes": 48126.85714285715,
+      "crew_cost_in_evaluated_months": 1342800.0,
+      "assumed_service_loss": 274323.0857142858
+    },
+    {
+      "plan": "event_scenario",
+      "actual_proxy_bikes": 685813.0,
+      "uncovered_proxy_bikes": 39363.285714285725,
+      "crew_cost_in_evaluated_months": 1355400.0,
+      "assumed_service_loss": 224370.72857142863
+    }
+  ],
+  "unfinished": [
+    "TA confirmation",
+    "live LLM API evidence and human-gold evaluation",
+    "all members' review and contributions",
+    "3-minute video recording/upload",
+    "Canvas submission"
+  ]
+}

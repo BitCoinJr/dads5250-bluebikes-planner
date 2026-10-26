@@ -1,0 +1,6 @@
+{
+  "status": "blocked_missing_api_key",
+  "api_calls": 0,
+  "live_llm_verified": false,
+  "key_value_logged": false
+}

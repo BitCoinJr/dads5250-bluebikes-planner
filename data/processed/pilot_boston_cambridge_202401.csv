@@ -1,0 +1,3 @@
+year,month,city,departures,arrivals,supply_bikes,collection_bikes,reset_supply_bikes,reset_collection_bikes,ebike_departures,demand_bikes,ebike_share
+2024,1,Boston,83424,84233,1281,1695,6966,7361,26712,17303,0.3201956271576525
+2024,1,Cambridge,61378,60538,1543,2588,5212,3327,13471,12670,0.21947603375802405

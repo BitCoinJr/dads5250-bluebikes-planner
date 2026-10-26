@@ -1,0 +1,905 @@
+{
+  "retrieved_utc": "2026-10-26T11:08:49.350986+00:00",
+  "objects": [
+    {
+      "key": "201501-hubway-tripdata.zip",
+      "bytes": 186618,
+      "last_modified": "2016-05-26T13:22:57.000Z",
+      "etag": "\"66674614d8754dcaf80563ee5acfe2f3\""
+    },
+    {
+      "key": "201502-hubway-tripdata.zip",
+      "bytes": 96131,
+      "last_modified": "2016-05-26T13:22:58.000Z",
+      "etag": "\"5c95d7d2e5050e4f1719c0864b6fff89\""
+    },
+    {
+      "key": "201503-hubway-tripdata.zip",
+      "bytes": 264041,
+      "last_modified": "2016-05-26T13:22:59.000Z",
+      "etag": "\"7d6f896774a9f8448edacb4f154b2991\""
+    },
+    {
+      "key": "201504-hubway-tripdata.zip",
+      "bytes": 1502269,
+      "last_modified": "2016-05-26T13:23:00.000Z",
+      "etag": "\"02ad603785b81aa79e89341ed316f6df\""
+    },
+    {
+      "key": "201505-hubway-tripdata.zip",
+      "bytes": 4138765,
+      "last_modified": "2016-05-26T13:23:01.000Z",
+      "etag": "\"60998ce3429f01c55fed9c5c2afb6578\""
+    },
+    {
+      "key": "201506-hubway-tripdata.zip",
+      "bytes": 4027692,
+      "last_modified": "2016-05-26T13:23:02.000Z",
+      "etag": "\"a32e1dc08ad55539aa7e3c7006477047\""
+    },
+    {
+      "key": "201507-hubway-tripdata.zip",
+      "bytes": 4885570,
+      "last_modified": "2016-05-26T13:23:06.000Z",
+      "etag": "\"e17fb77b5c975432a22379cb2a160136\""
+    },
+    {
+      "key": "201508-hubway-tripdata.zip",
+      "bytes": 4453953,
+      "last_modified": "2016-05-26T13:23:07.000Z",
+      "etag": "\"ead2ebb0717e8fe8551e30bbccf32661\""
+    },
+    {
+      "key": "201509-hubway-tripdata.zip",
+      "bytes": 4212492,
+      "last_modified": "2016-05-26T13:23:09.000Z",
+      "etag": "\"388dabf0b4960b205e01218690a23431\""
+    },
+    {
+      "key": "201510-hubway-tripdata.zip",
+      "bytes": 3597783,
+      "last_modified": "2016-05-26T13:23:10.000Z",
+      "etag": "\"630641708fbe5a092b0ad9b8f20a3bd9\""
+    },
+    {
+      "key": "201511-hubway-tripdata.zip",
+      "bytes": 2529970,
+      "last_modified": "2016-05-26T13:23:12.000Z",
+      "etag": "\"d7168b4a1be63d670d543dc7c9150b24\""
+    },
+    {
+      "key": "201512-hubway-tripdata.zip",
+      "bytes": 1315323,
+      "last_modified": "2016-05-26T13:23:13.000Z",
+      "etag": "\"a4b468bb719dd9b8d901ee80347ecf0e\""
+    },
+    {
+      "key": "201601-hubway-tripdata.zip",
+      "bytes": 288017,
+      "last_modified": "2016-05-26T13:23:14.000Z",
+      "etag": "\"6460cba30ff18b9fdd18db68a52433b9\""
+    },
+    {
+      "key": "201602-hubway-tripdata.zip",
+      "bytes": 280624,
+      "last_modified": "2016-07-27T03:32:49.000Z",
+      "etag": "\"9908c40fda233e2efa05a4e290edd46e\""
+    },
+    {
+      "key": "201603-hubway-tripdata.zip",
+      "bytes": 1090720,
+      "last_modified": "2016-05-26T13:23:15.000Z",
+      "etag": "\"da38af64e9629c55a2da5c13b3110ab6\""
+    },
+    {
+      "key": "201604-hubway-tripdata.zip",
+      "bytes": 2361994,
+      "last_modified": "2016-05-26T13:23:16.000Z",
+      "etag": "\"fed12dd9fc96f04b91e35725b8df51cd\""
+    },
+    {
+      "key": "201605-hubway-tripdata.zip",
+      "bytes": 3118186,
+      "last_modified": "2016-07-27T03:32:47.000Z",
+      "etag": "\"c5ae207302505b5d708ecab8638de262\""
+    },
+    {
+      "key": "201606-hubway-tripdata.zip",
+      "bytes": 3970661,
+      "last_modified": "2016-07-27T03:32:40.000Z",
+      "etag": "\"eb8c50104254b1954be350aa348b3ccf\""
+    },
+    {
+      "key": "201607-hubway-tripdata.zip",
+      "bytes": 4835779,
+      "last_modified": "2016-12-06T22:42:41.000Z",
+      "etag": "\"7f77094ad1d3a055603107d06b744d28\""
+    },
+    {
+      "key": "201608-hubway-tripdata.zip",
+      "bytes": 5067259,
+      "last_modified": "2016-12-06T22:42:45.000Z",
+      "etag": "\"5892d81957b391d0f567c379a0b4c7a3\""
+    },
+    {
+      "key": "201609-hubway-tripdata.zip",
+      "bytes": 4856663,
+      "last_modified": "2016-12-06T22:42:50.000Z",
+      "etag": "\"03f9ed68c836eb101a85051d6387a85a\""
+    },
+    {
+      "key": "201610-hubway-tripdata.zip",
+      "bytes": 4075832,
+      "last_modified": "2016-12-06T22:42:54.000Z",
+      "etag": "\"ac00f155f43550ccc6dc9c8f59cd38a6\""
+    },
+    {
+      "key": "201611-hubway-tripdata.zip",
+      "bytes": 2981482,
+      "last_modified": "2016-12-06T22:43:00.000Z",
+      "etag": "\"cc9995cbff5744464b4a315c32d3013d\""
+    },
+    {
+      "key": "201612-hubway-tripdata.zip",
+      "bytes": 1335967,
+      "last_modified": "2018-04-30T12:45:04.000Z",
+      "etag": "\"791838f9e996fee0d0d86782ad91b294\""
+    },
+    {
+      "key": "201701-hubway-tripdata.zip",
+      "bytes": 492050,
+      "last_modified": "2017-03-02T01:18:20.000Z",
+      "etag": "\"37e6fa951b314c77f546b6eb36a9f1c8\""
+    },
+    {
+      "key": "201702-hubway-tripdata.zip",
+      "bytes": 405708,
+      "last_modified": "2017-03-02T01:18:24.000Z",
+      "etag": "\"e999fdc221eaf16e6c8d723af3ef40b5\""
+    },
+    {
+      "key": "201703-hubway-tripdata.zip",
+      "bytes": 823792,
+      "last_modified": "2017-08-15T15:16:09.000Z",
+      "etag": "\"8b92e60dc8563754c4cbcaf9f6267913\""
+    },
+    {
+      "key": "201704-hubway-tripdata.zip",
+      "bytes": 2950622,
+      "last_modified": "2017-08-15T15:25:28.000Z",
+      "etag": "\"eb0144efbe87685feefbf86653863499\""
+    },
+    {
+      "key": "201705-hubway-tripdata.zip",
+      "bytes": 3887066,
+      "last_modified": "2017-08-15T15:25:25.000Z",
+      "etag": "\"144b6b01c54d6014d79658488f16015b\""
+    },
+    {
+      "key": "201706-hubway-tripdata.zip",
+      "bytes": 4978386,
+      "last_modified": "2017-08-15T15:25:21.000Z",
+      "etag": "\"7de4e74aaaf46c5549c57b0673d2127b\""
+    },
+    {
+      "key": "201707-hubway-tripdata.zip",
+      "bytes": 5411309,
+      "last_modified": "2017-08-15T15:25:15.000Z",
+      "etag": "\"07760590bd2af56292e678afdfdc24d0\""
+    },
+    {
+      "key": "201708-hubway-tripdata.zip",
+      "bytes": 5001514,
+      "last_modified": "2017-09-01T17:55:13.000Z",
+      "etag": "\"87d06e61a1ec4ce2ede523afe3d19927\""
+    },
+    {
+      "key": "201709-hubway-tripdata.zip",
+      "bytes": 4349910,
+      "last_modified": "2017-10-02T15:01:01.000Z",
+      "etag": "\"f72a73b7b28e2075757c832eda4b7707\""
+    },
+    {
+      "key": "201710-hubway-tripdata.zip",
+      "bytes": 4293714,
+      "last_modified": "2018-01-17T16:34:54.000Z",
+      "etag": "\"bd177ae0cef5da0e4d1ceef92428a92d\""
+    },
+    {
+      "key": "201711-hubway-tripdata.zip",
+      "bytes": 2777098,
+      "last_modified": "2018-01-17T16:47:25.000Z",
+      "etag": "\"5f65a5b478cf36627f8204f1c6a7c202\""
+    },
+    {
+      "key": "201712-hubway-tripdata.zip",
+      "bytes": 1422113,
+      "last_modified": "2018-01-17T17:04:55.000Z",
+      "etag": "\"775698e774286861fa953a976a819781\""
+    },
+    {
+      "key": "201801-hubway-tripdata.zip",
+      "bytes": 1146035,
+      "last_modified": "2018-04-30T15:58:07.000Z",
+      "etag": "\"bddfe76f7a0e21282d4e556342019ac0\""
+    },
+    {
+      "key": "201802-hubway-tripdata.zip",
+      "bytes": 1746518,
+      "last_modified": "2018-04-30T15:58:15.000Z",
+      "etag": "\"f73968620afa7a5b687350a338b8ad6e\""
+    },
+    {
+      "key": "201803-hubway-tripdata.zip",
+      "bytes": 1752905,
+      "last_modified": "2018-04-30T15:58:23.000Z",
+      "etag": "\"5f548b9dd31abe9fd7302b4adae3c5b5\""
+    },
+    {
+      "key": "201804-hubway-tripdata.zip",
+      "bytes": 3340393,
+      "last_modified": "2018-05-11T20:48:47.000Z",
+      "etag": "\"97392e05468fc6776299d22c0e17444c\""
+    },
+    {
+      "key": "201805-bluebikes-tripdata.zip",
+      "bytes": 6192399,
+      "last_modified": "2018-10-03T18:48:55.000Z",
+      "etag": "\"ba0c0a4bb3a28cda29707d32216b6bb6\""
+    },
+    {
+      "key": "201806-bluebikes-tripdata.zip",
+      "bytes": 7141531,
+      "last_modified": "2018-10-03T18:48:56.000Z",
+      "etag": "\"61b2c4ebd745dcdcb2a3efe04731cbf7\""
+    },
+    {
+      "key": "201807-bluebikes-tripdata.zip",
+      "bytes": 8439800,
+      "last_modified": "2018-10-03T18:48:58.000Z",
+      "etag": "\"a60bc3120ea3cff794b9eb530f23b11e\""
+    },
+    {
+      "key": "201808-bluebikes-tripdata.zip",
+      "bytes": 8376220,
+      "last_modified": "2018-10-03T18:48:59.000Z",
+      "etag": "\"a542017950e52083a35a90510ba1d3fb\""
+    },
+    {
+      "key": "201809-bluebikes-tripdata.zip",
+      "bytes": 8519210,
+      "last_modified": "2018-10-03T18:49:00.000Z",
+      "etag": "\"2c6e653b25fb043635cad4d0d70667dc\""
+    },
+    {
+      "key": "201810-bluebikes-tripdata.zip",
+      "bytes": 7334312,
+      "last_modified": "2018-11-07T19:51:17.000Z",
+      "etag": "\"21daf27a601b4d2328d159b763206aa5\""
+    },
+    {
+      "key": "201811-bluebikes-tripdata.zip",
+      "bytes": 4459513,
+      "last_modified": "2018-12-04T16:26:54.000Z",
+      "etag": "\"c5caabaedc9e2d01d5de12def7bbd098\""
+    },
+    {
+      "key": "201812-bluebikes-tripdata.zip",
+      "bytes": 2962885,
+      "last_modified": "2019-01-08T20:53:50.000Z",
+      "etag": "\"45b69754974f3b4d6c12325cfdf3bbf1\""
+    },
+    {
+      "key": "201901-bluebikes-tripdata.zip",
+      "bytes": 2525799,
+      "last_modified": "2019-02-11T14:42:57.000Z",
+      "etag": "\"35dec22997d8ebea7cec2d4d974f9a5e\""
+    },
+    {
+      "key": "201902-bluebikes-tripdata.zip",
+      "bytes": 2897407,
+      "last_modified": "2019-03-04T16:26:00.000Z",
+      "etag": "\"97c90a4d5eb75f9d72b53e8422ba543c\""
+    },
+    {
+      "key": "201903-bluebikes-tripdata.zip",
+      "bytes": 3711040,
+      "last_modified": "2019-04-15T18:38:27.000Z",
+      "etag": "\"2babcfb446deded12d522b0eddcc9475\""
+    },
+    {
+      "key": "201904-bluebikes-tripdata.zip",
+      "bytes": 6208646,
+      "last_modified": "2019-05-06T19:08:40.000Z",
+      "etag": "\"c8a0c00b75984ad1e99fd539579780fb\""
+    },
+    {
+      "key": "201905-bluebikes-tripdata.zip",
+      "bytes": 8448773,
+      "last_modified": "2019-06-11T19:37:09.000Z",
+      "etag": "\"e6a91e3bc02d7c87fdfb8391a1163117\""
+    },
+    {
+      "key": "201906-bluebikes-tripdata.zip",
+      "bytes": 10478680,
+      "last_modified": "2020-11-17T16:32:44.000Z",
+      "etag": "\"14f738b74b2c9b07a51526a493d8b2b2\""
+    },
+    {
+      "key": "201907-bluebikes-tripdata.zip",
+      "bytes": 12243338,
+      "last_modified": "2020-11-17T16:38:15.000Z",
+      "etag": "\"6105acdb57d91daed1c98219459afc0b\""
+    },
+    {
+      "key": "201908-bluebikes-tripdata.zip",
+      "bytes": 13244423,
+      "last_modified": "2020-11-17T16:38:21.000Z",
+      "etag": "\"aba0fc89ef97c96c4ced5eeb796ac899\""
+    },
+    {
+      "key": "201909-bluebikes-tripdata.zip",
+      "bytes": 14294748,
+      "last_modified": "2019-10-11T19:41:10.000Z",
+      "etag": "\"77fce8cca28bbd4884186f2b37cb2312\""
+    },
+    {
+      "key": "201910-bluebikes-tripdata.zip",
+      "bytes": 12045530,
+      "last_modified": "2019-11-05T22:07:53.000Z",
+      "etag": "\"22a2dbfaa57ccdf00252ee198d0f7716\""
+    },
+    {
+      "key": "201911-bluebikes-tripdata.zip",
+      "bytes": 7452426,
+      "last_modified": "2019-12-20T18:44:17.000Z",
+      "etag": "\"0e48718d9d6e64ff05bd2495ea2d488e\""
+    },
+    {
+      "key": "201912-bluebikes-tripdata.zip",
+      "bytes": 3524973,
+      "last_modified": "2020-01-21T21:22:59.000Z",
+      "etag": "\"a1de0ca7d123af0d2fff0cc80e12cd7a\""
+    },
+    {
+      "key": "202001-bluebikes-tripdata.zip",
+      "bytes": 4885481,
+      "last_modified": "2020-02-04T19:05:19.000Z",
+      "etag": "\"4c089264805a2e0065c5e73b7632c3d3\""
+    },
+    {
+      "key": "202002-bluebikes-tripdata.zip",
+      "bytes": 5018614,
+      "last_modified": "2020-03-24T20:06:09.000Z",
+      "etag": "\"2151cb3e570920df4992fed08f97e5b8\""
+    },
+    {
+      "key": "202003-bluebikes-tripdata.zip",
+      "bytes": 4120777,
+      "last_modified": "2020-04-17T23:56:33.000Z",
+      "etag": "\"aa187a1007c70d815fde6d73a695e2c7\""
+    },
+    {
+      "key": "202004-bluebikes-tripdata.zip",
+      "bytes": 1929091,
+      "last_modified": "2020-05-27T00:21:17.000Z",
+      "etag": "\"44f1716c7034baa396080a46a62fda43\""
+    },
+    {
+      "key": "202005-bluebikes-tripdata.zip",
+      "bytes": 5231475,
+      "last_modified": "2020-06-05T14:02:18.000Z",
+      "etag": "\"ed1eda447353f6d2c6174f4f7500108c\""
+    },
+    {
+      "key": "202006-bluebikes-tripdata.zip",
+      "bytes": 8006865,
+      "last_modified": "2020-07-06T00:35:28.000Z",
+      "etag": "\"66947f1e8f00d85adf569abef7917ef9\""
+    },
+    {
+      "key": "202007-bluebikes-tripdata.zip",
+      "bytes": 10779421,
+      "last_modified": "2020-08-12T02:12:08.000Z",
+      "etag": "\"4e8bbff665de924a6d57a9ddbebe0f9b\""
+    },
+    {
+      "key": "202008-bluebikes-tripdata.zip",
+      "bytes": 12005866,
+      "last_modified": "2020-09-04T15:13:41.000Z",
+      "etag": "\"a8b7ff932e6e3542ebb4cc9cce0a110f\""
+    },
+    {
+      "key": "202009-bluebikes-tripdata.zip",
+      "bytes": 12719105,
+      "last_modified": "2020-10-13T19:55:28.000Z",
+      "etag": "\"3b74408eaba04407bcc6c351af11e069\""
+    },
+    {
+      "key": "202010-bluebikes-tripdata.zip",
+      "bytes": 10224263,
+      "last_modified": "2020-11-04T14:54:12.000Z",
+      "etag": "\"6a9bc600485c72bd3d6906cfaca8c55c\""
+    },
+    {
+      "key": "202011-bluebikes-tripdata.zip",
+      "bytes": 6582781,
+      "last_modified": "2020-12-04T23:27:57.000Z",
+      "etag": "\"c99226d66111b0738b7e1b96dd070401\""
+    },
+    {
+      "key": "202012-bluebikes-tripdata.zip",
+      "bytes": 2942312,
+      "last_modified": "2021-01-05T14:27:19.000Z",
+      "etag": "\"33d7b0e3a2c418efe72b8d56b44fb4b4\""
+    },
+    {
+      "key": "202101-bluebikes-tripdata.zip",
+      "bytes": 2844467,
+      "last_modified": "2021-02-08T15:13:21.000Z",
+      "etag": "\"99727d81bd2ec63e1a76969312a834c9\""
+    },
+    {
+      "key": "202102-bluebikes-tripdata.zip",
+      "bytes": 2369883,
+      "last_modified": "2021-03-10T00:48:22.000Z",
+      "etag": "\"aecdbcf4bc68606cf4c73a78ef279f88\""
+    },
+    {
+      "key": "202103-bluebikes-tripdata.zip",
+      "bytes": 5541407,
+      "last_modified": "2021-04-08T14:35:13.000Z",
+      "etag": "\"a72cff8ea75f03393cf9f304ac90c2f5\""
+    },
+    {
+      "key": "202104-bluebikes-tripdata.zip",
+      "bytes": 7654710,
+      "last_modified": "2021-05-07T15:00:15.000Z",
+      "etag": "\"0f4bf4c8c6016fd7fcf4f44b71953dab\""
+    },
+    {
+      "key": "202105-bluebikes-tripdata.zip",
+      "bytes": 11190960,
+      "last_modified": "2021-06-11T17:20:25.000Z",
+      "etag": "\"95e88c072f58703d7b41dfc52d26cbad\""
+    },
+    {
+      "key": "202106-bluebikes-tripdata.zip",
+      "bytes": 13022860,
+      "last_modified": "2021-07-15T23:28:02.000Z",
+      "etag": "\"f1221dd27429a16bf1bd58e5a00cbe8f\""
+    },
+    {
+      "key": "202107-bluebikes-tripdata.zip",
+      "bytes": 12963161,
+      "last_modified": "2021-08-14T06:21:30.000Z",
+      "etag": "\"a2204fe27a3cb94a9b12236c1f6b6b2e\""
+    },
+    {
+      "key": "202108-bluebikes-tripdata.zip",
+      "bytes": 15006829,
+      "last_modified": "2021-09-08T20:04:33.000Z",
+      "etag": "\"ba2a7f275ba82095f7fe1bb16ac4e2ec\""
+    },
+    {
+      "key": "202109-bluebikes-tripdata.zip",
+      "bytes": 17820804,
+      "last_modified": "2021-10-04T17:31:10.000Z",
+      "etag": "\"89a99e51e3de36ef9aec427e2725e59b-2\""
+    },
+    {
+      "key": "202110-bluebikes-tripdata.zip",
+      "bytes": 16411270,
+      "last_modified": "2022-01-13T16:29:14.000Z",
+      "etag": "\"1130507addedd8559f49da2a9b83cc5f\""
+    },
+    {
+      "key": "202111-bluebikes-tripdata.zip",
+      "bytes": 10263277,
+      "last_modified": "2021-12-10T15:21:23.000Z",
+      "etag": "\"ebe2593274079d948d4a41afb31f6169\""
+    },
+    {
+      "key": "202112-bluebikes-tripdata.zip",
+      "bytes": 5790553,
+      "last_modified": "2022-01-06T16:45:51.000Z",
+      "etag": "\"b37f32713d35e858dac83d166bbdf63d\""
+    },
+    {
+      "key": "202201-bluebikes-tripdata.zip",
+      "bytes": 3284431,
+      "last_modified": "2022-02-02T17:02:56.000Z",
+      "etag": "\"da9dbff848d23194859c43fcf1b04ae3\""
+    },
+    {
+      "key": "202202-bluebikes-tripdata.zip",
+      "bytes": 4421584,
+      "last_modified": "2022-03-02T21:27:48.000Z",
+      "etag": "\"f3be6f9a9fa9728fd6f228bfacdde57c\""
+    },
+    {
+      "key": "202203-bluebikes-tripdata.zip",
+      "bytes": 7475195,
+      "last_modified": "2022-04-06T17:20:48.000Z",
+      "etag": "\"56871db8f3d849a00dc8517f28700cbd\""
+    },
+    {
+      "key": "202204-bluebikes-tripdata.zip",
+      "bytes": 11331176,
+      "last_modified": "2022-05-03T16:40:48.000Z",
+      "etag": "\"eac2bee54e8858b54f1eae1a76167e9b\""
+    },
+    {
+      "key": "202205-bluebikes-tripdata.zip",
+      "bytes": 14863436,
+      "last_modified": "2022-06-04T02:21:03.000Z",
+      "etag": "\"dfb07a293f2d48f11d6a81b5eb9aaa6c\""
+    },
+    {
+      "key": "202206-bluebikes-tripdata.zip",
+      "bytes": 16671627,
+      "last_modified": "2022-07-15T15:19:44.000Z",
+      "etag": "\"bf7a6fe58bebfb64ded6b8836e4444ec\""
+    },
+    {
+      "key": "202207-bluebikes-tripdata.zip",
+      "bytes": 18380892,
+      "last_modified": "2022-08-08T15:06:33.000Z",
+      "etag": "\"307925d728aa62c4b8a04a8e36e033d4-2\""
+    },
+    {
+      "key": "202208-bluebikes-tripdata.zip",
+      "bytes": 20751925,
+      "last_modified": "2022-09-09T16:00:51.000Z",
+      "etag": "\"666dc95066c158db9a2e131df60b76ac-2\""
+    },
+    {
+      "key": "202209-bluebikes-tripdata.zip",
+      "bytes": 25324238,
+      "last_modified": "2022-10-06T20:55:33.000Z",
+      "etag": "\"10e645762208f275e66c7d2d94293963-2\""
+    },
+    {
+      "key": "202210-bluebikes-tripdata.zip",
+      "bytes": 17610987,
+      "last_modified": "2022-11-08T22:18:33.000Z",
+      "etag": "\"ce1b38775c2eb6496eb06fbb7a5643b1-2\""
+    },
+    {
+      "key": "202211-bluebikes-tripdata.zip",
+      "bytes": 12145938,
+      "last_modified": "2022-12-05T20:54:12.000Z",
+      "etag": "\"cf3dfb620c3b353b706ba68c8e379f65\""
+    },
+    {
+      "key": "202212-bluebikes-tripdata.zip",
+      "bytes": 5950409,
+      "last_modified": "2023-01-09T16:12:12.000Z",
+      "etag": "\"9cab62bb231bc64a302dd640acd9f5d0\""
+    },
+    {
+      "key": "202301-bluebikes-tripdata.zip",
+      "bytes": 5840483,
+      "last_modified": "2023-02-09T16:16:10.000Z",
+      "etag": "\"cb777253ba1a88e2278dd0bcf68ef1bc\""
+    },
+    {
+      "key": "202302-bluebikes-tripdata.zip",
+      "bytes": 6242280,
+      "last_modified": "2023-03-13T19:43:35.000Z",
+      "etag": "\"d5c3b3dfb0c73858a04f3c22d5ef2f1c\""
+    },
+    {
+      "key": "202303-bluebikes-tripdata.zip",
+      "bytes": 8232718,
+      "last_modified": "2023-04-06T22:01:25.000Z",
+      "etag": "\"94013e69dedb965251bec2bf06299ea6\""
+    },
+    {
+      "key": "202304-bluebikes-tripdata.zip",
+      "bytes": 9853625,
+      "last_modified": "2023-05-04T19:45:52.000Z",
+      "etag": "\"70495f7301a2c64aae60ce5f79c6de81\""
+    },
+    {
+      "key": "202305-bluebikes-tripdata.zip",
+      "bytes": 12810635,
+      "last_modified": "2023-06-08T22:34:06.000Z",
+      "etag": "\"33fdf2bb631072e6a9ab50a9b86b9bdc\""
+    },
+    {
+      "key": "202306-bluebikes-tripdata.zip",
+      "bytes": 13010886,
+      "last_modified": "2023-07-13T21:27:40.000Z",
+      "etag": "\"ffe90401d4b71b2e126878d51ccb1916\""
+    },
+    {
+      "key": "202307-bluebikes-tripdata.zip",
+      "bytes": 13144349,
+      "last_modified": "2023-08-14T12:33:07.000Z",
+      "etag": "\"ba7000a876ac0a3c4dcea736802fdeac\""
+    },
+    {
+      "key": "202308-bluebikes-tripdata.zip",
+      "bytes": 15342576,
+      "last_modified": "2023-10-12T05:40:30.000Z",
+      "etag": "\"263e82ae7ba706038973fe6081fc83dc\""
+    },
+    {
+      "key": "202309-bluebikes-tripdata.zip",
+      "bytes": 14319621,
+      "last_modified": "2023-10-12T05:40:32.000Z",
+      "etag": "\"55c2da9f24763a77a80ff6b90bab970a\""
+    },
+    {
+      "key": "202310-bluebikes-tripdata.zip",
+      "bytes": 14293364,
+      "last_modified": "2023-11-13T16:43:44.000Z",
+      "etag": "\"d6c41db5a2f513000ae3f5a6db9e2f22\""
+    },
+    {
+      "key": "202311-bluebikes-tripdata.zip",
+      "bytes": 9979527,
+      "last_modified": "2023-12-05T16:12:50.000Z",
+      "etag": "\"5fdf2a502a31d3e4a6402a9cbd42ba48\""
+    },
+    {
+      "key": "202312-bluebikes-tripdata.zip",
+      "bytes": 6809751,
+      "last_modified": "2024-01-26T03:51:50.000Z",
+      "etag": "\"acf53796496d4af4102a78983593d330\""
+    },
+    {
+      "key": "202401-bluebikes-tripdata.zip",
+      "bytes": 6141192,
+      "last_modified": "2024-02-05T15:30:13.000Z",
+      "etag": "\"76cabe6d7c3533fbfdd6ab98809092a1\""
+    },
+    {
+      "key": "202402-bluebikes-tripdata.zip",
+      "bytes": 8494334,
+      "last_modified": "2024-03-04T15:12:06.000Z",
+      "etag": "\"3e9f7b4484aaec9f122821bbd42b8815\""
+    },
+    {
+      "key": "202403-bluebikes-tripdata.zip",
+      "bytes": 10810899,
+      "last_modified": "2024-04-01T18:41:33.000Z",
+      "etag": "\"85555af654c9fb0b62f79c50a8242c8f\""
+    },
+    {
+      "key": "202404-bluebikes-tripdata.zip",
+      "bytes": 12940120,
+      "last_modified": "2024-05-06T20:48:20.000Z",
+      "etag": "\"bb2bf9850ada6f188b5a3800e7c0026c\""
+    },
+    {
+      "key": "202405-bluebikes-tripdata.zip",
+      "bytes": 17254849,
+      "last_modified": "2024-06-03T20:43:06.000Z",
+      "etag": "\"b30b8b71040981c0116e43610bcbe203-2\""
+    },
+    {
+      "key": "202406-bluebikes-tripdata.zip",
+      "bytes": 20279341,
+      "last_modified": "2024-07-08T17:38:02.000Z",
+      "etag": "\"b4996912a19487a43a72e0352d52cfb3-2\""
+    },
+    {
+      "key": "202407-bluebikes-tripdata.zip",
+      "bytes": 23681745,
+      "last_modified": "2024-08-07T22:21:15.000Z",
+      "etag": "\"8cc94b120a911fc8a532e7caabf8e4de-2\""
+    },
+    {
+      "key": "202408-bluebikes-tripdata.zip",
+      "bytes": 23212647,
+      "last_modified": "2024-09-05T00:57:42.000Z",
+      "etag": "\"9b1e861cb9404394eb6080fe52bb6fc4-2\""
+    },
+    {
+      "key": "202409-bluebikes-tripdata.zip",
+      "bytes": 23303005,
+      "last_modified": "2024-10-07T22:12:57.000Z",
+      "etag": "\"a531bca287ffbaa0545ccf42bcb7c23a-2\""
+    },
+    {
+      "key": "202410-bluebikes-tripdata.zip",
+      "bytes": 23871387,
+      "last_modified": "2024-11-05T13:34:22.000Z",
+      "etag": "\"b98be6501289b865872ce83a20f4c326-2\""
+    },
+    {
+      "key": "202411-bluebikes-tripdata.zip",
+      "bytes": 15566159,
+      "last_modified": "2024-12-04T13:18:16.000Z",
+      "etag": "\"ce74d399248f39745eb39dddb87a7f5d\""
+    },
+    {
+      "key": "202412-bluebikes-tripdata.zip",
+      "bytes": 8672127,
+      "last_modified": "2025-01-06T20:19:43.000Z",
+      "etag": "\"0873d591361cb34561c8cfa9454af332\""
+    },
+    {
+      "key": "202501-bluebikes-tripdata.zip",
+      "bytes": 7447368,
+      "last_modified": "2025-02-05T16:04:58.000Z",
+      "etag": "\"7f56411e57cc88f98043d8aa170e9009\""
+    },
+    {
+      "key": "202502-bluebikes-tripdata.zip",
+      "bytes": 6731487,
+      "last_modified": "2025-03-04T13:34:55.000Z",
+      "etag": "\"c419d4854bfa07eeb72de2310538d339\""
+    },
+    {
+      "key": "202503-bluebikes-tripdata.zip",
+      "bytes": 10531517,
+      "last_modified": "2025-04-04T21:21:47.000Z",
+      "etag": "\"11c132e799fdbb8922e922dfde5bade9\""
+    },
+    {
+      "key": "202504-bluebikes-tripdata.zip",
+      "bytes": 14787572,
+      "last_modified": "2025-05-07T12:34:12.000Z",
+      "etag": "\"c196c720f46e930dd1664ef497cc43c0\""
+    },
+    {
+      "key": "202505-bluebikes-tripdata.zip",
+      "bytes": 18495452,
+      "last_modified": "2025-06-04T11:45:44.000Z",
+      "etag": "\"d49bef2bb463198c5e652521c9ada4a5-2\""
+    },
+    {
+      "key": "202506-bluebikes-tripdata.zip",
+      "bytes": 21483092,
+      "last_modified": "2025-07-06T22:04:23.000Z",
+      "etag": "\"147632da42301165122464823ed924cb-2\""
+    },
+    {
+      "key": "202507-bluebikes-tripdata.zip",
+      "bytes": 22587960,
+      "last_modified": "2025-08-05T17:56:03.000Z",
+      "etag": "\"cb3af70780e70447c6cdcc314a0fe6bd-2\""
+    },
+    {
+      "key": "202508-bluebikes-tripdata.zip",
+      "bytes": 22600095,
+      "last_modified": "2025-09-04T19:29:33.000Z",
+      "etag": "\"b9349cd0fe7f175c996e08b6cfae4bd7-2\""
+    },
+    {
+      "key": "202509-bluebikes-tripdata.zip",
+      "bytes": 25255496,
+      "last_modified": "2025-10-06T12:05:58.000Z",
+      "etag": "\"dff6265044c2cdd03ad258a7176cd349-2\""
+    },
+    {
+      "key": "202510-bluebikes-tripdata.zip",
+      "bytes": 21420071,
+      "last_modified": "2025-11-04T17:56:10.000Z",
+      "etag": "\"11dbf36f0474ab2bfb59811ecaeea67a-2\""
+    },
+    {
+      "key": "202511-bluebikes-tripdata.csv.zip",
+      "bytes": 15143886,
+      "last_modified": "2025-12-08T19:53:19.000Z",
+      "etag": "\"9456f05f1b6889db12b3c29757bee48e\""
+    },
+    {
+      "key": "202512-bluebikes-tripdata.zip",
+      "bytes": 7759874,
+      "last_modified": "2026-01-05T16:36:56.000Z",
+      "etag": "\"1dab9eeb1e3c7a8ab05c12cbcc773773\""
+    },
+    {
+      "key": "202601-bluebikes-tripdata.zip",
+      "bytes": 6763019,
+      "last_modified": "2026-02-04T14:51:03.000Z",
+      "etag": "\"47ef9ea10f0c26f4bea48b05485db2f5\""
+    },
+    {
+      "key": "202602-bluebikes-tripdata.zip",
+      "bytes": 5673067,
+      "last_modified": "2026-03-04T20:12:51.000Z",
+      "etag": "\"afd2d1cfb7deee47a20c16c80a005f13\""
+    },
+    {
+      "key": "202603-bluebikes-tripdata.zip",
+      "bytes": 10250023,
+      "last_modified": "2026-04-03T18:57:30.000Z",
+      "etag": "\"18fff95d89945517c8fa96933d0be1f6\""
+    },
+    {
+      "key": "202604-bluebikes-tripdata.zip",
+      "bytes": 15084767,
+      "last_modified": "2026-05-04T19:07:25.000Z",
+      "etag": "\"40dce48ef28b35faa22132ecdf0ed387\""
+    },
+    {
+      "key": "202605-bluebikes-tripdata.zip",
+      "bytes": 16872309,
+      "last_modified": "2026-06-04T13:41:02.000Z",
+      "etag": "\"9494da095de0d992bec94d24a0b6babc\""
+    },
+    {
+      "key": "202606-bluebikes-tripdata.zip",
+      "bytes": 21696143,
+      "last_modified": "2026-07-06T14:08:25.000Z",
+      "etag": "\"040c2e9724d89a91a9b94a5815289502-2\""
+    },
+    {
+      "key": "202607-bluebikes-tripdata.zip",
+      "bytes": 21350439,
+      "last_modified": "2026-08-05T20:35:42.000Z",
+      "etag": "\"f973850764bf1965c2fad61285f8908d-2\""
+    },
+    {
+      "key": "202608-bluebikes-tripdata.zip",
+      "bytes": 22461227,
+      "last_modified": "2026-09-09T17:09:41.000Z",
+      "etag": "\"001ce8510a2275200aed2fcc6973f251-2\""
+    },
+    {
+      "key": "202609-bluebikes-tripdata.csv",
+      "bytes": 132839377,
+      "last_modified": "2026-10-05T19:17:21.000Z",
+      "etag": "\"2a9a558a6be6be0e762a7bd9b6e8c12f-8\""
+    },
+    {
+      "key": "Hubway_Stations_2011_2016.csv",
+      "bytes": 13819,
+      "last_modified": "2017-02-20T22:42:37.000Z",
+      "etag": "\"259d980f21a6c9c38d9a4e68d332094c\""
+    },
+    {
+      "key": "Hubway_Stations_as_of_July_2017.csv",
+      "bytes": 32507,
+      "last_modified": "2019-11-06T04:07:00.000Z",
+      "etag": "\"a4dac65cc06dd7c953b4a80f9b01d4d2\""
+    },
+    {
+      "key": "hubway_Trips_2011.csv",
+      "bytes": 19342480,
+      "last_modified": "2016-06-02T17:02:09.000Z",
+      "etag": "\"80023ccf6fb209707a031f20df7a29e7\""
+    },
+    {
+      "key": "hubway_Trips_2012.csv",
+      "bytes": 74387936,
+      "last_modified": "2016-06-02T17:02:16.000Z",
+      "etag": "\"4392005c1783efcb90980e40801eb5b8-2\""
+    },
+    {
+      "key": "hubway_Trips_2013.csv",
+      "bytes": 131771211,
+      "last_modified": "2016-06-02T17:02:40.000Z",
+      "etag": "\"b38ff543d0e6e256cecdae99a49eb418-2\""
+    },
+    {
+      "key": "hubway_Trips_2014_1.csv",
+      "bytes": 60346515,
+      "last_modified": "2016-06-02T17:03:15.000Z",
+      "etag": "\"369b54809eabc28545b45229e053e08d\""
+    },
+    {
+      "key": "hubway_Trips_2014_2.csv",
+      "bytes": 111561455,
+      "last_modified": "2016-06-02T17:03:30.000Z",
+      "etag": "\"23be87cd0469934306d37cc0cf4b8d43-2\""
+    },
+    {
+      "key": "index.html",
+      "bytes": 6430,
+      "last_modified": "2016-05-26T13:27:02.000Z",
+      "etag": "\"0a0a71d28229db9a3ddd27b9c9ca1f10\""
+    },
+    {
+      "key": "previous_Hubway_Stations_as_of_July_2017.csv",
+      "bytes": 20947,
+      "last_modified": "2019-10-30T21:03:06.000Z",
+      "etag": "\"f7571dc623c949fa89d2bd112aa41d1a\""
+    }
+  ]
+}

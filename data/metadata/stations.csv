@@ -1,0 +1,614 @@
+station_key,name,city,docks,historic_id
+myrtle st at fellsway (rt 28),Myrtle St at Fellsway (Rt 28),Medford,15,No ID post-March 2023
+webster ave at norfolk st,Webster Ave at Norfolk St,Somerville,19,No ID post-March 2023
+washington st at pond ave,Washington St at Pond Ave,Brookline,19,No ID post-March 2023
+babcock st at dwight st,Babcock St at Dwight St,Brookline,15,No ID post-March 2023
+99 harvard st,99 Harvard St,Brookline,19,No ID post-March 2023
+pleasant st at beacon st,Pleasant St at Beacon St,Brookline,15,No ID post-March 2023
+parkway rd at brookline ave,Parkway Rd at Brookline Ave,Brookline,15,No ID post-March 2023
+marion st at park st,Marion St at Park St,Brookline,12,No ID post-March 2023
+griswald fields,Griswald Fields,Revere,11,No ID post-March 2023
+heath st at columbus ave,Heath St at Columbus Ave,Boston,18,No ID post-March 2023
+center plaza,Center Plaza,Cambridge,27,No ID post-March 2023
+andrew t stop - dorchester ave (west),Andrew T Stop - Dorchester Ave (west),Boston,8,No ID post-March 2023
+andrew t stop - dorchester ave (east),Andrew T Stop - Dorchester Ave (east),Boston,7,No ID post-March 2023
+broad canal way north,Broad Canal Way North,Cambridge,15,No ID post-March 2023
+125 cambridgepark dr,125 Cambridgepark Dr,Cambridge,19,No ID post-March 2023
+santilli hwy,Santilli Hwy,Everett,15,No ID post-March 2023
+prentiss st at mindoro st,Prentiss St at Mindoro St,Boston,16,No ID post-March 2023
+adams st at robinson st,Adams St at Robinson St,Boston,12,No ID post-March 2023
+alabama st at messinger st,Alabama St at Messinger St,Boston,15,No ID post-March 2023
+walnut ave at humboldt ave,Walnut ave at Humboldt Ave,Boston,15,No ID post-March 2023
+moraine st at centre st,Moraine St at Centre St,Boston,20,No ID post-March 2023
+charlestown navy yard ferry terminal,Charlestown Navy Yard Ferry Terminal,Boston,24,No ID post-March 2023
+harborwalk at central wharf,Harborwalk at Central Wharf,Boston,23,No ID post-March 2023
+wilson square,Wilson Square,Somerville,15,99
+packard ave at powderhouse blvd,Packard Ave at Powderhouse Blvd,Somerville,15,111
+dartmouth st at newbury st,Dartmouth St at Newbury St,Boston,19,370
+boston city hall - 28 state st,Boston City Hall - 28 State St,Boston,25,23
+kenmore square,Kenmore Square,Boston,27,33
+cross st at hanover st,Cross St at Hanover St,Boston,19,47
+back bay t stop - dartmouth st at stuart st,Back Bay T Stop - Dartmouth St at Stuart St,Boston,19,16
+copley square - dartmouth st at boylston st,Copley Square - Dartmouth St at Boylston St,Boston,31,36
+mugar way at beacon st,Mugar Way at Beacon St,Boston,19,58
+chinatown gate plaza,Chinatown Gate Plaza,Boston,19,59
+aquarium t stop - 200 atlantic ave,Aquarium T Stop - 200 Atlantic Ave,Boston,23,20
+nubian square - bolling building,Nubian Square - Bolling Building,Boston,18,56
+jackson square t stop,Jackson Square T Stop,Boston,18,131
+bennington st at constitution beach,Bennington St at Constitution Beach,Boston,17,355
+foss park,Foss Park,Somerville,15,188
+east somerville library (broadway and illinois),East Somerville Library (Broadway and Illinois),Somerville,15,235
+assembly square t,Assembly Square T,Somerville,15,236
+grove st at community path,Grove St at Community Path,Somerville,15,328
+somerville hospital,Somerville Hospital,Somerville,15,156
+washington st at myrtle st,Washington St at Myrtle St,Somerville,15,329
+community path at cedar street,Community Path at Cedar Street,Somerville,15,239
+30 dane st,30 Dane St,Somerville,15,330
+codman square library,Codman Square Library,Boston,17,350
+galileo galilei way at main street,Galileo Galilei Way at Main Street,Cambridge,19,479
+tremont st at court st,Tremont St at Court St,Boston,19,No ID post-March 2023
+congress st at boston city hall,Congress St at Boston City Hall,Boston,31,44
+conway park - somerville avenue,Conway Park - Somerville Avenue,Somerville,23,71
+stuart st at berkeley st,Stuart St at Berkeley St,Boston,19,415
+sullivan square,Sullivan Square,Boston,19,441
+shawmut ave at oak st w,Shawmut Ave at Oak St W,Boston,15,399
+central square east boston,Central Square East Boston,Boston,15,419
+maverick st at massport path,Maverick St at Massport Path,Boston,15,436
+commonwealth ave at granby st,Commonwealth Ave at Granby St,Boston,16,446
+northbourne rd at hyde park ave,Northbourne Rd at Hyde Park Ave,Boston,19,421
+hyde park ave at walk hill st,Hyde Park Ave at Walk Hill St,Boston,15,442
+jamaica st at south st,Jamaica St at South St,Boston,19,424
+forest hills,Forest Hills,Boston,40,273
+washington st at walsh playground,Washington St at Walsh Playground,Boston,19,430
+central ave at river st,Central Ave at River St,Boston,15,435
+sydney st at carson st,Sydney St at Carson St,Boston,19,405
+geiger gibson community health center,Geiger Gibson Community Health Center,Boston,19,445
+american legion hwy at cummins hwy,American Legion Hwy at Cummins Hwy,Boston,15,422
+mt. hope st at hyde park ave,Mt. Hope St at Hyde Park Ave,Boston,19,423
+washington st at denton terr,Washington St at Denton Terr,Boston,19,427
+whittier st health center,Whittier St Health Center,Boston,19,443
+the dimock center,The Dimock Center,Boston,16,425
+75 binney st,75 Binney St,Cambridge,19,398
+kennedy-longfellow school 158 spring st,Kennedy-Longfellow School 158 Spring St,Cambridge,19,413
+discovery park - 30 acorn park drive,Discovery Park - 30 Acorn Park Drive,Cambridge,23,414
+craigie st at summer st,Craigie St at Summer St,Somerville,19,407
+edgerly education center,Edgerly Education Center,Somerville,15,408
+elm st at white st,Elm St at White St,Somerville,19,409
+7 acre park,7 Acre Park,Everett,15,387
+everett square (broadway at norwood st),Everett Square (Broadway at Norwood St),Everett,14,389
+broadway at lynde st,Broadway at Lynde St,Everett,15,390
+encore,Encore,Everett,15,391
+glendale square (ferry st at broadway),Glendale Square (Ferry St at Broadway),Everett,15,392
+swan st. park,Swan St. Park,Everett,15,393
+broadway at maple st,Broadway at Maple St,Everett,14,394
+pope john high school,Pope John High School,Everett,15,No ID post-March 2023
+broadway at beacham st,Broadway at Beacham St,Everett,15,397
+boston medical center - e concord st at harrison ave,Boston Medical Center - E Concord St at Harrison Ave,Boston,19,13
+berkshire street at cambridge street,Berkshire Street at Cambridge Street,Cambridge,19,437
+washington st at peters park,Washington St at Peters Park,Boston,19,412
+columbus ave at w. canton st,Columbus Ave at W. Canton St,Boston,19,417
+ashmont t stop,Ashmont T Stop,Boston,15,271
+adams st at mallet st.,Adams St at Mallet St.,Boston,15,410
+washington st at fuller st,Washington St at Fuller St,Boston,15,431
+shawmut t stop,Shawmut T Stop,Boston,19,272
+blossom st at charles st,Blossom St at Charles St,Boston,15,416
+centre st at w. roxbury post office,Centre St at W. Roxbury Post Office,Boston,19,432
+centre st at parkway ymca,Centre St at Parkway YMCA,Boston,19,433
+spring st at powell st,Spring St at Powell St,Boston,19,434
+congress st at boston wharf rd,Congress St at Boston Wharf Rd,Boston,19,No ID post-March 2023
+somerville city hall,Somerville City Hall,Somerville,19,77
+teele square,Teele Square,Somerville,15,114
+perry park,Perry Park,Somerville,19,377
+somerville city hall annex,Somerville City Hall Annex,Somerville,19,406
+harvard stadium: n. harvard st at soldiers field rd,Harvard Stadium: N. Harvard St at Soldiers Field Rd,Boston,15,492
+the overlook at st. gabriel's,The Overlook at St. Gabriel's,Boston,19,447
+broad st at central st,Broad St at Central St,Boston,15,460
+marion st at white st,Marion St at White St,Boston,19,477
+gove st at orleans st,Gove St at Orleans St,Boston,19,478
+day sq,Day Sq,Boston,16,489
+martha eliot health center,Martha Eliot Health Center,Boston,16,488
+washington sq,Washington Sq,Brookline,15,No ID post-March 2023
+railroad lot and minuteman bikeway,Railroad Lot and Minuteman Bikeway,Arlington,11,461
+linwood st at minuteman bikeway,Linwood St at Minuteman Bikeway,Arlington,11,462
+mass ave at grafton st,Mass Ave at Grafton St,Arlington,11,464
+broadway at grafton st,Broadway at Grafton St,Arlington,11,465
+thorndike field at minuteman bikeway,Thorndike Field at Minuteman Bikeway,Arlington,11,480
+smith pl at wilson rd,Smith Pl at Wilson Rd,Cambridge,19,463
+mit carleton st at amherst st,MIT Carleton St at Amherst St,Cambridge,27,471
+mit hayward st at amherst st,MIT Hayward St at Amherst St,Cambridge,27,472
+graham and parks school – linnaean st at walker st,Graham and Parks School – Linnaean St at Walker St,Cambridge,19,456
+centre st at washington st,Centre St at Washington St,Newton,11,466
+washington st at crafts st,Washington St at Crafts St,Newton,11,467
+nonantum library,Nonantum Library,Newton,15,468
+bacon st at washington st,Bacon St at Washington St,Newton,11,469
+west newton,West Newton,Newton,15,473
+union st at herrick rd,Union St at Herrick Rd,Newton,11,486
+revere city hall,Revere City Hall,Revere,11,485
+revere public library,Revere Public Library,Revere,11,484
+community path at lowell st,Community Path at Lowell St,Somerville,19,487
+hale park,Hale Park,Everett,11,448
+kearins playground,Kearins Playground,Everett,11,482
+coolidge sq.,Coolidge Sq.,Watertown,12,455
+watertown sq,Watertown Sq,Watertown,15,458
+arsenal yards,Arsenal Yards,Watertown,15,475
+watertown city hall,Watertown City Hall,Watertown,11,494
+645 summer st,645 Summer St,Boston,19,481
+harrison ave at e. dedham st,Harrison Ave at E. Dedham St,Boston,19,491
+blue hill ave at havelock st,Blue Hill Ave at Havelock St,Boston,18,490
+watertown st at albemarle rd,Watertown St at Albemarle Rd,Newton,11,No ID post-March 2023
+ball sq,Ball Sq,Somerville,19,101
+broadway at central st,Broadway at Central St,Somerville,19,234
+one beacon st,One Beacon St,Boston,16,529
+clinton st at north st,Clinton St at North St,Boston,18,536
+forsyth st at huntington ave,Forsyth St at Huntington Ave,Boston,15,554
+hyde park ave at arlington st,Hyde Park Ave at Arlington St,Boston,19,542
+cleary sq,Cleary Sq,Boston,16,546
+555 metropolitan ave,555 Metropolitan Ave,Boston,18,548
+hyde park library,Hyde Park Library,Boston,15,555
+morton st at gallivan blvd,Morton St at Gallivan Blvd,Boston,15,545
+bellevue t stop,Bellevue T Stop,Boston,19,511
+american legion hwy at hyde park ave,American Legion Hwy at Hyde Park Ave,Boston,19,543
+606 american legion hwy at canterbury st,606 American Legion Hwy at Canterbury St,Boston,18,547
+circuit drive at american legion hwy,Circuit Drive at American Legion Hwy,Boston,19,538
+walnut ave at school st,Walnut Ave at School St,Boston,19,539
+cary square,Cary Square,Chelsea,12,503
+bellingham square,Bellingham Square,Chelsea,11,504
+chelsea square,Chelsea Square,Chelsea,11,505
+615 broadway,615 Broadway,Chelsea,11,No ID post-March 2023
+chelsea station,Chelsea Station,Chelsea,11,507
+855 broadway,855 Broadway,Chelsea,11,508
+1200 beacon st,1200 Beacon St,Brookline,15,452
+harvard st and stedman st,Harvard St and Stedman St,Brookline,15,531
+concord ave at spinelli place,Concord Ave at Spinelli Place,Cambridge,19,532
+old morse park at putnam ave,Old Morse Park at Putnam Ave,Cambridge,15,544
+cambridge crossing at north first street,Cambridge Crossing at North First Street,Cambridge,23,553
+955 mass ave,955 Mass Ave,Cambridge,19,515
+danehy park at new street,Danehy Park at New Street,Cambridge,19,533
+boston college t,Boston College T,Newton,17,523
+newton highlands t,Newton Highlands T,Newton,15,524
+california at chapel,California at Chapel,Newton,12,525
+beacon at walnut,Beacon at Walnut,Newton,15,526
+newton library,Newton Library,Newton,13,527
+washington st at walnut st,Washington St at Walnut St,Newton,11,528
+auburndale,Auburndale,Newton,15,535
+union square east,Union Square East,Somerville,19,495
+gilman square t at medford st,Gilman Square T at Medford St,Somerville,19,514
+foley st at grand union blvd,Foley St at Grand Union Blvd,Somerville,19,530
+salem ferry landing,Salem Ferry Landing,Salem,11,516
+salem willows park,Salem Willows Park,Salem,15,517
+shetland park - congress at peabody st,Shetland Park - Congress at Peabody St,Salem,11,518
+mayor salvo path at mill st,Mayor Salvo Path at Mill St,Salem,11,519
+salem mbta - washington at federal st,Salem MBTA - Washington at Federal St,Salem,21,520
+lafayette at leach st,Lafayette at Leach St,Salem,11,521
+salem state university - bike path at loring ave,Salem State University - Bike Path at Loring Ave,Salem,15,No ID post-March 2023
+160 arsenal st,160 Arsenal St,Watertown,11,502
+nichols ave. at watertown-cambridge greenway,Nichols Ave. at Watertown-Cambridge Greenway,Watertown,12,No ID post-March 2023
+orr sq (shirley ave),Orr Sq (Shirley Ave),Revere,11,541
+somerville high school & central library,Somerville High School & Central Library,Somerville,17,550
+valenti way at haverhill st,Valenti Way at Haverhill St,Boston,24,549
+knoll st at centre st,Knoll St at Centre St,Boston,19,512
+lewis mall wharf,Lewis Mall Wharf,Boston,21,No ID post-March 2023
+swan place at minuteman bikeway,Swan Place at Minuteman Bikeway,Arlington,11,No ID post-March 2023
+northern strand at salem street,Northern Strand at Salem Street,Revere,11,No ID post-March 2023
+newbury st at hereford st,Newbury St at Hereford St,Boston,23,52
+boylston st at fairfield st,Boylston St at Fairfield St,Boston,19,61
+boylston st at arlington st,Boylston St at Arlington St,Boston,31,42
+post office square,Post Office Square,Boston,19,48
+northeastern university - north parking lot,Northeastern University - North Parking Lot,Boston,15,5
+beacon st at massachusetts ave,Beacon St at Massachusetts Ave,Boston,19,53
+dorchester ave at gillette park,Dorchester Ave at Gillette Park,Boston,15,63
+seaport hotel - congress st at seaport ln,Seaport Hotel - Congress St at Seaport Ln,Boston,19,31
+congress st at sleeper st,Congress St at Sleeper St,Boston,23,64
+tremont st at e berkeley st,Tremont St at E Berkeley St,Boston,19,4
+washington st at waltham st,Washington St at Waltham St,Boston,15,26
+cambridge st at joy st,Cambridge St at Joy St,Boston,15,6
+chinatown t stop,Chinatown T Stop,Boston,19,81
+dudley town common - mt pleasant ave at blue hill ave,Dudley Town Common - Mt Pleasant Ave at Blue Hill Ave,Boston,15,106
+central sq post office / cambridge city hall at mass ave / pleasant st,Central Sq Post Office / Cambridge City Hall at Mass Ave / Pleasant St,Cambridge,17,76
+harvard square at mass ave/ dunster,Harvard Square at Mass Ave/ Dunster,Cambridge,19,74
+harvard university river houses at dewolfe st / cowperthwaite st,Harvard University River Houses at DeWolfe St / Cowperthwaite St,Cambridge,21,97
+hayes square - vine st at moulton st,Hayes Square - Vine St at Moulton St,Boston,19,129
+burlington ave at brookline ave,Burlington Ave at Brookline Ave,Boston,15,122
+egleston square - atherton st at washington st,Egleston Square - Atherton St at Washington St,Boston,15,126
+e cottage st at columbia rd,E Cottage St at Columbia Rd,Boston,19,128
+uphams corner,Uphams Corner,Boston,15,130
+ryan playground - dorchester ave at harbor view st,Ryan Playground - Dorchester Ave at Harbor View St,Boston,15,167
+piers park,Piers Park,Boston,15,211
+glendon st at condor st,Glendon St at Condor St,Boston,19,216
+uphams corner t stop - magnolia st at dudley st,Uphams Corner T Stop - Magnolia St at Dudley St,Boston,15,199
+walnut ave at warren st,Walnut Ave at Warren St,Boston,15,204
+silber way,Silber Way,Boston,19,227
+brighton ave at linden st,Brighton Ave at Linden St,Boston,19,567
+hood park,Hood Park,Boston,23,569
+addison st at saratoga st,Addison St at Saratoga St,Boston,19,563
+st. alphonsus st at tremont st,St. Alphonsus St at Tremont St,Boston,18,558
+flat 9 at whittier,Flat 9 at Whittier,Boston,15,560
+shawmut ave at lenox st,Shawmut Ave at Lenox St,Boston,19,568
+galileo galilei way at fulkerson st/binney st,Galileo Galilei Way at Fulkerson St/Binney St,Cambridge,19,557
+gore street at lambert street,Gore Street at Lambert Street,Cambridge,19,582
+broad canal way at third street,Broad Canal Way at Third Street,Cambridge,19,583
+john ahern field at kennedy-longfellow school,John Ahern Field at Kennedy-Longfellow School,Cambridge,19,590
+raymond park at walden st,Raymond Park at Walden St,Cambridge,19,564
+pier 4 blvd at autumn ln,Pier 4 Blvd at Autumn Ln,Boston,19,561
+centre st at commonwealth ave,Centre St at Commonwealth Ave,Newton,11,559
+hawthorne boulevard,Hawthorne Boulevard,Salem,9,562
+wellington mbta,Wellington MBTA,Medford,19,565
+salem state university - north campus,Salem State University - North Campus,Salem,11,570
+essex st at dalton parkway,Essex St at Dalton Parkway,Salem,11,572
+forest river park,Forest River Park,Salem,11,571
+flint st. at bridge st.,Flint St. at Bridge St.,Salem,11,No ID post-March 2023
+goodhue st at grove st,Goodhue St at Grove St,Salem,11,575
+main st at brooks park,Main St at Brooks Park,Medford,11,576
+medford sq - riverside ave at river st,Medford Sq - Riverside Ave at River St,Medford,11,577
+tufts sq - main st at medford st,Tufts Sq - Main St at Medford St,Medford,11,578
+main street/albany street/technology square,Main Street/Albany Street/Technology Square,Cambridge,23,566
+malden center t station,Malden Center T Station,Malden,11,584
+northern strand at main st,Northern Strand at Main St,Malden,11,585
+gramsdorf playground,Gramsdorf Playground,Everett,14,586
+malden high school,Malden High School,Malden,11,587
+north st at liberty hill ave,North St at Liberty Hill Ave,Salem,11,589
+union square - brighton ave at cambridge st,Union Square - Brighton Ave at Cambridge St,Boston,19,8
+commonwealth ave at agganis way,Commonwealth Ave at Agganis Way,Boston,15,9
+innovation lab - 125 western ave at batten way,Innovation Lab - 125 Western Ave at Batten Way,Boston,19,29
+boylston st at massachusetts ave,Boylston St at Massachusetts Ave,Boston,15,55
+charles circle - charles st at cambridge st,Charles Circle - Charles St at Cambridge St,Boston,19,60
+brighton mills - 370 western ave,Brighton Mills - 370 Western Ave,Boston,15,15
+tremont st at west st,Tremont St at West St,Boston,15,54
+brigham circle - francis st at huntington ave,Brigham Circle - Francis St at Huntington Ave,Boston,15,30
+lewis wharf at atlantic ave,Lewis Wharf at Atlantic Ave,Boston,31,40
+roxbury crossing t stop - columbus ave at tremont st,Roxbury Crossing T Stop - Columbus Ave at Tremont St,Boston,23,27
+washington st at lenox st,Washington St at Lenox St,Boston,15,51
+fan pier,Fan Pier,Boston,15,7
+royce rd at commonwealth ave,Royce Rd at Commonwealth Ave,Boston,15,No ID post-March 2023
+main st at austin st,Main St at Austin St,Boston,11,94
+spaulding rehabilitation hospital - charlestown navy yard,Spaulding Rehabilitation Hospital - Charlestown Navy Yard,Boston,19,85
+park dr at buswell st,Park Dr at Buswell St,Boston,15,19
+jfk/umass t stop,JFK/UMass T Stop,Boston,31,93
+mit at mass ave / amherst st,MIT at Mass Ave / Amherst St,Cambridge,31,67
+boston convention and exhibition center - summer st at west side dr,Boston Convention and Exhibition Center - Summer St at West Side Dr,Boston,39,65
+central square at mass ave / essex st,Central Square at Mass Ave / Essex St,Cambridge,19,68
+one kendall square at hampshire st / portland st,One Kendall Square at Hampshire St / Portland St,Cambridge,19,91
+cambridge st - at columbia st / webster ave,Cambridge St - at Columbia St / Webster Ave,Cambridge,15,95
+hyde square - centre st at perkins st,Hyde Square - Centre St at Perkins St,Boston,19,125
+green street t stop - green st at amory st,Green Street T Stop - Green St at Amory St,Boston,23,133
+porter square station,Porter Square Station,Cambridge,19,115
+newmarket square t stop - massachusetts ave at newmarket square,Newmarket Square T Stop - Massachusetts Ave at Newmarket Square,Boston,15,138
+murphy skating rink - 1880 day blvd,Murphy Skating Rink - 1880 Day Blvd,Boston,19,146
+state street at channel center,State Street at Channel Center,Boston,19,150
+surface rd at india st,Surface Rd at India St,Boston,19,151
+franklin park - seaver st at humboldt ave,Franklin Park - Seaver St at Humboldt Ave,Boston,15,162
+purchase st at pearl st,Purchase St at Pearl St,Boston,19,192
+orient heights t stop - bennington st at saratoga st,Orient Heights T Stop - Bennington St at Saratoga St,Boston,19,217
+boston east - 126 border st,Boston East - 126 Border St,Boston,15,219
+grove hall library - 41 geneva ave,Grove Hall Library - 41 Geneva Ave,Boston,15,202
+columbia rd at ceylon st,Columbia Rd at Ceylon St,Boston,15,203
+bowdoin st at quincy st,Bowdoin St at Quincy St,Boston,15,205
+mlk blvd at washington st,MLK Blvd at Washington St,Boston,15,197
+ncaaa - walnut ave at crawford st,NCAAA - Walnut Ave at Crawford St,Boston,15,201
+four corners - 157 washington st,Four Corners - 157 Washington St,Boston,11,232
+dorchester ave at king st,Dorchester Ave at King St,Boston,15,No ID post-March 2023
+lincoln st at empire st,Lincoln St at Empire St,Boston,19,No ID post-March 2023
+commonwealth ave at naples rd,Commonwealth Ave at Naples Rd,Boston,19,No ID post-March 2023
+bremen st at marion st,Bremen St at Marion St,Boston,11,214
+parker st at huntington ave,Parker St at Huntington Ave,Boston,19,No ID post-March 2023
+riverway at brookline ave,Riverway at Brookline Ave,Boston,25,594
+beach st at freeport st,Beach St at Freeport St,Boston,19,No ID post-March 2023
+four corners/geneva t stop,Four Corners/Geneva T Stop,Boston,15,No ID post-March 2023
+hancock st at pleasant st,Hancock St at Pleasant St,Boston,19,No ID post-March 2023
+lenox st at kendall st,Lenox St at Kendall St,Boston,17,No ID post-March 2023
+55 wheeler street,55 Wheeler Street,Cambridge,23,No ID post-March 2023
+morgan ave at north first st,Morgan Ave at North First St,Cambridge,23,No ID post-March 2023
+broadway at kittie knox bike path,Broadway at Kittie Knox Bike Path,Cambridge,23,No ID post-March 2023
+87-101 cambridgepark drive,87-101 Cambridgepark Drive,Cambridge,23,No ID post-March 2023
+moore youth center,Moore Youth Center,Cambridge,15,No ID post-March 2023
+mass ave/lafayette square,Mass Ave/Lafayette Square,Cambridge,15,No ID post-March 2023
+boynton yards at 101 south street,Boynton Yards at 101 South Street,Somerville,19,No ID post-March 2023
+hormel stadium,Hormel Stadium,Medford,11,No ID post-March 2023
+harris park,Harris Park,Medford,11,No ID post-March 2023
+haines square,Haines Square,Medford,11,No ID post-March 2023
+vinnin square,Vinnin Square,Salem,11,No ID post-March 2023
+bridge street neck,Bridge Street Neck,Salem,11,No ID post-March 2023
+derby street,Derby Street,Salem,11,No ID post-March 2023
+chelsea st at vine st,Chelsea St at Vine St,Everett,11,395
+auburn st. at mystic river,Auburn St. at Mystic River,Medford,11,No ID post-March 2023
+chestnut st at poplar st,Chestnut St at Poplar St,Somerville,19,No ID post-March 2023
+union square station,Union Square Station,Somerville,19,No ID post-March 2023
+west medford square (bower st at harvard ave),West Medford Square (Bower St at Harvard Ave),Medford,11,No ID post-March 2023
+logan park,Logan Park,Medford,11,No ID post-March 2023
+talbot ave t station,Talbot Ave T Station,Boston,19,No ID post-March 2023
+cedar grove t stop,Cedar Grove T Stop,Boston,18,No ID post-March 2023
+butler t stop,Butler T Stop,Boston,15,No ID post-March 2023
+church st,Church St,Cambridge,15,No ID post-March 2023
+charles st s at stuart st,Charles St S at Stuart St,Boston,16,No ID post-March 2023
+washington st at temple pl,Washington St at Temple Pl,Boston,19,No ID post-March 2023
+commercial st at charter st,Commercial St at Charter St,Boston,19,No ID post-March 2023
+pope john paul ii park - neponset trail at hallet st,Pope John Paul II Park - Neponset Trail at Hallet St,Boston,19,No ID post-March 2023
+high st at federal st,High St at Federal St,Boston,20,No ID post-March 2023
+stuart st at church st,Stuart St at Church St,Boston,20,No ID post-March 2023
+shawmut ave at herald st,Shawmut Ave at Herald St,Boston,20,No ID post-March 2023
+massachusetts ave at boylston st.,Massachusetts Ave at Boylston St.,Boston,24,No ID post-March 2023
+staniford st at merrimac st,Staniford St at Merrimac St,Boston,24,No ID post-March 2023
+soldiers field park - 111 western ave,Soldiers Field Park - 111 Western Ave,Boston,15,17
+packard's corner - commonwealth ave at brighton ave,Packard's Corner - Commonwealth Ave at Brighton Ave,Boston,27,41
+christian science plaza - massachusetts ave at westland ave,Christian Science Plaza - Massachusetts Ave at Westland Ave,Boston,39,46
+new balance - 20 guest st,New Balance - 20 Guest St,Boston,15,37
+south station - 700 atlantic ave,South Station - 700 Atlantic Ave,Boston,35,22
+b.u. central t stop - 725 commonwealth ave,B.U. Central T Stop - 725 Commonwealth Ave,Boston,11,10
+landmark center - brookline ave at park dr,Landmark Center - Brookline Ave at Park Dr,Boston,15,32
+longwood ave at binney st,Longwood Ave at Binney St,Boston,15,11
+hms/hsph - avenue louis pasteur at longwood ave,HMS/HSPH - Avenue Louis Pasteur at Longwood Ave,Boston,25,14
+colleges of the fenway - fenway at avenue louis pasteur,Colleges of the Fenway - Fenway at Avenue Louis Pasteur,Boston,15,3
+seaport square - seaport blvd at northern ave,Seaport Square - Seaport Blvd at Northern Ave,Boston,23,24
+washington st at rutland st,Washington St at Rutland St,Boston,27,39
+warren st at chelsea st,Warren St at Chelsea St,Boston,23,98
+university of massachusetts boston - campus center,University of Massachusetts Boston - Campus Center,Boston,19,92
+cambridgeside pl at land blvd,Cambridgeside Pl at Land Blvd,Cambridge,15,84
+boylston st at dartmouth st,Boylston St at Dartmouth St,Boston,19,No ID post-March 2023
+beacon st at charles st,Beacon St at Charles St,Boston,39,120
+w broadway at dorchester st,W Broadway at Dorchester St,Boston,17,121
+south boston library - 646 e broadway,South Boston Library - 646 E Broadway,Boston,15,119
+id building east,ID Building East,Boston,17,135
+id building west,ID Building West,Boston,19,136
+washington st at brock st,Washington St at Brock St,Boston,15,174
+edwards playground - main st at eden st,Edwards Playground - Main St at Eden St,Boston,19,169
+135 morrissey blvd,135 Morrissey Blvd,Boston,19,No ID post-March 2023
+bennington st at byron st,Bennington St at Byron St,Boston,15,210
+maverick square - lewis mall,Maverick Square - Lewis Mall,Boston,33,212
+the eddy - new st at sumner st,The Eddy - New St at Sumner St,Boston,15,215
+washington st at melnea cass blvd,Washington St at Melnea Cass Blvd,Boston,19,200
+watermark seaport - boston wharf rd at seaport blvd,Watermark Seaport - Boston Wharf Rd at Seaport Blvd,Boston,15,218
+nashua street at red auerbach way,Nashua Street at Red Auerbach Way,Boston,37,190
+seaport blvd at sleeper st,Seaport Blvd at Sleeper St,Boston,15,157
+troy boston,Troy Boston,Boston,14,222
+blue hill ave at southwood st,Blue Hill Ave at Southwood St,Boston,15,368
+tremont st at w. dedham st,Tremont St at W. Dedham St,Boston,15,379
+albany st at e. brookline st,Albany St at E. Brookline St,Boston,15,385
+canal st at causeway st,Canal St at Causeway St,Boston,23,459
+porzio park,Porzio Park,Boston,17,483
+2 hummingbird lane at olmsted green,2 Hummingbird Lane at Olmsted Green,Boston,17,493
+western ave at everett st,Western Ave at Everett St,Boston,17,No ID post-March 2023
+chestnut hill ave at ledgemere rd,Chestnut Hill Ave at Ledgemere Rd,Boston,19,No ID post-March 2023
+centre st at allandale st,Centre St at Allandale St,Boston,23,No ID post-March 2023
+northampton st at fellows st,Northampton St at Fellows St,Boston,19,No ID post-March 2023
+damrell st at old colony,Damrell St at Old Colony,Boston,19,No ID post-March 2023
+101 smith place,101 Smith Place,Cambridge,23,No ID post-March 2023
+o'brien highway at first street,O'Brien Highway at First Street,Cambridge,19,No ID post-March 2023
+325 binney st.,325 Binney St.,Cambridge,19,No ID post-March 2023
+elevate at one leighton,Elevate at One Leighton,Cambridge,17,No ID post-March 2023
+40 thorndike st,40 Thorndike St,Cambridge,19,No ID post-March 2023
+lechmere canal park,Lechmere Canal Park,Cambridge,27,No ID post-March 2023
+au bon pain way at fid kennedy ave,Au Bon Pain Way at Fid Kennedy Ave,Boston,18,No ID post-March 2023
+hickey park,Hickey Park,Medford,19,No ID post-March 2023
+grand union blvd at revolution dr,Grand Union Blvd at Revolution Dr,Somerville,19,No ID post-March 2023
+arsenal on the charles,Arsenal on the Charles,Watertown,19,No ID post-March 2023
+carr park,Carr Park,Medford,11,No ID post-March 2023
+steve miller dr at winthrop st (medford high),Steve Miller Dr at Winthrop St (Medford High),Medford,11,No ID post-March 2023
+governors ave at lawrence rd,Governors Ave at Lawrence Rd,Medford,11,No ID post-March 2023
+northern strand - west st & wellington ave,Northern Strand - West St & Wellington Ave,Everett,11,No ID post-March 2023
+revere beach - markey footbridge,Revere Beach - Markey Footbridge,Revere,11,No ID post-March 2023
+eliot circle revere beach,Eliot Circle Revere Beach,Revere,11,No ID post-March 2023
+winthrop circle,Winthrop Circle,Medford,11,No ID post-March 2023
+mill st. at minuteman bikeway,Mill St. at Minuteman Bikeway,Arlington,11,No ID post-March 2023
+lake st. at minuteman bikeway,Lake St. at Minuteman Bikeway,Arlington,11,No ID post-March 2023
+medford st at warren st,Medford St at Warren St,Arlington,11,No ID post-March 2023
+99 coolidge ave,99 Coolidge Ave,Watertown,11,No ID post-March 2023
+innerbelt at east somerville station,Innerbelt at East Somerville Station,Somerville,19,No ID post-March 2023
+780 morrissey blvd,780 Morrissey Blvd,Boston,15,No ID post-March 2023
+commonwealth ave at fidelis way,Commonwealth Ave at Fidelis Way,Boston,12,No ID post-March 2023
+mystic valley parkway at river station,Mystic Valley Parkway at River Station,Arlington,12,No ID post-March 2023
+mass ave at alewife greenway,Mass Ave at Alewife Greenway,Arlington,12,No ID post-March 2023
+300 summer st,300 Summer St,Boston,15,No ID post-March 2023
+surface rd at state street,Surface Rd at State Street,Boston,15,No ID post-March 2023
+bike town at moakley park,Bike Town at Moakley Park,Boston,15,No ID post-March 2023
+warren ave at dartmouth st,Warren Ave at Dartmouth St,Boston,15,No ID post-March 2023
+washington st at w dedham st,Washington St at W Dedham St,Boston,15,No ID post-March 2023
+st. alphonsus st at horadan way,St. Alphonsus St at Horadan Way,Boston,15,No ID post-March 2023
+rugg rd at braintree st,Rugg Rd at Braintree St,Boston,15,No ID post-March 2023
+western ave at leo birmingham pkwy,Western Ave at Leo Birmingham Pkwy,Boston,16,No ID post-March 2023
+harbor st at channel st,Harbor St at Channel St,Boston,16,No ID post-March 2023
+cross st at stillman st,Cross St at Stillman St,Boston,16,No ID post-March 2023
+shawmut ave at e berkeley st,Shawmut Ave at E Berkeley St,Boston,16,No ID post-March 2023
+rutherford ave at main st,Rutherford Ave at Main St,Boston,16,No ID post-March 2023
+39 brighton ave,39 Brighton Ave,Boston,16,No ID post-March 2023
+market st at mapleton st,Market St at Mapleton St,Boston,16,No ID post-March 2023
+ringer park - webley st at armington st,Ringer Park - Webley St at Armington St,Boston,16,No ID post-March 2023
+huntington ave at st. alphonsus st,Huntington Ave at St. Alphonsus St,Boston,16,No ID post-March 2023
+walk hill st at american legion,Walk Hill St at American Legion,Boston,16,No ID post-March 2023
+cambridge main library at broadway / trowbridge st,Cambridge Main Library at Broadway / Trowbridge St,Cambridge,19,96
+herter park,Herter Park,Boston,19,No ID post-March 2023
+truman parkway at fairmount ave,Truman Parkway at Fairmount Ave,Boston,19,No ID post-March 2023
+s huntington at heath st,S Huntington at Heath St,Boston,20,No ID post-March 2023
+pearl st at milk st,Pearl St at Milk St,Boston,20,No ID post-March 2023
+ashley st at boardman st,Ashley St at Boardman St,Boston,20,No ID post-March 2023
+bennington st at marion st,Bennington St at Marion St,Boston,20,No ID post-March 2023
+northern ave at haul rd,Northern Ave at Haul Rd,Boston,20,No ID post-March 2023
+jamaicaway at perkins st,Jamaicaway at Perkins St,Boston,20,No ID post-March 2023
+commonwealth ave at blandford mall,Commonwealth Ave at Blandford Mall,Boston,20,No ID post-March 2023
+main st at devens st,Main St at Devens St,Boston,20,No ID post-March 2023
+constitution rd at chelsea st,Constitution Rd at Chelsea St,Boston,20,No ID post-March 2023
+chelsea st at medford st,Chelsea St at Medford St,Boston,20,No ID post-March 2023
+medford st at mcnulty ct,Medford St at McNulty Ct,Boston,20,No ID post-March 2023
+washington st at northampton st,Washington St at Northampton St,Boston,20,No ID post-March 2023
+main st at salem st,Main St at Salem St,Boston,20,No ID post-March 2023
+rutherford ave at bunker hill industrial park,Rutherford Ave at Bunker Hill Industrial Park,Boston,20,No ID post-March 2023
+n. harvard st at harvard way,N. Harvard St at Harvard Way,Boston,20,No ID post-March 2023
+faneuil st at bothwell rd,Faneuil St at Bothwell Rd,Boston,20,No ID post-March 2023
+oak square - washington st at bigelow st,Oak Square - Washington St at Bigelow St,Boston,20,No ID post-March 2023
+atlantic ave at beach st,Atlantic Ave at Beach St,Boston,20,No ID post-March 2023
+huntington ave at exeter st,Huntington Ave at Exeter St,Boston,20,No ID post-March 2023
+wood island t stop - vienna st at bennington st,Wood Island T Stop - Vienna St at Bennington St,Boston,21,No ID post-March 2023
+fenway at museum rd,Fenway at Museum Rd,Boston,21,No ID post-March 2023
+359 broadway - broadway at fayette street,359 Broadway - Broadway at Fayette Street,Cambridge,23,116
+park street t stop - tremont st at park st,Park Street T Stop - Tremont St at Park St,Boston,28,No ID post-March 2023
+boston public market - surface rd at sudbury st,Boston Public Market - Surface Rd at Sudbury St,Boston,32,No ID post-March 2023
+nashua street at red auerbach way [extension],Nashua Street at Red Auerbach Way [Extension],Boston,32,No ID post-March 2023
+stadium rd at western ave,Stadium Rd at Western Ave,Boston,32,No ID post-March 2023
+craigie st at brattle st/sparks st,Craigie St at Brattle St/Sparks St,Cambridge,15,No ID post-March 2023
+brighton center - washington st at cambridge st,Brighton Center - Washington St at Cambridge St,Boston,17,175
+charlestown navy yard,Charlestown Navy Yard,Boston,23,356
+broadway t stop,Broadway T Stop,Boston,27,366
+meaney playground - pleasant st at e cottage st,Meaney Playground - Pleasant St at E Cottage St,Boston,16,No ID post-March 2023
+beachmont square at suffolk downs,Beachmont Square at Suffolk Downs,Revere,11,No ID post-March 2023
+galen st at watertown st,Galen St at Watertown St,Watertown,11,No ID post-March 2023
+kierstead park,Kierstead Park,Malden,11,No ID post-March 2023
+northern strand at bike kitchen,Northern Strand at Bike Kitchen,Malden,11,No ID post-March 2023
+kenmore square - 660 beacon st,Kenmore Square - 660 Beacon St,Boston,15,No ID post-March 2023
+maplewood square,Maplewood Square,Malden,11,No ID post-March 2023
+walbridge st at commonwealth ave,Walbridge St at Commonwealth Ave,Boston,19,No ID post-March 2023
+gardner st at harvard ave,Gardner St at Harvard Ave,Boston,15,No ID post-March 2023
+washington st at mina way,Washington St at Mina Way,Boston,15,No ID post-March 2023
+franklin st at cambridge st,Franklin St at Cambridge St,Boston,19,No ID post-March 2023
+huntington ave at colburn st,Huntington Ave at Colburn St,Boston,19,No ID post-March 2023
+dorchester ave at savin hill ave,Dorchester Ave at Savin Hill Ave,Boston,15,No ID post-March 2023
+commonwealth ave at chestnut hill dr,Commonwealth Ave at Chestnut Hill Dr,Boston,19,No ID post-March 2023
+smith st at parker st,Smith St at Parker St,Boston,19,No ID post-March 2023
+ipswich st at van ness st,Ipswich St at Van Ness St,Boston,15,No ID post-March 2023
+mystic ave at crescent st,Mystic Ave at Crescent St,Medford,11,No ID post-March 2023
+fenway at forsyth way,Fenway at Forsyth Way,Boston,19,No ID post-March 2023
+gardner st at alcorn st,Gardner St at Alcorn St,Boston,19,No ID post-March 2023
+cambridge st at warren st,Cambridge St at Warren St,Boston,15,No ID post-March 2023
+vassal lane at tobin vlus,Vassal Lane at Tobin VLUS,Cambridge,24,No ID post-March 2023
+chestnut hill ave at winship st,Chestnut Hill Ave at Winship St,Boston,19,No ID post-March 2023
+reservoir rd at beacon st,Reservoir Rd at Beacon St,Boston,15,No ID post-March 2023
+new edgerly plaza - westland ave at edgerly rd,New Edgerly Plaza - Westland Ave at Edgerly Rd,Boston,16,No ID post-March 2023
+harambee park - westview st at blue hill ave,Harambee Park - Westview St at Blue Hill Ave,Boston,16,No ID post-March 2023
+middlesex ave at foley st,Middlesex Ave at Foley St,Somerville,19,No ID post-March 2023
+boylston t stop,Boylston T Stop,Boston,17,No ID post-March 2023
+pilgrim rd at brookline ave,Pilgrim Rd at Brookline Ave,Boston,19,No ID post-March 2023
+massachusetts ave at columbus ave,Massachusetts Ave at Columbus Ave,Boston,14,57
+wentworth institute of technology - huntington ave at vancouver st,Wentworth Institute of Technology - Huntington Ave at Vancouver St,Boston,14,160
+east boston neighborhood health center - 20 maverick square,East Boston Neighborhood Health Center - 20 Maverick Square,Boston,14,213
+mary ellen mccormack - sterling square,Mary Ellen McCormack - Sterling Square,Boston,15,No ID post-March 2023
+rowes wharf at atlantic ave,Rowes Wharf at Atlantic Ave,Boston,15,43
+south end library - tremont st at w newton st,South End Library - Tremont St at W Newton St,Boston,15,25
+boston landing,Boston Landing,Boston,15,440
+mass ave t stop,Mass Ave T Stop,Boston,16,404
+c st at baxter st,C St at Baxter St,Boston,17,No ID post-March 2023
+washington st at talbot ave,Washington St at Talbot Ave,Boston,17,349
+prudential center - 101 huntington ave,Prudential Center - 101 Huntington Ave,Boston,18,21
+stuart st at charles st,Stuart St at Charles St,Boston,18,49
+175 n harvard st,175 N Harvard St,Boston,18,149
+boylston st at berkeley st,Boylston St at Berkeley St,Boston,19,50
+harrison ave at bennet st,Harrison Ave at Bennet St,Boston,19,365
+bunker hill community college,Bunker Hill Community College,Boston,23,171
+w broadway at d st,W Broadway at D St,Boston,23,161
+farragut rd at e. 6th st,Farragut Rd at E. 6th St,Boston,23,296
+ruggles t stop - columbus ave at melnea cass blvd,Ruggles T Stop - Columbus Ave at Melnea Cass Blvd,Boston,27,12
+ink block - harrison ave at herald st,Ink Block - Harrison Ave at Herald St,Boston,27,152
+surface rd at summer st,Surface Rd at Summer St,Boston,27,426
+government center - cambridge st at court st,Government Center - Cambridge St at Court St,Boston,40,206
+lansdowne t stop,Lansdowne T Stop,Boston,52,400
+union square - somerville,Union Square - Somerville,Somerville,19,78
+beacon st at washington / kirkland,Beacon St at Washington / Kirkland,Somerville,19,79
+davis square,Davis Square,Somerville,25,100
+powder house circle - nathan tufts park,Powder House Circle - Nathan Tufts Park,Somerville,15,102
+broadway st at mt pleasant st,Broadway St at Mt Pleasant St,Somerville,19,194
+191 beacon st,191 Beacon St,Somerville,19,378
+arch st at franklin st,Arch St at Franklin St,Boston,31,35
+coolidge corner - beacon st at centre st,Coolidge Corner - Beacon St at Centre St,Brookline,19,69
+beacon st at tappan st,Beacon St at Tappan St,Brookline,25,82
+brookline village mbta at pearl street,Brookline Village MBTA at Pearl Street,Brookline,25,86
+harvard law school at mass ave / jarvis st,Harvard Law School at Mass Ave / Jarvis St,Cambridge,19,89
+harvard university / seas cruft-pierce halls at 29 oxford st,Harvard University / SEAS Cruft-Pierce Halls at 29 Oxford St,Cambridge,17,108
+lafayette square at mass ave / main st / columbia st,Lafayette Square at Mass Ave / Main St / Columbia St,Cambridge,15,75
+lower cambridgeport at magazine st / riverside rd,Lower Cambridgeport at Magazine St / Riverside Rd,Cambridge,19,105
+one broadway / kendall sq at main st / 3rd st,One Broadway / Kendall Sq at Main St / 3rd St,Cambridge,23,72
+mit stata center at vassar st / main st,MIT Stata Center at Vassar St / Main St,Cambridge,35,80
+ames st at main st,Ames St at Main St,Cambridge,19,107
+harvard university radcliffe quadrangle at shepard st / garden st,Harvard University Radcliffe Quadrangle at Shepard St / Garden St,Cambridge,19,104
+harvard university housing - 115 putnam ave at peabody terrace,Harvard University Housing - 115 Putnam Ave at Peabody Terrace,Cambridge,15,87
+harvard kennedy school at bennett st / eliot st,Harvard Kennedy School at Bennett St / Eliot St,Cambridge,23,70
+harvard square at brattle st / eliot st,Harvard Square at Brattle St / Eliot St,Cambridge,15,73
+curtis hall - south st at centre st,Curtis Hall - South St at Centre St,Boston,15,124
+jfk crossing at harvard st. / thorndike st.,JFK Crossing at Harvard St. / Thorndike St.,Brookline,15,103
+binney st / sixth st,Binney St / Sixth St,Cambridge,19,117
+harvard university gund hall at quincy st / kirkland st,Harvard University Gund Hall at Quincy St / Kirkland St,Cambridge,15,110
+linear park - mass. ave. at cameron ave.,Linear Park - Mass. Ave. at Cameron Ave.,Cambridge,19,No ID post-March 2023
+clarendon hill at broadway,Clarendon Hill at Broadway,Somerville,15,112
+dana park,Dana Park,Cambridge,19,139
+kendall street,Kendall Street,Cambridge,15,141
+ef - north point park,EF - North Point Park,Cambridge,23,143
+danehy park,Danehy Park,Cambridge,17,140
+alewife station at russell field,Alewife Station at Russell Field,Cambridge,23,142
+rindge avenue - o'neill library,Rindge Avenue - O'Neill Library,Cambridge,19,145
+magoun square at trum field,Magoun Square at Trum Field,Somerville,19,137
+franklin park zoo - franklin park rd at blue hill ave,Franklin Park Zoo - Franklin Park Rd at Blue Hill Ave,Boston,14,170
+the lawn on d,The Lawn on D,Boston,19,163
+lesley university,Lesley University,Cambridge,15,176
+university park,University Park,Cambridge,19,177
+mit pacific st at purrington st,MIT Pacific St at Purrington St,Cambridge,19,178
+mit vassar st,MIT Vassar St,Cambridge,53,179
+mt auburn,Mt Auburn,Cambridge,19,180
+oak square - 615 washington st,Oak Square - 615 Washington St,Boston,15,208
+savin hill t stop - s sydney st at bay st,Savin Hill T Stop - S Sydney St at Bay St,Boston,14,173
+roxbury ymca - warren st at mlk blvd,Roxbury YMCA - Warren St at MLK Blvd,Boston,10,196
+congress st at northern ave,Congress St at Northern Ave,Boston,15,186
+brookline town hall,Brookline Town Hall,Brookline,15,193
+sidney research campus/erie street at waverly,Sidney Research Campus/Erie Street at Waverly,Cambridge,19,184
+third at binney,Third at Binney,Cambridge,15,185
+child street at brian p. murphy staircase,Child Street at Brian P. Murphy Staircase,Cambridge,23,195
+kendall t,Kendall T,Cambridge,23,189
+alewife mbta at steel place,Alewife MBTA at Steel Place,Cambridge,19,183
+commonwealth ave at babcock st,Commonwealth Ave At Babcock St,Brookline,15,226
+museum of science,Museum of Science,Cambridge,19,182
+verizon innovation hub 10 ware street,Verizon Innovation Hub 10 Ware Street,Cambridge,19,221
+one memorial drive,One Memorial Drive,Cambridge,19,228
+cambridge dept. of public works -147 hampshire st.,Cambridge Dept. of Public Works -147 Hampshire St.,Cambridge,19,225
+huron ave at vassal lane,Huron Ave At Vassal Lane,Cambridge,19,181
+fresh pond reservation,Fresh Pond Reservation,Cambridge,17,224
+honan library,Honan Library,Boston,15,376
+commonwealth ave at kelton st,Commonwealth Ave at Kelton St,Boston,15,338
+harvard ave at brainerd rd,Harvard Ave at Brainerd Rd,Boston,15,332
+boylston st at exeter st,Boylston St at Exeter St,Boston,19,372
+washington st at corey rd,Washington St at Corey Rd,Boston,15,354
+cleveland circle,Cleveland Circle,Boston,15,346
+commonwealth ave at chiswick rd,Commonwealth Ave at Chiswick Rd,Boston,19,344
+main st at baldwin st,Main St at Baldwin St,Boston,19,280
+medford st at charlestown bcyf,Medford St at Charlestown BCYF,Boston,19,358
+main st at thompson sq,Main St at Thompson Sq,Boston,15,327
+tremont st at hamilton pl,Tremont St at Hamilton Pl,Boston,19,374
+park plaza at charles st s.,Park Plaza at Charles St S.,Boston,19,345
+boylston st at jersey st,Boylston St at Jersey St,Boston,15,342
+deerfield st at commonwealth ave,Deerfield St at Commonwealth Ave,Boston,43,361
+williams st at washington st,Williams St at Washington St,Boston,23,279
+stony brook t stop,Stony Brook T Stop,Boston,19,282
+centre st at seaverns ave,Centre St at Seaverns Ave,Boston,15,357
+huntington ave at mass art,Huntington Ave at Mass Art,Boston,15,331
+morton st t,Morton St T,Boston,15,343
+blue hill ave at almont st,Blue Hill Ave at Almont St,Boston,19,340
+mattapan t stop,Mattapan T Stop,Boston,15,336
+mattapan library,Mattapan Library,Boston,15,353
+one brigham circle,One Brigham Circle,Boston,15,359
+roslindale village - washington st,Roslindale Village - Washington St,Boston,15,341
+roslindale village - south st,Roslindale Village - South St,Boston,15,337
+archdale rd at washington st,Archdale Rd at Washington St,Boston,15,339
+belgrade ave at walworth st,Belgrade Ave at Walworth St,Boston,15,373
+bartlett st at john eliot sq,Bartlett St at John Eliot Sq,Boston,15,No ID post-March 2023
+tremont st at northampton st,Tremont St at Northampton St,Boston,19,364
+columbia rd at tierney community center,Columbia Rd at Tierney Community Center,Boston,19,362
+st mary's,St Mary's,Brookline,15,233
+tappan st at brookline hills mbta,Tappan St at Brookline Hills MBTA,Brookline,15,191
+cypress st at clark playground,Cypress St at Clark Playground,Brookline,15,187
+rogers st & land blvd,Rogers St & Land Blvd,Cambridge,19,144
+ames st at broadway,Ames St at Broadway,Cambridge,19,318
+mass ave at hadley/walden,Mass Ave at Hadley/Walden,Cambridge,19,334
+84 cambridgepark dr,84 Cambridgepark Dr,Cambridge,27,319
+700 huron ave,700 Huron Ave,Cambridge,19,371
+harvard st at greene-rose heritage park,Harvard St at Greene-Rose Heritage Park,Cambridge,19,335
+harrison ave at mullins way,Harrison Ave at Mullins Way,Boston,19,363
+park st at norwell st,Park St at Norwell St,Boston,15,255
+gallivan blvd at adams st,Gallivan Blvd at Adams St,Boston,15,258
+fields corner t stop,Fields Corner T Stop,Boston,15,260
+washington st at bowdoin st,Washington St at Bowdoin St,Boston,15,259
+699 mt auburn st,699 Mt Auburn St,Cambridge,25,333
+talbot ave at blue hill ave,Talbot Ave At Blue Hill Ave,Boston,15,348
+thetford ave at norfolk st,Thetford Ave at Norfolk St,Boston,15,347
+alpine path at concord ave,Alpine Path at Concord Ave,Cambridge,19,367
+clarendon st at newbury st,Clarendon St at Newbury St,Boston,19,384
+high st at cypress st,High St at Cypress St,Brookline,15,401
+marion st at harvard st,Marion St at Harvard St,Brookline,15,403
+mass ave at albany st,Mass Ave at Albany St,Cambridge,18,380
+sennott park broadway at norfolk street,Sennott Park Broadway at Norfolk Street,Cambridge,19,386
+inman square at springfield st.,Inman Square at Springfield St.,Cambridge,25,381
+watertown st at 5th ave,Watertown St at 5th Ave,Watertown,19,No ID post-March 2023
+airport t stop - bremen st at brooks st,Airport T Stop - Bremen St at Brooks St,Boston,15,214

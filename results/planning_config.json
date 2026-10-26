@@ -1,0 +1,22 @@
+{
+  "bikes_per_shift": 120.0,
+  "shifts_per_week": 6.0,
+  "ft_monthly_cost": 6000.0,
+  "severance_cost": 13500.0,
+  "seasonal_monthly_cost": 7800.0,
+  "seasonal_min_months": 3,
+  "seasonal_system_cap": 8,
+  "affected_users_per_proxy_bike": 1.0,
+  "expected_loss_per_affected_user": 5.7,
+  "pool_other_cities": true,
+  "initial_ft": {
+    "Boston": 6,
+    "Cambridge": 4,
+    "Somerville": 1,
+    "Brookline": 1,
+    "Other cities (shared)": 2
+  },
+  "dedicated_other_initial": null,
+  "solver_time_limit_seconds": 45.0,
+  "mip_relative_gap": 0.001
+}

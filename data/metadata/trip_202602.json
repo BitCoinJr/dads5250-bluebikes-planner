@@ -1,0 +1,78 @@
+{
+  "raw_rows": 136508,
+  "exact_duplicate_rows_within_chunks": 0,
+  "missing_ride_id": 0,
+  "duplicate_ride_ids_removed": 0,
+  "invalid_timestamps_or_negative_duration": 0,
+  "valid_rows": 136508,
+  "start_missing_station_id": 81,
+  "start_matched": 135144,
+  "start_missing_name": 81,
+  "end_missing_station_id": 346,
+  "end_matched": 135078,
+  "end_missing_name": 285,
+  "columns": [
+    "ride_id",
+    "rideable_type",
+    "started_at",
+    "ended_at",
+    "start_station_name",
+    "start_station_id",
+    "end_station_name",
+    "end_station_id",
+    "start_lat",
+    "start_lng",
+    "end_lat",
+    "end_lng",
+    "member_casual"
+  ],
+  "archive_members": [
+    "202602-bluebikes-tripdata.csv"
+  ],
+  "hourly_rows": 105752,
+  "min_started_at": "2026-01-31 13:53:49.595000",
+  "max_started_at": "2026-02-28 23:58:14.209000",
+  "min_ended_at": "2026-02-01 00:00:36.141000",
+  "max_ended_at": "2026-02-28 23:59:19.686000",
+  "unmatched_start_names": {
+    "commonwealth ave at griggs st": 330,
+    "conway park at central street (temporary winter location)": 319,
+    "st alphonsus st at horadan way": 208,
+    "bartlett st at john elliot sq": 145,
+    "nichols ave. at watertown greenway": 118,
+    "melnea cass blvd at hampden st": 116,
+    "": 81,
+    "18 dorrance warehouse": 34,
+    "milton ave at edson st": 11,
+    "fairmount st at washington st": 2
+  },
+  "unmatched_end_names": {
+    "commonwealth ave at griggs st": 316,
+    "conway park at central street (temporary winter location)": 302,
+    "": 285,
+    "bartlett st at john elliot sq": 137,
+    "st alphonsus st at horadan way": 134,
+    "nichols ave. at watertown greenway": 122,
+    "melnea cass blvd at hampden st": 109,
+    "18 dorrance warehouse": 15,
+    "milton ave at edson st": 8,
+    "fairmount st at washington st": 2
+  },
+  "dedup_scope": "Non-null ride_id within archive including all chunks and CSV members; not across archives",
+  "start_join_rate": 0.9900079116242272,
+  "end_join_rate": 0.9895244234770123,
+  "file": {
+    "key": "202602-bluebikes-tripdata.zip",
+    "bytes": 5673067,
+    "last_modified": "2026-03-04T20:12:51.000Z",
+    "etag": "\"afd2d1cfb7deee47a20c16c80a005f13\""
+  },
+  "download": {
+    "url": "https://s3.amazonaws.com/hubway-data/202602-bluebikes-tripdata.zip",
+    "bytes": 5673067,
+    "sha256": "c2ad5c5285a140c833fe8d2438399b1abe1518b87f486866c6dff2a6b38c721a",
+    "cached": true
+  },
+  "source_month": "202602",
+  "cross_archive_duplicate_ids_removed": 0
+}

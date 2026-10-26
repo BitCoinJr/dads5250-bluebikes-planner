@@ -1,0 +1,68 @@
+{
+  "raw_rows": 515776,
+  "exact_duplicate_rows_within_chunks": 0,
+  "missing_ride_id": 0,
+  "duplicate_ride_ids_removed": 0,
+  "cross_archive_duplicate_ids_removed": 0,
+  "invalid_timestamps_or_negative_duration": 0,
+  "valid_rows": 515776,
+  "start_missing_station_id": 212,
+  "start_matched": 514377,
+  "start_missing_name": 212,
+  "end_missing_station_id": 894,
+  "end_matched": 513752,
+  "end_missing_name": 855,
+  "columns": [
+    "ride_id",
+    "rideable_type",
+    "started_at",
+    "ended_at",
+    "start_station_name",
+    "start_station_id",
+    "end_station_name",
+    "end_station_id",
+    "start_lat",
+    "start_lng",
+    "end_lat",
+    "end_lng",
+    "member_casual"
+  ],
+  "archive_members": [
+    "202606-bluebikes-tripdata.csv"
+  ],
+  "hourly_rows": 232041,
+  "min_started_at": "2026-05-31 01:04:59.106000",
+  "max_started_at": "2026-06-30 23:55:30.504000",
+  "min_ended_at": "2026-06-01 00:00:41.221000",
+  "max_ended_at": "2026-06-30 23:58:50.749000",
+  "unmatched_start_names": {
+    "conway park at central street (temporary winter location)": 1118,
+    "": 212,
+    "fairmount st at washington st": 34,
+    "18 dorrance warehouse": 29,
+    "bcbs hingham": 6
+  },
+  "unmatched_end_names": {
+    "conway park at central street (temporary winter location)": 1109,
+    "": 855,
+    "18 dorrance warehouse": 30,
+    "fairmount st at washington st": 24,
+    "bcbs hingham": 6
+  },
+  "dedup_scope": "Non-null ride_id within archive including all chunks and CSV members, plus deterministic cross-archive exclusions supplied by global all-ID audit",
+  "start_join_rate": 0.997287582206229,
+  "end_join_rate": 0.9960758158580469,
+  "file": {
+    "key": "202606-bluebikes-tripdata.zip",
+    "bytes": 21696143,
+    "last_modified": "2026-07-06T14:08:25.000Z",
+    "etag": "\"040c2e9724d89a91a9b94a5815289502-2\""
+  },
+  "download": {
+    "url": "https://s3.amazonaws.com/hubway-data/202606-bluebikes-tripdata.zip",
+    "bytes": 21696143,
+    "sha256": "2a674205d4075768a1ce7b2fec922f3faa9f76f54fc0126053a11bb45f9215f9",
+    "cached": true
+  },
+  "source_month": "202606"
+}

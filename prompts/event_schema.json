@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bluebikes event extraction v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_name", "start_date", "end_date", "location", "city", "expected_crowd_size", "source_url", "evidence_text", "missing_info", "ambiguities"],
+  "properties": {
+    "event_name": {"type": "string", "minLength": 1},
+    "start_date": {"type": ["string", "null"], "format": "date"},
+    "end_date": {"type": ["string", "null"], "format": "date"},
+    "location": {"type": ["string", "null"]},
+    "city": {"type": ["string", "null"]},
+    "expected_crowd_size": {"type": ["integer", "null"], "minimum": 0},
+    "source_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+    "evidence_text": {"type": "string", "minLength": 1},
+    "missing_info": {"type": "array", "items": {"type": "string"}},
+    "ambiguities": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "root": {
+    "exit_code": 0,
+    "stdout": "C:/dev/world-group/projects/dads5250-bluebikes-planner\n",
+    "stderr": ""
+  },
+  "status": {
+    "exit_code": 0,
+    "stdout": "?? .env.example\n?? .gitignore\n?? README.md\n?? bluebikes/__init__.py\n?? bluebikes/analysis.py\n?? bluebikes/data.py\n?? bluebikes/events.py\n?? bluebikes/forecast.py\n?? bluebikes/inventory.py\n?? bluebikes/planner.py\n?? data/metadata/bucket_manifest.json\n?? data/metadata/cross_archive_all_ids.json\n?? data/metadata/cross_archive_audit.json\n?? data/metadata/diagnostics.json\n?? data/metadata/station_source.json\n?? data/metadata/stations.csv\n?? data/metadata/stations_original.csv\n?? data/metadata/trip_202312.json\n?? data/metadata/trip_202401.json\n?? data/metadata/trip_202402.json\n?? data/metadata/trip_202403.json\n?? data/metadata/trip_202404.json\n?? data/metadata/trip_202405.json\n?? data/metadata/trip_202406.json\n?? data/metadata/trip_202407.json\n?? data/metadata/trip_202408.json\n?? data/metadata/trip_202409.json\n?? data/metadata/trip_202410.json\n?? data/metadata/trip_202411.json\n?? data/metadata/trip_202412.json\n?? data/metadata/trip_202501.json\n?? data/metadata/trip_202502.json\n?? data/metadata/trip_202503.json\n?? data/metadata/trip_202504.json\n?? data/metadata/trip_202505.json\n?? data/metadata/trip_202506.json\n?? data/metadata/trip_202507.json\n?? data/metadata/trip_202508.json\n?? data/metadata/trip_202509.json\n?? data/metadata/trip_202510.json\n?? data/metadata/trip_202511.json\n?? data/metadata/trip_202512.json\n?? data/metadata/trip_202601.json\n?? data/metadata/trip_202602.json\n?? data/metadata/trip_202603.json\n?? data/metadata/trip_202604.json\n?? data/metadata/trip_202605.json\n?? data/metadata/trip_202606.json\n?? data/metadata/trip_202607.json\n?? data/metadata/trip_202608.json\n?? data/metadata/trip_202609.json\n?? data/processed/monthly.csv\n?? data/processed/pilot_boston_cambridge_202401.csv\n?? docs/DECISIONS.md\n?? docs/DEMO_SCRIPT.md\n?? docs/REVIEW_CHECKLIST.md\n?? docs/architecture.md\n?? docs/event_sources.md\n?? docs/planner_assumptions.md\n?? docs/reference_manifest.json\n?? fixtures/event_documents.json\n?? notebooks/bluebikes_submission.ipynb\n?? prompts/event_extraction_v1.txt\n?? prompts/event_schema.json\n?? pyproject.toml\n?? requirements.txt\n?? results/backtest_comparison.csv\n?? results/backtest_event_scenario.csv\n?? results/backtest_initial_crews.csv\n?? results/backtest_predictions.csv\n?? results/backtest_proposed.csv\n?? results/baseline_2026.csv\n?? results/city_capacity_allocation_2026.csv\n?? results/data_quality.csv\n?? results/dedicated_city_plan_2026.csv\n?? results/event_extraction.json\n?? results/event_plan_delta.csv\n?? results/event_scenario_plan_2026.csv\n?? results/event_scenario_predictions.csv\n?? results/figures/backtest_shortfall.png\n?? results/figures/crew_plan.png\n?? results/figures/demand_forecast.png\n?? results/figures/demand_sensitivity.png\n?? results/forecast_2026.csv\n?? results/live_llm_check.json\n?? results/loss_conversion_sensitivity.csv\n?? results/plan_2026.csv\n?? results/planning_config.json\n?? results/run_metadata.json\n?? results/sensitivity.csv\n?? results/summary.json\n?? results/validation_2025.csv\n?? results/validation_predictions_2025.csv\n?? scripts/acquire_data.py\n?? scripts/audit_all_ids.py\n?? scripts/audit_cross_archive.py\n?? scripts/build_notebook.py\n?? scripts/run_analysis.py\n?? tests/test_data.py\n?? tests/test_events.py\n?? tests/test_forecast.py\n?? tests/test_inventory.py\n?? tests/test_planner.py\n",
+    "stderr": ""
+  },
+  "remote": {
+    "exit_code": 0,
+    "stdout": "origin\thttps://github.com/BitCoinJr/dads5250-bluebikes-planner.git (fetch)\norigin\thttps://github.com/BitCoinJr/dads5250-bluebikes-planner.git (push)\n",
+    "stderr": ""
+  },
+  "head": {
+    "exit_code": 128,
+    "stdout": "",
+    "stderr": "fatal: Needed a single revision\n"
+  },
+  "branch": {
+    "exit_code": 0,
+    "stdout": "main\n",
+    "stderr": ""
+  }
+}

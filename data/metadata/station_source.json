@@ -1,0 +1,25 @@
+{
+  "url": "https://assets.ctfassets.net/p6ae3zqfb1e3/3BswRZgQMp0f8XWBLY6T19/60da57a4630102788a127902bfda9888/-External-_Bluebikes_Station_List__updated_08.21.26_.csv",
+  "bytes": 50233,
+  "sha256": "8dd73472d1e77813ff04b91a8595097eb587ca895894e3debc0112be84a01509",
+  "cached": true,
+  "effective_date": "2026-08-21",
+  "download_checked_utc": "2026-10-26T11:08:48.297414+00:00",
+  "rows": 613,
+  "cities": {
+    "Boston": 352,
+    "Cambridge": 96,
+    "Somerville": 40,
+    "Brookline": 20,
+    "Medford": 17,
+    "Salem": 17,
+    "Everett": 15,
+    "Newton": 15,
+    "Arlington": 11,
+    "Watertown": 10,
+    "Revere": 8,
+    "Chelsea": 6,
+    "Malden": 6
+  },
+  "matching": "Exact NFKC whitespace-normalized casefolded name; official historic numeric IDs incompatible with modern alphanumeric trip IDs"
+}
