@@ -44,7 +44,9 @@ For a clean environment, create the venv with `py -m venv .venv` instead; omit `
 
 Open [notebooks/bluebikes_submission.ipynb](notebooks/bluebikes_submission.ipynb) after execution. Also inspect the compact [demo Notebook](notebooks/bluebikes_demo.ipynb) before recording; its link alone is not execution evidence. Inspect the cell outputs and the generated artifacts below. Execution must finish without cell errors; evidence is recorded rather than inferred from the commands printed here.
 
-The current geographic revision passed **102 tests**, **17/17 submission** and **9/9 demo** code cells with outputs and zero errors, **13/13 local HTTP checks**, and a **3-cell real-kernel app launch/stop** check. Browser checks passed at **1366×900** and **390×844**. All temporary review servers were stopped and ports released; older reviews on 7860 and 7872 were left untouched. These checks made **zero new real API calls**; API-error paths use mocks. See the [final geographic verification](docs/verification-geography.json), [HTTP evidence](docs/verification-geography-http.json), and [Notebook launch evidence](docs/verification-geography-notebook.json). Optional app cells remain off by default.
+The submission-safety revision (review base `691ef6a`) passed **114 tests**, **6 local HTTP checks**, and real Chrome checks at **1366×900 / 390×844**, with **zero new API calls**. All three supplemental cases remain viewable but are excluded from staffing in both the UI and server. The Executive Summary uses the saved focused-Marathon calculation, independently of the selected event. Model calculations, frozen evidence, human adjudications and both executed Notebooks are unchanged. See [verification and screenshots](docs/EVALUATION_GATE_REVIEW.md).
+
+The earlier geographic revision passed **102 tests**, **17/17 submission** and **9/9 demo** code cells with outputs and zero errors, **13/13 local HTTP checks**, and a **3-cell real-kernel app launch/stop** check. Browser checks passed at **1366×900** and **390×844**. All temporary review servers were stopped and ports released; older reviews on 7860 and 7872 were left untouched. These checks made **zero new real API calls**; API-error paths use mocks. See the [final geographic verification](docs/verification-geography.json), [HTTP evidence](docs/verification-geography-http.json), and [Notebook launch evidence](docs/verification-geography-notebook.json). Optional app cells remain off by default.
 
 Preservation checks found **100 pre-existing data, prompt, fixture and result files byte-identical** to `22d4e3d`, with **nine model modules unchanged**. The planning service's AST is unchanged after excluding the new display payload; dependencies, earlier verification reports and the shared Mermaid/SVG/PNG assets are unchanged. The prior UI-polish revision is preserved at commit `22d4e3d` and branch `preserve/ui-polish-22d4e3d`. Its **93 tests**, **16/16** submission and **8/8** demo cells, and **10/10** HTTP checks remain [historical evidence](docs/verification-ui-polish.json).
 
@@ -75,10 +77,10 @@ Update the environment from the current requirements before launching the app:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe scripts/run_app.py --port 7876
+.\.venv\Scripts\python.exe scripts/run_app.py --port 7879
 ```
 
-Open [http://127.0.0.1:7876](http://127.0.0.1:7876) on the same computer for this revision's review. The app's default port remains **7860**; the explicit **7876** review port avoids older reviews on 7860 and 7872. The app binds to **127.0.0.1**, sets `share=False`, and disables analytics. It does not create a public link. Stop the standalone process with **Ctrl+C**. If 7876 is occupied, choose another free local port and use the same port in the URL.
+Open [http://127.0.0.1:7879](http://127.0.0.1:7879) on the same computer for this revision's review. The app's default port remains **7860**; the explicit **7879** review port avoids older reviews on 7860 and 7872. The app binds to **127.0.0.1**, sets `share=False`, and disables analytics. It does not create a public link. Stop the standalone process with **Ctrl+C**. If 7879 is occupied, choose another free local port and use the same port in the URL.
 
 Both Notebooks include the same optional launcher, with **`LAUNCH_LOCAL_APP = False`** by default. A normal execution starts no server and makes no new model call. To interact, set the flag to `True`; its launcher is equivalent to:
 
@@ -89,9 +91,11 @@ app = launch_local(ROOT, port=7860, inline=True, prevent_thread_lock=True)
 app.close()
 ```
 
-The optional cell keeps its default `LOCAL_APP_PORT = 7860`; set it to **7876** for the current visual review, or another free port for a collision. The CLI and Notebook launch the same application through [app.py](bluebikes/app.py). Restore `LAUNCH_LOCAL_APP = False` before saving/executing a submission; rerunning the disabled cell also closes a prior Notebook app handle.
+The optional cell keeps its default `LOCAL_APP_PORT = 7860`; set it to **7879** for the current visual review, or another free port for a collision. The CLI and Notebook launch the same application through [app.py](bluebikes/app.py). Restore `LAUNCH_LOCAL_APP = False` before saving/executing a submission; rerunning the disabled cell also closes a prior Notebook app handle.
 
 The initial view uses saved real inputs, model outputs and computed results. Source text and its URL sit alongside extracted fact cards for dates, city, venue and crowd size or unknown; the structured JSON and ambiguity notes remain available for review. The architecture view reads the same cached local Mermaid image as this README and both Notebooks. **Load saved real response** replays matching preserved evidence. Only **実APIで抽出 / Extract with OpenAI** requests a new model response, using a locally configured key; opening the app does not. Explain manual corrections in review notes, then click **Confirm reviewed values (this session only)** before **計画に反映 / Apply to plan**. Confirmation and scenario application are separate actions.
+
+**Evaluation only — excluded from staffing plans:** the three supplemental cases can be inspected and session-confirmed, but Apply stays disabled and the server rejects them before planning. The restriction follows the original source identity and batch through edits/re-extraction; changing city, date, excerpt or notes cannot authorize staffing use. Raw outputs, failed judgments and scores remain preserved. Use the original saved Marathon for the planning demo.
 
 Review edits remain in the session and do not overwrite the frozen raw API outputs, reference labels or evaluation CSVs. Changing source text/URL, reviewed event fields or assumptions invalidates the applied scenario and requires another apply, so an earlier result is not presented as a result of new inputs. Source changes require matching saved replay or a new extraction followed by review again.
 

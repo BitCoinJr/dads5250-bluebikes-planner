@@ -262,3 +262,52 @@ def render_result(result: dict | None) -> dict:
             "annual_table": _period_table(data.get("period_comparison", []), 12),
             "backtest_table": _period_table(data.get("period_comparison", []), 9),
             "monthly_table": _monthly_table(frame), "explanation_md": explanation}
+
+
+def executive_summary(chain):
+    """Fixed saved Marathon illustration, independent of the session's event.
+
+    Reads an already-computed chain supplied by the caller; no optimizer or API.
+    The decision month is found from the prior saved row (one-month lead).
+    """
+    selected = chain.loc[chain.event_increment_handling_actions.gt(0)]
+    example = "<p>Saved illustrative example unavailable.</p>"
+    if len(selected) == 1:
+        row = selected.iloc[0]
+        previous = chain.loc[(chain.city == row.city) & (chain.year == row.year)
+                             & (chain.month == row.month - 1)]
+        if len(previous) == 1:
+            decision = previous.iloc[0]
+            active = _human_month(f"{int(row.year):04d}-{int(row.month):02d}")
+            hire = _human_month(f"{int(decision.year):04d}-{int(decision.month):02d}")
+            example = (
+                f'<p class="bb-summary-example"><strong>{_safe(row.city)} / {_safe(active)}</strong></p>'
+                f'<p><strong>{_number(row.full_time_base)} → {_number(row.full_time_scenario)}</strong> full-time crews<br>'
+                f'<strong>{_money(row.crew_cost_base)} → {_money(row.crew_cost_scenario)}</strong><br>'
+                f'monthly crew cash cost<br>Hiring decision: <strong>{_safe(hire)}</strong></p>'
+                f'<p class="bb-summary-caveat">Assumes +{_number(row.event_increment_handling_actions)} handling actions. '
+                'This is an uncalibrated retrospective scenario, not a measured event effect.</p>')
+    return (
+        '<section class="bb-summary" aria-label="Executive Summary">'
+        '<h2>Where should rebalancing crews work—and when?</h2>'
+        '<p class="bb-summary-lead">Turn Bluebikes trip history and event information into monthly crew plans for Greater Boston.</p>'
+        '<div class="bb-summary-grid">'
+        '<article><span class="bb-summary-step">01 · THE PROBLEM</span>'
+        '<h3>Bikes and docks fall out of balance</h3>'
+        '<p>Trips move bikes unevenly across stations. Some stations run short of bikes; others run short of empty docks.</p></article>'
+        '<article><span class="bb-summary-step">02 · THE DECISION</span>'
+        '<h3>Where to staff, when to hire</h3>'
+        '<p>Plan full-time and seasonal crews each month of 2026, including hiring and contract starts.</p>'
+        '<p>Four cities have dedicated crews; nine others share a pool. One crew = a driver + van.</p></article>'
+        '<article><span class="bb-summary-step">03 · AI + ANALYTICS</span>'
+        '<h3>Extract facts, then plan</h3>'
+        '<ul><li><strong>Python:</strong> 2024–2025 trips → workload and crew plans.</li>'
+        '<li><strong>OpenAI:</strong> dates, locations and audience information, when stated.</li>'
+        '<li><strong>A person:</strong> reviews facts and supplies an explicit demand scenario.</li>'
+        '<li><strong>Backtest:</strong> Jan–Sep 2026 trips kept separate.</li></ul></article>'
+        '<article class="bb-summary-demo"><span class="bb-summary-step">04 · ILLUSTRATIVE SCENARIO</span>'
+        '<h3>Saved Marathon example</h3>'
+        '<p class="bb-summary-caveat">Fixed explanation example; independent of your event selection below.</p>'
+        + example + '</article></div>'
+        '<p class="bb-summary-foot">Baseline means a model plan, not actual Bluebikes crew deployment. '
+        'OpenAI extracts text; it does not predict added demand or crew counts.</p></section>')

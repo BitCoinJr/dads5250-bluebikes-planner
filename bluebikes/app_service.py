@@ -27,6 +27,9 @@ from .scenarios import _chain, _period_row
 
 
 DOC_FIELDS = ("id", "source_title", "source_url", "source_text")
+EVALUATION_ONLY_MESSAGE = ("Evaluation only — excluded from staffing plans. "
+                           "These supplemental cases test extraction quality only; editing or confirming "
+                           "their fields does not make them planning inputs.")
 EDIT_FIELDS = ("start_date", "end_date", "city", "location", "expected_crowd_size", "ambiguities")
 
 
@@ -79,12 +82,34 @@ class AppService:
     def choices(self):
         return [(f"[{d['_batch']}] {d['source_title']}", d["id"]) for d in self._docs]
 
-    @staticmethod
-    def _new(document=None):
-        return {"document": deepcopy(document), "original_llm": None, "provenance": None,
+    def _origin_ok(self, state):
+        origin = state.get("source_origin")
+        if not isinstance(origin, dict) or not hmac.compare_digest(
+                str(state.get("origin_seal", "")), self._sign(origin)):
+            raise _InputError("Source origin is not valid for this server session.")
+
+    def evaluation_only(self, state):
+        """Resolve identity against the server registry, never edited event facts."""
+        origin = state.get("source_origin") or {}
+        ids = {origin.get("source_id"), (state.get("provenance") or {}).get("source_id")}
+        return any(d["_batch"] == "supplemental" and d["id"] in ids for d in self._docs)
+
+    def _new(self, document=None, prior=None):
+        if isinstance(prior, dict) and "source_origin" in prior:
+            # Preserve the original selection through input edits, failures and live calls.
+            origin, seal = deepcopy(prior["source_origin"]), prior.get("origin_seal")
+        else:
+            source_id = document.get("id") if isinstance(document, dict) else None
+            doc = next((d for d in self._docs if d["id"] == source_id), None)
+            origin = {"source_id": source_id, "batch": doc["_batch"] if doc else "custom"}
+            seal = self._sign(origin)
+        result = {"document": deepcopy(document), "original_llm": None, "provenance": None,
                 "reviewed_event": None, "review_digest": None, "review_notes": "",
                 "extraction_input_digest": None, "extraction_seal": None,
-                "result": None, "status": "awaiting_extraction", "error": None}
+                "result": None, "status": "awaiting_extraction", "error": None,
+                "source_origin": origin, "origin_seal": seal}
+        result["evaluation_only"] = self.evaluation_only(result)
+        return result
 
     def select(self, id):
         doc = next((d for d in self._docs if d["id"] == id), None)
@@ -92,18 +117,19 @@ class AppService:
             state = self._new()
             state.update(status="selection_failed", error="Unknown source choice.")
             return state
-        return self.load_saved(self._new(), {k: doc[k] for k in DOC_FIELDS})
+        document = {k: doc[k] for k in DOC_FIELDS}
+        return self.load_saved(self._new(document), document)
 
     def invalidate(self, state, currentdoc):
         try:
             document = _document(currentdoc)
         except _InputError as exc:
-            result = self._new(deepcopy(currentdoc))
+            result = self._new(deepcopy(currentdoc), state)
             result.update(status="input_changed", error=str(exc))
             return result
         if isinstance(state, dict) and state.get("document") == document:
             return deepcopy(state)
-        result = self._new(document)
+        result = self._new(document, state)
         result["status"] = "input_changed"
         return result
 
@@ -113,16 +139,25 @@ class AppService:
                       result=None, status="review_changed", error=None)
         return result
 
-    def _accepted(self, document, record, call, status):
+    def _accepted(self, document, record, call, status, prior):
         provenance = {key: deepcopy(call[key]) for key in [
             "source_id", "provider", "mode", "model", "requested_model", "response_id",
             "request_sha256", "output_sha256", "response_status", "usage",
             "executed_at_utc", "latency_seconds", "endpoint"] if key in call}
-        result = self._new(document)
+        result = self._new(document, prior)
         result.update(original_llm=deepcopy(record), provenance=provenance,
                       extraction_input_digest=_hash(document), status=status)
+        # A saved match can resolve an edited/custom ID to a supplemental source.
+        # Keep that restriction even after subsequent edits or a new live response.
+        matched = next((d for d in self._docs
+                        if d["id"] == provenance.get("source_id") and d["_batch"] == "supplemental"), None)
+        if matched is not None and result["source_origin"]["batch"] != "supplemental":
+            result["source_origin"] = {"source_id": matched["id"], "batch": matched["_batch"]}
+            result["origin_seal"] = self._sign(result["source_origin"])
         result["extraction_seal"] = self._sign({
-            "document": document, "record": record, "provenance": provenance})
+            "document": document, "record": record, "provenance": provenance,
+            "source_origin": result["source_origin"]})
+        result["evaluation_only"] = self.evaluation_only(result)
         return result
 
     def _saved_batch(self, batch):
@@ -156,10 +191,11 @@ class AppService:
         return list(zip(docs, saved["events"], saved["calls"]))
 
     def load_saved(self, state, input_doc):
-        result = self._new(deepcopy(input_doc))
+        result = self._new(deepcopy(input_doc), state)
         try:
             document = _document(input_doc)
             result["document"] = document
+            self._origin_ok(result)
             matching = [d for d in self._docs if all(
                 d[key] == document[key] for key in ("source_url", "source_title", "source_text"))]
             if not matching:
@@ -167,7 +203,7 @@ class AppService:
             for doc, record, call in self._saved_batch(matching[0]["_batch"]):
                 if doc["id"] == matching[0]["id"]:
                     metadata = {**call, "mode": "recorded"}
-                    result = self._accepted(document, record, metadata, "saved_ready")
+                    result = self._accepted(document, record, metadata, "saved_ready", result)
                     break
         except _InputError as exc:
             result.update(status="saved_failed", error=str(exc))
@@ -176,10 +212,11 @@ class AppService:
         return result
 
     def extract_live(self, state, input_doc):
-        result = self._new(deepcopy(input_doc))
+        result = self._new(deepcopy(input_doc), state)
         try:
             document = _document(input_doc)
             result["document"] = document
+            self._origin_ok(result)
             # Explicit UI action only; never fall back to process/User credentials.
             local = _project_env(self.root)
             key = local.get("OPENAI_API_KEY", "").strip()
@@ -190,7 +227,7 @@ class AppService:
                 raise _InputError("Project model configuration is invalid; value withheld.")
             record, metadata = extract_event(document, api_key=key, model=model, root=self.root)
             validate_event(record, document, self.root)
-            return self._accepted(document, record, metadata, "live_ready")
+            return self._accepted(document, record, metadata, "live_ready", result)
         except _InputError as exc:
             result.update(status="live_failed", error=str(exc))
         except Exception:
@@ -204,8 +241,10 @@ class AppService:
             raise _InputError("Extract live or explicitly load matching saved evidence first.")
         if state.get("document") != document or state.get("extraction_input_digest") != _hash(document):
             raise _InputError("Source input changed. Extract or load it again, then review.")
+        self._origin_ok(state)
         expected = self._sign({"document": document, "record": state["original_llm"],
-                               "provenance": state.get("provenance")})
+                               "provenance": state.get("provenance"),
+                               "source_origin": state["source_origin"]})
         if not hmac.compare_digest(str(state.get("extraction_seal", "")), expected):
             raise _InputError("Extraction state is not valid for this server session.")
         validate_event(state["original_llm"], document, self.root)
@@ -273,6 +312,8 @@ class AppService:
         try:
             document = _document(currentdoc)
             self._extraction_ok(state, document)
+            if self.evaluation_only(state):
+                raise _InputError(EVALUATION_ONLY_MESSAGE)
             record, notes = self._review(state, edits, notes)
             digest = self._review_token(state, document, record, notes)
             if (state.get("reviewed_event") != record

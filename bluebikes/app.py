@@ -16,9 +16,9 @@ import gradio as gr
 import pandas as pd
 
 from .human_review import review_html
-from .app_service import AppService
+from .app_service import AppService, EVALUATION_ONLY_MESSAGE
 from .events import _hash
-from .presentation import render_result
+from .presentation import render_result, executive_summary
 from .geography import load_stations, render_geography
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +63,10 @@ def _legacy_outputs(state):
               'apply_blocked':'Plan blocked. Review the current values and confirm again.',
               'review_failed':'Confirmation was not accepted.', 'plan_failed':'No new plan accepted.'}
     status += '\n\n' + labels.get(state.get('status'),'Extract or load matching saved evidence, then review.')
+    if state.get('evaluation_only'):
+        status = status.replace('Press Apply to plan explicitly.', 'This evaluation case remains excluded from planning.')
+        status = status.replace('Review the values before applying. No plan has been applied.', 'Inspect the preserved output and separate human annotations below.')
+        status += '\n\n**' + EVALUATION_ONLY_MESSAGE.split('. ',1)[0] + '**. ' + EVALUATION_ONLY_MESSAGE.split('. ',1)[1]
     if state.get('error'): status += '\n\n' + state['error']
     reviewed = state.get('reviewed_event')
     confirmed = bool(reviewed and state.get('review_digest'))
@@ -109,7 +113,7 @@ def _legacy_outputs(state):
             'uncovered_handling_actions_scenario':'Uncovered event actions'})
     visible_provenance = {key:provenance[key] for key in ['mode','model','executed_at_utc','source_id'] if key in provenance}
     return (state, status, original, visible_provenance, reviewed,
-            gr.update(interactive=confirmed), comparisons, chain, notes)
+            gr.update(interactive=confirmed and not state.get("evaluation_only")), comparisons, chain, notes)
 
 
 UI_EXTRA_KEYS = ['extraction_html','kpi_html','crew_figure','demand_figure',
@@ -119,6 +123,20 @@ UI_EXTRA_KEYS = ['extraction_html','kpi_html','crew_figure','demand_figure',
 APP_CSS = """
 .gradio-container {width:100%!important;min-width:0!important;max-width:1320px!important;margin:auto!important;}
 .gradio-container .main,.gradio-container .wrap,.gradio-container .contain {min-width:0!important;max-width:100%;}
+.bb-summary {margin:0 0 20px;line-height:1.5;color:var(--body-text-color,#172b29);}
+.bb-summary h2 {font-size:1.9rem!important;line-height:1.2!important;margin:4px 0 8px!important;}
+.bb-summary-lead {font-size:1.05rem;margin:0 0 20px;}
+.bb-summary-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+.bb-summary article {min-width:0;border:1px solid var(--border-color-primary,#d6dfdb);border-radius:12px;padding:18px;overflow-wrap:anywhere;}
+.bb-summary-step {font-size:.74rem;font-weight:700;letter-spacing:.07em;color:var(--body-text-color-subdued,#425e58);}
+.bb-summary h3 {font-size:1.1rem!important;line-height:1.3!important;margin:10px 0!important;}
+.bb-summary p {margin:9px 0;}
+.bb-summary ul {padding-left:18px;margin:9px 0;font-size:.92rem;}
+.bb-summary li {margin:6px 0;}
+.bb-summary-caveat,.bb-summary-foot {font-size:.82rem;line-height:1.45;}
+.bb-summary-demo {border-top:4px solid #438371!important;}
+.bb-summary-foot {margin-top:12px!important;}
+@media(min-width:641px) and (max-width:1000px) {.bb-summary-grid {grid-template-columns:repeat(2,minmax(0,1fr));}}
 .bb-flow-scroll {overflow-x:auto;background:white;border:1px solid #d6dfdb;border-radius:12px;padding:12px;}
 .bb-flow-scroll svg {display:block;width:100%;height:auto;min-width:1020px;}
 .bb-flow-caption {font-size:.85rem;opacity:.8;margin:6px 0 16px;}
@@ -137,6 +155,8 @@ APP_CSS = """
 .bb-null {font-style:italic;}
 .bb-detail-table th {white-space:nowrap!important;word-break:normal!important;}
 @media(max-width:640px) {
+ .bb-summary-grid {grid-template-columns:1fr;}
+ .bb-summary h2 {font-size:1.5rem!important;}
  .bb-extraction dl {grid-template-columns:1fr;gap:4px;}
  .bb-extraction dd {margin-bottom:10px;}
  .bb-flow-scroll {padding:8px;}
@@ -207,7 +227,11 @@ def _extraction_cards(state, root=None):
     html='<section class="bb-extraction"><p class="bb-muted">Original OpenAI fields, preserved unchanged. Human adjudication, when available, is shown separately below.</p><dl>'
     html+=''.join('<dt>'+label+'</dt><dd>'+value+'</dd>' for label,value in values)+'</dl>'
     html+='<div class="bb-review-note"><strong>Needs review: original ambiguities and automated checks</strong>'+needs+'</div>'
-    html+=review_html(document, record, root)
+    human_note=review_html(document, record, root)
+    if state.get('evaluation_only'):
+        human_note=human_note.replace('Session confirmation and Apply are still required.',
+                                     'Evaluation only; session confirmation cannot authorize staffing use.')
+    html+=human_note
     html+='<blockquote class="bb-evidence"><strong>Evidence excerpt</strong><br>'+escape(record.get('evidence_text') or '')+'</blockquote></section>'
     return html
 
@@ -320,7 +344,8 @@ def create_app(root=None, *, service=None):
     initial=service.select(choices[0][1])
     doc=initial['document']; values=_with_form(initial,root); form=values[-7:]
     with gr.Blocks(title='From Event Headlines to Crew Decisions',analytics_enabled=False) as app:
-        gr.Markdown('# From Event Headlines to Crew Decisions\nReview an event, explore its demand impact, and compare staffing plans.')
+        gr.Markdown('# From Event Headlines to Crew Decisions')
+        gr.HTML(executive_summary(pd.read_csv(root / 'results/focused_event_chain.csv')),css_template=APP_CSS)
         gr.HTML(_diagram_html(root),css_template=APP_CSS)
         state=gr.State(initial)
         gr.Markdown('## 1. Choose an event announcement')

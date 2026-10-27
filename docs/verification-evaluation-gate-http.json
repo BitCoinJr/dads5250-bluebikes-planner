@@ -1,0 +1,40 @@
+{
+  "verified_at_utc": "2026-10-27T20:17:10.323628+00:00",
+  "base_commit": "691ef6a003fe5616cfc2a0afb3de80bfe0372d96",
+  "checks": [
+    {
+      "check": "edited_and_confirmed_evaluation_case_denied",
+      "source_id": "additional_hocr_bu_2026"
+    },
+    {
+      "check": "edited_and_confirmed_evaluation_case_denied",
+      "source_id": "additional_hocr_avive_2026"
+    },
+    {
+      "check": "edited_and_confirmed_evaluation_case_denied",
+      "source_id": "additional_baa_participants_only_2026"
+    },
+    {
+      "check": "original_marathon",
+      "april_ft": [
+        12,
+        13
+      ],
+      "april_cash": [
+        72000,
+        78000
+      ],
+      "hiring_decision": "2026-03"
+    },
+    {
+      "check": "zero_increment_matches_baseline_all_twelve_months"
+    },
+    {
+      "check": "source_change_clears_all_results_even_without_input_listener"
+    }
+  ],
+  "new_real_api_calls": 0,
+  "http_port": 7878,
+  "status": "passed",
+  "server_closed_after_checks": true
+}
