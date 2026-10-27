@@ -39,9 +39,9 @@ def hashes():
     return {name: sha256((ROOT / name).read_bytes()).hexdigest() for name in PROTECTED}
 
 
-def run(port=7868):
+def run(port=7868, report_output="docs/verification-gradio-notebook.json"):
     started = datetime.now(timezone.utc).isoformat()
-    report_path = ROOT / "docs/verification-gradio-notebook.json"
+    report_path = ROOT / report_output
     target = ROOT / "build/app_notebook_smoke.ipynb"
     if port_listening(port):
         raise RuntimeError(f"Port {port} is already occupied; no existing server was stopped")
@@ -177,7 +177,7 @@ assert _nb_result['openai_adapter_request_attempts'] == 0
                   and unchanged and released_after_shutdown)
         report = {
             "status": "passed" if passed else "failed", "executed_utc": started,
-            "command": ".venv/Scripts/python.exe -B scripts/verify_app_notebook.py --port " + str(port),
+            "command": ".venv/Scripts/python.exe -B scripts/verify_app_notebook.py --port " + str(port) + " --output " + report_output,
             "kernel_executable": kernel["argv"][0], "kernel_name": "bluebikes",
             "source_builder": "scripts/build_demo_notebook.py", "source_cell_sha256": sha256(original.encode()).hexdigest(),
             "executed_cell_sha256": sha256(launched.encode()).hexdigest(),
@@ -204,5 +204,6 @@ assert _nb_result['openai_adapter_request_attempts'] == 0
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=7868)
+    parser.add_argument("--output", default="docs/verification-gradio-notebook.json")
     arguments = parser.parse_args()
-    run(arguments.port)
+    run(arguments.port, arguments.output)

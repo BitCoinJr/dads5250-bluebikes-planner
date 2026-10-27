@@ -1,0 +1,226 @@
+{
+  "status": "passed",
+  "verified_utc": "2026-10-27T13:31:11.256053+00:00",
+  "baseline_commit": "22d4e3d3faf5a837dbd0be80c9909aaeeaacaff0",
+  "preservation_branch": "preserve/ui-polish-22d4e3d",
+  "root": "C:\\dev\\university\\dads5250-bluebikes-planner",
+  "feasibility": {
+    "adopted": true,
+    "implementation": "Existing Matplotlib offline station-coordinate twin plot, no tiles",
+    "new_dependencies": 0,
+    "new_external_services": 0,
+    "new_api_keys": 0,
+    "raw_trip_reprocessing": false,
+    "new_optimizer_or_routes": false
+  },
+  "data": {
+    "source": "data/metadata/stations_original.csv",
+    "source_sha256": "8dd73472d1e77813ff04b91a8595097eb587ca895894e3debc0112be84a01509",
+    "provenance_record": "data/metadata/station_source.json",
+    "provenance_sha256": "1598dafeaf4e472f9881dd0840a226cb4be11fcc2bc2c19b4add6d821fc30c77",
+    "station_snapshot_date": "2026-08-21",
+    "station_rows": 613,
+    "valid_coordinates": 613,
+    "invalid_or_missing_coordinates": 0,
+    "duplicate_coordinate_pairs": 0,
+    "municipalities": 13,
+    "one_to_one_normalized_metadata_joins": 613,
+    "join_fraction": 1.0,
+    "city_or_dock_mismatches": 0,
+    "centroid_rule": "Unweighted arithmetic mean of existing valid station coordinates; not crew depots, municipal boundaries or event venues",
+    "core_centroids": {
+      "Boston": {
+        "latitude": 42.3372857,
+        "longitude": -71.0822432
+      },
+      "Brookline": {
+        "latitude": 42.3387694,
+        "longitude": -71.1217832
+      },
+      "Cambridge": {
+        "latitude": 42.3730278,
+        "longitude": -71.1070439
+      },
+      "Somerville": {
+        "latitude": 42.388537,
+        "longitude": -71.1006379
+      }
+    }
+  },
+  "display": {
+    "left": "Baseline: no event increment",
+    "right": "Reviewed event scenario",
+    "month": "Single selector for both panels; explicit blank clears the map",
+    "scale": "Fixed common all-station bounds, cos(latitude) geographic aspect and bubble-area-per-crew for both panels and all months",
+    "bubble_area_points_squared_per_total_crew": 90.0,
+    "crew_bubble_cities": [
+      "Boston",
+      "Cambridge",
+      "Somerville",
+      "Brookline"
+    ],
+    "shared_pool": "One integer FT/seasonal/total pool shown separately; no per-city allocation, pool bubble or invented anchor",
+    "demand": "Existing city-group forecast in handling actions using declared conversion; no station downscaling or observed-demand claim",
+    "events": "No coordinates inferred; no event markers or route/geocoding claims",
+    "month_callback": "Cached plans and station records only; optimizer/API/main KPI renderer guarded in HTTP checks"
+  },
+  "preservation": {
+    "existing_data_prompt_fixture_result_files_unchanged": 100,
+    "changed_files_in_that_set": [],
+    "critical_modules_unchanged": [
+      "data.py",
+      "forecast.py",
+      "inventory.py",
+      "planner.py",
+      "scenarios.py",
+      "events.py",
+      "event_validation.py",
+      "review_tables.py",
+      "unit_examples.py"
+    ],
+    "service_ast_equal_after_removing_display_payload": true,
+    "new_service_payload": "Two existing DataFrames exported as geographic_plans; no new solve",
+    "requirements_unchanged": true,
+    "original_and_supplemental_real_api_artifacts_unchanged": true,
+    "real_api_calls_in_this_revision": 0,
+    "original_provisional_score": "19/20 (95%), not human gold",
+    "additional_provisional_score": "11/15, separate evaluation-only cases",
+    "human_reviews": {
+      "results/event_original_four_human_review.csv": {
+        "rows": 20,
+        "all_human_judgments_blank": true,
+        "status": "PENDING",
+        "sha256": "8a87d649f9d1c5d0bdf9e3bcb961fd9f8e0b6296f3792a4f1d3e583dcd6443a8"
+      },
+      "results/event_extraction_additional_review.csv": {
+        "rows": 3,
+        "all_human_judgments_blank": true,
+        "status": "PENDING",
+        "sha256": "035ff7cff70876936320610dbe66b07b2e72b9ed4d2803885da201b181b87d26"
+      }
+    },
+    "previous_verification_reports_unchanged": true,
+    "architecture_mermaid_and_images_unchanged": true,
+    "current_run_metadata_module_and_result_hashes_match": true
+  },
+  "verification": {
+    "unit_tests": 102,
+    "test_evidence": "Ran 102 tests in 7.859s\n\nOK",
+    "geography_tests": 8,
+    "notebooks": {
+      "bluebikes_submission.ipynb": {
+        "sha256": "cce8513dbc5d4eeab4a9b8035d6a5dc294409f3058f7c3de6937f99d66ff8350",
+        "code_cells": 17,
+        "all_executed_with_outputs": true,
+        "cell_errors": 0,
+        "optional_launcher_default": false
+      },
+      "bluebikes_demo.ipynb": {
+        "sha256": "3f480a2f4b9d0f5bab66e8954808b5f7c3bee7e88590c8cc3d7d94a04c9663d0",
+        "code_cells": 9,
+        "all_executed_with_outputs": true,
+        "cell_errors": 0,
+        "optional_launcher_default": false
+      }
+    },
+    "http_checks": 13,
+    "http_report": "docs/verification-geography-http.json",
+    "http_report_sha256": "f1ecf6feb2c03f343d903cac2d2b2feed94939ec05009cd372f2adc486869d5f",
+    "kernel_smoke": {
+      "report": "docs/verification-geography-notebook.json",
+      "report_sha256": "63cfebfcbc0e62138a249192345b61eb6f994a4eefe097614a2ee036fdc7c327",
+      "code_cells": 3,
+      "port": 7878,
+      "actual_http_status": 200,
+      "app_close_called": true,
+      "port_released": true,
+      "new_real_api_calls": 0
+    },
+    "browser": {
+      "url": "http://127.0.0.1:7876",
+      "desktop": {
+        "viewport": [
+          1366,
+          900
+        ],
+        "pageWidth": 1351
+      },
+      "narrow": {
+        "containerLeft": 32,
+        "containerWidth": 309,
+        "imageLeft": 33,
+        "imageWidth": 1200,
+        "pageWidth": 375,
+        "scrollWidth": 1200,
+        "viewport": [
+          390,
+          844
+        ]
+      },
+      "observed": {
+        "initialMapDisabledBeforeConfirmation": true,
+        "explicitApplyShowsApril": true,
+        "sameMonthTwoPanels": true,
+        "aprilBostonFullTime": [
+          12,
+          13
+        ],
+        "aprilBostonHandlingProxy": [
+          36721,
+          39721
+        ],
+        "aprilOtherCitiesSharedPool": {
+          "fullTime": [
+            2,
+            2
+          ],
+          "seasonal": [
+            0,
+            0
+          ]
+        },
+        "septemberCommonMonth": "September 2026",
+        "eventKpiStillApril": true,
+        "monthImageChanged": true,
+        "scenarioInputChange": {
+          "kpi": "",
+          "mapVisible": false,
+          "visiblePlots": 0
+        }
+      },
+      "realApiCalls": 0,
+      "scope": "UI workflow QA only; no human evaluation file was updated",
+      "old7860And7872ProcessesUntouched": true,
+      "viewportReset": true
+    },
+    "temporary_ports_released": {
+      "7873": true,
+      "7876": true,
+      "7878": true
+    }
+  },
+  "artifacts": {
+    "figure": "results/figures/geographic_crew_comparison.png",
+    "figure_sha256": "5e4b8216ca52cb4dae0f350a398c4e292bb3d51bd0e81c17c0da53dfdbd22639",
+    "screenshot": "docs/screenshots/geography/desktop-april.jpg",
+    "screenshot_sha256": "1820f7b9fc89fd149ffdd18b748befc73d63fe2815fa2bee9bcf9cd5a096bad6"
+  },
+  "demo": {
+    "script": "docs/DEMO_SCRIPT.md",
+    "script_sha256": "2081ca9a859cac9fa7040f0109f61b91a9aaf887a997f7138473ab58ab687002",
+    "geographic_segment_seconds": 13,
+    "planned_spoken_duration_seconds": 175,
+    "buffer_seconds": 5,
+    "spoken_word_estimate": 320,
+    "timing_status": "Estimated at110 words/minute; not a measured rehearsal or recording"
+  },
+  "feature_freeze": "No further features; next work is review, rehearsal, recording and submission preparation",
+  "pending": [
+    "TA confirmation; not approved",
+    "Human extraction/reference and capacity/pooling assumption review",
+    "Verified all-member contributions/review",
+    "Actual timed rehearsal, video recording/upload and video URL",
+    "Teaching-team repository/video access verification",
+    "Manual Canvas submission and receipt"
+  ]
+}

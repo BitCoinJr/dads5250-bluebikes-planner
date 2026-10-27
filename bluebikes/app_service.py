@@ -344,6 +344,8 @@ class AppService:
         chain["uncovered_handling_actions_scenario"] = chain.unmet_bikes_scenario * conversion
         chain["demand_unit"] = "course-bike units; handling-action columns use declared conversion"
         return {
+            # Reuse these already-computed plans for geography; no new solve or allocation.
+            "geographic_plans": {"base": _clean_frame(no_event), "scenario": _clean_frame(changed)},
             "period_comparison": _clean_frame(pd.DataFrame(rows)),
             "monthly_chain": _clean_frame(chain),
             "city_month_inputs": deepcopy(month_rows),

@@ -1,6 +1,7 @@
 """One local Gradio screen; all extraction/planning rules live in AppService."""
 from __future__ import annotations
 
+import calendar
 import copy
 import csv
 import json
@@ -17,6 +18,7 @@ import pandas as pd
 from .app_service import AppService
 from .events import _hash
 from .presentation import render_result
+from .geography import load_stations, render_geography
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SAVED_LABEL = '\u4fdd\u5b58\u6e08\u307f\u5b9fAPI\u7d50\u679c / Saved real OpenAI response'
@@ -110,7 +112,8 @@ def _legacy_outputs(state):
 
 
 UI_EXTRA_KEYS = ['extraction_html','kpi_html','crew_figure','demand_figure',
-                 'annual_table','backtest_table','monthly_table','explanation_md']
+                 'annual_table','backtest_table','monthly_table','explanation_md',
+                 'geographic_month','geographic_figure','pool_md','geographic_note_md']
 
 APP_CSS = """
 .gradio-container {width:100%!important;min-width:0!important;max-width:1320px!important;margin:auto!important;}
@@ -141,6 +144,8 @@ APP_CSS = """
  .bb-chart {overflow-x:auto;}
  .bb-chart .matplotlib {justify-content:flex-start!important;align-items:flex-start!important;min-width:760px;}
  .bb-chart img {min-width:760px;max-width:none;}
+ .bb-geo-chart .matplotlib {min-width:1180px;}
+ .bb-geo-chart img {min-width:1180px;}
 }
 """
 
@@ -211,19 +216,45 @@ def _diagram_html(root):
     return '<div class="bb-flow-scroll" aria-label="Data, reviewed event facts, explicit scenario and Python crew decisions">'+svg+'</div><p class="bb-flow-caption">OpenAI structures event facts; you confirm them. Python plans crews under an explicit demand scenario. The diagram scrolls horizontally on narrow screens.</p>'
 
 
-def _outputs(state):
+MAP_MONTHS = [(calendar.month_name[m] + ' 2026', m) for m in range(1, 13)]
+_DEFAULT_MAP_MONTH = object()
+
+
+def _geographic_outputs(state, month=_DEFAULT_MAP_MONTH, root=None):
+    """Render cached plans only; month selection never plans or calls an API."""
+    result = state.get('result') if isinstance(state, dict) else None
+    if month is _DEFAULT_MAP_MONTH and result:
+        months = [r.get('month') for r in result.get('city_month_inputs', [])
+                  if isinstance(r.get('month'), int) and 1 <= r['month'] <= 12]
+        month = min(months) if months else 1
+    empty = {'figure': None, 'pool_md': '', 'note_md': ''}
+    view = empty
+    available = bool(isinstance(result, dict) and result.get('geographic_plans'))
+    if available:
+        try:
+            view = render_geography(result, month, load_stations(root or PROJECT_ROOT))
+        except (OSError, ValueError):
+            available = False
+            view = {**empty, 'note_md': 'Station coordinates unavailable; the crew and demand charts above remain usable.'}
+    valid = view['figure'] is not None
+    return (gr.update(value=month if valid else None, interactive=available),
+            gr.update(value=view['figure'], visible=valid), view['pool_md'], view['note_md'])
+
+
+def _outputs(state, root=None):
     legacy=_legacy_outputs(state)
     view=render_result(state.get('result'))
     extra=[_extraction_cards(state),view['kpi_html'],
            gr.update(value=view['crew_figure'],visible=view['crew_figure'] is not None),
            gr.update(value=view['demand_figure'],visible=view['demand_figure'] is not None),
-           view['annual_table'],view['backtest_table'],view['monthly_table'],view['explanation_md']]
+           view['annual_table'],view['backtest_table'],view['monthly_table'],view['explanation_md'],
+           *_geographic_outputs(state,root=root)]
     return (*legacy,*extra)
 
 
-def _with_form(state):
+def _with_form(state, root=None):
     original = state.get('original_llm') or {}
-    return (*_outputs(state), original.get('start_date') or '', original.get('end_date') or '',
+    return (*_outputs(state,root), original.get('start_date') or '', original.get('end_date') or '',
             original.get('city') or '', original.get('location') or '', '' if original.get('expected_crowd_size') is None else str(original['expected_crowd_size']),
             '\n'.join(original.get('ambiguities') or []), '')
 
@@ -232,40 +263,47 @@ class ScreenActions:
     """Thin callbacks, also exercised through Gradio's local HTTP client."""
     def __init__(self, service): self.service = service
 
+    def _out(self, state): return _outputs(state, self.service.root)
+
+    def _form(self, state): return _with_form(state, self.service.root)
+
+    def geography(self, state, month):
+        return _geographic_outputs(state, month, self.service.root)
+
     def select(self, event_id):
         state = self.service.select(event_id)
         doc = state.get('document') or {}
-        return (doc.get('source_title',''),doc.get('source_url',''),doc.get('source_text',''),*_with_form(state))
+        return (doc.get('source_title',''),doc.get('source_url',''),doc.get('source_text',''),*self._form(state))
 
     def input_changed(self, state, title, url, text):
-        return _with_form(self.service.invalidate(state,_document(state,title,url,text)))
+        return self._form(self.service.invalidate(state,_document(state,title,url,text)))
 
     def saved(self, state, title, url, text):
-        return _with_form(self.service.load_saved(state,_document(state,title,url,text)))
+        return self._form(self.service.load_saved(state,_document(state,title,url,text)))
 
     def live(self, state, title, url, text):
-        return _with_form(self.service.extract_live(state,_document(state,title,url,text)))
+        return self._form(self.service.extract_live(state,_document(state,title,url,text)))
 
     def review_changed(self, state):
-        return _outputs(self.service.invalidate_review(state))
+        return self._out(self.service.invalidate_review(state))
 
     def scenario_changed(self, state):
         updated = copy.deepcopy(state)
         updated['result'] = None
         if updated.get('review_digest'):
             updated.update(status='review_confirmed',error=None)
-        return _outputs(updated)
+        return self._out(updated)
 
     def confirm(self, state, title, url, text, start, end, city, location, crowd, ambiguities, notes):
         document = _document(state,title,url,text)
         current = self.service.invalidate(state,document)
-        return _outputs(self.service.confirm(current,document,
+        return self._out(self.service.confirm(current,document,
                                              _edits(start,end,city,location,crowd,ambiguities),_text(notes)))
 
     def apply(self, state, title, url, text, start, end, city, location, crowd, ambiguities, notes, increment, conversion):
         document = _document(state,title,url,text)
         current = self.service.invalidate(state,document)
-        return _outputs(self.service.apply(current,document,
+        return self._out(self.service.apply(current,document,
                                            _edits(start,end,city,location,crowd,ambiguities),_text(notes),
                                            increment=increment,conversion=conversion))
 
@@ -277,7 +315,7 @@ def create_app(root=None, *, service=None):
     actions=ScreenActions(service)
     choices=service.choices()
     initial=service.select(choices[0][1])
-    doc=initial['document']; values=_with_form(initial); form=values[-7:]
+    doc=initial['document']; values=_with_form(initial,root); form=values[-7:]
     with gr.Blocks(title='From Event Headlines to Crew Decisions',analytics_enabled=False) as app:
         gr.Markdown('# From Event Headlines to Crew Decisions\nReview an event, explore its demand impact, and compare staffing plans.')
         gr.HTML(_diagram_html(root),css_template=APP_CSS)
@@ -327,6 +365,11 @@ def create_app(root=None, *, service=None):
         crew_plot=gr.Plot(value=None,label='Monthly crew plan',visible=False,elem_classes=['bb-chart'])
         demand_plot=gr.Plot(value=None,label='Demand and capacity',visible=False,elem_classes=['bb-chart'])
         interpretation=gr.Markdown('')
+        gr.Markdown('### Geographic crew comparison\nOffline station-coordinate view of the same computed plans. One month controls both panels; the event-month KPI above is unchanged by this selector. No map tiles, event-location markers or station-level demand estimates are used.')
+        map_month=gr.Dropdown(choices=MAP_MONTHS,value=None,label='Map month (both panels)',interactive=False)
+        geographic_plot=gr.Plot(value=None,label='City crews by station coordinates',show_label=False,visible=False,elem_classes=['bb-chart','bb-geo-chart'])
+        pool=gr.Markdown('')
+        geographic_note=gr.Markdown('')
         with gr.Accordion('Detailed totals and monthly plan',open=False):
             with gr.Tabs():
                 with gr.Tab('Jan-Dec forecast - all cities'):
@@ -342,7 +385,8 @@ def create_app(root=None, *, service=None):
         chain=gr.Dataframe(value=pd.DataFrame(),label='Legacy group data',interactive=False,visible=False)
         result_notes=gr.Markdown('',visible=False)
         out=[state,status,original,provenance,reviewed,apply,comparison,chain,result_notes,
-             extraction,kpis,crew_plot,demand_plot,annual,backtest,monthly,interpretation]
+             extraction,kpis,crew_plot,demand_plot,annual,backtest,monthly,interpretation,
+             map_month,geographic_plot,pool,geographic_note]
         form_out=out+[start,end,city,location,crowd,ambiguities,notes]
         doc_inputs=[state,title,url,text]
         review_inputs=doc_inputs+[start,end,city,location,crowd,ambiguities,notes]
@@ -358,6 +402,7 @@ def create_app(root=None, *, service=None):
             component.input(actions.scenario_changed,state,out,api_name=None,api_visibility='private',show_progress='hidden',**options)
         confirm.click(actions.confirm,review_inputs,out,api_name='confirm_review',show_progress='hidden',**options)
         apply.click(actions.apply,review_inputs+[increment,conversion],out,api_name='apply_plan',show_progress='minimal',**options)
+        map_month.input(actions.geography,[state,map_month],[map_month,geographic_plot,pool,geographic_note],api_name='geographic_month',show_progress='hidden',**options)
     app.queue(default_concurrency_limit=1)
     return app
 

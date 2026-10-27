@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from bluebikes.app import APP_CSS, UI_EXTRA_KEYS, create_app
 from bluebikes.app_service import AppService
+from bluebikes.geography import render_geography
+from bluebikes.planner import CORE_CITIES, OTHER_POOL
 from gradio_client import Client
 import pandas as pd
 
@@ -39,12 +41,15 @@ def assert_cleared(output, *, extraction=True):
         assert output[1] is None and view['extraction_html'] == ''
     assert not frame(output[4]).shape[0] and not frame(output[5]).shape[0]
     assert view['kpi_html'] == '' and view['explanation_md'] == ''
-    for name in ['crew_figure', 'demand_figure']:
+    for name in ['crew_figure', 'demand_figure', 'geographic_figure']:
         assert payload(view[name]) is None
         if isinstance(view[name], dict) and 'visible' in view[name]:
             assert view[name]['visible'] is False
     for name in ['annual_table', 'backtest_table', 'monthly_table']:
         assert frame(view[name]).empty
+    assert view['pool_md'] == '' and view['geographic_note_md'] == ''
+    assert payload(view['geographic_month']) is None
+    assert isinstance(view['geographic_month'], dict) and view['geographic_month'].get('interactive') is False
 
 
 def run():
@@ -68,6 +73,33 @@ def run():
     unmocked_provider = guard_patch.start()
     app = None
     checks = []
+    geographic_renders = []
+
+    def audited_geography(result, month, stations):
+        """Inspect the actual Figure before Gradio serializes it for HTTP."""
+        digest = hashlib.sha256(json.dumps(result, sort_keys=True).encode()).hexdigest()
+        rendered = render_geography(result, month, stations)
+        assert hashlib.sha256(json.dumps(result, sort_keys=True).encode()).hexdigest() == digest
+        figure = rendered['figure']
+        if figure is not None:
+            for rows in result['geographic_plans'].values():
+                assert len(rows) == 60
+                assert {row['city'] for row in rows} == set(CORE_CITIES) | {OTHER_POOL}
+            valid = stations[stations.valid_coordinates]
+            panels = []
+            for axis in figure.axes:
+                dots = [item for item in axis.collections if item.get_label() == 'Station locations only']
+                assert len(dots) == 1 and len(dots[0].get_offsets()) == len(valid) == 613
+                assert dots[0].get_offsets().tolist() == valid[['longitude', 'latitude']].values.tolist()
+                bubbles = [item for item in axis.collections if item.get_label().startswith('_core_crews_')]
+                assert len(bubbles) == 4
+                panels.append({'title': axis.get_title(), 'station_points': len(dots[0].get_offsets()),
+                               'core_city_bubbles': len(bubbles), 'xlim': list(axis.get_xlim()),
+                               'ylim': list(axis.get_ylim())})
+            assert len(panels) == 2 and panels[0]['xlim'] == panels[1]['xlim'] and panels[0]['ylim'] == panels[1]['ylim']
+            geographic_renders.append({'month': month, 'result_sha256': digest, 'panels': panels})
+        return rendered
+
     try:
         service = AppService(ROOT)
         app = create_app(ROOT, service=service)
@@ -93,7 +125,8 @@ def run():
         checks.append('unconfirmed Apply is blocked and leaves no old chart, KPI or period table')
         confirmed = invoke(*form, api_name='/confirm_review')
         assert confirmed[3]['city'] == 'Boston'
-        applied = invoke(*form, 3000, 1, api_name='/apply_plan')
+        with patch('bluebikes.app.render_geography', side_effect=audited_geography):
+            applied = invoke(*form, 3000, 1, api_name='/apply_plan')
         table = frame(applied[4])
         assert len(table) == 4 and set(table['Scenario']) == {'No-event baseline', 'Reviewed event'}
         observed = table[table['Period'] == 'Jan-Sep 2026 observed proxy']
@@ -115,11 +148,44 @@ def run():
         assert 'forecast' in view['explanation_md'] and 'observed-proxy' in view['explanation_md']
         checks.append('real cached planning yields April FT12->13 and March hires3->4, two charts and event-month KPI')
         checks.append('visible annual and Jan-Sep tables match their own cost horizons; no mixed-period totals')
+        assert payload(view['geographic_month']) == 4 and view['geographic_month'].get('interactive') is True
+        assert isinstance(payload(view['geographic_figure']), dict) and payload(view['geographic_figure']).get('plot')
+        assert 'April 2026' in view['pool_md'] and 'one integer crew pool' in view['pool_md']
+        assert 'not crew bases, depots or event locations' in view['geographic_note_md']
+        assert geographic_renders[-1]['month'] == 4
+        checks.append('applied April geography has two real coordinate panels with 613 station dots and four core-city bubbles each; shared pool stays textual')
+
+        geographic_dependency = next(dep for dep in app.config['dependencies'] if dep.get('api_name') == 'geographic_month')
+        apply_dependency = next(dep for dep in app.config['dependencies'] if dep.get('api_name') == 'apply_plan')
+        assert len(geographic_dependency['outputs']) == 4
+        assert geographic_dependency['outputs'] == apply_dependency['outputs'][-4:]
+        with patch.object(service, '_plan', side_effect=AssertionError('Month selection must not solve a plan')) as plan_guard, \
+                patch('bluebikes.app.render_result', side_effect=AssertionError('Month selection must not replace main KPIs')) as kpi_guard, \
+                patch('bluebikes.app.render_geography', side_effect=audited_geography):
+            for month, caption in [(1, 'January 2026'), (9, 'September 2026')]:
+                changed_month = invoke(month, api_name='/geographic_month')
+                assert len(changed_month) == 4 and payload(changed_month[0]) == month
+                assert changed_month[0].get('interactive') is True
+                assert isinstance(payload(changed_month[1]), dict) and payload(changed_month[1]).get('plot')
+                assert caption in changed_month[2] and 'one integer crew pool' in changed_month[2]
+            blank_month = invoke(None, api_name='/geographic_month')
+            assert len(blank_month) == 4 and payload(blank_month[0]) is None
+            assert blank_month[0].get('interactive') is True
+            assert payload(blank_month[1]) is None and tuple(blank_month[2:]) == ('', '')
+            plan_guard.assert_not_called()
+            kpi_guard.assert_not_called()
+        assert [entry['month'] for entry in geographic_renders] == [4, 1, 9]
+        assert len({entry['result_sha256'] for entry in geographic_renders}) == 1
+        assert all(entry['panels'][0]['xlim'] == geographic_renders[0]['panels'][0]['xlim']
+                   and entry['panels'][0]['ylim'] == geographic_renders[0]['panels'][0]['ylim']
+                   for entry in geographic_renders)
+        checks.append('January and September month controls render unchanged cached results with fixed axes, zero planning calls and no main-KPI outputs')
+        checks.append('blank month clears only geography and keeps its selector enabled; no planning or provider request is made')
         stale = list(form)
         stale[2] += ' changed'
         invalid = invoke(*stale, 3000, 1, api_name='/apply_plan')
         assert_cleared(invalid)
-        checks.append('changed source clears extraction cards, both plots, KPI and all tables even when input listener is skipped')
+        checks.append('changed source clears extraction cards, all three plots, KPI, period tables and geographic controls even when input listener is skipped')
         failed_saved = invoke(*stale[:3], api_name='/load_saved')
         assert 'No exact saved' in failed_saved[0]
         assert_cleared(failed_saved)
@@ -159,13 +225,18 @@ def run():
         assert reviewed[3]['start_date'] is None and reviewed[3]['expected_crowd_size'] is None
         refused = invoke(*corrected, 3000, 1, api_name='/apply_plan')
         assert frame(refused[4]).empty and refused[3] is None
-        assert extras(refused)['kpi_html'] == ''
+        assert_cleared(refused, extraction=False)
         checks.append('actual participant/date error is visibly flagged; corrected unknown dates prevent planning')
         snapshots = {'same_period_comparison': json.loads(table.to_json(orient='records')),
                      'visible_annual_table': json.loads(annual.to_json(orient='records')),
                      'visible_backtest_table': json.loads(heldout.to_json(orient='records')),
                      'april_row': json.loads(april.to_json()),
-                     'plot_types': {name: value.get('type') for name, value in plots.items()}}
+                     'plot_types': {name: value.get('type') for name, value in plots.items()},
+                     'geographic_renders': geographic_renders,
+                     'month_control_output_count': len(geographic_dependency['outputs']),
+                     'main_kpi_sha256_before_month_controls': hashlib.sha256(view['kpi_html'].encode()).hexdigest(),
+                     'planning_calls_during_month_controls': plan_guard.call_count,
+                     'main_kpi_renderer_calls_during_month_controls': kpi_guard.call_count}
         unmocked_provider.assert_not_called()
     finally:
         if app is not None:
@@ -183,7 +254,7 @@ def run():
               'ui_polish_baseline_commit': baseline['baseline_commit'],
               'baseline_differences_already_present_before_http': baseline_differences,
               'human_evaluation_files_updated': False, 'snapshots': snapshots}
-    (ROOT / 'docs/verification-gradio-http.json').write_text(json.dumps(report, indent=2, allow_nan=False), encoding='utf-8')
+    (ROOT / 'docs/verification-geography-http.json').write_text(json.dumps(report, indent=2, allow_nan=False), encoding='utf-8')
     print(f'PASS: {len(checks)} actual local HTTP checks; zero real API calls; server closed.')
 
 

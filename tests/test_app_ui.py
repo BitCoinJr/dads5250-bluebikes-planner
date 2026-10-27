@@ -47,6 +47,15 @@ def mock_plan():
                     "handling_actions_per_course_bike": 1,
                     "increment_handling_actions_per_event": 3000},
     }
+    # Small synthetic geography payload: the screen still never computes a plan.
+    result["geographic_plans"] = {}
+    for suffix in ["base", "scenario"]:
+        result["geographic_plans"][suffix] = [
+            {"year": 2026, "month": month, "city": group,
+             "full_time": 6 + int(suffix == "scenario" and month >= 4),
+             "seasonal": 1, "demand_bikes": 1000 + 20*month}
+            for month in range(1, 13)
+            for group in ["Boston", "Cambridge", "Somerville", "Brookline", "Other cities (shared)"]]
     for row in result["period_comparison"]:
         row.update({"period_months": 12 if row["period"].endswith("2026-12") else 9,
                     "uncovered_handling_actions": 100, "peak_full_time_crews_in_period": 12,
@@ -71,12 +80,16 @@ class ScreenWorkflowTests(unittest.TestCase):
         self.assertEqual(output[5]["interactive"], not disabled)
         view = dict(zip(UI_EXTRA_KEYS, output[9:9 + len(UI_EXTRA_KEYS)]))
         self.assertEqual(view["kpi_html"], "")
-        for name in ["crew_figure", "demand_figure"]:
+        for name in ["crew_figure", "demand_figure", "geographic_figure"]:
             self.assertIsNone(view[name]["value"])
             self.assertFalse(view[name]["visible"])
         for name in ["annual_table", "backtest_table", "monthly_table"]:
             self.assertTrue(view[name].empty)
         self.assertEqual(view["explanation_md"], "")
+        self.assertEqual(view["pool_md"], "")
+        self.assertEqual(view["geographic_note_md"], "")
+        self.assertIsNone(view["geographic_month"]["value"])
+        self.assertFalse(view["geographic_month"]["interactive"])
         if output[2] is None:
             self.assertEqual(view["extraction_html"], "")
 
@@ -110,7 +123,7 @@ class ScreenWorkflowTests(unittest.TestCase):
         self.assertIn("next-month staffing", output[8])
         view = dict(zip(UI_EXTRA_KEYS, output[9:9 + len(UI_EXTRA_KEYS)]))
         self.assertIn("$43,800", view["kpi_html"])
-        for name in ["crew_figure", "demand_figure"]:
+        for name in ["crew_figure", "demand_figure", "geographic_figure"]:
             self.assertIsNotNone(view[name]["value"])
             self.assertTrue(view[name]["visible"])
         self.assertEqual(set(view["annual_table"]["Cash cost"]), {"$2", "$3", "$4"})
@@ -118,6 +131,30 @@ class ScreenWorkflowTests(unittest.TestCase):
         self.assertEqual(view["monthly_table"]["Month"].tolist(), ["2026-04"])
         self.assertIn("handling actions", view["explanation_md"])
         return output[0]
+
+    def test_map_month_only_reads_the_same_cached_plans_and_blank_clears(self):
+        state = self.applied()
+        original = copy.deepcopy(state)
+        with patch.object(self.service, "_plan", side_effect=AssertionError("Month must never replan")) as planner, \
+                patch("bluebikes.app_service.extract_event", side_effect=AssertionError("No API from month")) as provider:
+            january = self.actions.geography(state, 1)
+            september = self.actions.geography(state, 9)
+            blank = self.actions.geography(state, None)
+        planner.assert_not_called(); provider.assert_not_called()
+        self.assertEqual(len(january), 4)
+        for output, month in [(january, 1), (september, 9)]:
+            self.assertEqual(output[0]["value"], month)
+            self.assertTrue(output[0]["interactive"])
+            self.assertTrue(output[1]["visible"])
+            self.assertEqual(len(output[1]["value"].axes), 2)
+            self.assertIn("Other cities shared pool", output[2])
+        self.assertEqual(january[1]["value"].axes[0].get_xlim(), september[1]["value"].axes[1].get_xlim())
+        self.assertIsNone(blank[0]["value"])
+        self.assertTrue(blank[0]["interactive"])
+        self.assertIsNone(blank[1]["value"])
+        self.assertFalse(blank[1]["visible"])
+        self.assertEqual(blank[2:], ("", ""))
+        self.assertEqual(state, original)
 
     def test_screen_builds_from_saved_evidence_without_provider_or_key_read(self):
         with patch("bluebikes.app_service.extract_event", side_effect=AssertionError("No API on screen construction")) as provider, \
