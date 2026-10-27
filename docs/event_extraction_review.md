@@ -1,4 +1,8 @@
-﻿# AI review of the first live event extraction
+# Historical AI review — current human status
+
+The original AI review below is preserved as historical context. Satoshi later adjudicated all seven saved-input cases; see [current judgments and annotations](HUMAN_REVIEW.md). Raw responses and frozen scores remain unchanged. Statements about pending human review below describe the earlier review, not current status.
+
+# AI review of the first live event extraction
 
 Four actual OpenAI Responses API calls completed on 27 October 2026 at approximately 08:35 JST (26 October 23:35 UTC), using requested model gpt-4.1-mini and returned snapshot gpt-4.1-mini-2025-04-14. The frozen-reference exact-match result remains **19 of 20 fields, 95%**. This document is an independent AI review of the saved responses and supplied excerpts. It is **not human review**, human-validated ground truth, or evidence of general extraction accuracy.
 

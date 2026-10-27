@@ -2,7 +2,12 @@
 
 Status: reviewable implementation in progress; **submission incomplete**. Check items only after inspecting evidence. Initial implementation and drafting are AI-assisted. Names below are group membership, not attributed contributions.
 
+Start with the [short human review form](HUMAN_REVIEW.md), [submission handoff](SUBMISSION_PREP.md), and [recording run sheet](RECORDING_RUNSHEET.md). Existing automated evidence is retained. Satoshi's bounded seven-case and eight-topic decisions are recorded below; other unchecked items remain outside that approval.
+
 ## Administrative facts
+
+- [x] Communication status recorded from the user's report: GitHub invitations and review requests sent to teammates' university emails; reply deadline **28 October 2026 10:00 AM EDT / 23:00 JST**. This is not verified delivery, acceptance, reply, review or contribution.
+- [ ] Verify invitation acceptance and actual access separately; record any reply and contribution evidence without treating silence or the deadline as approval.
 
 - [ ] Record TA confirmation if received. Until then retain **not received / not TA-approved**. The user explicitly directed building despite the reported TA instruction to wait.
 - [ ] Verify the user-supplied final deadline: **28 October 2026 23:59 ET / 29 October 2026 12:59 JST**. The older Canvas 25 October display is reported outdated, not independently verified here.
@@ -29,6 +34,8 @@ Status: reviewable implementation in progress; **submission incomplete**. Check 
 - [ ] Independently reproduce the full submission Notebook and compact `notebooks/bluebikes_demo.ipynb` from the top. Inspect every code cell for execution count, outputs and errors; open both in another viewer. A new demo link alone is not execution evidence.
 
 ## Model and planning decisions
+
+The [eight-topic record](MODEL_REVIEW.md) establishes conditional interpretation acceptance only. The unchecked audit actions below include implementation/empirical checks outside that record; they are not blanket-approved.
 
 - [ ] Confirm no 2026 demand enters model selection, growth estimation or base-plan calibration. Inspect the 2025 validation table.
 - [ ] Explain the daily half-full reset, hourly netting, virtual external depot, counted reset work and daily supply/collection conservation. Label demand as a proxy, never observed moves or lost trips.
@@ -57,12 +64,13 @@ Status: reviewable implementation in progress; **submission incomplete**. Check 
 - [x] Implementation browser checks passed at **1366×900** and **390×844**: April Boston FT **12 → 13**, proxy demand **36,721 → 39,721**, separate shared pool **2 FT**; September selection changed only the geographic month while the event KPI remained April. Increment changes cleared all three plots and the KPI. See the [capture](screenshots/geography/desktop-april.jpg) and [verification-geography.json](verification-geography.json). The unchecked inspection items request independent human review, not unfinished automated checks.
 - [ ] Review the 1366 px desktop and 390 px narrow layouts. Wide plots/tables should scroll internally without widening the page. Inspect captures of [flow](screenshots/ui-polish/desktop-flow.jpg), [extraction](screenshots/ui-polish/desktop-extraction.jpg), [decisions](screenshots/ui-polish/desktop-decisions.jpg), [capacity](screenshots/ui-polish/desktop-capacity.jpg), [narrow decisions](screenshots/ui-polish/narrow-decisions.jpg) and [narrow table](screenshots/ui-polish/narrow-table.jpg); screenshots alone do not establish functional correctness.
 - [ ] Verify 120 course bikes/shift stays fixed during handling-unit conversion, +3,000 remains an uncalibrated retrospective scenario, and a hiring decision takes effect next month. Keep annual forecast/cost comparisons separate from nine-month observed-proxy/cost comparisons and the 2027 seasonal tail.
-- [ ] Keep original four-call 19/20 and separate three-call 11/15 provisional results, participant/crowd and date failures, and pending human review visible. Supplemental evaluation-only cases must not enter staffing.
+- [ ] Keep original four-call 19/20 and separate three-call 11/15 provisional results, participant/crowd and date failures, and Satoshi's bounded adjudications visible. Supplemental evaluation-only cases must not enter staffing.
 - [ ] Stop the Notebook app with `app.close()` and the standalone app with Ctrl+C; verify the selected local port is released. Restore `LAUNCH_LOCAL_APP = False` before saving the submitted artifacts. No recording, upload, public app link or Canvas submission is implied.
 
 ## GenAI evidence
 
-- [ ] Have humans independently inspect both frozen reference sets and all seven real outputs. Fill `results/event_original_four_human_review.csv` and `results/event_extraction_additional_review.csv` with reviewer, decisions and disagreements. Existing labels are AI drafts; human review remains **PENDING**. Preserve original raw outputs and scores.
+- [x] Satoshi adjudicated all seven saved-input/output cases using AI-assisted review, explicitly adjudicated by Satoshi in chat. Both review CSVs record judgments and separate notes. Record compiled 2026-10-27 JST; exact decision times unknown. See [HUMAN_REVIEW.md](HUMAN_REVIEW.md). This is not independent full-website verification or all-pass accuracy.
+- [x] Eight model topics conditionally accepted as disclosed assumptions, including forecast/backtest and fixed-staffing demand/e-bike stress: [MODEL_REVIEW.md](MODEL_REVIEW.md). Nominal 120 differs from stressed effective 108; no empirical validation or TA permission inferred.
 - [x] Real API evidence exists separately: four original calls in `results/event_extraction_live.json` and three supplemental calls in `results/event_extraction_additional_live.json`. Model, usage, timestamps, response IDs and hashes are retained; no credential value belongs in tracked artifacts.
 - [ ] Inspect prompt instructions, the example, strict Structured Outputs and local schema validation. Review dates, URL/evidence grounding, crowd-size nulls and ambiguity handling manually.
 - [ ] Preserve **19/20 original** and **11/15 supplemental** exact agreements separately, not as human-reviewed accuracy. Review the Cambridge address mismatch and unscored HOCR ambiguity. Inspect two positive counts from the same HOCR event, missing quantity qualifiers, 30,000 participants misread as crowd, unsupported dates and expanded location wording. Do not retune labels to hide failures.
@@ -75,7 +83,7 @@ Each member should make and review substantive contributions to **all** delivera
 
 | Member | Code/data and tests | Notebook and results | README/assumptions and sources | Demo script, figures and recording |
 |---|---|---|---|---|
-| Satoshi Nakamura | Pending evidence | Pending evidence | Pending evidence | Pending evidence |
+| Satoshi Nakamura | Eight disclosed model topics adjudicated; no code/test authorship inferred | Forecast/backtest and proxy interpretation reviewed in chat; independent Notebook execution not established | Seven extraction decisions and model assumptions: [record](human_review_decisions.json) | Interpretation decisions support demo; rehearsal/recording contribution pending |
 | Vinay Manikandan Nagarajan | Pending evidence | Pending evidence | Pending evidence | Pending evidence |
 | Aditi Rao | Pending evidence | Pending evidence | Pending evidence | Pending evidence |
 
@@ -83,8 +91,8 @@ Available work includes checking a raw month against its aggregate, independentl
 
 ## Demo and submission completion
 
-- [ ] Review the generated `docs/DEMO_SCRIPT.md` against saved results and the current app. Follow problem → source/cards → confirmation/Apply → KPI and two graphs → thirteen-second geographic comparison → architecture/evaluation/limits. Its 316 written words are approximately 320 spoken words with current amounts, estimating 2:55 at 110 words/minute plus five seconds of buffer; this is not a measured rehearsal. Correct interpretations in its generator before regenerating.
-- [ ] Show the problem, recorded real event JSON, focused demand/crew/cost chain, shared-month/shared-scale geographic overview, matched-period validation, unit interpretation and architecture. Keep the shared pool separate and centroids distinct from depots; there are no event markers. Distinguish four original live calls, three supplemental calls, zero-call replay and fixtures; disclose pending human review.
+- [ ] Review the generated `docs/DEMO_SCRIPT.md` against saved results and the current app. Follow problem → source/cards → confirmation/Apply → KPI and two graphs → thirteen-second geographic comparison → architecture/evaluation/limits. Its timecodes plan 2:55 plus five seconds of buffer; this is not a measured rehearsal. Use RECORDING_RUNSHEET.md for actual timing and synchronize recording_overlays.srt only after rehearsal. Correct interpretations in its generator before regenerating.
+- [ ] Show the problem, recorded real event JSON, focused demand/crew/cost chain, shared-month/shared-scale geographic overview, matched-period validation, unit interpretation and architecture. Keep the shared pool separate and centroids distinct from depots; there are no event markers. Distinguish four original live calls, three supplemental calls, zero-call replay and fixtures; disclose Satoshi's adjudications and remaining other-member/empirical review.
 - [ ] Rehearse the English script and measure actual duration; target three minutes.
 - [ ] Record the demo. **Not recorded by the implementation.**
 - [ ] Upload the video and verify teaching-team access. **No upload is performed automatically.**
@@ -96,6 +104,6 @@ Available work includes checking a raw month against its aggregate, independentl
 
 Feature additions stop with the geographic comparison. Focus next on independent review and recording preparation.
 
-1. **Human evaluation of real extraction:** review all seven saved outputs and both frozen reference sets. Preserve separate 19/20 and 11/15 scores; resolve participant/date/qualifier concerns without rewriting raw evidence. Human-reviewed answers remain pending.
+1. **Other-member review:** Satoshi's seven case judgments and eight conditional topics are recorded. Preserve separate 19/20 and 11/15 frozen scores and visible participant/date failures; do not infer other members' agreement.
 2. **Model interpretation:** settle capacity counting and other-city sharing, then review their sensitivity and late-year full-time hiring before endorsing a staffing recommendation.
 3. **Finish the actual submission:** obtain team review/contributions, record and upload the demo, verify grader access, and complete the manual Canvas workflow. Do not mark the project complete before these are done.

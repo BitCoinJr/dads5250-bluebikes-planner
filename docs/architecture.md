@@ -1,6 +1,6 @@
 # Architecture and demo storyboard
 
-AI-assisted implementation and review notes; human validation remains pending.
+AI-assisted implementation. Satoshi's seven saved-excerpt decisions and eight conditional model topics are integrated; empirical validation and other-member review remain pending.
 
 ![Bluebikes flow with explicit Python, OpenAI, human-review and user-assumption roles](diagrams/bluebikes_flow.svg)
 
@@ -20,7 +20,7 @@ node scripts/render_architecture.mjs
 
 The renderer reuses an installed browser; set `MERMAID_BROWSER_EXECUTABLE` if it is elsewhere. It generates both images and records source/output hashes in ignored `build/architecture-render.json`. The SVG contains plain text and embedded styles without scripts or external assets. App and Notebook display the cached image without a Mermaid CDN or runtime Node dependency. The prior UI/diagram checks are preserved in [verification-ui-polish.json](verification-ui-polish.json); the geographic addition has its own [verification record](verification-geography.json).
 
-The supplemental evaluation has no path to demand or staffing. Its two positive crowd excerpts concern the same HOCR event, and its participant-only case exposes crowd/date grounding failures. Preserve 11/15 provisional agreement separately from the original four-call 19/20 result. Crowd qualifiers and unscored ambiguity text require review; schema validity does not establish semantic truth. All human review remains pending.
+The supplemental evaluation has no path to demand or staffing. Its two positive crowd excerpts concern the same HOCR event, and its participant-only case exposes crowd/date grounding failures. Preserve 11/15 provisional agreement separately from the original four-call 19/20 result. Crowd qualifiers and unscored ambiguity text require review; schema validity does not establish semantic truth. Satoshi's separate annotations now address these cases without changing raw outputs or frozen scores; see [HUMAN_REVIEW.md](HUMAN_REVIEW.md).
 
 Recorded mode validates saved request/source/schema and output hashes, then replays real outputs with **zero new API calls**. Fixture mode is a separately labelled agent-authored contract test; it is not live execution evidence.
 
@@ -44,4 +44,4 @@ The preservation audit verified 100 pre-existing data/prompt/fixture/result file
 
 Use the compact [demo Notebook](../notebooks/bluebikes_demo.ipynb) for the walkthrough and the [submission Notebook](../notebooks/bluebikes_submission.ipynb) for the full audit. Inspect both artifacts' generated cells before recording; a link is not execution evidence.
 
-Gradio recording storyboard: problem/value (0:00–0:15), source and readable extraction (0:15–0:45), confirmation and explicit scenario (0:45–1:10), KPI/crew/capacity and prior hiring decision (1:10–1:55), geographic comparison (1:55–2:08), then architecture/evaluation/limits (2:08–2:55), leaving five seconds of buffer. [DEMO_SCRIPT.md](DEMO_SCRIPT.md) is regenerated from the same saved numeric results. Its 316 written words are approximately 320 spoken words with current dollar amounts: an estimated 2:55 at 110 words/minute, not a measured rehearsal. Feature additions stop here; independent review and recording preparation are next. Human review, video recording/upload, TA confirmation, verified all-member contributions, grader access and manual Canvas submission remain incomplete.
+Gradio recording storyboard: problem/value (0:00–0:15), source and readable extraction (0:15–0:45), confirmation and explicit scenario (0:45–1:10), KPI/crew/capacity and prior hiring decision (1:10–1:55), geographic comparison (1:55–2:08), then architecture/evaluation/limits (2:08–2:55), leaving five seconds of buffer. [DEMO_SCRIPT.md](DEMO_SCRIPT.md) is regenerated from the same saved numeric results. Timecodes target 2:55 plus buffer; actual duration has not been measured. Feature additions stop here; independent review and recording preparation are next. Other-member review, video recording/upload, TA confirmation, verified all-member contributions, grader access and manual Canvas submission remain incomplete. Satoshi's bounded adjudication is recorded separately.

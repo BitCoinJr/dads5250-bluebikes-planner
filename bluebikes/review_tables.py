@@ -5,7 +5,8 @@ import csv
 from pathlib import Path
 import uuid
 
-HUMAN_DEFAULTS = {"human_judgment": "", "reviewer": "", "notes": "", "human_review_status": "PENDING"}
+HUMAN_DEFAULTS = {"human_judgment": "", "reviewer": "", "notes": "", "human_review_status": "PENDING",
+                  "human_reviewer": "", "human_review_notes": ""}
 KEY_FIELDS = ("source_id", "field")
 
 

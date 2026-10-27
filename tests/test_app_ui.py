@@ -210,7 +210,7 @@ class ScreenWorkflowTests(unittest.TestCase):
         positive_output = self.actions.select(positive)[3:]
         positive_html = dict(zip(UI_EXTRA_KEYS, positive_output[9:]))["extraction_html"]
         self.assertIn("more than 300,000", field(positive_html, "Expected spectators"))
-        self.assertIn("source qualifier; unconfirmed", field(positive_html, "Expected spectators"))
+        self.assertIn("source qualifier; separate annotation", field(positive_html, "Expected spectators"))
 
     def test_apply_without_confirmation_cannot_invoke_planner(self):
         with patch.object(self.service, "_plan", side_effect=AssertionError("Review is required")) as planner:

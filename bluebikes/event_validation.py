@@ -1,6 +1,6 @@
 """Supplemental audience/participant extraction; never overwrite the original run.
 
-References are AI drafts frozen before live calls. Human review remains pending.
+References and scores are frozen historical evidence; current adjudications are separate.
 The two positive excerpts describe the same event and are not independent cases.
 """
 from __future__ import annotations
@@ -11,6 +11,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .review_tables import write_review_csv
 from .events import (OPENAI_URL, PROJECT_ROOT, SCORED_FIELDS, _configuration,
                      _hash, extract_event, extraction_payload, validate_event)
 
@@ -170,11 +171,7 @@ def _export_review(root, docs, result):
                      "human_reviewer": previous.get("human_reviewer", ""),
                      "human_review_notes": previous.get("human_review_notes", ""),
                      "human_review_status": previous.get("human_review_status", "PENDING")})
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]) if rows else ["source_id"])
-        writer.writeheader()
-        writer.writerows(rows)
+    write_review_csv(path, rows, key_fields=("source_id",))
     # The CSV is the human-input surface. Preserve any existing Markdown review.
     if not (root / REVIEW_DOC).exists():
         lines = ["# Supplemental event extraction human review", "",

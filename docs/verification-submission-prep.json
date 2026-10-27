@@ -1,0 +1,219 @@
+{
+  "status": "passed_differential_preparation_checks",
+  "checked_utc": "2026-10-27T14:28:35.547163+00:00",
+  "root": "C:\\dev\\university\\dads5250-bluebikes-planner",
+  "baseline_commit": "8293573de2d1987c1ce24dca9b1267196466b3be",
+  "git_state": "local uncommitted preparation changes; no commit or push in this pass",
+  "scope": "Feature freeze; prose, review and recording preparation only. No new model, API call, dataset, dependency or external publication.",
+  "communication": {
+    "source": "user report in conversation",
+    "teammate_github_invitations_and_review_requests": "reported sent to university emails",
+    "exact_sent_time": "not provided/verified",
+    "reply_deadline": "2026-10-28T10:00:00-04:00",
+    "reply_deadline_jst": "2026-10-28T23:00:00+09:00",
+    "acceptance_replies_contributions": "unverified; not inferred"
+  },
+  "preservation": {
+    "protected_files_byte_identical": 137,
+    "unchanged_runtime_modules": [
+      "bluebikes/__init__.py",
+      "bluebikes/app_service.py",
+      "bluebikes/data.py",
+      "bluebikes/event_validation.py",
+      "bluebikes/events.py",
+      "bluebikes/forecast.py",
+      "bluebikes/geography.py",
+      "bluebikes/inventory.py",
+      "bluebikes/planner.py",
+      "bluebikes/presentation.py",
+      "bluebikes/review_tables.py",
+      "bluebikes/scenarios.py",
+      "bluebikes/unit_examples.py"
+    ],
+    "analysis_ast_equal_except_demo_text_generator": true,
+    "app_ast_equal_except_one_markdown_explanation": true,
+    "requirements_unchanged": true,
+    "historical_run_metadata_unchanged": true,
+    "historical_metadata_source_hash_differences_expected": [
+      "analysis.py",
+      "app.py"
+    ],
+    "historical_result_hashes_all_match": true,
+    "old_verification_reports_unchanged": true,
+    "new_real_api_calls": 0
+  },
+  "notebooks": {
+    "bluebikes_submission.ipynb": {
+      "code_cells": 17,
+      "code_cells_outputs_and_counts_identical_to_head": true,
+      "builder_source_matches": true,
+      "errors": 0,
+      "execution_rerun_this_pass": false,
+      "explanation_cells_changed": 2,
+      "sha256": "be3a5c0b1d1637c6f86ff7a2c7d7724e2e85b7f5e805dee25ab140f291348d66"
+    },
+    "bluebikes_demo.ipynb": {
+      "code_cells": 9,
+      "code_cells_outputs_and_counts_identical_to_head": true,
+      "builder_source_matches": true,
+      "errors": 0,
+      "execution_rerun_this_pass": false,
+      "explanation_cells_changed": 2,
+      "sha256": "d3e636bea1de3a9425be87306724bf6af720fc0bf486c3ef5f02513f76ad991d"
+    }
+  },
+  "current_targeted_tests": [
+    {
+      "command": ".venv/Scripts/python.exe -m unittest discover -s tests -p test_app_ui.py -v",
+      "count": 13,
+      "seconds_reported": 4.035,
+      "exit_code": 0,
+      "status": "OK",
+      "notes": "Mocked API errors/missing-key paths; non-failing asyncio unclosed event-loop ResourceWarnings during Gradio screen construction."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m unittest discover -s tests -p test_presentation.py -v",
+      "count": 7,
+      "seconds_reported": 3.801,
+      "exit_code": 0,
+      "status": "OK"
+    }
+  ],
+  "reused_full_verification": {
+    "report": "docs/verification-geography.json",
+    "sha256": "e67e770b405768fafa8283681dd279fd0fdd7f9a6c159233b4811e8e5ed95598",
+    "full_tests": 102,
+    "http_checks": 13,
+    "submission_code_cells": 17,
+    "demo_code_cells": 9,
+    "real_browser_and_kernel_launch": "recorded earlier; not rerun this pass"
+  },
+  "numeric_cross_checks": {
+    "boston_april_full_time": [
+      12,
+      13
+    ],
+    "boston_april_seasonal": [
+      0,
+      0
+    ],
+    "boston_april_crew_cash": [
+      72000,
+      78000
+    ],
+    "boston_april_demand_handling_actions": [
+      36721.19,
+      39721.19
+    ],
+    "hiring_decision_month": "March 2026",
+    "focused_system_cash_delta_jan_dec": 7200.0,
+    "focused_system_cash_delta_jan_sep": -3000.0,
+    "scenario_unit_conversion": 1,
+    "course_bikes_per_shift": 120,
+    "reviewed_against": [
+      "results/focused_event_chain.csv",
+      "results/scenario_period_comparison.csv",
+      "results/summary.json"
+    ]
+  },
+  "human_review": {
+    "results/event_original_four_human_review.csv": {
+      "rows": 20,
+      "all_judgments_blank": true,
+      "all_status_pending": true,
+      "unchanged": true
+    },
+    "results/event_extraction_additional_review.csv": {
+      "rows": 3,
+      "all_judgments_blank": true,
+      "all_status_pending": true,
+      "unchanged": true
+    }
+  },
+  "recording": {
+    "script_generator_matches": true,
+    "written_words_in_six_spoken_sections": 317,
+    "target_spoken_seconds": 175,
+    "buffer_seconds": 5,
+    "target_map_seconds": 13,
+    "measured_rehearsals": 0,
+    "timing_log_rows": 0,
+    "recorded": false,
+    "uploaded": false,
+    "captions": "draft timecodes; numeric delta checked; not synchronized",
+    "asset_visual_review": [
+      "docs/screenshots/geography/desktop-april.jpg",
+      "results/figures/geographic_crew_comparison.png"
+    ],
+    "actual_video_legibility": "pending; assets only inspected"
+  },
+  "setup": {
+    "python": "3.13.2",
+    "installed_pins_match": {
+      "pandas": "3.0.3",
+      "numpy": "2.4.6",
+      "scipy": "1.18.0",
+      "matplotlib": "3.11.1",
+      "nbformat": "5.11.0",
+      "nbclient": "0.11.0",
+      "ipykernel": "7.3.0",
+      "requests": "2.34.2",
+      "pyarrow": "24.0.0",
+      "jsonschema": "4.26.0",
+      "gradio": "6.30.0"
+    },
+    "fresh_clean_environment_installation": "not performed in this pass; pending independent reproduction",
+    "safe_api_config": {
+      "provider": "openai",
+      "key_present": true,
+      "key_source": "project_dotenv",
+      "model": "gpt-4.1-mini",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "sdk_required": false
+    },
+    "env_example_key_empty": true,
+    "env_and_private_backup_ignored": true,
+    "key_values_displayed": false,
+    "local_markdown_links_checked": 158,
+    "broken_local_links": [],
+    "obvious_credential_scan": "passed; no values output",
+    "git_diff_check": "passed with CR-at-EOL allowance for existing CRLF files"
+  },
+  "changed_tracked_files": [
+    "README.md",
+    "bluebikes/analysis.py",
+    "bluebikes/app.py",
+    "docs/DECISIONS.md",
+    "docs/DEMO_SCRIPT.md",
+    "docs/REVIEW_CHECKLIST.md",
+    "notebooks/bluebikes_demo.ipynb",
+    "notebooks/bluebikes_submission.ipynb",
+    "scripts/build_demo_notebook.py",
+    "scripts/build_notebook.py"
+  ],
+  "new_preparation_files": [
+    "docs/HUMAN_REVIEW.md",
+    "docs/RECORDING_RUNSHEET.md",
+    "docs/SUBMISSION_PREP.md",
+    "docs/recording_overlays.srt",
+    "docs/rehearsal_log.csv",
+    "docs/verification-submission-prep.json"
+  ],
+  "pending": [
+    "TA confirmation and official deadline check",
+    "Human extraction/reference and crew-assumption judgments",
+    "Verified member contributions and replies/access",
+    "Actual timed rehearsal and final-video legibility",
+    "Video recording/upload/URL",
+    "Permitted grader repository/video access",
+    "Final reviewed commit/handoff",
+    "Manual Canvas submission and receipt"
+  ],
+  "external_actions": {
+    "messages_or_invitations": 0,
+    "public_settings_changes": 0,
+    "video_uploads": 0,
+    "canvas_submissions": 0,
+    "pushes": 0
+  }
+}

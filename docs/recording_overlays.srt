@@ -1,0 +1,14 @@
+1
+00:00:15,000 --> 00:00:28,000
+Saved real OpenAI response
+Replay only — no new API call
+
+2
+00:01:10,000 --> 00:01:25,000
+Boston: +1 full-time crew / +$6,000 in April 2026
+Monthly crew cash; hiring decision: March
+
+3
+00:01:55,000 --> 00:02:08,000
+Boston: +1 crew / +$6,000 in April
+Uncalibrated +3,000-action scenario

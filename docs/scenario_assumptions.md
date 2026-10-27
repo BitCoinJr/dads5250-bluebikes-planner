@@ -24,3 +24,7 @@ Period comparisons keep payroll and service on the same horizon:
 - Dedicated cities use integer crews. Other municipalities have shared capacity allocations; repeated staffing-group integer counts must not be summed across member cities.
 
 The new factor-two result is a newly optimized plan on the converted forecast. The earlier frozen-plan capacity sensitivity changes service/capacity only and cannot show a new crew/cost recommendation.
+
+## Recorded conditional review
+
+Satoshi Nakamura explicitly adjudicated the eight topics in [MODEL_REVIEW.md](MODEL_REVIEW.md), using AI-assisted review in chat. Record compiled 2026-10-27 JST; exact decision times not recorded. This accepts disclosed assumptions, not empirical validity, TA approval or all-member review. Nominal course capacity is 120 bikes/shift; only the fixed-staffing e-bike stress assumes 90% effective capacity, equivalent to 108 bikes/shift. Forecast/backtest and sensitivity scope are recorded separately; unlisted audit topics remain unapproved.

@@ -1,4 +1,4 @@
-﻿"""Build the short, executed recording view from the audited analysis outputs."""
+"""Build the short, executed recording view from the audited analysis outputs."""
 from __future__ import annotations
 
 import argparse
@@ -20,11 +20,11 @@ def build():
 
     md("""# Bluebikes: three-minute review demo
 
-DADS5250 / Group 8. **Recording and upload are not completed.** Human/team review and TA confirmation remain pending. This view replays genuine saved OpenAI calls with hash validation and makes **zero new API calls**. Fixtures are not shown as model outputs. Run the submission Notebook first to regenerate analysis tables.
+DADS5250 / Group 8. **Recording and upload are not completed.** Satoshi's seven case adjudications and eight conditional model topics are recorded; other-member review and TA confirmation remain pending. This view replays genuine saved OpenAI calls with hash validation and makes **zero new API calls**. Fixtures are not shown as model outputs. Run the submission Notebook first to regenerate analysis tables.
 
 ## 1. The problem and ordinary backtest
 
-Train/select on 2024-2025; freeze the plan; evaluate against the January-September 2026 observed-trip inventory proxy. Costs and shortages below cover **the same nine months**. The proxy is neither lost trips nor measured operator work; archive gaps and current-station matching limitations remain. [Full audit](bluebikes_submission.ipynb), [English script](../docs/DEMO_SCRIPT.md).
+Train/select on 2024-2025; freeze the plan; evaluate against the January-September 2026 observed-trip inventory proxy. Costs and shortages below cover **the same nine months**. The proxy is neither lost trips nor measured operator work; archive gaps and current-station matching limitations remain. [Full audit](bluebikes_submission.ipynb), [English script](../docs/DEMO_SCRIPT.md), [recording run sheet and timing log](../docs/RECORDING_RUNSHEET.md).
 """)
     code("""from pathlib import Path
 import sys, json
@@ -67,7 +67,10 @@ print('API provenance:')
 display(pd.DataFrame(original['calls'])[['source_id','model','executed_at_utc','response_status']].head(1))""")
     md("""## 3. City and month to a conditional crew decision
 
-**Retrospective scenario: +3,000 handling actions is an uncalibrated assumption, not an extracted fact or evidence of improved forecasting.** Only the original Marathon record is used for this focused scenario. The existing planner adds the increment to Boston/April and resolves annual staffing constraints. April payroll and April shortage share a one-month horizon; annual hiring/contracts can change other months too. The ordinary backtest remains separate.
+**Retrospective scenario: +3,000 handling actions is an uncalibrated assumption, not an extracted fact or evidence of improved forecasting.**
+
+The no-event baseline is an optimized model plan, not observed Bluebikes staffing. Initial crews are course-provided starting conditions, not an audited current deployment.
+ Only the original Marathon record is used for this focused scenario. The existing planner adds the increment to Boston/April and resolves annual staffing constraints. April payroll and April shortage share a one-month horizon; annual hiring/contracts can change other months too. The ordinary backtest remains separate.
 """)
     code("""inputs = pd.read_csv(ROOT / 'results/focused_event_city_month_inputs.csv')
 display(inputs[['event_name','start_date','city','year','month','event_increment_handling_actions','source_url']])
@@ -104,7 +107,7 @@ display(units[['scenario','period','handling_actions_per_course_bike','course_bi
 
 The original four calls retain **19/20 = 95%** against frozen, **AI-authored provisional labels**. The three new actual calls score **11/15 = 73.33%** separately; neither score is a human-gold accuracy estimate. Two positive spectator sources describe the **same** regatta (correlated, not two independent events). Both numeric spectator counts match; the participant-only case incorrectly outputs 30,000 spectators and unsupported dates. Source quantity qualifiers are preserved in annotations but missing from the model's ambiguity explanation.
 
-These added records are **evaluation only** and never enter the demand adjustment. The table juxtaposes input, provisional reference, actual model output and a blank human judgment. Full unabridged JSON/evidence and editable judgment columns: [review CSV](../results/event_extraction_additional_review.csv); [review notes](../docs/human_review_additional.md). No row is human confirmed.
+These added records are **evaluation only** and never enter the demand adjustment. The table juxtaposes input, provisional reference, actual model output and Satoshi's recorded human judgment. Full unabridged JSON/evidence and editable judgment columns: [review CSV](../results/event_extraction_additional_review.csv); [review notes](../docs/human_review_additional.md). All three added cases are adjudicated: two require separate annotations and one fails grounding; no raw response is rewritten.
 """)
     code("""additional = run_additional_evaluation('recorded', root=ROOT)
 assert additional['live_llm_verified'] and additional['api_calls'] == 0
@@ -123,18 +126,22 @@ view = pd.DataFrame({'Input excerpt + source':review.input_excerpt + '\\n' + rev
                      'Review status':review.human_review_status})
 display(view.style.set_properties(**{'white-space':'pre-wrap','text-align':'left','vertical-align':'top','min-width':'180px','max-width':'350px'}).hide(axis='index'))
 display(pd.DataFrame(metrics['disagreements']))
-print('All additional cases: evaluation only. Human review PENDING. Video NOT RECORDED / NOT UPLOADED.')""")
+from bluebikes.human_review import status_text
+print(status_text(ROOT))
+print('All additional cases: evaluation only. Video NOT RECORDED / NOT UPLOADED.')""")
+    md('## Current human adjudication — separate from the frozen run\n\nSatoshi Nakamura explicitly adjudicated seven saved-excerpt cases and conditionally accepted eight model topics. Method: **AI-assisted review, explicitly adjudicated by Satoshi in chat**. Record compiled **2026-10-27 JST**; individual decision times were not recorded. Three accepted original cases, three HOCR annotation cases, and one participant/date failure are distinguished. **Adjudicated does not mean output corrected or all passed.**\n\nOriginal raw responses, frozen inputs/references and 19/20 and 11/15 scores are unchanged. Prior automatic summary flags and execution evidence describe the earlier pre-adjudication run, not the current human-review status. This Notebook preserves previous computational outputs and refreshes only review display cells for this integration; no full numerical rerun or new API call was performed.\n\nSee [full human annotations](../docs/HUMAN_REVIEW.md), [eight conditional model topics and shared/dedicated comparison](../docs/MODEL_REVIEW.md), and [unchanged decision record](../docs/human_review_decisions.json). Nominal 120 bikes/shift differs from the fixed-staffing e-bike stress of 108 equivalent bikes/shift. Forecast/backtest and stress tests are within the recorded interpretive scope, not empirical validation. Other-member review, TA confirmation, actual rehearsal/recording/upload, grader access and Canvas submission remain incomplete.\n')
+    code("from bluebikes.human_review import load_reviews, annotation_lines, status_text\nadjudications = load_reviews(ROOT)\nprint(status_text(ROOT))\ndisplay(pd.DataFrame([\n    {'Source ID': source_id,\n     'Human case judgment': entry['decision']['human_judgment'],\n     'Separate human annotation (raw output unchanged)': ' '.join(annotation_lines(entry, adjudications['record'])),\n     'Reviewer': entry['decision']['human_reviewer'],\n     'Compiled date (not decision time)': adjudications['record']['record_compiled_date_jst'] + ' JST',\n     'Output SHA256': entry['decision']['output_sha256']}\n    for source_id, entry in adjudications['events'].items()\n]).style.set_properties(**{'white-space':'pre-wrap','text-align':'left','vertical-align':'top','max-width':'360px'}).hide(axis='index'))\n")
     md("""## Architecture and recording handoff
 
 Use the shared Mermaid figure displayed above for architecture and presentation. The API call reaches OpenAI, the versioned prompt defines fields and unknowns, and structured output supports Python validation and human-confirmed planning input. Recorded-call hashes keep the demo reproducible; structural validation does not guarantee semantic correctness.
 
-**Remaining:** human extraction/unit review, all-member contributions/review, TA confirmation, rehearse and record/upload the three-minute video, verify teaching-team access, and submit manually to Canvas. Do not mark submission complete until those requirements are met.
+**Remaining:** other-member contributions/review, TA confirmation, unresolved empirical/course limitations, rehearse and record/upload the three-minute video, verify teaching-team access, and submit manually to Canvas. Do not mark submission complete until those requirements are met.
 """)
     md("""## Optional interactive local app — off by default
 
 The cells above remain the reproducible recording view. Install the current `requirements.txt` before using this optional app. Keep `LAUNCH_LOCAL_APP = False` for execution/submission: no server starts and no live API call is made. Opt in by setting it to `True` below. The default port remains 7860; set `LOCAL_APP_PORT = 7876` for this polished revision's review, matching `python scripts/run_app.py --port 7876` and avoiding an older process on 7860. The app binds to **127.0.0.1**, with sharing and analytics disabled.
 
-Start with the saved real input/output and results. A new model call happens only through **実APIで抽出 / Extract with OpenAI**. Review the editable fields and ambiguities, explain corrections in notes, click **Confirm reviewed values (this session only)**, then **計画に反映 / Apply to plan**. Review edits stay in the session. Source, reviewed event or assumption edits invalidate an applied scenario and require another apply; a source change requires replay/extraction and review again. The frozen original four calls/19-of-20 agreement and separate three-call/11-of-15 challenge are retained, with failures and human review still pending.
+Start with the saved real input/output and results. A new model call happens only through **実APIで抽出 / Extract with OpenAI**. Review the editable fields and ambiguities, explain corrections in notes, click **Confirm reviewed values (this session only)**, then **計画に反映 / Apply to plan**. Review edits stay in the session. Source, reviewed event or assumption edits invalidate an applied scenario and require another apply; a source change requires replay/extraction and review again. The frozen original four calls/19-of-20 agreement and separate three-call/11-of-15 challenge are retained, with failures and Satoshi's separate human annotations preserved.
 
 Keep +3,000 labelled **uncalibrated retrospective**, 120 course bikes/shift fixed during unit conversion, hiring decisions distinct from next-month active crews, and annual forecast/cost results separate from January-September observed-proxy/cost results. The app does not turn these assumptions into verified operating facts.
 

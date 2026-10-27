@@ -15,6 +15,7 @@ os.environ['GRADIO_ANALYTICS_ENABLED'] = 'False'
 import gradio as gr
 import pandas as pd
 
+from .human_review import review_html
 from .app_service import AppService
 from .events import _hash
 from .presentation import render_result
@@ -161,7 +162,8 @@ def _saved_review_rows(root):
 def _extraction_cards(state, root=None):
     """Readable ORIGINAL model fields; existing exact-match review flags only.
 
-    No new model inference or evaluation writes. Provisional automated notes are
+    No new model inference or evaluation writes. Human annotations remain separate.
+    Provisional automated notes are
     attached only when source input and output hash match the saved review row.
     """
     record=state.get('original_llm')
@@ -188,7 +190,7 @@ def _extraction_cards(state, root=None):
     count=record.get('expected_crowd_size')
     crowd_html='<span class="bb-null">Not stated</span>' if count is None else escape(f'{count:,}')
     if count is not None and qualifier:
-        crowd_html=escape(qualifier)+' '+crowd_html+' <em>(source qualifier; unconfirmed)</em>'
+        crowd_html=escape(qualifier)+' '+crowd_html+' <em>(source qualifier; separate annotation)</em>'
     if 'non_audience_number_used_as_crowd' in flags:
         crowd_html+=' <em>(flagged participant count, not verified spectators)</em>'
     notes=list(record.get('ambiguities') or [])
@@ -202,9 +204,10 @@ def _extraction_cards(state, root=None):
     if not notes: notes=['Check the date, city allocation, spectator role and source evidence before confirming.']
     needs='<ul>'+''.join('<li>'+escape(note)+'</li>' for note in notes)+'</ul>'
     values=[('Event',field(record.get('event_name'))),('Date / range',date_html),('City / venue',city_venue),('Expected spectators',crowd_html)]
-    html='<section class="bb-extraction"><p class="bb-muted">Original OpenAI fields, not verified facts. Review or correct them below.</p><dl>'
+    html='<section class="bb-extraction"><p class="bb-muted">Original OpenAI fields, preserved unchanged. Human adjudication, when available, is shown separately below.</p><dl>'
     html+=''.join('<dt>'+label+'</dt><dd>'+value+'</dd>' for label,value in values)+'</dl>'
-    html+='<div class="bb-review-note"><strong>Needs review</strong>'+needs+'</div>'
+    html+='<div class="bb-review-note"><strong>Needs review: original ambiguities and automated checks</strong>'+needs+'</div>'
+    html+=review_html(document, record, root)
     html+='<blockquote class="bb-evidence"><strong>Evidence excerpt</strong><br>'+escape(record.get('evidence_text') or '')+'</blockquote></section>'
     return html
 
@@ -244,7 +247,7 @@ def _geographic_outputs(state, month=_DEFAULT_MAP_MONTH, root=None):
 def _outputs(state, root=None):
     legacy=_legacy_outputs(state)
     view=render_result(state.get('result'))
-    extra=[_extraction_cards(state),view['kpi_html'],
+    extra=[_extraction_cards(state,root),view['kpi_html'],
            gr.update(value=view['crew_figure'],visible=view['crew_figure'] is not None),
            gr.update(value=view['demand_figure'],visible=view['demand_figure'] is not None),
            view['annual_table'],view['backtest_table'],view['monthly_table'],view['explanation_md'],
@@ -360,7 +363,7 @@ def create_app(root=None, *, service=None):
             gr.Markdown('Nominal capacity stays **120 bikes/shift, 6 shifts/week**, prorated by calendar days / 7. A pickup and a delivery are two handling actions. Pairing them as one course bike is a conditional convention; unbalanced depot work cannot automatically be halved.')
             conversion=gr.Radio(choices=[('1 handling action per course bike',1),('2 handling actions per course bike (pairing assumption)',2)],value=1,label='Handling actions per course bike')
         apply=gr.Button('\u8a08\u753b\u306b\u53cd\u6620 / Apply to plan',variant='primary',interactive=False)
-        gr.Markdown('## 5. Compare crew decisions\nCards and charts use the frozen 2026 forecast plus your scenario increment, for the selected city or staffing group. Held-out evaluation is in a separate tab. Before/after means **no event increment -> reviewed event scenario**.')
+        gr.Markdown('## 5. Compare crew decisions\nCards and charts use the frozen 2026 forecast plus your scenario increment, for the selected city or staffing group. Held-out evaluation is in a separate tab. Before/after means **no event increment -> reviewed event scenario**. The no-event baseline is an optimized model plan, not observed Bluebikes staffing. Initial crews are course-provided starting conditions, not an audited current deployment.')
         kpis=gr.HTML(value='',label='Event-month decisions',css_template=APP_CSS)
         crew_plot=gr.Plot(value=None,label='Monthly crew plan',visible=False,elem_classes=['bb-chart'])
         demand_plot=gr.Plot(value=None,label='Demand and capacity',visible=False,elem_classes=['bb-chart'])

@@ -91,3 +91,7 @@ display(examples["monthly_capacity"])
 ```
 
 The function checks the hand-entered expected corrections against the existing `inventory_proxy`. It neither changes that algorithm nor reads or writes the observed-data files.
+
+## Recorded conditional review
+
+Satoshi Nakamura explicitly adjudicated the eight topics in [MODEL_REVIEW.md](MODEL_REVIEW.md), using AI-assisted review in chat. Record compiled 2026-10-27 JST; exact decision times not recorded. This accepts disclosed assumptions, not empirical validity, TA approval or all-member review. Nominal course capacity is 120 bikes/shift; only the fixed-staffing e-bike stress assumes 90% effective capacity, equivalent to 108 bikes/shift. Forecast/backtest and sensitivity scope are recorded separately; unlisted audit topics remain unapproved.
