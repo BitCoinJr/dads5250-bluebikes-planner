@@ -1,0 +1,80 @@
+{
+  "verified_utc": "2026-10-27T01:36:43.508481+00:00",
+  "local_port": 7861,
+  "share": false,
+  "checks": [
+    "saved actual response loaded with null crowd and no session confirmation",
+    "unconfirmed Apply blocked by actual HTTP endpoint",
+    "confirmed event replans to April FT12->13 and March hires3->4; matching cost/shortfall periods",
+    "changed source rejects old extraction/confirmation/plan even when client skips input listener",
+    "edited input cannot reuse an unmatched saved response",
+    "missing project key visibly blocks live extraction with no implicit saved fallback",
+    "mock API error is redacted and clears outputs without fallback",
+    "explicit saved reload recovers demo after live failure",
+    "actual participant/date failure remains visible; corrected unknowns block planning"
+  ],
+  "checks_passed": 9,
+  "real_api_calls": 0,
+  "live_error_test": "mocked adapter failure through actual Gradio HTTP endpoint, not a real provider outage",
+  "recorded_outputs": "genuine saved OpenAI responses, not fixtures",
+  "server_closed_and_port_released": true,
+  "protected_artifact_hashes_unchanged": {
+    "fixtures/event_documents.json": "3895ea1889a90a2be644a75c6b13ccbd5c963e37be3f5a0e086fa0fc8cd6ece4",
+    "prompts/event_extraction_v1.txt": "80c752920ea81817756f1bbf5dd8c3a85e947d78bd4c0e5765ea306275dc7a61",
+    "prompts/event_schema.json": "a5978ee3d4f79054f4f82483aa1588e4b38ffc8de4774a74f7a69f391c93a556",
+    "results/event_extraction_live.json": "59b77416ff33ba72cb5241462df046bef8ffe6b768c432db29ed145ddcc37f1c",
+    "results/event_extraction_evaluation.json": "ad573d020aee3ba809944f50daa221707538ab9a4cc0ded7a55c6689f0c9bf33",
+    "results/event_extraction_additional_live.json": "44b4d00c261b21c8aaac3df35006de06e249db07d3b3b3d974146bf30faf07ed",
+    "results/event_extraction_additional_evaluation.json": "b176f254c4c4eca9d0385ca79272c390fc39a00b9c2531f9b14f1b63cd971cee",
+    "results/event_original_four_human_review.csv": "8a87d649f9d1c5d0bdf9e3bcb961fd9f8e0b6296f3792a4f1d3e583dcd6443a8",
+    "results/event_extraction_additional_review.csv": "035ff7cff70876936320610dbe66b07b2e72b9ed4d2803885da201b181b87d26"
+  },
+  "human_evaluation_files_updated": false,
+  "snapshots": {
+    "same_period_comparison": [
+      {
+        "Scenario": "No-event baseline",
+        "Period": "Jan-Dec 2026 forecast",
+        "Cash cost ($)": 1837200.0,
+        "Uncovered actions": 10006.65,
+        "Peak crews": 32,
+        "2027 seasonal tail ($)": 0.0
+      },
+      {
+        "Scenario": "No-event baseline",
+        "Period": "Jan-Sep 2026 observed proxy",
+        "Cash cost ($)": 1342800.0,
+        "Uncovered actions": 48126.86,
+        "Peak crews": 32,
+        "2027 seasonal tail ($)": null
+      },
+      {
+        "Scenario": "Reviewed event",
+        "Period": "Jan-Dec 2026 forecast",
+        "Cash cost ($)": 1844400.0,
+        "Uncovered actions": 10006.65,
+        "Peak crews": 32,
+        "2027 seasonal tail ($)": 0.0
+      },
+      {
+        "Scenario": "Reviewed event",
+        "Period": "Jan-Sep 2026 observed proxy",
+        "Cash cost ($)": 1339800.0,
+        "Uncovered actions": 45740.43,
+        "Peak crews": 32,
+        "2027 seasonal tail ($)": null
+      }
+    ],
+    "april_row": {
+      "Month": 4.0,
+      "FT baseline": 12.0,
+      "FT event": 13.0,
+      "Seasonal baseline": 0.0,
+      "Seasonal event": 0.0,
+      "Cost baseline ($)": 72000.0,
+      "Cost event ($)": 78000.0,
+      "Uncovered baseline actions": 0.0,
+      "Uncovered event actions": 0.0
+    }
+  }
+}

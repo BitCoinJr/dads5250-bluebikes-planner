@@ -120,6 +120,30 @@ Streaming trips -> station-hour inventory -> monthly proxy -> frozen seasonal fo
 
 **Remaining:** human extraction/unit review, all-member contributions/review, TA confirmation, rehearse and record/upload the three-minute video, verify teaching-team access, and submit manually to Canvas. Do not mark submission complete until those requirements are met.
 """)
+    md("""## Optional interactive local app — off by default
+
+The cells above remain the reproducible recording view. Install the current `requirements.txt` before using this optional app. Keep `LAUNCH_LOCAL_APP = False` for execution/submission: no server starts and no live API call is made. Opt in by setting it to `True` below. This is the same app as `python scripts/run_app.py --port 7860`, bound to **127.0.0.1**, with sharing and analytics disabled; use port 7861 if 7860 is occupied.
+
+Start with the saved real input/output and results. A new model call happens only through **実APIで抽出 / Extract with OpenAI**. Review the editable fields and ambiguities, explain corrections in notes, click **Confirm reviewed values (this session only)**, then **計画に反映 / Apply to plan**. Review edits stay in the session. Source, reviewed event or assumption edits invalidate an applied scenario and require another apply; a source change requires replay/extraction and review again. The frozen original four calls/19-of-20 agreement and separate three-call/11-of-15 challenge are retained, with failures and human review still pending.
+
+Keep +3,000 labelled **uncalibrated retrospective**, 120 course bikes/shift fixed during unit conversion, hiring decisions distinct from next-month active crews, and annual forecast/cost results separate from January-September observed-proxy/cost results. The app does not turn these assumptions into verified operating facts.
+
+Stop a Notebook session with **`app.close()`** in a new cell, or restore the flag to `False` and rerun this cell. Stop the standalone process with **Ctrl+C**. Save the submission with the flag `False`. See `docs/verification-gradio.json` for separately recorded integration checks; inspect the evidence before recording a demo.
+""")
+    code("""LAUNCH_LOCAL_APP = False
+LOCAL_APP_PORT = 7860
+if LAUNCH_LOCAL_APP:
+    from bluebikes.app import launch_local
+    if 'app' in globals() and app is not None:
+        app.close()
+    app = launch_local(ROOT, port=LOCAL_APP_PORT, inline=True, prevent_thread_lock=True)
+else:
+    if 'app' in globals() and app is not None:
+        app.close()
+        app = None
+    print('Local app is OFF. Set LAUNCH_LOCAL_APP=True only for an interactive local session.')
+# To stop an app you explicitly started, run app.close() in a new cell.
+# Restore LAUNCH_LOCAL_APP=False before saving or executing the submitted Notebook.""")
     return nbf.v4.new_notebook(cells=cells, metadata={"kernelspec":{"name":"python3","display_name":"Python 3","language":"python"},"language_info":{"name":"python","version":"3.13.2"}})
 
 

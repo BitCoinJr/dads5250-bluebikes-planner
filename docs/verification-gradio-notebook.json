@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "executed_utc": "2026-10-27T01:47:07.540280+00:00",
+  "command": ".venv/Scripts/python.exe -B scripts/verify_app_notebook.py --port 7868",
+  "kernel_executable": "C:\\dev\\university\\dads5250-bluebikes-planner\\.venv\\Scripts\\python.exe",
+  "kernel_name": "bluebikes",
+  "source_builder": "scripts/build_demo_notebook.py",
+  "source_cell_sha256": "b3a2585d35ab59ed16cb810c72789529ce5ae65fc132d69da2e789f7908951c7",
+  "executed_cell_sha256": "52b9ff655cdeb497b5ee683a8d3312b42a9181057f95e862c28a27c3bfe3eefd",
+  "only_cell_changes": {
+    "LAUNCH_LOCAL_APP": [
+      false,
+      true
+    ],
+    "LOCAL_APP_PORT": [
+      7860,
+      7868
+    ]
+  },
+  "notebook_artifact": "build/app_notebook_smoke.ipynb (ignored)",
+  "code_cells": 3,
+  "execution_counts": [
+    1,
+    2,
+    3
+  ],
+  "cell_errors": [],
+  "cleanup_cell_attempted_in_finally": true,
+  "actual_launch_and_close": {
+    "analytics_enabled": false,
+    "close_called": true,
+    "config_component_count": 44,
+    "config_enable_queue": true,
+    "config_http_status": 200,
+    "openai_adapter_request_attempts": 0,
+    "port": 7868,
+    "port_released_before_kernel_shutdown": true,
+    "server_name": "127.0.0.1",
+    "server_port": 7868,
+    "share": false
+  },
+  "port_released_after_kernel_shutdown": true,
+  "new_live_llm_api_calls": 0,
+  "guard_scope": "The requests-based OpenAI adapter endpoint is blocked/recorded if unexpectedly invoked; local config GET is real HTTP",
+  "preserved_artifact_hashes_unchanged": true,
+  "preserved_artifacts": {
+    "fixtures/event_documents.json": "3895ea1889a90a2be644a75c6b13ccbd5c963e37be3f5a0e086fa0fc8cd6ece4",
+    "fixtures/event_documents_additional.json": "474e23a9fd951bb31e9767ce9ee7e19e3cd37f433e557553f1db956420449cc1",
+    "prompts/event_extraction_v1.txt": "80c752920ea81817756f1bbf5dd8c3a85e947d78bd4c0e5765ea306275dc7a61",
+    "prompts/event_schema.json": "a5978ee3d4f79054f4f82483aa1588e4b38ffc8de4774a74f7a69f391c93a556",
+    "results/event_extraction_live.json": "59b77416ff33ba72cb5241462df046bef8ffe6b768c432db29ed145ddcc37f1c",
+    "results/event_extraction_evaluation.json": "ad573d020aee3ba809944f50daa221707538ab9a4cc0ded7a55c6689f0c9bf33",
+    "results/event_extraction_additional_live.json": "44b4d00c261b21c8aaac3df35006de06e249db07d3b3b3d974146bf30faf07ed",
+    "results/event_extraction_additional_evaluation.json": "b176f254c4c4eca9d0385ca79272c390fc39a00b9c2531f9b14f1b63cd971cee",
+    "results/event_original_four_human_review.csv": "8a87d649f9d1c5d0bdf9e3bcb961fd9f8e0b6296f3792a4f1d3e583dcd6443a8",
+    "results/event_extraction_additional_review.csv": "035ff7cff70876936320610dbe66b07b2e72b9ed4d2803885da201b181b87d26"
+  },
+  "failure": null
+}

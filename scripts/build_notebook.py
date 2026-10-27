@@ -104,7 +104,7 @@ display(Image(filename=str(ROOT / 'results/figures/demand_forecast.png')))""")
 
 The external API adapter calls the OpenAI Responses API with a versioned prompt and strict JSON Schema Structured Outputs. `OPENAI_API_KEY` is loaded from local configuration without displaying it; `OPENAI_MODEL` is configurable. Local validation checks types, nulls, dates, source URL and literal evidence. These checks do not prove semantic correctness. Short official-source excerpts and their provenance are saved in `fixtures/`. The prompt instructs the model to leave unstated audience sizes null and avoid treating athletes as spectators; the separate challenge below exposes a real violation of those instructions. Multi-city ambiguity can leave city null.
 
-The code below displays the actual extraction mode, API evidence and evaluation. **Fixture mode** uses agent-authored contract fixtures with zero API calls and no model accuracy. **Recorded mode** replays saved real API results after validating their source/prompt provenance; it avoids another paid call on Notebook reruns. Draft reference annotations require actual team human review, so agreement with these drafts is provisional and is not a human-gold accuracy claim. The score covers five fields per event; ambiguity text needs a separate review. The HOCR response contains a knowledge-like claim beyond the supplied excerpt, which remains flagged rather than silently corrected. HTTP mocks test the adapter, not a real model. Configure `OPENAI_API_KEY` locally and run `python -m bluebikes.events --mode live --output results/event_extraction_live.json` for actual evidence. Never paste a key into this Notebook or commit it.
+The code below displays the actual extraction mode, API evidence and evaluation. **Fixture mode** uses agent-authored contract fixtures with zero API calls and no model accuracy. **Recorded mode** replays saved real API results after validating their source/prompt provenance; it avoids another paid call on Notebook reruns. Draft reference annotations require actual team human review, so agreement with these drafts is provisional and is not a human-gold accuracy claim. The score covers five fields per event; ambiguity text needs a separate review. The HOCR response contains a knowledge-like claim beyond the supplied excerpt, which remains flagged rather than silently corrected. HTTP mocks test the adapter, not a real model. For an optional new call, configure `OPENAI_API_KEY` locally and use the app's explicit **実APIで抽出** button; its new response stays in session memory. Do not rerun the legacy live CLI in this evidence checkout: it internally writes the canonical live artifact even when a different `--output` path is supplied. CLI experiments need an independent copy/versioned run. This Notebook's recorded mode continues using the original artifact. Never paste a key into this Notebook or commit it.
 
 Recurring event effects may already be in monthly seasonality. Default extra demand is **zero**. We also show an explicitly assumed **+3,000 handling actions per eligible event** scenario, prorated across months. This coefficient is not extracted from text and is not calibrated on 2026 outcomes. Event source dates extend into 2026: the nonzero comparison is **retrospective stress analysis**, not a forecast possible with information available in January 2026.
 """)
@@ -245,6 +245,30 @@ for item in summary['unfinished']:
     print('-', item)
 print('Video link: NOT RECORDED / NOT UPLOADED')
 print('Teaching-team access: must be granted and verified manually')""")
+    md("""## Optional local Gradio app — off by default
+
+Install the current `requirements.txt` before opting in. Leave `LAUNCH_LOCAL_APP = False` for a normal top-to-bottom execution or submitted artifact: this cell starts no server and makes no live API call. To interact locally, set the flag to `True` and run the cell. It launches the same app as `python scripts/run_app.py --port 7860`, bound to **127.0.0.1**, with sharing and analytics disabled. If the port is occupied, choose `LOCAL_APP_PORT = 7861`. The standalone app and Notebook are two launchers for the same application.
+
+The initial view uses saved real extraction/results. Only the explicit **実APIで抽出 / Extract with OpenAI** button can request a new model response; opening the app does not. Reviews are session-only and do not overwrite frozen API outputs, references or evaluation artifacts. Inspect the source, JSON, editable fields and ambiguities; explain corrections in review notes; click **Confirm reviewed values (this session only)** and then **計画に反映 / Apply to plan**. Edits to the event or assumptions invalidate the applied scenario and require another apply; stale results must not be treated as current. Source changes require replay/extraction and review again.
+
+The +3,000 increment remains an uncalibrated retrospective assumption. Unit interpretation keeps 120 course bikes/shift fixed and separates handling actions from conditionally paired relocations. Hiring decisions take effect the following month. Annual forecast/cost comparisons remain separate from January-September observed-proxy/cost comparisons. Original 19/20 and separate 11/15 provisional agreements, including the participant/date failure and pending human review, remain visible.
+
+When finished, run **`app.close()`** in a new cell, or set the flag back to `False` and rerun this cell. Stop a standalone process with **Ctrl+C**. Return the flag to `False` before saving/executing the submission. App and Notebook verification is tracked separately in `docs/verification-gradio.json`; a link alone is not evidence of a successful run.
+""")
+    code("""LAUNCH_LOCAL_APP = False
+LOCAL_APP_PORT = 7860
+if LAUNCH_LOCAL_APP:
+    from bluebikes.app import launch_local
+    if 'app' in globals() and app is not None:
+        app.close()
+    app = launch_local(ROOT, port=LOCAL_APP_PORT, inline=True, prevent_thread_lock=True)
+else:
+    if 'app' in globals() and app is not None:
+        app.close()
+        app = None
+    print('Local app is OFF. Set LAUNCH_LOCAL_APP=True only for an interactive local session.')
+# To stop an app you explicitly started, run app.close() in a new cell.
+# Restore LAUNCH_LOCAL_APP=False before saving or executing the submitted Notebook.""")
     notebook=nbf.v4.new_notebook(cells=cells,metadata={"kernelspec":{"name":"python3","display_name":"Python 3","language":"python"},"language_info":{"name":"python","version":"3.13.2"}})
     return notebook
 

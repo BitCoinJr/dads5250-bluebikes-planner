@@ -1,0 +1,121 @@
+{
+  "status": "passed_recording_preparation_ready_submission_incomplete",
+  "verified_at_jst": "2026-10-27T11:07:27.192377+09:00",
+  "base_commit": "5dd79d569cfd3e3b3b8a56f2f5fa3b85adda4eb8",
+  "working_root": "C:\\dev\\university\\dads5250-bluebikes-planner",
+  "scope": "DADS5250 Bluebikes only; the misdirected QA is excluded from requirements and implementation decisions; no conversation-history deletion is claimed",
+  "baseline_scope_audit": "docs/scope-audit-5dd79d5.json",
+  "new_implementation_unrelated_project_matches": [],
+  "framework": {
+    "name": "Gradio",
+    "version": "6.30.0",
+    "other_ui_framework_added": false
+  },
+  "unit_tests": {
+    "passed": 85,
+    "failed": 0,
+    "original_tests_preserved": true,
+    "also_run_inside_submission_notebook": true
+  },
+  "notebooks": {
+    "notebooks\\bluebikes_submission.ipynb": {
+      "code_cells_executed": 15,
+      "cell_errors": 0,
+      "all_outputs_present": true,
+      "optional_app_default": "OFF",
+      "sha256": "4f23a1ee7bffca87101ba0adcfb37ab83935a3433221021318a36921da865f32"
+    },
+    "notebooks\\bluebikes_demo.ipynb": {
+      "code_cells_executed": 7,
+      "cell_errors": 0,
+      "all_outputs_present": true,
+      "optional_app_default": "OFF",
+      "sha256": "0ad0dba5119e2c44756e437d1f9b43d3c760c382ffaf895a2650e7812505defa"
+    }
+  },
+  "actual_browser_checks": [
+    "default saved-real label, null crowd and disabled Apply",
+    "confirm alone enables Apply without running planner",
+    "explicit Apply shows April FT12->13 and cost72000->78000",
+    "March prior hire decision3->4 is visible",
+    "ordinary period bases remain separate from retrospective scenario",
+    "typing in source clears extraction, review and plan",
+    "explicit saved reload after restoring exact source recovers demo"
+  ],
+  "browser_screenshots": {
+    "docs/screenshots/gradio_source_and_extraction.png": "dbdba4311c4e620e2a7d21b9607eaf39e3a8fe6900b787b7de5001afb4a6b530",
+    "docs/screenshots/gradio_plan_comparison.png": "4ad62f146c7f8ec7d8f32f706064f1f514ed6ffa0876caaa44bab73ab7be6105"
+  },
+  "http_integration": {
+    "evidence": "docs/verification-gradio-http.json",
+    "checks_passed": 9,
+    "actual_local_http": true,
+    "live_error": "mocked adapter error and missing local key; no actual provider outage claim",
+    "real_api_calls": 0,
+    "temporary_server_stopped": true
+  },
+  "notebook_launch_stop": {
+    "evidence": "docs/verification-gradio-notebook.json",
+    "executed_cells": 3,
+    "config_http_status": 200,
+    "share": false,
+    "analytics": false,
+    "port": 7868,
+    "port_released": true,
+    "real_api_calls": 0
+  },
+  "standalone": {
+    "start_command": ".\\.venv\\Scripts\\python.exe scripts/run_app.py --port 7860",
+    "host": "127.0.0.1",
+    "default_port": 7860,
+    "stop": "Ctrl+C",
+    "ctrl_c_stop_verified": true,
+    "verification_server_current_status": "stopped"
+  },
+  "guards": [
+    "exact saved source/title/text plus request/output provenance checks",
+    "explicit live button only; project .env credential never displayed",
+    "confirmation of exact input/edit/note state before Apply",
+    "input/review/assumption changes clear earlier plans",
+    "unknown dates/cities never inferred",
+    "live failure clears output without implicit saved fallback",
+    "all UI review lives only in memory; no evaluation writes"
+  ],
+  "calculation": [
+    "existing event_adjustments and crew planner reused; cached aggregates/forecast only",
+    "120 course bikes/shift fixed; handling/course-bike conversion explicit",
+    "3000 handling actions is uncalibrated retrospective stress, not estimated crowd effect",
+    "hiring/notice/seasonal next-month lead times and other constraints retained",
+    "cost and shortage compared on the same annual or nine-month horizon; mandatory2027seasonal tail separate",
+    "shortage remains a proxy, not measured lost trips"
+  ],
+  "preserved_original_seven_hashes": {
+    "fixtures/event_documents.json": "3895ea1889a90a2be644a75c6b13ccbd5c963e37be3f5a0e086fa0fc8cd6ece4",
+    "prompts/event_extraction_v1.txt": "80c752920ea81817756f1bbf5dd8c3a85e947d78bd4c0e5765ea306275dc7a61",
+    "prompts/event_schema.json": "a5978ee3d4f79054f4f82483aa1588e4b38ffc8de4774a74f7a69f391c93a556",
+    "results/event_extraction_live.json": "59b77416ff33ba72cb5241462df046bef8ffe6b768c432db29ed145ddcc37f1c",
+    "results/event_extraction_evaluation.json": "ad573d020aee3ba809944f50daa221707538ab9a4cc0ded7a55c6689f0c9bf33",
+    "results/event_extraction_fixture.json": "8201064ab07e5bf1c0679214e0db5f6c5f0487619398bc19f29e873a420d2809",
+    "docs/event_extraction_review.md": "eb92b9c6fc00dd2264fcd36c800843366cd9d4ba8a47f596931c42a68f5b4e55"
+  },
+  "frozen_llm_evidence": {
+    "original": "4 real calls,19/20 provisional agreement unchanged",
+    "supplemental": "3 real calls,11/15 provisional agreement unchanged; participant/date/qualifier failures retained",
+    "new_actual_calls_this_revision": 0,
+    "human_evaluation_complete": false
+  },
+  "remote_private_verified": true,
+  "run_metadata_code_and_result_hashes_match": true,
+  "nonfatal_verification_notes": [
+    "Windows/Jupyter emitted existing event-loop/TCP warnings; cells and tests still completed without errors"
+  ],
+  "remaining": [
+    "human extraction/reference/unit review",
+    "all-member contribution confirmation and review",
+    "TA confirmation",
+    "rehearse and record/upload three-minute demo",
+    "verify grader repository and video access",
+    "manual Canvas submission"
+  ],
+  "deadline_user_supplied": "2026-10-28 23:59 ET / 2026-10-29 12:59 JST"
+}

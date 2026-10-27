@@ -1,6 +1,6 @@
 # Bluebikes rebalancing and crew planning
 
-DADS5250 — Generative AI in Practice, Group 8. This reviewable first version connects official trip data, a transparent inventory-demand proxy, an event extraction API, monthly crew planning, and a reproducible submission Notebook.
+DADS5250 — Generative AI in Practice, Group 8. This reviewable first version connects official trip data, a transparent inventory-demand proxy, an event extraction API, monthly crew planning, a reproducible submission Notebook, and an optional local Gradio app for reviewing event scenarios.
 
 **Submission is incomplete.** TA confirmation, human-reviewed extraction labels, team contributions/review, the recorded and uploaded three-minute demo, and Canvas submission remain outstanding. A working analysis is not a completed submission.
 
@@ -33,7 +33,7 @@ py -m venv .venv --system-site-packages
 
 For a clean environment, create the venv with `py -m venv .venv` instead; omit `--system-site-packages`. The option above reuses already installed packages in the implementation environment. Do not recreate an existing environment that contains unrelated work. On macOS/Linux, use `python3` and `.venv/bin/python` for the equivalent commands.
 
-Open [notebooks/bluebikes_submission.ipynb](notebooks/bluebikes_submission.ipynb) after execution. Also inspect the compact [demo Notebook](notebooks/bluebikes_demo.ipynb) before recording; its link alone is not execution evidence. Inspect the cell outputs and the generated artifacts below. Execution must finish without cell errors; the initial build's actual evidence is recorded in the result files, not inferred from the commands printed here. The latest revision passed **64 tests**; the submission Notebook has **14/14** code cells executed with outputs and the demo has **6/6**, both with zero errors. Seven preserved original-artifact hashes matched. See [revision verification](docs/verification-demo-revision.json).
+Open [notebooks/bluebikes_submission.ipynb](notebooks/bluebikes_submission.ipynb) after execution. Also inspect the compact [demo Notebook](notebooks/bluebikes_demo.ipynb) before recording; its link alone is not execution evidence. Inspect the cell outputs and the generated artifacts below. Execution must finish without cell errors; evidence is recorded rather than inferred from the commands printed here. The historical revision before app integration passed **64 tests**, with **14/14** submission and **6/6** demo code cells executed, zero errors, and seven preserved original-artifact hashes matching: [baseline revision verification](docs/verification-demo-revision.json). App integration and regenerated Notebook execution are tracked separately in [Gradio verification](docs/verification-gradio.json). The Gradio revision passed **85 tests**; the submission **15/15** and demo **7/7** code cells ran with outputs and zero errors. Actual local HTTP workflow checks passed **9/9**; a separate real Notebook kernel started and stopped the same app successfully. API-error checks used mocks; this revision made zero new real API calls. The optional app cell is off by default in both Notebooks, and verification servers were stopped afterward.
 
 Optional full acquisition and aggregation, with network access and enough local space for monthly raw archives and Parquet caches:
 
@@ -44,15 +44,45 @@ Optional full acquisition and aggregation, with network access and enough local 
 
 The first command exercises January 2024 Boston and Cambridge. The second expands to the requested periods and all station-list municipalities. Downloads and station-hour caches stay local. Check the bucket manifest for file sizes before rebuilding; raw archives are not committed. A rerun uses existing caches, so use a separate checkout/cache location when intentionally refreshing the station snapshot or changing ingestion logic.
 
-The completed live extraction artifact is already included; the default commands above replay it without a key. To deliberately generate new live event extraction evidence, configure `OPENAI_API_KEY` in the local process environment or the Git-ignored project `.env`; [.env.example](.env.example) shows the format without a secret. Optionally set `OPENAI_MODEL`. Existing Windows user-level environment settings are also read when this process predates the change. Check only safe presence/source metadata, then run:
+The completed live extraction artifact is already included; the default commands above replay it without a key. For a new session-only extraction through the optional app's **実APIで抽出** button, configure `OPENAI_API_KEY` in the local process environment or the Git-ignored project `.env`; [.env.example](.env.example) shows the format without a secret. Optionally set `OPENAI_MODEL`. Existing Windows user-level environment settings are also read when this process predates the change. This command checks only safe presence/source metadata:
 
 ```powershell
 .\.venv\Scripts\python.exe -m bluebikes.events --check-config
-.\.venv\Scripts\python.exe -m bluebikes.events --mode live --output results/event_extraction_live.json
-.\.venv\Scripts\python.exe scripts/run_analysis.py --event-mode recorded
 ```
 
-Never place credentials in the Notebook or tracked files. OpenAI is the sole runtime provider, selected at the user's direction. The default model is `gpt-4.1-mini`, with Responses API Structured Outputs checked against official OpenAI documentation on 26 October 2026. No SDK is needed: the adapter uses `requests`, a strict remote JSON schema, and the stronger local validator. Without a key, the live path explicitly reports `blocked_missing_api_key`; it does not substitute fixtures. Successful live execution saves a credential-free artifact. Recorded mode validates its current prompt/source/schema request hashes and output hashes, then reuses the real recorded outputs without additional calls or a key. Fixture mode remains separately labelled and does not report its expected answers as model accuracy. See [event evidence and prompts](docs/event_sources.md).
+Use the app button for a new response in session memory. The legacy `bluebikes.events --mode live` path internally writes the canonical `results/event_extraction_live.json` before processing a CLI `--output` destination, so a different output filename alone does not preserve the original. Do not rerun that live CLI in this evidence checkout. CLI experiments need an independent copy/versioned run that cannot overwrite the frozen original artifacts. Recorded analysis continues using the preserved four-call artifact.
+
+Never place credentials in the Notebook or tracked files. OpenAI is the sole runtime provider, selected at the user's direction. The default model is `gpt-4.1-mini`, with Responses API Structured Outputs checked against official OpenAI documentation on 26 October 2026. No SDK is needed: the adapter uses `requests`, a strict remote JSON schema, and the stronger local validator. Without a key, the live path explicitly reports a blocked state; it does not substitute fixtures. The preserved historical live artifact contains credential-free provenance; a new app extraction remains in session memory. Recorded mode validates its current prompt/source/schema request hashes and output hashes, then reuses the real recorded outputs without additional calls or a key. Fixture mode remains separately labelled and does not report its expected answers as model accuracy. See [event evidence and prompts](docs/event_sources.md).
+
+## Optional local Gradio app
+
+Update the environment from the current requirements before launching the app:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe scripts/run_app.py --port 7860
+```
+
+Open [http://127.0.0.1:7860](http://127.0.0.1:7860) on the same computer. The app binds to **127.0.0.1**, sets `share=False`, and disables analytics. It does not create a public link. Stop the standalone process with **Ctrl+C**. If port 7860 is occupied, launch with `--port 7861` and open `http://127.0.0.1:7861`.
+
+Both Notebooks include the same optional launcher, with **`LAUNCH_LOCAL_APP = False`** by default. A normal execution starts no server and makes no new model call. To interact, set the flag to `True`; its launcher is equivalent to:
+
+```python
+from bluebikes.app import launch_local
+app = launch_local(ROOT, port=7860, inline=True, prevent_thread_lock=True)
+# When finished, run this in a new cell:
+app.close()
+```
+
+Use `LOCAL_APP_PORT = 7861` in the Notebook for a port collision. The CLI and Notebook launch the same application through [app.py](bluebikes/app.py). Restore `LAUNCH_LOCAL_APP = False` before saving/executing a submission; rerunning the disabled cell also closes a prior Notebook app handle.
+
+The initial view uses saved real inputs, model outputs and computed results. **Load saved real response** replays matching preserved evidence. Only **実APIで抽出 / Extract with OpenAI** requests a new model response, using a locally configured key; opening the app does not. Review the source, structured JSON, editable fields and ambiguities. Explain manual corrections in review notes, then click **Confirm reviewed values (this session only)** before **計画に反映 / Apply to plan**. Confirmation and scenario application are separate actions.
+
+Review edits remain in the session and do not overwrite the frozen raw API outputs, reference labels or evaluation CSVs. Changing source text/URL, reviewed event fields or assumptions invalidates the applied scenario and requires another apply, so an earlier result is not presented as a result of new inputs. Source changes require matching saved replay or a new extraction followed by review again.
+
+The app keeps **120 course bikes/shift** fixed during counting-unit conversion and labels the **+3,000 handling-action** event increment as an uncalibrated retrospective assumption. A hiring decision is distinct from next-month active staffing. Compare January-December cash costs with annual forecast shortages, or January-September cash costs with nine-month observed-proxy shortages; mandatory 2027 seasonal obligations remain separate. Keep the original four-call **19/20 (95%)** agreement and separate three-call **11/15** challenge, including its participant/crowd and unsupported-date failures, visible. Human review remains pending; interacting with the app does not establish human gold labels or complete the video/submission.
+
+Screens: [source and saved extraction](docs/screenshots/gradio_source_and_extraction.png), [plan comparison and prior hiring decision](docs/screenshots/gradio_plan_comparison.png). Reproduce the local endpoint checks with `python scripts/verify_app_http.py` and the real-kernel launch/stop check with `python scripts/verify_app_notebook.py --port 7868`; both make zero real API calls and close their temporary server. Use [Gradio verification](docs/verification-gradio.json) for recorded startup, interaction, cleanup, tests and Notebook execution evidence. [Architecture](docs/architecture.md) and the [review checklist](docs/REVIEW_CHECKLIST.md) describe this optional flow.
 
 ## Artifacts and results
 
@@ -91,6 +121,7 @@ A **separate three-call evaluation** produced **11/15 (73.3%) exact agreement** 
 |---|---|
 | [Submission Notebook](notebooks/bluebikes_submission.ipynb) | Full narrative, executable entry point and outputs |
 | [Demo Notebook](notebooks/bluebikes_demo.ipynb) | Compact real-event-to-plan walkthrough; verify its execution |
+| [Local app](bluebikes/app.py) / [CLI launcher](scripts/run_app.py) | Optional localhost review, explicit apply and conditional replanning; live extraction only by button |
 | [Matched-period comparisons](results/scenario_period_comparison.csv) | Annual forecast and nine-month observed-proxy comparisons |
 | [Unit replanning comparison](results/unit_interpretation_comparison.csv) | Fixed 120 bikes/shift, conversion, peak crews, cash cost and shortage |
 | [Supplemental extraction evaluation](results/event_extraction_additional_evaluation.json) | Separate three real calls, positive counts and exposed failures; no staffing use |
@@ -99,6 +130,7 @@ A **separate three-call evaluation** produced **11/15 (73.3%) exact agreement** 
 | [Synthetic unit walkthrough](docs/handling_unit_walkthrough.md) / [case counts](results/unit_example_case_summary.csv) / [hourly steps](results/unit_example_hourly_steps.csv) | Eight handling actions versus four conditionally paired relocations; unbalanced case |
 | [Focused event chain](results/focused_event_chain.csv) | Real extracted event to city/month increment and staffing/cost changes |
 | [Revision verification](docs/verification-demo-revision.json) | 64 tests, 14-cell submission and 6-cell demo execution, preserved original hashes |
+| [Gradio integration verification](docs/verification-gradio.json) | Separate app, cleanup and regenerated Notebook evidence; inspect actual status |
 | [Monthly real-data aggregates](data/processed/monthly.csv) | Auditable input for the cached analysis |
 | [Acquisition diagnostics](data/metadata/diagnostics.json) | Completed/missing periods, pilot, endpoint joins and processing audit |
 | [Station snapshot audit](data/metadata/station_source.json) | URL, retrieval check, effective date, hash and municipality counts |

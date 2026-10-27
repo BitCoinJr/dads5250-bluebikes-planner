@@ -1,31 +1,33 @@
-# Three-minute recording script
+# Three-minute Gradio recording script
 
-AI-assisted English draft. Speak only the five paragraphs below; stage directions are not spoken. Rehearse to three minutes. Video is NOT recorded or uploaded. Numbers are regenerated from the notebooks' results. Open `notebooks/bluebikes_demo.ipynb`; use the submission Notebook for the full audit.
+AI-assisted English draft. Speak the five paragraphs; directions are not spoken. Rehearse to three minutes. **Video is NOT recorded or uploaded.** All numbers come from the same saved results as the Notebooks. Launch `python scripts/run_app.py --port 7860` and open `http://127.0.0.1:7860`, or use the optional local-app cell in either executed Notebook.
 
-## 0:00-0:30 Problem and ordinary backtest
+## 0:00-0:25 Problem and evidence
 
-We plan Bluebikes crews across thirteen municipalities, training on 2024 and 2025. In the January-to-September 2026 backtest, initial crews cost $756,000, leaving 326,681 proxy actions uncovered. Our proposal costs $1,342,800, leaving 48,127. Both costs and shortages cover the same nine months. These are inventory proxies, with documented data gaps.
+We plan Bluebikes crews across thirteen municipalities, using 2024 and 2025 for training. Our ordinary January-to-September 2026 backtest leaves 48,127 proxy actions uncovered at a same-period crew cost of $1,342,800. This screen explores an event scenario; it is separate from that backtest. The proxy is neither measured operator work nor lost trips.
 
-## 0:30-1:15 Event text to a conditional decision
+## 0:25-1:00 Real extraction and review
 
-This Marathon announcement produces a real OpenAI extraction: Boston, April twentieth. We assign the route to its named endpoint. Our scenario then adds three thousand handling actions to Boston in April: an uncalibrated assumption, separate from extracted facts. April demand moves from 36,721 to 39,721; full-time crews change from 12 to 13, and April city crew cost from $72,000 to $78,000. Annual contracts can change other months. This is a retrospective scenario, not demonstrated forecast improvement.
+I select the Marathon announcement. This label says saved real API result: a genuine OpenAI response, replayed without a new call. Dates, city, location, crowd and ambiguities are visible. Crowd is unknown; thirty thousand athletes are not spectators. The separate live button calls OpenAI only when pressed. I review the Boston endpoint convention, then confirm. Confirmation is session-only and does not mark the evaluation files human reviewed.
 
-## 1:15-2:00 Handling actions versus relocated bikes
+## 1:00-1:55 Explicit plan change and timing
 
-These synthetic stations need four collections and four deliveries, including resets: eight handling actions. Pairing them gives four relocation tasks, subject to depot and timing assumptions. The course's one hundred twenty bikes per shift stays fixed. Converting two actions per course bike and replanning gives a nine-month cost of $830,700, 30,640 uncovered handling actions, and peak staffing of 18 rather than 32 crews. This is unit sensitivity, not measured productivity; unbalanced depot flows cannot automatically be halved.
+Only now do I press Apply to plan. Three thousand extra handling actions is an uncalibrated assumption, not LLM-estimated demand. This retrospective scenario does not demonstrate forecast improvement. Boston's April full-time crews change from 12 to 13, and April city cash cost from $72,000 to $78,000. The table shows the preceding March hire decision changing from three to four; it does not assume instant April hiring. Annual forecast and nine-month observed-proxy comparisons keep cost and shortage within their own matching periods. Contract changes can affect other months.
 
-## 2:00-2:40 Extraction failure is visible
+## 1:55-2:35 A visible failure and human correction
 
-The original four real extractions retain nineteen-of-twenty draft-reference agreement. Three added cases score 11 of 15 separately. Two spectator-count sources describe one event; both numeric counts are extracted. The participant-only case wrongly calls thirty thousand participants an audience and invents dates. Quantity qualifiers also need review. Input, provisional labels, outputs and blank human judgments appear side by side. These added cases are evaluation only. Human review is pending.
+I select the participant-only challenge. Its actual model output wrongly treats thirty thousand participants as crowd and guesses absent dates. I clear those fields instead of inventing replacements. Missing dates or an unsupported city block planning. The original four cases retain nineteen-of-twenty provisional agreement; three supplemental cases score 11 of 15 separately. None is human-gold accuracy. Changing source input clears old extraction and plans; changing reviewed fields requires confirmation again.
 
-## 2:40-3:00 Architecture and remaining work
+## 2:35-3:00 Units, architecture and handoff
 
-Small Python modules connect streaming trip aggregation, inventory, structured extraction and constrained staffing. Saved real responses make the demo reproducible without new API calls. Human and team review, TA confirmation, video recording and upload, and manual Canvas submission remain.
+The course's one hundred twenty bikes per shift stays fixed. The conversion selector distinguishes separate pickup and delivery actions from paired relocations. Existing Python modules perform extraction and constrained planning on cached aggregates. Human and team review, TA confirmation, video recording and upload, grader access and manual submission remain.
 
-## Stage directions and recording checklist (not spoken)
+## Screen directions (not spoken)
 
-1. Checkpoint 1: show the matched nine-month baseline/proposal table.
-2. Checkpoints 2-3: show the source, recorded real response, April city row and event diagram. Keep the retrospective/+3,000 assumption label visible.
-3. Checkpoints 4-5: show the hand count, unchanged 120 and matched nine-month unit comparison.
-4. Checkpoint 6: show participant-only failure and PENDING human judgments; do not imply these cases entered planning.
-5. Collapse setup/long tables; verify screen and microphone; rehearse timing; record/upload manually; test teaching-team access; insert the video URL. Recording/upload are NOT completed here.
+1. Begin with the Marathon selected. Point to source excerpt, saved-real label, null crowd and disabled Apply button. Optional: expand details or use the full submission Notebook for data audit.
+2. Confirm unchanged values, or enter a note explaining a deliberate correction. Original model JSON and session-confirmed JSON remain separate. Press Apply explicitly.
+3. Show system comparison and selected Boston monthly rows. April FT is 12 to 13; April cost is $72,000 to $78,000. `hire_decision_month_for_active_month` is March; prior-month hires are 3 to 4. Do not sum separate peak FT/seasonal counts from different months.
+4. Show the participant-only source and original failure. Clear spectator count and both dates, add a correction note, and confirm; Apply must be blocked for missing date/city. This is a demo interaction, not a persisted human evaluation.
+5. Keep +3,000/retrospective, nominal 120 and conversion assumptions visible. The hand-count audit is `docs/handling_unit_walkthrough.md`: 8 handling actions versus 4 assumed paired relocations; unbalanced depot flows cannot automatically be halved.
+6. Optional reliability demonstration: edit the source excerpt; old extraction/plan clears and saved reload requires an exact match. API failure must remain a visible failure; use the separate saved button to recover. Do not make a paid live call merely to replay the demo.
+7. Record/upload manually, test teaching-team access and insert the video URL. Stop CLI with Ctrl+C; stop a Notebook-owned app with `app.close()`. No public share link or deployment is created.

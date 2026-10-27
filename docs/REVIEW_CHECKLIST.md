@@ -22,7 +22,7 @@ Status: reviewable implementation in progress; **submission incomplete**. Check 
 - [ ] Review per-month file extensions, archive members, actual source columns, valid counts, missing IDs/names, duplicate handling, timestamp validity and start/end join rates. Explain any weak or changing coverage.
 - [ ] Check cross-month returns use end timestamps, IDs remain strings, and DST repeated local hours are netted together. No fabricated UTC offsets or missing observations.
 - [ ] Verify `results/summary.json`, tables, figures and demo-script numbers refer to the same completed run. Do not fill pending results with invented figures.
-- [x] Recorded implementation evidence: 64 tests passed; submission 14/14 and demo 6/6 code cells executed with outputs and zero errors; seven original-artifact hashes matched. See [verification](verification-demo-revision.json).
+- [x] Historical evidence before app integration: 64 tests passed; submission 14/14 and demo 6/6 code cells executed with outputs and zero errors; seven original-artifact hashes matched. See [baseline verification](verification-demo-revision.json). App integration and the appended opt-out cells require separate [Gradio verification](verification-gradio.json).
 - [ ] Independently reproduce the full submission Notebook and compact `notebooks/bluebikes_demo.ipynb` from the top. Inspect every code cell for execution count, outputs and errors; open both in another viewer. A new demo link alone is not execution evidence.
 
 ## Model and planning decisions
@@ -36,6 +36,17 @@ Status: reviewable implementation in progress; **submission incomplete**. Check 
 - [ ] Compare January-September crew cash cost and observed-proxy shortage together: initial crews **$756,000 / 326,680.86 actions**, frozen proposal **$1,342,800 / 48,126.86 actions**. Verify the current CSVs. Keep annual forecast comparisons and mandatory 2027 seasonal obligations separate; never pair annual crew cash cost with nine-month shortage.
 - [ ] Inspect demand −20%/+20%, assumed affected-user ratios 0/0.5/1/2 and e-bike productivity scenarios. Keep $5.70 per encounter separate from proxy units and label monetary losses as assumption-based.
 - [ ] Inspect solver status/gap. Claim optimality only as supported for the specified monthly model, not actual field operations.
+
+## Optional local Gradio app
+
+- [ ] Install the current requirements, then verify `python scripts/run_app.py --port 7860` opens the app only at `127.0.0.1`, with public sharing and analytics disabled. Verify the same app launches from a Notebook with `inline=True` and `prevent_thread_lock=True`; use 7861 if 7860 is occupied.
+- [ ] Execute both Notebooks with `LAUNCH_LOCAL_APP = False`. Confirm their prior analysis/demo outputs remain, the appended cell imports no app on the disabled path, no server remains running and no new model call occurs. Record actual cell counts/status in [verification-gradio.json](verification-gradio.json).
+- [ ] Inspect saved-real initialization. Opening the app must not call the model. New extraction occurs only after the explicit live button, with provenance distinct from recorded original/supplemental evidence; a missing key must remain an explicit blocked state.
+- [ ] Review source text/URL, JSON and ambiguity fields, explain corrections in notes, select **Confirm reviewed values (this session only)**, then explicitly **Apply to plan**. Trace its city/month increment to demand and crew decisions. Confirm edits stay in the session and preserve all frozen raw API/evaluation/reference artifacts; session review is not a completed human-gold evaluation.
+- [ ] Change source, extraction/review JSON or an assumption after applying. Verify the previous applied plan is invalidated and requires another apply, rather than silently displaying stale scenario results.
+- [ ] Verify 120 course bikes/shift stays fixed during handling-unit conversion, +3,000 remains an uncalibrated retrospective scenario, and a hiring decision takes effect next month. Keep annual forecast/cost comparisons separate from nine-month observed-proxy/cost comparisons and the 2027 seasonal tail.
+- [ ] Keep original four-call 19/20 and separate three-call 11/15 provisional results, participant/crowd and date failures, and pending human review visible. Supplemental evaluation-only cases must not enter staffing.
+- [ ] Stop the Notebook app with `app.close()` and the standalone app with Ctrl+C; verify the selected local port is released. Restore `LAUNCH_LOCAL_APP = False` before saving the submitted artifacts. No recording, upload, public app link or Canvas submission is implied.
 
 ## GenAI evidence
 
