@@ -1,0 +1,83 @@
+[
+  {
+    "id": "additional_hocr_bu_2026",
+    "event_identity": "hocr_2026",
+    "case_type": "audience_and_participants",
+    "source_url": "https://www.bu.edu/articles/2026/rowers-prepare-head-of-charles-regatta/",
+    "source_title": "BU Today preview of the 2026 Head of the Charles Regatta",
+    "source_published_date": "2026-10-15",
+    "retrieved_at": "2026-10-27",
+    "source_role": "First-party university preview: its rowing teams compete in the event",
+    "source_excerpt_type": "Selected verbatim clauses joined by ellipses; not a contiguous paragraph",
+    "source_text": "October 15, 2026 ... October 16, 17, and 18 ... for one weekend each October, more than 300,000 spectators ... Charles River ... over 12,000 rowers",
+    "crowd_reference": {"value": 300000, "qualifier": "more than", "interpretation": "lower-bound threshold, not exact attendance", "temporal_scope": "Article describes the recurring October audience in a 2026 event preview; not measured 2026 attendance"},
+    "non_audience_numbers": [{"value": 12000, "role": "rowers", "qualifier": "over"}],
+    "reference_status": "AI-authored draft frozen before API calls; actual human review pending",
+    "reference": {
+      "event_name": "Head of the Charles Regatta",
+      "start_date": "2026-10-16",
+      "end_date": "2026-10-18",
+      "location": "Charles River",
+      "city": null,
+      "expected_crowd_size": 300000,
+      "source_url": "https://www.bu.edu/articles/2026/rowers-prepare-head-of-charles-regatta/",
+      "evidence_text": "October 15, 2026 ... October 16, 17, and 18 ... for one weekend each October, more than 300,000 spectators ... Charles River ... over 12,000 rowers",
+      "missing_info": ["city"],
+      "ambiguities": ["The crowd value is a lower-bound threshold: more than 300,000, not exactly 300,000.", "The audience statement describes the recurring event in a 2026 preview, not a measured 2026 attendance count.", "The source excerpt does not state a municipality; no city is inferred from the event or river name."]
+    }
+  },
+  {
+    "id": "additional_hocr_avive_2026",
+    "event_identity": "hocr_2026",
+    "case_type": "audience_and_participants",
+    "source_url": "https://www.avive.life/news/head-of-the-charles-regatta",
+    "source_title": "Avive first-aid sponsorship announcement for the 2026 Head of the Charles Regatta",
+    "source_published_date": "2026-10-13",
+    "retrieved_at": "2026-10-27",
+    "source_role": "First-party announcement by the event's first-aid sponsor; promotional audience estimate",
+    "source_excerpt_type": "Selected verbatim clauses joined by ellipses; not a contiguous paragraph",
+    "source_text": "October 16-18, 2026 ... Charles River between Boston and Cambridge ... approximately 325,000 unique spectators, 11,500 competitors, and 2,400 volunteers.",
+    "crowd_reference": {"value": 325000, "qualifier": "approximately", "interpretation": "approximate expected unique spectators, not an exact count", "temporal_scope": "2026 regatta expectation in sponsor announcement"},
+    "non_audience_numbers": [{"value": 11500, "role": "competitors", "qualifier": null}, {"value": 2400, "role": "volunteers", "qualifier": null}],
+    "reference_status": "AI-authored draft frozen before API calls; actual human review pending",
+    "reference": {
+      "event_name": "Head of the Charles Regatta",
+      "start_date": "2026-10-16",
+      "end_date": "2026-10-18",
+      "location": "Charles River between Boston and Cambridge",
+      "city": null,
+      "expected_crowd_size": 325000,
+      "source_url": "https://www.avive.life/news/head-of-the-charles-regatta",
+      "evidence_text": "October 16-18, 2026 ... Charles River between Boston and Cambridge ... approximately 325,000 unique spectators, 11,500 competitors, and 2,400 volunteers.",
+      "missing_info": ["single city"],
+      "ambiguities": ["The source names both Boston and Cambridge without allocating the audience to a single city.", "The crowd value is approximately 325,000 unique spectators, not an exact count.", "Competitors and volunteers are separate roles and are not added to the expected audience."]
+    }
+  },
+  {
+    "id": "additional_baa_participants_only_2026",
+    "event_identity": "boston_marathon_2026",
+    "case_type": "participants_only",
+    "source_url": "https://www.baa.org/races/boston-marathon/info-for-spectators/",
+    "source_title": "B.A.A. spectator guidance containing 2026 Boston Marathon guide information",
+    "source_published_date": null,
+    "retrieved_at": "2026-10-27",
+    "source_role": "Official event organizer guidance",
+    "source_excerpt_type": "Selected verbatim clauses joined by ellipses; not a contiguous paragraph",
+    "source_text": "The 2026 Boston Marathon Spectator Guide ... Main Street and see 30,000 participants depart historic Hopkinton!",
+    "crowd_reference": {"value": null, "qualifier": null, "interpretation": "No spectator count is stated; participants are not audience", "temporal_scope": "2026 guide body; event date is not supplied in this excerpt"},
+    "non_audience_numbers": [{"value": 30000, "role": "participants", "qualifier": null}],
+    "reference_status": "AI-authored draft frozen before API calls; actual human review pending",
+    "reference": {
+      "event_name": "2026 Boston Marathon",
+      "start_date": null,
+      "end_date": null,
+      "location": "Main Street",
+      "city": "Hopkinton",
+      "expected_crowd_size": null,
+      "source_url": "https://www.baa.org/races/boston-marathon/info-for-spectators/",
+      "evidence_text": "The 2026 Boston Marathon Spectator Guide ... Main Street and see 30,000 participants depart historic Hopkinton!",
+      "missing_info": ["start_date", "end_date", "expected_crowd_size"],
+      "ambiguities": ["30,000 describes participants, not spectators; the spectator count must remain null.", "A year is stated but no event day is given in this excerpt; no calendar date is guessed."]
+    }
+  }
+]

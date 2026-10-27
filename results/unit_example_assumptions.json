@@ -1,0 +1,13 @@
+{
+  "provenance": "SYNTHETIC HAND COUNT: invented stations and trips; not observed Bluebikes data",
+  "assumptions": [
+    "All stations and trips in these tables are invented synthetic hand-count examples, separate from observed data.",
+    "Each station starts at floor(docks/2); arrivals and departures are netted within each local hour.",
+    "The proxy counts each supplied or collected bike as one handling action, including the daily half-full reset.",
+    "A paired pickup plus delivery is two handling actions for one completed relocation; pairing here is an explicit algebraic assumption.",
+    "Within-hour order, routes, truck inventory, depot inventory, travel time and feasible pickup-before-delivery schedules are not established.",
+    "Unbalanced local supplies/collections require an external depot; dividing their sum by two does not establish an empirical relocation count.",
+    "The course specification remains 120 bikes/shift and 6 shifts/week in both interpretations; only the meaning of bike and endpoint capacity factor changes.",
+    "Monthly capacity uses calendar days/7 as an average workweek, so fractional shifts are planning averages, not a shift roster."
+  ]
+}

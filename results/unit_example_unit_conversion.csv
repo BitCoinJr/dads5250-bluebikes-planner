@@ -1,0 +1,7 @@
+case,endpoint_capacity_factor,interpretation,course_bikes_per_shift,handling_actions,assumed_course_units_demand,required_crew_shifts,valid_for_this_hand_example
+synthetic_one_way,1,120 handling actions per shift,120,8,8.0,0.06666666666666667,True
+synthetic_one_way,2,120 paired completed relocations per shift,120,8,4.0,0.03333333333333333,True
+synthetic_return_hour,1,120 handling actions per shift,120,8,8.0,0.06666666666666667,True
+synthetic_return_hour,2,120 paired completed relocations per shift,120,8,4.0,0.03333333333333333,True
+synthetic_external_depot,1,120 handling actions per shift,120,4,4.0,0.03333333333333333,True
+synthetic_external_depot,2,120 paired completed relocations per shift,120,4,,,False

@@ -1,33 +1,31 @@
-# Three-minute demo script (English)
+# Three-minute recording script
 
-AI-generated draft; all three members must review and contribute. Numbers below are generated from `results/summary.json`, not manually typed claims. Recording and upload are **not done**. Speak only the paragraphs, not the headings or stage directions; rehearse timing to three minutes.
+AI-assisted English draft. Speak only the five paragraphs below; stage directions are not spoken. Rehearse to three minutes. Video is NOT recorded or uploaded. Numbers are regenerated from the notebooks' results. Open `notebooks/bluebikes_demo.ipynb`; use the submission Notebook for the full audit.
 
-## 0:00-0:30 Problem and data
+## 0:00-0:30 Problem and ordinary backtest
 
-Bluebikes needs bikes where riders start and spare docks where they finish. Our prototype turns public trips into monthly staffing for 13 municipalities. We trained on 2024 and 2025, holding out January through September 2026. Current station capacities approximate historical docks; unmatched stations remain excluded and audited.
+We plan Bluebikes crews across thirteen municipalities, training on 2024 and 2025. In the January-to-September 2026 backtest, initial crews cost $756,000, leaving 326,681 proxy actions uncovered. Our proposal costs $1,342,800, leaving 48,127. Both costs and shortages cover the same nine months. These are inventory proxies, with documented data gaps.
 
-Show `results/figures/demand_forecast.png`.
+## 0:30-1:15 Event text to a conditional decision
 
-## 0:30-1:05 Event input and GenAI
+This Marathon announcement produces a real OpenAI extraction: Boston, April twentieth. We assign the route to its named endpoint. Our scenario then adds three thousand handling actions to Boston in April: an uncalibrated assumption, separate from extracted facts. April demand moves from 36,721 to 39,721; full-time crews change from 12 to 13, and April city crew cost from $72,000 to $78,000. Annual contracts can change other months. This is a retrospective scenario, not demonstrated forecast improvement.
 
-Here is an official event announcement. Our prompt asks OpenAI for dates, location, city, crowd size and evidence in JSON. Structured output and local validation preserve null when crowd size is absent. We replay recorded real API extractions, with source and prompt provenance checked. Exact agreement with draft labels is 19 of 20 fields; human review remains pending. Extracted facts remain separate from assumed demand effects.
+## 1:15-2:00 Handling actions versus relocated bikes
 
-Show Notebook event input, prompt and validated JSON.
+These synthetic stations need four collections and four deliveries, including resets: eight handling actions. Pairing them gives four relocation tasks, subject to depot and timing assumptions. The course's one hundred twenty bikes per shift stays fixed. Converting two actions per course bike and replanning gives a nine-month cost of $830,700, 30,640 uncovered handling actions, and peak staffing of 18 rather than 32 crews. This is unit sensitivity, not measured productivity; unbalanced depot flows cannot automatically be halved.
 
-## 1:05-1:45 Plan change
+## 2:00-2:40 Extraction failure is visible
 
-Stations start each day half full. Hourly flows estimate boundary corrections; resetting also counts as work. These are proxy handling tasks, not measured rebalancing or lost trips. The planner enforces hiring delays, severance, seasonal minimum contracts and the eight-crew cap, including mandatory 2027 costs. Compare the base table with our event stress scenario: three thousand assumed tasks per eligible event. That coefficient is uncalibrated, and later-published sources make this a retrospective scenario. Default uplift is zero to avoid double counting seasonality.
+The original four real extractions retain nineteen-of-twenty draft-reference agreement. Three added cases score 11 of 15 separately. Two spectator-count sources describe one event; both numeric counts are extracted. The participant-only case wrongly calls thirty thousand participants an audience and invents dates. Quantity qualifiers also need review. Input, provisional labels, outputs and blank human judgments appear side by side. These added cases are evaluation only. Human review is pending.
 
-Show `results/figures/crew_plan.png` and the event plan delta table.
+## 2:40-3:00 Architecture and remaining work
 
-## 1:45-2:25 Validation and limitations
+Small Python modules connect streaming trip aggregation, inventory, structured extraction and constrained staffing. Saved real responses make the demo reproducible without new API calls. Human and team review, TA confirmation, video recording and upload, and manual Canvas submission remain.
 
-Held-out forecast WAPE is 9.7%. September has missing return-boundary departures, so January-August is also reported. Initial crews leave 326,681 proxy tasks uncovered; our frozen plan leaves 48,127. Annual crew cost plus committed seasonal tail is $1,837,200. Assumed customer losses stay separate. We stress demand by twenty percent and test an assumed e-bike capacity penalty. Event-scenario WAPE is 8.9%, reported whether better or worse.
+## Stage directions and recording checklist (not spoken)
 
-Show backtest and sensitivity figures.
-
-## 2:25-3:00 Architecture and strength
-
-The notebook connects small Python modules for data, inventory, forecasting, extraction and optimization. Figures and this script share the same results. Our strength is traceability with hand-checkable tests. Capacity units and shared-city crews require review; dedicated-city results are also available. Before submission we still need TA confirmation, all-member review, and the recorded, uploaded demo.
-
-Show `docs/architecture.md`. Do not describe the submission as complete until the video link and required reviews exist.
+1. Checkpoint 1: show the matched nine-month baseline/proposal table.
+2. Checkpoints 2-3: show the source, recorded real response, April city row and event diagram. Keep the retrospective/+3,000 assumption label visible.
+3. Checkpoints 4-5: show the hand count, unchanged 120 and matched nine-month unit comparison.
+4. Checkpoint 6: show participant-only failure and PENDING human judgments; do not imply these cases entered planning.
+5. Collapse setup/long tables; verify screen and microphone; rehearse timing; record/upload manually; test teaching-team access; insert the video URL. Recording/upload are NOT completed here.

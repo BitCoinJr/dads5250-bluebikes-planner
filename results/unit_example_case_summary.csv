@@ -1,0 +1,4 @@
+case,description,departures,arrivals,within_day_supply,within_day_collection,reset_supply,reset_collection,handling_actions,assumed_paired_relocations,pairing_assumption
+synthetic_one_way,Four customer trips A to B in one hour,4,4,2,2,2,2,8,4,"Two B-to-A pickups/deliveries during the day, plus two B-to-A resets; algebraic pairing only"
+synthetic_return_hour,"Four A-to-B trips, then four B-to-A trips in the next hour",8,8,2,2,2,2,8,4,"Two B-to-A pickups/deliveries during the day, plus two A-to-B resets; algebraic pairing only"
+synthetic_external_depot,Four departures from A; arrivals occur outside the two-station example,4,0,2,0,2,0,4,,Four local deliveries from an external depot; its pickup endpoints are outside the example

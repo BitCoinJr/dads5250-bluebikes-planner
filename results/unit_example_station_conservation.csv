@@ -1,0 +1,7 @@
+case,station_key,initial_stock,departures,arrivals,supply_bikes,collection_bikes,reset_supply_bikes,reset_collection_bikes,final_stock_after_reset,customer_net_arrivals,handling_actions,conservation_lhs,conservation_rhs,balanced,matches_existing_proxy
+synthetic_one_way,SYNTHETIC_A,2,4,0,2,0,2,0,2,-4,4,6,6,True,True
+synthetic_one_way,SYNTHETIC_B,2,0,4,0,2,0,2,2,4,4,6,6,True,True
+synthetic_return_hour,SYNTHETIC_A,2,4,4,2,0,0,2,2,0,4,8,8,True,True
+synthetic_return_hour,SYNTHETIC_B,2,4,4,0,2,2,0,2,0,4,8,8,True,True
+synthetic_external_depot,SYNTHETIC_A,2,4,0,2,0,2,0,2,-4,4,6,6,True,True
+synthetic_external_depot,SYNTHETIC_B,2,0,0,0,0,0,0,2,0,0,2,2,True,True

@@ -1,0 +1,2 @@
+event_name,start_date,end_date,city,source_url,evidence_text,expected_crowd_size,ambiguities,increment_assumption_handling_actions_per_event,year,month,staffing_group,status,event_increment_handling_actions
+Head Of The Charles Regatta,2026-10-16,2026-10-18,,https://hocr.org/,"HEAD OF THE CHARLES REGATTA - OCT. 16-18, 2026 ... Eliot Bridge Enclosure and Directors' Lounge",,"[""The city is not explicitly stated; the event is known to span multiple locations but no specific city is given in the text.""]",3000.0,,,,excluded_missing_city_no_location_inference,0.0

@@ -15,8 +15,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from .events import run_extraction,event_adjustments,check_config
+from .events import run_extraction,event_adjustments,check_config,load_documents
 from .forecast import forecast_2026,backtest_predictions,error_metrics
+from .scenarios import generate_review_scenarios
+from .unit_examples import build_unit_examples
+from .event_validation import run_additional_evaluation
+from .review_tables import write_review_csv
 from .planner import PlannerConfig,plan_crews,baseline_plan,evaluate_plan,allocate_city_capacity
 
 
@@ -136,8 +140,12 @@ def run_analysis(root=None, event_mode="fixture"):
         result=evaluate_plan(plan,actual,altered)
         sensitivity.append({"scenario":"ebike_capacity_assumption","factor":capacity_factor,"plan":"proposed",**_performance(result)})
     # Unit interpretation: one completed pickup+delivery vs one handling action.
-    result=evaluate_plan(plan,actual,replace(cfg,bikes_per_shift=cfg.bikes_per_shift*2))
-    sensitivity.append({"scenario":"120_completed_relocations_implies_240_handling_actions","factor":2.,"plan":"proposed",**_performance(result)})
+    # The course's 120 is unchanged: convert input actions to course-bike units.
+    course_actual=actual.copy(); course_actual["demand_bikes"]/=2
+    result=evaluate_plan(plan,course_actual,replace(cfg,affected_users_per_proxy_bike=cfg.affected_users_per_proxy_bike*2))
+    for col in ["actual_demand_bikes","actual_unmet_bikes","actual_served_bikes"]:
+        result[col]*=2  # report comparable handling actions, not mixed units
+    sensitivity.append({"scenario":"fixed_crews_unit_conversion_2_actions_per_course_bike","factor":2.,"plan":"proposed",**_performance(result)})
     sensitivity=pd.DataFrame(sensitivity)
     # Show how the uncertain customer conversion changes the recommended plan.
     loss_sensitivity=[]
@@ -156,6 +164,36 @@ def run_analysis(root=None, event_mode="fixture"):
              "dedicated_city_plan_2026":dedicated,"event_plan_delta":delta}
     for name,table in {**outputs,**{f"backtest_{k}":v for k,v in evaluations.items()}}.items():
         table.to_csv(out/f"{name}.csv",index=False)
+    reviews=generate_review_scenarios(forecast,events,actual,baseline,plan,cfg)
+    for name,table in reviews["tables"].items():
+        table.to_csv(out/f"{name}.csv",index=False)
+    _json(out/"review_scenario_assumptions.json",reviews["metadata"])
+    periods=reviews["tables"]["scenario_period_comparison"]
+    unit_comparison=periods[periods.scenario.isin(["proposal_no_event_factor1","replanned_no_event_factor2","initial_crews_factor1","initial_crews_factor2"])].copy()
+    unit_comparison.to_csv(out/"unit_interpretation_comparison.csv",index=False)
+    examples=build_unit_examples()
+    for name,table in examples.items():
+        if isinstance(table,pd.DataFrame): table.to_csv(out/f"unit_example_{name}.csv",index=False)
+    _json(out/"unit_example_assumptions.json",{k:v for k,v in examples.items() if not isinstance(v,pd.DataFrame)})
+    supplemental=(run_additional_evaluation(mode="recorded",root=root) if event_mode!="fixture" else
+                  {"status":"not_loaded_in_fixture_mode","api_calls":0,"recorded_api_calls":0,"evaluation":None})
+    original_documents={doc["id"]:doc for doc in load_documents(root)}
+    review_rows=[]
+    for detail in events["evaluation"].get("details",[]):
+        doc=original_documents[detail["source_id"]]
+        review_rows.append({"evaluation_batch":"original_four_frozen","source_id":doc["id"],"source_url":doc["source_url"],
+                            "input_excerpt":doc["source_text"],"field":detail["field"],
+                            "provisional_reference":json.dumps(detail["expected"],ensure_ascii=False),
+                            "actual_llm_output":json.dumps(detail["predicted"],ensure_ascii=False),
+                            "automatic_exact_match":detail["correct"],"human_judgment":"","reviewer":"","notes":"","human_review_status":"PENDING"})
+    write_review_csv(out/"event_original_four_human_review.csv",review_rows)
+    april=reviews["tables"]["focused_event_chain"]
+    april=april[(april.city=="Boston")&(april.month==4)]
+    demo_context={"status":reviews["metadata"]["event_scenario_status"],"handling_increment_per_event":3000,
+                  "focused_event_april_boston":json.loads(april.to_json(orient="records")),
+                  "same_period_comparisons":json.loads(periods.to_json(orient="records")),
+                  "unit_replanning_comparisons":json.loads(unit_comparison.to_json(orient="records")),
+                  "course_bikes_per_shift_fixed":120,"human_review_complete":False}
     summary={"artifact_status":"reviewable_initial_version_submission_incomplete",
              "data_periods":sorted((data.year.astype(str)+"-"+data.month.astype(str).str.zfill(2)).unique().tolist()),
              "cities":sorted(data.city.unique().tolist()),"training_years":[2024,2025],
@@ -169,6 +207,10 @@ def run_analysis(root=None, event_mode="fixture"):
              "event_default_increment":0,"events_status":events["status"],
              "live_llm_verified":events["live_llm_verified"],
              "event_extraction_evaluation":evaluation_report,
+             "demo_context":demo_context,
+             "additional_event_evaluation":supplemental.get("evaluation"),
+             "additional_event_evaluation_status":supplemental["status"],
+             "additional_recorded_api_calls":supplemental.get("recorded_api_calls",supplemental.get("api_calls",0)),
              "api_calls_this_run":events["api_calls"],"recorded_api_calls":events.get("recorded_api_calls",0),
              "proposed":ps,"initial_crews":bs,"event_scenario":es,
              "dedicated_city_scenario":{**dedicated_summary,"backtest":_performance(dedicated_eval)},
@@ -178,6 +220,7 @@ def run_analysis(root=None, event_mode="fixture"):
     _json(out/"summary.json",summary)
     _json(out/"planning_config.json",asdict(cfg))
     _figures(data,forecast,plan,evaluations,sensitivity,figs)
+    _review_figures(reviews["tables"],examples,figs,events["live_llm_verified"])
     _demo(summary,root)
     _json(out/"run_metadata.json",{
         "executed_utc":datetime.now(timezone.utc).isoformat(),"python":platform.python_version(),
@@ -227,46 +270,77 @@ def _figures(data,forecast,plan,evaluations,sensitivity,figs):
     ax.legend(); ax.grid(alpha=.2); fig.savefig(figs/"demand_sensitivity.png"); plt.close(fig)
 
 
+def _review_figures(tables,examples,figs,live_verified):
+    from matplotlib.patches import FancyBboxPatch
+    row=tables["focused_event_chain"].query("city == 'Boston' and month == 4").iloc[0]
+    # Literal currency signs and fixed-width boxes prevent mathtext and overlap.
+    with plt.rc_context({"text.parse_math":False}):
+        fig,ax=plt.subplots(figsize=(16,4.2)); ax.axis("off")
+        labels=["Real event text\nBoston Marathon\n20 April 2026",
+                ("Recorded real OpenAI" if live_verified else "Agent fixture contract")+"\ncity: Boston\ndate: 2026-04-20",
+                "Uncalibrated assumption\n+3,000 handling actions\nBoston / April",
+                f"Frozen forecast + increment\n{row.demand_bikes_base:,.0f} -> {row.demand_bikes_scenario:,.0f}\nhandling actions",
+                f"Conditional April plan\nFT {int(row.full_time_base)} -> {int(row.full_time_scenario)}\nBoston crew cash cost\n${row.crew_cost_base:,.0f} -> ${row.crew_cost_scenario:,.0f}"]
+        for i,label in enumerate(labels):
+            x=.012+i*.2
+            ax.add_patch(FancyBboxPatch((x,.32),.173,.40,boxstyle="round,pad=0.008",transform=ax.transAxes,facecolor="#e8f1f4",edgecolor="#336577"))
+            ax.text(x+.0865,.52,label,transform=ax.transAxes,ha="center",va="center",fontsize=10)
+            if i<4:
+                ax.annotate("",xy=(x+.191,.52),xytext=(x+.182,.52),xycoords="axes fraction",arrowprops=dict(arrowstyle="->",color="#336577",lw=2))
+        ax.set_title("Event-to-plan demo: focused retrospective scenario",fontsize=16,pad=14)
+        fig.text(.07,.085,"+3,000 is separate from extracted facts; no demonstrated forecast improvement.\nBoston uses the named route-endpoint convention. Annual contract decisions can change other months.",fontsize=10)
+        fig.savefig(figs/"event_demo_chain.png");plt.close(fig)
+        fig,ax=plt.subplots(figsize=(11,4.4));ax.axis("off")
+        stations=[(.23,"Station A: 2 bikes / 4 docks\n4 departures\n2 boundary supply + 2 reset supply"),
+                  (.77,"Station B: 2 bikes / 4 docks\n4 arrivals\n2 boundary collection + 2 reset collection")]
+        for x,label in stations:
+            ax.text(x,.68,label,transform=ax.transAxes,ha="center",va="center",fontsize=11,
+                    bbox=dict(boxstyle="round,pad=.65",facecolor="#e8f1f4",edgecolor="#336577"))
+        ax.annotate("",xy=(.27,.37),xytext=(.73,.37),xycoords="axes fraction",arrowprops=dict(arrowstyle="->",lw=2,color="#336577"))
+        ax.text(.5,.20,"Assumed pairing: 4 relocation tasks = 8 station handling actions",transform=ax.transAxes,ha="center",va="center",fontsize=11)
+        ax.set_title("Synthetic hand count: the course's 120 bikes/shift stays fixed",fontsize=14,pad=15)
+        fig.text(.065,.025,"Pairing is an algebraic scenario, not a proven van route.\nUnbalanced station/depot actions cannot automatically be divided by two.",fontsize=10)
+        fig.savefig(figs/"handling_unit_demo.png");plt.close(fig)
+
+
 def _demo(s,root):
-    b={r["plan"]:r for r in s["backtest_comparison"]}
-    p=s["proposed"]; actual=b["proposed"]; initial=b["initial_crews"]
-    api_sentence="We replay recorded real API extractions, with source and prompt provenance checked." if s['live_llm_verified'] else "This run uses agent-authored fixtures; no live API call has been verified."
-    api_todo="" if s['live_llm_verified'] else "live API evidence, "
-    score=s['event_extraction_evaluation']
-    score_sentence=(f"Exact agreement with draft labels is {score['correct_fields']} of {score['total_fields']} fields; human review remains pending."
-                    if s['live_llm_verified'] else "Fixture agreement is not model accuracy.")
-    text=f"""# Three-minute demo script (English)
+    rows=s["demo_context"]["same_period_comparisons"]
+    period="2026-01 through 2026-09"
+    initial=next(r for r in rows if r["scenario"]=="initial_crews_factor1" and r["period"]==period)
+    proposed=next(r for r in rows if r["scenario"]=="proposal_no_event_factor1" and r["period"]==period)
+    factor2=next(r for r in rows if r["scenario"]=="replanned_no_event_factor2" and r["period"]==period)
+    focused=s["demo_context"]["focused_event_april_boston"][0]
+    extra=s.get("additional_event_evaluation") or {}
+    text=f"""# Three-minute recording script
 
-AI-generated draft; all three members must review and contribute. Numbers below are generated from `results/summary.json`, not manually typed claims. Recording and upload are **not done**. Speak only the paragraphs, not the headings or stage directions; rehearse timing to three minutes.
+AI-assisted English draft. Speak only the five paragraphs below; stage directions are not spoken. Rehearse to three minutes. Video is NOT recorded or uploaded. Numbers are regenerated from the notebooks' results. Open `notebooks/bluebikes_demo.ipynb`; use the submission Notebook for the full audit.
 
-## 0:00-0:30 Problem and data
+## 0:00-0:30 Problem and ordinary backtest
 
-Bluebikes needs bikes where riders start and spare docks where they finish. Our prototype turns public trips into monthly staffing for {len(s['cities'])} municipalities. We trained on 2024 and 2025, holding out January through September 2026. Current station capacities approximate historical docks; unmatched stations remain excluded and audited.
+We plan Bluebikes crews across thirteen municipalities, training on 2024 and 2025. In the January-to-September 2026 backtest, initial crews cost ${initial['crew_cash_cost_in_period']:,.0f}, leaving {initial['uncovered_handling_actions']:,.0f} proxy actions uncovered. Our proposal costs ${proposed['crew_cash_cost_in_period']:,.0f}, leaving {proposed['uncovered_handling_actions']:,.0f}. Both costs and shortages cover the same nine months. These are inventory proxies, with documented data gaps.
 
-Show `results/figures/demand_forecast.png`.
+## 0:30-1:15 Event text to a conditional decision
 
-## 0:30-1:05 Event input and GenAI
+This Marathon announcement produces a real OpenAI extraction: Boston, April twentieth. We assign the route to its named endpoint. Our scenario then adds three thousand handling actions to Boston in April: an uncalibrated assumption, separate from extracted facts. April demand moves from {focused['demand_bikes_base']:,.0f} to {focused['demand_bikes_scenario']:,.0f}; full-time crews change from {int(focused['full_time_base'])} to {int(focused['full_time_scenario'])}, and April city crew cost from ${focused['crew_cost_base']:,.0f} to ${focused['crew_cost_scenario']:,.0f}. Annual contracts can change other months. This is a retrospective scenario, not demonstrated forecast improvement.
 
-Here is an official event announcement. Our prompt asks OpenAI for dates, location, city, crowd size and evidence in JSON. Structured output and local validation preserve null when crowd size is absent. {api_sentence} {score_sentence} Extracted facts remain separate from assumed demand effects.
+## 1:15-2:00 Handling actions versus relocated bikes
 
-Show Notebook event input, prompt and validated JSON.
+These synthetic stations need four collections and four deliveries, including resets: eight handling actions. Pairing them gives four relocation tasks, subject to depot and timing assumptions. The course's one hundred twenty bikes per shift stays fixed. Converting two actions per course bike and replanning gives a nine-month cost of ${factor2['crew_cash_cost_in_period']:,.0f}, {factor2['uncovered_handling_actions']:,.0f} uncovered handling actions, and peak staffing of {factor2['peak_total_crews_in_period']} rather than {proposed['peak_total_crews_in_period']} crews. This is unit sensitivity, not measured productivity; unbalanced depot flows cannot automatically be halved.
 
-## 1:05-1:45 Plan change
+## 2:00-2:40 Extraction failure is visible
 
-Stations start each day half full. Hourly flows estimate boundary corrections; resetting also counts as work. These are proxy handling tasks, not measured rebalancing or lost trips. The planner enforces hiring delays, severance, seasonal minimum contracts and the eight-crew cap, including mandatory 2027 costs. Compare the base table with our event stress scenario: three thousand assumed tasks per eligible event. That coefficient is uncalibrated, and later-published sources make this a retrospective scenario. Default uplift is zero to avoid double counting seasonality.
+The original four real extractions retain nineteen-of-twenty draft-reference agreement. Three added cases score {extra.get('correct_fields','pending')} of {extra.get('total_fields','pending')} separately. Two spectator-count sources describe one event; both numeric counts are extracted. The participant-only case wrongly calls thirty thousand participants an audience and invents dates. Quantity qualifiers also need review. Input, provisional labels, outputs and blank human judgments appear side by side. These added cases are evaluation only. Human review is pending.
 
-Show `results/figures/crew_plan.png` and the event plan delta table.
+## 2:40-3:00 Architecture and remaining work
 
-## 1:45-2:25 Validation and limitations
+Small Python modules connect streaming trip aggregation, inventory, structured extraction and constrained staffing. Saved real responses make the demo reproducible without new API calls. Human and team review, TA confirmation, video recording and upload, and manual Canvas submission remain.
 
-Held-out forecast WAPE is {s['forecast_backtest']['wape']:.1%}. September has missing return-boundary departures, so January-August is also reported. Initial crews leave {initial['uncovered_proxy_bikes']:,.0f} proxy tasks uncovered; our frozen plan leaves {actual['uncovered_proxy_bikes']:,.0f}. Annual crew cost plus committed seasonal tail is ${p['total_committed_crew_cost']:,.0f}. Assumed customer losses stay separate. We stress demand by twenty percent and test an assumed e-bike capacity penalty. Event-scenario WAPE is {s['event_scenario_backtest']['wape']:.1%}, reported whether better or worse.
+## Stage directions and recording checklist (not spoken)
 
-Show backtest and sensitivity figures.
-
-## 2:25-3:00 Architecture and strength
-
-The notebook connects small Python modules for data, inventory, forecasting, extraction and optimization. Figures and this script share the same results. Our strength is traceability with hand-checkable tests. Capacity units and shared-city crews require review; dedicated-city results are also available. Before submission we still need TA confirmation, {api_todo}all-member review, and the recorded, uploaded demo.
-
-Show `docs/architecture.md`. Do not describe the submission as complete until the video link and required reviews exist.
+1. Checkpoint 1: show the matched nine-month baseline/proposal table.
+2. Checkpoints 2-3: show the source, recorded real response, April city row and event diagram. Keep the retrospective/+3,000 assumption label visible.
+3. Checkpoints 4-5: show the hand count, unchanged 120 and matched nine-month unit comparison.
+4. Checkpoint 6: show participant-only failure and PENDING human judgments; do not imply these cases entered planning.
+5. Collapse setup/long tables; verify screen and microphone; rehearse timing; record/upload manually; test teaching-team access; insert the video URL. Recording/upload are NOT completed here.
 """
     (root/"docs/DEMO_SCRIPT.md").write_text(text,encoding="utf-8")

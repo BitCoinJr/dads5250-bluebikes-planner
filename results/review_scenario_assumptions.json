@@ -1,0 +1,121 @@
+{
+  "event_scenario_status": "uncalibrated retrospective stress; not evidence of forecast improvement",
+  "increment_handling_actions_per_eligible_event": 3000.0,
+  "recorded_event_provenance": {
+    "live_llm_verified": true,
+    "mode": "recorded",
+    "actual_models": [
+      "gpt-4.1-mini-2025-04-14"
+    ],
+    "api_calls_made_by_scenarios": 0,
+    "human_review_complete": false
+  },
+  "focused_event_found": true,
+  "focused_event_source_urls": [
+    "https://www.baa.org/news/media-resources-schedule-of-events-for-the-130th-boston-marathon-presented-by-bank-of-america/"
+  ],
+  "excluded_events": [
+    {
+      "event_name": "Head Of The Charles Regatta",
+      "start_date": "2026-10-16",
+      "end_date": "2026-10-18",
+      "city": null,
+      "source_url": "https://hocr.org/",
+      "evidence_text": "HEAD OF THE CHARLES REGATTA - OCT. 16-18, 2026 ... Eliot Bridge Enclosure and Directors' Lounge",
+      "expected_crowd_size": null,
+      "ambiguities": "[\"The city is not explicitly stated; the event is known to span multiple locations but no specific city is given in the text.\"]",
+      "increment_assumption_handling_actions_per_event": 3000.0,
+      "year": null,
+      "month": null,
+      "staffing_group": null,
+      "status": "excluded_missing_city_no_location_inference",
+      "event_increment_handling_actions": 0.0
+    }
+  ],
+  "solver_summaries": {
+    "focused_event": {
+      "crew_cost_2026": 1844400.0,
+      "terminal_seasonal_committed_cost_2027": 0.0,
+      "total_committed_crew_cost": 1844400.0,
+      "unmet_proxy_bikes": 10006.64925488687,
+      "assumed_affected_users_per_proxy_bike": 1.0,
+      "assumed_service_loss": 57037.90075285516,
+      "objective_with_assumed_loss": 1901437.9007528552,
+      "max_simultaneous_seasonal": 7,
+      "december_full_time": 25,
+      "january_2027_continuing_ft_monthly_run_rate": 150000.0,
+      "other_city_policy": "shared capacity pool (explicit city-rule exception)",
+      "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+      "method": "mixed-integer linear programming",
+      "solver_status": 0,
+      "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "solver_mip_gap": 0.0,
+      "optimality_note": "Solver tolerance/gap applies to the assumed model only; staffing is not validated as a real operational optimum."
+    },
+    "full_calendar": {
+      "crew_cost_2026": 1852200.0,
+      "terminal_seasonal_committed_cost_2027": 0.0,
+      "total_committed_crew_cost": 1852200.0,
+      "unmet_proxy_bikes": 11037.72375007025,
+      "assumed_affected_users_per_proxy_bike": 1.0,
+      "assumed_service_loss": 62915.02537540042,
+      "objective_with_assumed_loss": 1915115.0253754004,
+      "max_simultaneous_seasonal": 7,
+      "december_full_time": 25,
+      "january_2027_continuing_ft_monthly_run_rate": 150000.0,
+      "other_city_policy": "shared capacity pool (explicit city-rule exception)",
+      "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+      "method": "mixed-integer linear programming",
+      "solver_status": 0,
+      "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "solver_mip_gap": 0.0,
+      "optimality_note": "Solver tolerance/gap applies to the assumed model only; staffing is not validated as a real operational optimum."
+    },
+    "unit_factor2_replanned": {
+      "crew_cost_2026": 1103700.0,
+      "terminal_seasonal_committed_cost_2027": 0.0,
+      "total_committed_crew_cost": 1103700.0,
+      "unmet_proxy_bikes": 926.5414814100664,
+      "assumed_affected_users_per_proxy_bike": 2.0,
+      "assumed_service_loss": 10562.572888074756,
+      "objective_with_assumed_loss": 1114262.5728880747,
+      "max_simultaneous_seasonal": 5,
+      "december_full_time": 13,
+      "january_2027_continuing_ft_monthly_run_rate": 78000.0,
+      "other_city_policy": "shared capacity pool (explicit city-rule exception)",
+      "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+      "method": "mixed-integer linear programming",
+      "solver_status": 0,
+      "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "solver_mip_gap": 0.0007396164993284318,
+      "optimality_note": "Solver tolerance/gap applies to the assumed model only; staffing is not validated as a real operational optimum."
+    },
+    "unit_factor2_baseline": {
+      "crew_cost_2026": 1008000.0,
+      "terminal_seasonal_committed_cost_2027": 0.0,
+      "total_committed_crew_cost": 1008000.0,
+      "unmet_proxy_bikes": 45060.161952252085,
+      "assumed_affected_users_per_proxy_bike": 2.0,
+      "assumed_service_loss": 513685.8462556737,
+      "objective_with_assumed_loss": 1521685.8462556736,
+      "max_simultaneous_seasonal": 0,
+      "december_full_time": 14,
+      "january_2027_continuing_ft_monthly_run_rate": 84000.0,
+      "other_city_policy": "shared capacity pool (explicit city-rule exception)",
+      "cost_horizon_note": "2026 salary accrual plus mandatory seasonal tail; continuing full-time employment beyond 2026 is not a finite lifetime liability. No year-end firing assumed.",
+      "method": "Maintain initial full-time crews"
+    }
+  },
+  "course_bikes_per_shift_fixed": 120,
+  "unit_conversion_factors_handling_actions_per_course_bike": [
+    1,
+    2
+  ],
+  "assumed_users_per_uncovered_handling_action_held_fixed": 1.0,
+  "unit_interpretation_status": "conditional counting convention, not empirical capacity evidence or resolved course interpretation",
+  "unit_objective_conversion": "course unmet * conversion factor * assumed users per handling action * $5.70; payroll unchanged",
+  "unit_replanning_note": "Factor two is newly optimized on converted training forecast. Earlier frozen-plan factor-two sensitivity changes capacity/service only and cannot estimate crew/cost changes.",
+  "annual_period_note": "2026 Jan-Dec crew cash cost matched to forecast-proxy shortfall; mandatory 2027 seasonal tail reported separately.",
+  "backtest_period_note": "2026 Jan-Sep crew cash cost matched to observed-proxy shortfall; all staffing frozen before actual evaluation. No annual cost mixed into nine-month service comparison.",
+  "shared_city_note": "Integer crews belong to staffing groups. All-city fractions allocate shared capacity and payroll, not dedicated fractional crews."
+}

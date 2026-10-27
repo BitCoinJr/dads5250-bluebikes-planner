@@ -1,0 +1,13 @@
+{
+  "base_commit": "6cb57b4b9678cef5cbf2c314c2d11aacab1791fa",
+  "purpose": "Preserve original four-case real API extraction and 19/20 provisional agreement during supplementary evaluation. Human review is not complete.",
+  "sha256": {
+    "fixtures/event_documents.json": "3895ea1889a90a2be644a75c6b13ccbd5c963e37be3f5a0e086fa0fc8cd6ece4",
+    "prompts/event_extraction_v1.txt": "80c752920ea81817756f1bbf5dd8c3a85e947d78bd4c0e5765ea306275dc7a61",
+    "prompts/event_schema.json": "a5978ee3d4f79054f4f82483aa1588e4b38ffc8de4774a74f7a69f391c93a556",
+    "results/event_extraction_live.json": "59b77416ff33ba72cb5241462df046bef8ffe6b768c432db29ed145ddcc37f1c",
+    "results/event_extraction_evaluation.json": "ad573d020aee3ba809944f50daa221707538ab9a4cc0ded7a55c6689f0c9bf33",
+    "results/event_extraction_fixture.json": "8201064ab07e5bf1c0679214e0db5f6c5f0487619398bc19f29e873a420d2809",
+    "docs/event_extraction_review.md": "eb92b9c6fc00dd2264fcd36c800843366cd9d4ba8a47f596931c42a68f5b4e55"
+  }
+}

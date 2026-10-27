@@ -1,0 +1,7 @@
+case,station_key,closing_stock_before_reset,final_stock_after_reset,reset_supply_bikes,reset_collection_bikes
+synthetic_one_way,SYNTHETIC_A,0,2,2,0
+synthetic_one_way,SYNTHETIC_B,4,2,0,2
+synthetic_return_hour,SYNTHETIC_A,4,2,0,2
+synthetic_return_hour,SYNTHETIC_B,0,2,2,0
+synthetic_external_depot,SYNTHETIC_A,0,2,2,0
+synthetic_external_depot,SYNTHETIC_B,2,2,0,0

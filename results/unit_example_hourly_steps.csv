@@ -1,0 +1,9 @@
+case,station,departures,arrivals,opening_stock,net_arrivals,unconstrained_stock,supply_bikes,collection_bikes,closing_stock,station_key,hour,docks
+synthetic_one_way,A,4,0,2,-4,-2,2,0,0,SYNTHETIC_A,2026-01-01 08:00:00,4
+synthetic_one_way,B,0,4,2,4,6,0,2,4,SYNTHETIC_B,2026-01-01 08:00:00,4
+synthetic_return_hour,A,4,0,2,-4,-2,2,0,0,SYNTHETIC_A,2026-01-01 08:00:00,4
+synthetic_return_hour,B,0,4,2,4,6,0,2,4,SYNTHETIC_B,2026-01-01 08:00:00,4
+synthetic_return_hour,A,0,4,0,4,4,0,0,4,SYNTHETIC_A,2026-01-01 09:00:00,4
+synthetic_return_hour,B,4,0,4,-4,0,0,0,0,SYNTHETIC_B,2026-01-01 09:00:00,4
+synthetic_external_depot,A,4,0,2,-4,-2,2,0,0,SYNTHETIC_A,2026-01-01 08:00:00,4
+synthetic_external_depot,B,0,0,2,0,2,0,0,2,SYNTHETIC_B,2026-01-01 08:00:00,4

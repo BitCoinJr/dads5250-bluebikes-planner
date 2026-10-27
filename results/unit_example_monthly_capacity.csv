@@ -1,0 +1,3 @@
+month,calendar_days,course_bikes_per_shift,shifts_per_week,average_crew_shifts,endpoint_capacity_factor,monthly_course_bike_capacity,monthly_handling_capacity,assumption
+2026-01,31,120,6,26.571428571428573,1,3188.5714285714284,3188.5714285714284,Course bike means one handling action
+2026-01,31,120,6,26.571428571428573,2,3188.5714285714284,6377.142857142857,Course bike means one completed relocation with two included endpoints

@@ -1,0 +1,263 @@
+{
+  "verified_utc": "2026-10-27T00:23:54.561465+00:00",
+  "status": "recording_preparation_ready_human_review_and_submission_incomplete",
+  "working_root": "C:\\dev\\university\\dads5250-bluebikes-planner",
+  "verification_environment": "existing project .venv, Python 3.13.2; not a new clean-environment installation",
+  "commands_completed": [
+    ".\\.venv\\Scripts\\python.exe -m unittest discover -s tests -v",
+    ".\\.venv\\Scripts\\python.exe scripts/build_notebook.py --execute --event-mode recorded",
+    ".\\.venv\\Scripts\\python.exe scripts/build_demo_notebook.py --execute"
+  ],
+  "tests": {
+    "passed": 64,
+    "failed": 0,
+    "also_executed_inside_submission_notebook": true
+  },
+  "notebooks": {
+    "notebooks\\bluebikes_submission.ipynb": {
+      "executed_code_cells": 14,
+      "all_outputs_present": true,
+      "errors": 0,
+      "sha256": "2c0e46591d95b648de44ef33b470eccfcf7962070126bf4b5a91a115082356b3"
+    },
+    "notebooks\\bluebikes_demo.ipynb": {
+      "executed_code_cells": 6,
+      "all_outputs_present": true,
+      "errors": 0,
+      "sha256": "33129f2aad5f1b4d62969287e053506d33f772ba885c1c0feb3fd63e92603cca"
+    }
+  },
+  "original_baseline_artifacts": {
+    "fixtures/event_documents.json": {
+      "sha256": "3895ea1889a90a2be644a75c6b13ccbd5c963e37be3f5a0e086fa0fc8cd6ece4",
+      "matches_frozen_baseline": true
+    },
+    "prompts/event_extraction_v1.txt": {
+      "sha256": "80c752920ea81817756f1bbf5dd8c3a85e947d78bd4c0e5765ea306275dc7a61",
+      "matches_frozen_baseline": true
+    },
+    "prompts/event_schema.json": {
+      "sha256": "a5978ee3d4f79054f4f82483aa1588e4b38ffc8de4774a74f7a69f391c93a556",
+      "matches_frozen_baseline": true
+    },
+    "results/event_extraction_live.json": {
+      "sha256": "59b77416ff33ba72cb5241462df046bef8ffe6b768c432db29ed145ddcc37f1c",
+      "matches_frozen_baseline": true
+    },
+    "results/event_extraction_evaluation.json": {
+      "sha256": "ad573d020aee3ba809944f50daa221707538ab9a4cc0ded7a55c6689f0c9bf33",
+      "matches_frozen_baseline": true
+    },
+    "results/event_extraction_fixture.json": {
+      "sha256": "8201064ab07e5bf1c0679214e0db5f6c5f0487619398bc19f29e873a420d2809",
+      "matches_frozen_baseline": true
+    },
+    "docs/event_extraction_review.md": {
+      "sha256": "eb92b9c6fc00dd2264fcd36c800843366cd9d4ba8a47f596931c42a68f5b4e55",
+      "matches_frozen_baseline": true
+    }
+  },
+  "llm_evidence": {
+    "provider": "openai",
+    "actual_model_snapshots": [
+      "gpt-4.1-mini-2025-04-14"
+    ],
+    "original_real_calls": 4,
+    "original_provisional_agreement": "19/20 (95%)",
+    "supplemental_real_calls": 3,
+    "supplemental_provisional_agreement": "11/15 (73.33%)",
+    "new_api_calls_during_notebook_replay": 0,
+    "fixture_calls": 0,
+    "references": "frozen AI-authored provisional labels; no human-gold accuracy claim",
+    "supplemental_positive_audience_number_matches": 2,
+    "supplemental_positive_audience_examples": 2,
+    "positive_sources_distinct_events": 1,
+    "participant_only_null_crowd_matches": 0,
+    "participant_only_cases": 1,
+    "supplemental_cases_used_in_planning": false,
+    "unresolved_semantics": [
+      "participant-only text wrongly produces audience 30000 and unsupported dates",
+      "quantity qualifiers absent from model ambiguity prose",
+      "location wording mismatch and unsupported geographic explanation require review"
+    ],
+    "human_review_complete": false
+  },
+  "focused_event_demo": {
+    "city": "Boston",
+    "month": 4,
+    "status": "uncalibrated retrospective scenario; not demonstrated forecast improvement",
+    "increment_handling_actions_assumed": 3000,
+    "forecast_handling_actions_before": 36721.189398597904,
+    "forecast_handling_actions_after": 39721.189398597904,
+    "full_time_before": 12,
+    "full_time_after": 13,
+    "april_city_cash_cost_before": 72000.0,
+    "april_city_cash_cost_after": 78000.0
+  },
+  "same_period_comparisons": [
+    {
+      "scenario": "initial_crews_factor1",
+      "handling_actions_per_course_bike": 1.0,
+      "period": "2026-01 through 2026-12",
+      "period_months": 12,
+      "demand_basis": "frozen training forecast plus declared event increment only",
+      "demand_course_bike_units": 840745.2950529759,
+      "demand_handling_actions": 840745.2950529759,
+      "uncovered_course_bike_units": 365295.1405639874,
+      "uncovered_handling_actions": 365295.1405639874,
+      "crew_cash_cost_in_period": 1008000.0,
+      "mandatory_seasonal_tail_cost_2027_separate": 0.0,
+      "assumed_users_per_uncovered_handling_action": 1.0,
+      "assumed_service_loss_in_period": 2082182.301214728,
+      "full_time_crew_months_in_period": 168,
+      "seasonal_crew_months_in_period": 0,
+      "peak_full_time_crews_in_period": 14,
+      "peak_seasonal_crews_in_period": 0,
+      "peak_total_crews_in_period": 14,
+      "ending_full_time_crews_in_period": 14,
+      "course_bikes_per_shift": 120.0
+    },
+    {
+      "scenario": "initial_crews_factor1",
+      "handling_actions_per_course_bike": 1.0,
+      "period": "2026-01 through 2026-09",
+      "period_months": 9,
+      "demand_basis": "observed-trip inventory proxy; fixed forecast plan, not refitted",
+      "demand_course_bike_units": 685813.0,
+      "demand_handling_actions": 685813.0,
+      "uncovered_course_bike_units": 326680.8571428572,
+      "uncovered_handling_actions": 326680.8571428572,
+      "crew_cash_cost_in_period": 756000.0,
+      "mandatory_seasonal_tail_cost_2027_separate": null,
+      "assumed_users_per_uncovered_handling_action": 1.0,
+      "assumed_service_loss_in_period": 1862080.8857142855,
+      "full_time_crew_months_in_period": 126,
+      "seasonal_crew_months_in_period": 0,
+      "peak_full_time_crews_in_period": 14,
+      "peak_seasonal_crews_in_period": 0,
+      "peak_total_crews_in_period": 14,
+      "ending_full_time_crews_in_period": 14,
+      "course_bikes_per_shift": 120.0
+    },
+    {
+      "scenario": "proposal_no_event_factor1",
+      "handling_actions_per_course_bike": 1.0,
+      "period": "2026-01 through 2026-12",
+      "period_months": 12,
+      "demand_basis": "frozen training forecast plus declared event increment only",
+      "demand_course_bike_units": 840745.2950529759,
+      "demand_handling_actions": 840745.2950529759,
+      "uncovered_course_bike_units": 10006.6492548869,
+      "uncovered_handling_actions": 10006.6492548869,
+      "crew_cash_cost_in_period": 1837200.0,
+      "mandatory_seasonal_tail_cost_2027_separate": 0.0,
+      "assumed_users_per_uncovered_handling_action": 1.0,
+      "assumed_service_loss_in_period": 57037.9007528552,
+      "full_time_crew_months_in_period": 262,
+      "seasonal_crew_months_in_period": 34,
+      "peak_full_time_crews_in_period": 24,
+      "peak_seasonal_crews_in_period": 8,
+      "peak_total_crews_in_period": 32,
+      "ending_full_time_crews_in_period": 24,
+      "course_bikes_per_shift": 120.0
+    },
+    {
+      "scenario": "proposal_no_event_factor1",
+      "handling_actions_per_course_bike": 1.0,
+      "period": "2026-01 through 2026-09",
+      "period_months": 9,
+      "demand_basis": "observed-trip inventory proxy; fixed forecast plan, not refitted",
+      "demand_course_bike_units": 685813.0,
+      "demand_handling_actions": 685813.0,
+      "uncovered_course_bike_units": 48126.8571428572,
+      "uncovered_handling_actions": 48126.8571428572,
+      "crew_cash_cost_in_period": 1342800.0,
+      "mandatory_seasonal_tail_cost_2027_separate": null,
+      "assumed_users_per_uncovered_handling_action": 1.0,
+      "assumed_service_loss_in_period": 274323.0857142858,
+      "full_time_crew_months_in_period": 190,
+      "seasonal_crew_months_in_period": 26,
+      "peak_full_time_crews_in_period": 24,
+      "peak_seasonal_crews_in_period": 8,
+      "peak_total_crews_in_period": 32,
+      "ending_full_time_crews_in_period": 24,
+      "course_bikes_per_shift": 120.0
+    },
+    {
+      "scenario": "replanned_no_event_factor2",
+      "handling_actions_per_course_bike": 2.0,
+      "period": "2026-01 through 2026-12",
+      "period_months": 12,
+      "demand_basis": "frozen training forecast plus declared event increment only",
+      "demand_course_bike_units": 420372.647526488,
+      "demand_handling_actions": 840745.2950529759,
+      "uncovered_course_bike_units": 926.5414814101,
+      "uncovered_handling_actions": 1853.0829628201,
+      "crew_cash_cost_in_period": 1103700.0,
+      "mandatory_seasonal_tail_cost_2027_separate": 0.0,
+      "assumed_users_per_uncovered_handling_action": 1.0,
+      "assumed_service_loss_in_period": 10562.5728880748,
+      "full_time_crew_months_in_period": 157,
+      "seasonal_crew_months_in_period": 19,
+      "peak_full_time_crews_in_period": 14,
+      "peak_seasonal_crews_in_period": 5,
+      "peak_total_crews_in_period": 18,
+      "ending_full_time_crews_in_period": 13,
+      "course_bikes_per_shift": 120.0
+    },
+    {
+      "scenario": "replanned_no_event_factor2",
+      "handling_actions_per_course_bike": 2.0,
+      "period": "2026-01 through 2026-09",
+      "period_months": 9,
+      "demand_basis": "observed-trip inventory proxy; fixed forecast plan, not refitted",
+      "demand_course_bike_units": 342906.5,
+      "demand_handling_actions": 685813.0,
+      "uncovered_course_bike_units": 15320.0714285714,
+      "uncovered_handling_actions": 30640.1428571429,
+      "crew_cash_cost_in_period": 830700.0,
+      "mandatory_seasonal_tail_cost_2027_separate": null,
+      "assumed_users_per_uncovered_handling_action": 1.0,
+      "assumed_service_loss_in_period": 174648.8142857143,
+      "full_time_crew_months_in_period": 118,
+      "seasonal_crew_months_in_period": 14,
+      "peak_full_time_crews_in_period": 14,
+      "peak_seasonal_crews_in_period": 5,
+      "peak_total_crews_in_period": 18,
+      "ending_full_time_crews_in_period": 13,
+      "course_bikes_per_shift": 120.0
+    }
+  ],
+  "checks": {
+    "unit_comparison_course_bikes_per_shift_fixed_at": 120,
+    "same_horizon_cost_and_shortfall": true,
+    "unbalanced_depot_pairing_remains_null": true,
+    "review_judgments_blank_pending": true,
+    "human_review_entries_preserved_on_same_output_rerun_tested": true,
+    "original_four_artifacts_unchanged": true,
+    "both_figures_visually_inspected": true,
+    "repository_independent": true,
+    "remote_private": true,
+    "credential_and_private_backup_ignored_in_project_and_ancestor": true,
+    "run_metadata_current_code_and_result_hashes_match": true
+  },
+  "demo_script_spoken_words_approximate": 309,
+  "remaining": [
+    "human extraction and unit-interpretation review",
+    "all-member contributions/review",
+    "TA confirmation",
+    "rehearse and record/upload the three-minute demo",
+    "verify teaching-team repository and video access",
+    "manual Canvas submission"
+  ],
+  "important_limits": [
+    "no video recorded or uploaded",
+    "unit conversion is conditional pairing, not measured productivity",
+    "retrospective event scenarios remain separate from ordinary frozen-plan backtest",
+    "current station snapshot and archive boundary gaps remain"
+  ],
+  "entrypoint_sha256": {
+    "scripts/build_notebook.py": "d481d1fbb4c39ede06780598bc5511f7493aa2bf807e38233297773bc9037487",
+    "scripts/build_demo_notebook.py": "a92e6899f0beb313480c6d4d1101913f24ca5e81c4a6694a7f65d2f0ab5f969d"
+  }
+}

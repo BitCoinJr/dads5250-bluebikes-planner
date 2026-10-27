@@ -1,0 +1,21 @@
+{
+  "frozen_at_utc": "2026-10-27T00:11:37.444586+00:00",
+  "source_ids": [
+    "additional_hocr_bu_2026",
+    "additional_hocr_avive_2026",
+    "additional_baa_participants_only_2026"
+  ],
+  "files_sha256": {
+    "fixtures/event_documents.json": "3895ea1889a90a2be644a75c6b13ccbd5c963e37be3f5a0e086fa0fc8cd6ece4",
+    "prompts/event_extraction_v1.txt": "80c752920ea81817756f1bbf5dd8c3a85e947d78bd4c0e5765ea306275dc7a61",
+    "prompts/event_schema.json": "a5978ee3d4f79054f4f82483aa1588e4b38ffc8de4774a74f7a69f391c93a556",
+    "results/event_extraction_live.json": "59b77416ff33ba72cb5241462df046bef8ffe6b768c432db29ed145ddcc37f1c",
+    "fixtures/event_documents_additional.json": "474e23a9fd951bb31e9767ce9ee7e19e3cd37f433e557553f1db956420449cc1"
+  },
+  "reference_status": "AI-authored draft frozen before calls; actual human review pending",
+  "original_baseline": {
+    "correct_fields": 19,
+    "total_fields": 20,
+    "accuracy": 0.95
+  }
+}

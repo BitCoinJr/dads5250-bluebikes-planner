@@ -77,6 +77,18 @@ Daily conservation: **arrivals + boundary supply + reset supply = departures + b
     code("""display(data.groupby('year')[['supply_bikes','collection_bikes','reset_supply_bikes','reset_collection_bikes','demand_bikes']].sum())
 assert (data.arrivals + data.supply_bikes + data.reset_supply_bikes == data.departures + data.collection_bikes + data.reset_collection_bikes).all()
 print('Aggregated depot conservation: PASS')""")
+    md("""## Hand-counted units: synthetic stations, not observed trips
+
+Two stations each have four docks and begin with two bikes. Four A-to-B customer trips require two boundary supplies at A and two collections at B, followed by two reset supplies and two reset collections: **8 station handling actions**. Under explicit pickup/delivery pairing, that is **4 relocation tasks**, possibly involving repeated physical bikes. The reverse-hour example has zero daily customer net at each station but still needs eight actions. An unbalanced external-depot example cannot be automatically halved.
+
+The course's **120 bikes/shift and six shifts/week remain unchanged**. Interpretation 1 maps one handling action to one course-bike unit; interpretation 2 maps two actions to one course-bike unit under a pairing assumption. January capacity is 120 * 6 * 31/7 = 3,188.57 course-bike units under both. Converting that budget to handling actions gives 3,188.57 or 6,377.14 actions. Routing, depot endpoint work and timing are not proved by this conversion.
+""")
+    code("""print('SYNTHETIC HAND COUNTS - separate from observed Bluebikes data')
+display(pd.read_csv(ROOT / 'results/unit_example_hourly_steps.csv'))
+display(pd.read_csv(ROOT / 'results/unit_example_daily_reset.csv'))
+display(pd.read_csv(ROOT / 'results/unit_example_case_summary.csv'))
+display(pd.read_csv(ROOT / 'results/unit_example_monthly_capacity.csv'))
+display(Image(filename=str(ROOT / 'results/figures/handling_unit_demo.png')))""")
     md("""## Forecast trained and selected without 2026 data
 
 Two simple candidates: previous-year same-month daily demand, and that seasonal forecast multiplied by a city growth factor capped to [0.8,1.2]. We select globally by WAPE on July-December 2025; the growth factor for this comparison uses only January-June 2025 vs the same months of 2024. The selected method is refit using 2024-2025 only, then frozen for 2026. Zero historical denominator implies growth factor one, not an invented growth estimate. Calendar-month day counts handle leap-year differences. Missing training city-months cause an error.
@@ -90,7 +102,7 @@ print('Boundary limitation:', summary['backtest_boundary_note'])
 display(Image(filename=str(ROOT / 'results/figures/demand_forecast.png')))""")
     md("""## Real event text → prompt engineering → structured extraction → plan
 
-The external API adapter calls the OpenAI Responses API with a versioned prompt and strict JSON Schema Structured Outputs. `OPENAI_API_KEY` is loaded from local configuration without displaying it; `OPENAI_MODEL` is configurable. Local validation checks types, nulls, dates, source URL and literal evidence. These checks do not prove semantic correctness. Short official-source excerpts and their provenance are saved in `fixtures/`; no audience size is invented. Athlete counts are not assumed to be crowd sizes. Multi-city ambiguity can leave city null.
+The external API adapter calls the OpenAI Responses API with a versioned prompt and strict JSON Schema Structured Outputs. `OPENAI_API_KEY` is loaded from local configuration without displaying it; `OPENAI_MODEL` is configurable. Local validation checks types, nulls, dates, source URL and literal evidence. These checks do not prove semantic correctness. Short official-source excerpts and their provenance are saved in `fixtures/`. The prompt instructs the model to leave unstated audience sizes null and avoid treating athletes as spectators; the separate challenge below exposes a real violation of those instructions. Multi-city ambiguity can leave city null.
 
 The code below displays the actual extraction mode, API evidence and evaluation. **Fixture mode** uses agent-authored contract fixtures with zero API calls and no model accuracy. **Recorded mode** replays saved real API results after validating their source/prompt provenance; it avoids another paid call on Notebook reruns. Draft reference annotations require actual team human review, so agreement with these drafts is provisional and is not a human-gold accuracy claim. The score covers five fields per event; ambiguity text needs a separate review. The HOCR response contains a knowledge-like claim beyond the supplied excerpt, which remains flagged rather than silently corrected. HTTP mocks test the adapter, not a real model. Configure `OPENAI_API_KEY` locally and run `python -m bluebikes.events --mode live --output results/event_extraction_live.json` for actual evidence. Never paste a key into this Notebook or commit it.
 
@@ -123,6 +135,23 @@ display(pd.DataFrame([
 print('Recorded token usage:', evaluation['input_tokens'], 'input,', evaluation['output_tokens'], 'output')
 print('Semantic caveat outside scored fields:', evaluation['unscored_review_caveat'])
 print('Human-reviewed gold labels complete:', evaluation['human_review_complete'])""")
+    md("""## Separate added audience-count challenge and human review
+
+The original four cases and 19/20 (95%) provisional agreement are preserved unchanged. The added cases use separate real API calls and frozen draft references, and are scored separately. Two positive sources describe the same HOCR event and are correlated; they are not three independent event forecasts. This deliberately selected challenge is not a generalization estimate.
+
+The input sources distinguish spectators from rowers/competitors and retain approximate/lower-bound wording. The added run correctly extracts the numeric audience in both positive cases, but fails the participant-only case by using participants as crowd and inventing absent dates. Quantity qualifiers are retained in the source/reference annotations; the model omits them in its ambiguity output. The original integer schema cannot encode a qualifier in its numeric field. Preserve these failures for review. **No added case is fed into staffing or added to the event calendar.** Human judgments remain blank/PENDING.
+""")
+    code("""if summary.get('additional_event_evaluation'):
+    extra = json.loads((ROOT / 'results/event_extraction_additional_evaluation.json').read_text())
+    print('SEPARATE ADDED EVALUATION:', extra['correct_fields'], '/', extra['total_fields'])
+    print('Original baseline remains:', summary['event_extraction_evaluation']['correct_fields'], '/', summary['event_extraction_evaluation']['total_fields'])
+    display(pd.DataFrame(extra['audience_checks']))
+    display(pd.DataFrame(extra['disagreements']))
+    review = pd.read_csv(ROOT / 'results/event_extraction_additional_review.csv',keep_default_na=False)
+    display(review[['source_id','input_excerpt','reference_json','llm_output_json','crowd_qualifier_annotation','human_judgment','human_review_status']])
+    print('Human review is NOT complete. Edit judgment/reviewer/notes in the review CSV, retaining raw input and output.')
+else:
+    print('Supplemental real outputs are not evaluated in this fixture-mode run.')""")
     md("""## Staffing model and cost
 
 One crew is a driver plus van. Monthly capacity = `120 × 6 × calendar_days/7`. This is an aggregate budget; daily station service and route feasibility are not guaranteed. Existing January crews are assumed full-time: Boston 6, Cambridge 4, Somerville 1, Brookline 1, other cities share 2. January is fixed because no December 2025 hiring decision is assumed.
@@ -140,6 +169,16 @@ for measure in ['full_time','seasonal']:
 display(plan[['city','month','hires_decision','fires_notice','seasonal_start_decision','seasonal_starts','crew_cost','terminal_seasonal_cost']].loc[lambda t:(t.hires_decision+t.fires_notice+t.seasonal_start_decision+t.seasonal_starts+t.terminal_seasonal_cost)>0])
 print('Proposed summary:', json.dumps(summary['proposed'], indent=2))
 display(Image(filename=str(ROOT / 'results/figures/crew_plan.png')))""")
+    md("""## Demo checkpoint: event text to city-month and crew cost
+
+The original saved real Marathon extraction maps to Boston in April using the documented route-endpoint convention. The focused scenario adds **3,000 handling actions**, an **uncalibrated policy assumption**, to that city-month and reruns the existing monthly planner. The source fact and the demand coefficient are separate. The full-calendar scenario is also retained. Both are **retrospective scenarios**, not demonstrated forecast improvement. Contract decisions can propagate to months without an event, so the monthly chain and the complete plan are both shown.
+""")
+    code("""display(pd.read_csv(ROOT / 'results/focused_event_city_month_inputs.csv')[['event_name','start_date','city','year','month','source_url','event_increment_handling_actions']])
+chain = pd.read_csv(ROOT / 'results/focused_event_chain.csv')
+cols = ['city','month','event_increment_handling_actions','demand_bikes_base','demand_bikes_scenario','full_time_base','full_time_scenario','seasonal_base','seasonal_scenario','crew_cost_base','crew_cost_scenario','unmet_bikes_base','unmet_bikes_scenario']
+display(chain[(chain.has_event_input) | (chain.has_staffing_or_cost_change)][cols])
+display(Image(filename=str(ROOT / 'results/figures/event_demo_chain.png')))
+print('UNcalibrated retrospective scenario; do not describe this as proven forecasting gain.')""")
     code("""allocation = pd.read_csv(ROOT / 'results/city_capacity_allocation_2026.csv')
 for measure in ['full_time_capacity_share','seasonal_capacity_share']:
     print(measure, '(shared-city fractions are capacity shares)')
@@ -152,7 +191,7 @@ print('Dedicated-city alternative:', json.dumps(summary['dedicated_city_scenario
 
 Evaluate frozen plans on January-September 2026 real-data inventory proxies. Compare maintaining initial crews against proposed staffing and the retrospective event stress scenario. No plan is refit on these actuals. Capacity cannot be carried across months or staffing groups. Other-city pooling can mask within-pool shortfalls and has no route guarantee.
 
-Demand ±20% scales the derived proxy, not a full recomputation of nonlinear inventory under synthetic ridership. E-bike shares are measured from matched departure endpoints. A 10% capacity reduction is an assumed operational stress, not an estimated e-bike causal effect. Base case has no e-bike penalty. A separate factor-two capacity scenario addresses handling vs completed relocation units.
+Demand ±20% scales the derived proxy, not a full recomputation of nonlinear inventory under synthetic ridership. E-bike shares are measured from matched departure endpoints. A 10% effective-capacity reduction (120 nominal course bikes/shift times assumed productivity 0.9) is an operational stress assumption, not an estimated e-bike causal effect. Base case has no e-bike penalty. Separate factor-two counting-conversion scenarios address handling versus paired relocations while keeping 120 course bikes/shift fixed.
 """)
     code("""display(pd.read_csv(ROOT / 'results/backtest_comparison.csv'))
 print('Base vs retrospective event WAPE:', summary['forecast_backtest']['wape'], summary['event_scenario_backtest']['wape'])
@@ -163,6 +202,22 @@ display(pd.read_csv(ROOT / 'results/loss_conversion_sensitivity.csv')[['assumed_
 ebike = data.groupby('year')[['ebike_departures','departures']].sum()
 ebike['matched_departure_ebike_share'] = ebike.ebike_departures / ebike.departures
 display(ebike)""")
+    md("""## Same-period cash cost, shortages and unit interpretation
+
+The table keeps the period, demand basis and staffing scenario explicit. January-September rows compare cash costs and observed-proxy shortages over those same nine months. January-December rows compare annual cash costs and forecast-proxy shortages over those same twelve months; mandatory 2027 seasonal obligations are a separate column. Ordinary backtest plans are identified separately from retrospective event scenarios.
+
+The earlier factor-two sensitivity holds staffing fixed, so its crew counts and cash costs do not change. The new comparison reruns the same planner on converted course-bike units while keeping **120 bikes/shift** and the assumed loss per uncovered handling action fixed. A changed headcount or cost is conditional on that unit convention, not measured productivity. This leaves routing and unbalanced depot flows unresolved.
+""")
+    code("""periods = pd.read_csv(ROOT / 'results/scenario_period_comparison.csv')
+view = ['scenario','period','demand_basis','crew_cash_cost_in_period','uncovered_handling_actions','peak_full_time_crews_in_period','peak_seasonal_crews_in_period','mandatory_seasonal_tail_cost_2027_separate']
+print('ORDINARY JAN-SEP BACKTEST - matched nine-month cost and service horizon')
+display(periods[(periods.period_months==9)&periods.scenario.isin(['initial_crews_factor1','proposal_no_event_factor1'])][view])
+print('RETROSPECTIVE EVENT SCENARIOS - same nine-month evaluation, no forecast-improvement claim')
+display(periods[(periods.period_months==9)&periods.scenario.isin(['focused_marathon_plus3000_factor1','calendar_plus3000_factor1'])][view])
+print('UNIT INTERPRETATION - newly planned counts, same-period costs and handling-action shortfalls')
+units = pd.read_csv(ROOT / 'results/unit_interpretation_comparison.csv')
+display(units[units.scenario.isin(['proposal_no_event_factor1','replanned_no_event_factor2'])][['scenario','period','handling_actions_per_course_bike','course_bikes_per_shift','full_time_crew_months_in_period','seasonal_crew_months_in_period','peak_total_crews_in_period','crew_cash_cost_in_period','uncovered_handling_actions']])
+assert (units.course_bikes_per_shift==120).all()""")
     md("""## Verification
 
 Synthetic, hand-checkable examples exercise station inventory, daily reset conservation, endpoint timing and cross-chunk deduplication, calendar capacity, hire delay, firing notice, severance, seasonal minimum duration, system cap, November/December commitments, frozen-plan evaluation, and changing capacity assumptions. A separate test poisons 2026 observations and confirms the forecast is unchanged. Mock API tests do not establish real API performance.
@@ -175,11 +230,11 @@ assert plan[plan.month==1].full_time.sum() == 14
 print('Notebook verification PASS. Submission remains incomplete; see required remaining items below.')""")
     md("""## Demo, sources, AI use and remaining work
 
-`docs/DEMO_SCRIPT.md` is an English three-minute draft regenerated from the same `results/summary.json` used for these figures. `docs/architecture.md` contains the diagram/storyboard. The demo still needs a team-reviewed script, rehearsal, screen recording, upload and a teaching-team-accessible link. No recording or upload is claimed.
+`notebooks/bluebikes_demo.ipynb` is the short recording view. `docs/DEMO_SCRIPT.md` is an English three-minute draft regenerated from the same `results/summary.json` used for these figures. `docs/architecture.md` contains the diagram/storyboard. The demo still needs a team-reviewed script, rehearsal, screen recording, upload and a teaching-team-accessible link. No recording or upload is claimed.
 
 The implementation, explanations, draft annotations and script were developed with an AI coding assistant. The user must review their accuracy and compliance with Northeastern's Academic Integrity and Use of AI policy. No contribution is attributed to an unresponsive member. Every member should participate in reviewing code/data, notebook/report, demo and repository; suggested review tasks are in `docs/REVIEW_CHECKLIST.md`.
 
-Primary data sources and hashes: `data/metadata/station_source.json`, `bucket_manifest.json`, `trip_*.json`, cross-archive audit metadata; event URLs, retrieval/publication dates and excerpts: `fixtures/event_documents.json`, `docs/event_sources.md`; API reference: [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs). The course brief SHA256 is recorded without redistributing or modifying synchronized source materials.
+Primary data sources and hashes: `data/metadata/station_source.json`, `bucket_manifest.json`, `trip_*.json`, cross-archive audit metadata; event URLs, retrieval/publication dates and excerpts: `fixtures/event_documents.json`, `docs/event_sources.md`, and the separate `fixtures/event_documents_additional.json` / `docs/event_sources_additional.md`; API reference: [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs). The course brief SHA256 is recorded without redistributing or modifying synchronized source materials.
 
 Private repository: https://github.com/BitCoinJr/dads5250-bluebikes-planner . The teaching team needs access before submission. README explains inviting confirmed grader accounts; no invitations are sent automatically. Cached real aggregates allow code/Notebook reruns without raw trip downloads or an API key. Live LLM demonstration needs the local credential.
 

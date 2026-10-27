@@ -22,28 +22,29 @@ Status: reviewable implementation in progress; **submission incomplete**. Check 
 - [ ] Review per-month file extensions, archive members, actual source columns, valid counts, missing IDs/names, duplicate handling, timestamp validity and start/end join rates. Explain any weak or changing coverage.
 - [ ] Check cross-month returns use end timestamps, IDs remain strings, and DST repeated local hours are netted together. No fabricated UTC offsets or missing observations.
 - [ ] Verify `results/summary.json`, tables, figures and demo-script numbers refer to the same completed run. Do not fill pending results with invented figures.
-- [ ] Execute `scripts/build_notebook.py --execute` from the top; inspect every code cell for execution count, outputs and errors. Open the final `.ipynb` in another viewer.
+- [x] Recorded implementation evidence: 64 tests passed; submission 14/14 and demo 6/6 code cells executed with outputs and zero errors; seven original-artifact hashes matched. See [verification](verification-demo-revision.json).
+- [ ] Independently reproduce the full submission Notebook and compact `notebooks/bluebikes_demo.ipynb` from the top. Inspect every code cell for execution count, outputs and errors; open both in another viewer. A new demo link alone is not execution evidence.
 
 ## Model and planning decisions
 
 - [ ] Confirm no 2026 demand enters model selection, growth estimation or base-plan calibration. Inspect the 2025 validation table.
 - [ ] Explain the daily half-full reset, hourly netting, virtual external depot, counted reset work and daily supply/collection conservation. Label demand as a proxy, never observed moves or lost trips.
-- [ ] Resolve the capacity unit: does 120 bikes mean 120 handling actions or 120 completed pickup-and-delivery relocations? Inspect the factor-two scenario before endorsing staffing numbers.
+- [ ] Keep **120 bikes/shift** fixed. Hand-count pickup plus delivery as two handling actions using [the synthetic walkthrough](handling_unit_walkthrough.md), including the unbalanced depot case; inspect factor-one/factor-two conversion before a new optimization in `results/unit_interpretation_comparison.csv`. Compare peak crew counts, crew cash cost and shortage on the same period. Distinguish the older frozen-crew sensitivity, and keep the assumed penalty per uncovered handling action fixed.
 - [ ] Confirm January's 14 initial crews are existing full-time employees. Review next-month decision timing, $6,000 monthly full-time cost, $13,500 severance and $7,800 seasonal monthly cost.
-- [ ] Verify minimum three-month seasonal contracts and the system-wide eight-crew cap, including mandatory 2027 tails for late starts. Review the disclosed full-time horizon bias and continuing payroll run rate.
+- [ ] Verify minimum three-month seasonal contracts and the system-wide eight-crew cap, including mandatory 2027 tails for late starts. Review the disclosed full-time horizon bias and continuing crew cash cost run rate.
 - [ ] Resolve whether the other-city shared pool is permitted. Inspect both default shared capacity allocations and dedicated-city integer plans. Do not present fractional capacity shares as dedicated crews or route-feasible staffing.
-- [ ] Compare frozen proposed and initial-crew plans on actual-derived January–September 2026 proxy demand. Inspect WAPE, bias, shortage and crew cash cost separately.
+- [ ] Compare January-September crew cash cost and observed-proxy shortage together: initial crews **$756,000 / 326,680.86 actions**, frozen proposal **$1,342,800 / 48,126.86 actions**. Verify the current CSVs. Keep annual forecast comparisons and mandatory 2027 seasonal obligations separate; never pair annual crew cash cost with nine-month shortage.
 - [ ] Inspect demand −20%/+20%, assumed affected-user ratios 0/0.5/1/2 and e-bike productivity scenarios. Keep $5.70 per encounter separate from proxy units and label monetary losses as assumption-based.
 - [ ] Inspect solver status/gap. Claim optimality only as supported for the specified monthly model, not actual field operations.
 
 ## GenAI evidence
 
-- [ ] Have humans inspect and correct all four initial event answer keys; record reviewer and disagreements. Existing labels were authored by the implementation agent and are not genuine human-reviewed gold yet.
-- [x] Configure `OPENAI_API_KEY` locally without committing or displaying it. Four actual OpenAI Responses API calls completed; credential-free model, usage, timestamps, response IDs and request/output hashes are recorded in `results/event_extraction_live.json`.
+- [ ] Have humans independently inspect both frozen reference sets and all seven real outputs. Fill `results/event_original_four_human_review.csv` and `results/event_extraction_additional_review.csv` with reviewer, decisions and disagreements. Existing labels are AI drafts; human review remains **PENDING**. Preserve original raw outputs and scores.
+- [x] Real API evidence exists separately: four original calls in `results/event_extraction_live.json` and three supplemental calls in `results/event_extraction_additional_live.json`. Model, usage, timestamps, response IDs and hashes are retained; no credential value belongs in tracked artifacts.
 - [ ] Inspect prompt instructions, the example, strict Structured Outputs and local schema validation. Review dates, URL/evidence grounding, crowd-size nulls and ambiguity handling manually.
-- [ ] Evaluate live extracted fields against the human-reviewed answer keys. Report the actual score and errors; never score expected fixtures against themselves as LLM accuracy.
+- [ ] Preserve **19/20 original** and **11/15 supplemental** exact agreements separately, not as human-reviewed accuracy. Review the Cambridge address mismatch and unscored HOCR ambiguity. Inspect two positive counts from the same HOCR event, missing quantity qualifiers, 30,000 participants misread as crowd, unsupported dates and expanded location wording. Do not retune labels to hide failures.
 - [ ] Confirm the no-key live path reports blocked/unverified with zero API calls. Mocked HTTP tests establish the contract only. Verify recorded mode reuses actual live outputs only after checking prompt/source/schema and output hashes, without issuing new API calls.
-- [ ] Inspect event-to-plan changes for the declared +3,000-action scenario and zero-uplift default. The effect is assumed and uncalibrated, recurring effects may be double-counted, and the source calendar is retrospective rather than January-available information.
+- [ ] Trace the saved Marathon record to April Boston: assumed **+3,000 actions**, forecast **36,721.19 to 39,721.19**, FT **12 to 13**, April crew cash cost **$72,000 to $78,000**. Inspect focused and full-calendar chain CSVs. Keep zero uplift as default and label the positive case **uncalibrated retrospective**, not demonstrated forecast improvement. Supplemental evaluation inputs never enter planning.
 
 ## Member participation across every deliverable
 
@@ -59,8 +60,8 @@ Available work includes checking a raw month against its aggregate, independentl
 
 ## Demo and submission completion
 
-- [ ] Review generated `docs/DEMO_SCRIPT.md` against `results/summary.json`; correct interpretations in the generator before regenerating.
-- [ ] Show the problem, an event excerpt and structured JSON, the resulting plan change, held-out validation, and architecture/strengths. Disclose fixtures and incomplete live API evidence if still applicable.
+- [ ] Review `docs/DEMO_SCRIPT.md` against saved results. Its checkpoints are 0:00 ordinary backtest, 0:30 event chain, 1:15 units, 2:00 extraction failures, 2:40 architecture. Correct interpretations in the generator before regenerating.
+- [ ] Show the problem, recorded real event JSON, focused demand/crew/cost chain, matched-period validation, unit interpretation and architecture. Distinguish four original live calls, three supplemental calls, zero-call replay and fixtures; disclose pending human review.
 - [ ] Rehearse the English script and measure actual duration; target three minutes.
 - [ ] Record the demo. **Not recorded by the implementation.**
 - [ ] Upload the video and verify teaching-team access. **No upload is performed automatically.**
@@ -70,6 +71,6 @@ Available work includes checking a raw month against its aggregate, independentl
 
 ## Highest-value improvements before the deadline
 
-1. **Human evaluation of real extraction:** review the four saved API outputs and the frozen provisional labels; retain the measured 19/20 exact agreement and inspect the unscored HOCR ambiguity caveat. Live API execution is complete; human-reviewed reference answers remain pending.
+1. **Human evaluation of real extraction:** review all seven saved outputs and both frozen reference sets. Preserve separate 19/20 and 11/15 scores; resolve participant/date/qualifier concerns without rewriting raw evidence. Human-reviewed answers remain pending.
 2. **Model interpretation:** settle capacity counting and other-city sharing, then review their sensitivity and late-year full-time hiring before endorsing a staffing recommendation.
 3. **Finish the actual submission:** obtain team review/contributions, record and upload the demo, verify grader access, and complete the manual Canvas workflow. Do not mark the project complete before these are done.

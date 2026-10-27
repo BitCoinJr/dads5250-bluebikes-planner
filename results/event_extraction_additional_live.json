@@ -1,0 +1,411 @@
+{
+  "status": "completed",
+  "mode": "live",
+  "provider": "openai",
+  "api_attempts": 3,
+  "api_calls": 3,
+  "events": [
+    {
+      "event_name": "Head of the Charles Regatta",
+      "start_date": "2026-10-16",
+      "end_date": "2026-10-18",
+      "location": "Charles River",
+      "city": null,
+      "expected_crowd_size": 300000,
+      "source_url": "https://www.bu.edu/articles/2026/rowers-prepare-head-of-charles-regatta/",
+      "evidence_text": "October 15, 2026 ... October 16, 17, and 18 ... for one weekend each October, more than 300,000 spectators ... Charles River ... over 12,000 rowers",
+      "missing_info": [
+        "location city"
+      ],
+      "ambiguities": [
+        "Charles River spans multiple municipalities, city not specified"
+      ]
+    },
+    {
+      "event_name": "Head of the Charles Regatta",
+      "start_date": "2026-10-16",
+      "end_date": "2026-10-18",
+      "location": "Charles River between Boston and Cambridge",
+      "city": null,
+      "expected_crowd_size": 325000,
+      "source_url": "https://www.avive.life/news/head-of-the-charles-regatta",
+      "evidence_text": "October 16-18, 2026 ... Charles River between Boston and Cambridge ... approximately 325,000 unique spectators, 11,500 competitors, and 2,400 volunteers.",
+      "missing_info": [],
+      "ambiguities": [
+        "city is ambiguous because the event spans between Boston and Cambridge"
+      ]
+    },
+    {
+      "event_name": "2026 Boston Marathon",
+      "start_date": "2026-04-21",
+      "end_date": "2026-04-21",
+      "location": "Main Street, Hopkinton",
+      "city": "Hopkinton",
+      "expected_crowd_size": 30000,
+      "source_url": "https://www.baa.org/races/boston-marathon/info-for-spectators/",
+      "evidence_text": "The 2026 Boston Marathon Spectator Guide ... Main Street and see 30,000 participants depart historic Hopkinton!",
+      "missing_info": [
+        "exact event date"
+      ],
+      "ambiguities": [
+        "The exact date of the 2026 Boston Marathon is not explicitly stated in the excerpt; the date 2026-04-21 is inferred from typical scheduling but not confirmed in the text."
+      ]
+    }
+  ],
+  "calls": [
+    {
+      "source_id": "additional_hocr_bu_2026",
+      "provider": "openai",
+      "mode": "live",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "usage": {
+        "input_tokens": 657,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 145,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 802
+      },
+      "requested_model": "gpt-4.1-mini",
+      "response_id": "resp_0fec2feba108065e016adfec5a36e487d0bad0373de13da1ac",
+      "request_sha256": "e072e4c624bb289be736689fcbdf3f5733dc268abc36ef0312704de90117e08a",
+      "output_sha256": "f726815525390334d2471b33615186564189f81ad7a73dcb098be2716eb97b3e",
+      "response_status": "completed",
+      "latency_seconds": 32.717,
+      "executed_at_utc": "2026-10-27T00:12:12.505980+00:00"
+    },
+    {
+      "source_id": "additional_hocr_avive_2026",
+      "provider": "openai",
+      "mode": "live",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "usage": {
+        "input_tokens": 649,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 134,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 783
+      },
+      "requested_model": "gpt-4.1-mini",
+      "response_id": "resp_07d7c12a3c52d134016adfec5fff0c87d084c760a53a606263",
+      "request_sha256": "38e4b2181e574cc35aaf0120d97a6b7c307257e72ccfb55af4d3764aadf151a0",
+      "output_sha256": "84c176c50153728b35a54fc091eb4847d2b1b61ae3d1345d8dce49a10d3f08fd",
+      "response_status": "completed",
+      "latency_seconds": 5.816,
+      "executed_at_utc": "2026-10-27T00:12:18.339230+00:00"
+    },
+    {
+      "source_id": "additional_baa_participants_only_2026",
+      "provider": "openai",
+      "mode": "live",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "usage": {
+        "input_tokens": 635,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 158,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 793
+      },
+      "requested_model": "gpt-4.1-mini",
+      "response_id": "resp_06fd88adc2c18d12016adfec6387ec87d0b8d4ae86b0224da0",
+      "request_sha256": "a58a24b5be4863ccda9b0c7fbea696ef01a6d0894f64494008bcfbbb9312b7e7",
+      "output_sha256": "3a930104e38a8a9e78456387d4d849a4fd7e2ce5587f72db0673104dded6dc8a",
+      "response_status": "completed",
+      "latency_seconds": 3.666,
+      "executed_at_utc": "2026-10-27T00:12:22.008553+00:00"
+    }
+  ],
+  "attempts": [
+    {
+      "source_id": "additional_hocr_bu_2026",
+      "started_at_utc": "2026-10-27T00:11:39.787967+00:00",
+      "status": "validated_success"
+    },
+    {
+      "source_id": "additional_hocr_avive_2026",
+      "started_at_utc": "2026-10-27T00:12:12.522204+00:00",
+      "status": "validated_success"
+    },
+    {
+      "source_id": "additional_baa_participants_only_2026",
+      "started_at_utc": "2026-10-27T00:12:18.341094+00:00",
+      "status": "validated_success"
+    }
+  ],
+  "live_llm_verified": true,
+  "frozen_manifest_sha256": "7d72f93e72bd00993a2c9c4d4e9d0cc8d3a7482123a866887ae5501c7ae36a35",
+  "used_for_forecast_or_staffing": false,
+  "evaluation": {
+    "metric": "exact agreement with frozen supplemental AI draft references",
+    "reference_status": "provisional_agent_draft_labels_human_review_pending",
+    "examples": 3,
+    "distinct_events": 2,
+    "positive_audience_examples": 2,
+    "participant_only_examples": 1,
+    "correct_fields": 11,
+    "total_fields": 15,
+    "exact_agreement": 0.7333333333333333,
+    "by_field": [
+      {
+        "field": "start_date",
+        "matching": 2,
+        "total": 3
+      },
+      {
+        "field": "end_date",
+        "matching": 2,
+        "total": 3
+      },
+      {
+        "field": "location",
+        "matching": 2,
+        "total": 3
+      },
+      {
+        "field": "city",
+        "matching": 3,
+        "total": 3
+      },
+      {
+        "field": "expected_crowd_size",
+        "matching": 2,
+        "total": 3
+      }
+    ],
+    "details": [
+      {
+        "source_id": "additional_hocr_bu_2026",
+        "field": "start_date",
+        "expected": "2026-10-16",
+        "predicted": "2026-10-16",
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_bu_2026",
+        "field": "end_date",
+        "expected": "2026-10-18",
+        "predicted": "2026-10-18",
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_bu_2026",
+        "field": "location",
+        "expected": "Charles River",
+        "predicted": "Charles River",
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_bu_2026",
+        "field": "city",
+        "expected": null,
+        "predicted": null,
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_bu_2026",
+        "field": "expected_crowd_size",
+        "expected": 300000,
+        "predicted": 300000,
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_avive_2026",
+        "field": "start_date",
+        "expected": "2026-10-16",
+        "predicted": "2026-10-16",
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_avive_2026",
+        "field": "end_date",
+        "expected": "2026-10-18",
+        "predicted": "2026-10-18",
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_avive_2026",
+        "field": "location",
+        "expected": "Charles River between Boston and Cambridge",
+        "predicted": "Charles River between Boston and Cambridge",
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_avive_2026",
+        "field": "city",
+        "expected": null,
+        "predicted": null,
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_hocr_avive_2026",
+        "field": "expected_crowd_size",
+        "expected": 325000,
+        "predicted": 325000,
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "start_date",
+        "expected": null,
+        "predicted": "2026-04-21",
+        "exact_match": false
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "end_date",
+        "expected": null,
+        "predicted": "2026-04-21",
+        "exact_match": false
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "location",
+        "expected": "Main Street",
+        "predicted": "Main Street, Hopkinton",
+        "exact_match": false
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "city",
+        "expected": "Hopkinton",
+        "predicted": "Hopkinton",
+        "exact_match": true
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "expected_crowd_size",
+        "expected": null,
+        "predicted": 30000,
+        "exact_match": false
+      }
+    ],
+    "disagreements": [
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "start_date",
+        "expected": null,
+        "predicted": "2026-04-21",
+        "exact_match": false
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "end_date",
+        "expected": null,
+        "predicted": "2026-04-21",
+        "exact_match": false
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "location",
+        "expected": "Main Street",
+        "predicted": "Main Street, Hopkinton",
+        "exact_match": false
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "field": "expected_crowd_size",
+        "expected": null,
+        "predicted": 30000,
+        "exact_match": false
+      }
+    ],
+    "audience_checks": [
+      {
+        "source_id": "additional_hocr_bu_2026",
+        "case_type": "audience_and_participants",
+        "expected_crowd_reference": {
+          "value": 300000,
+          "qualifier": "more than",
+          "interpretation": "lower-bound threshold, not exact attendance",
+          "temporal_scope": "Article describes the recurring October audience in a 2026 event preview; not measured 2026 attendance"
+        },
+        "predicted_crowd_value": 300000,
+        "crowd_matches_draft": true,
+        "non_audience_numbers": [
+          {
+            "value": 12000,
+            "role": "rowers",
+            "qualifier": "over"
+          }
+        ],
+        "non_audience_number_used_as_crowd": false,
+        "qualifier_in_model_ambiguities": false
+      },
+      {
+        "source_id": "additional_hocr_avive_2026",
+        "case_type": "audience_and_participants",
+        "expected_crowd_reference": {
+          "value": 325000,
+          "qualifier": "approximately",
+          "interpretation": "approximate expected unique spectators, not an exact count",
+          "temporal_scope": "2026 regatta expectation in sponsor announcement"
+        },
+        "predicted_crowd_value": 325000,
+        "crowd_matches_draft": true,
+        "non_audience_numbers": [
+          {
+            "value": 11500,
+            "role": "competitors",
+            "qualifier": null
+          },
+          {
+            "value": 2400,
+            "role": "volunteers",
+            "qualifier": null
+          }
+        ],
+        "non_audience_number_used_as_crowd": false,
+        "qualifier_in_model_ambiguities": false
+      },
+      {
+        "source_id": "additional_baa_participants_only_2026",
+        "case_type": "participants_only",
+        "expected_crowd_reference": {
+          "value": null,
+          "qualifier": null,
+          "interpretation": "No spectator count is stated; participants are not audience",
+          "temporal_scope": "2026 guide body; event date is not supplied in this excerpt"
+        },
+        "predicted_crowd_value": 30000,
+        "crowd_matches_draft": false,
+        "non_audience_numbers": [
+          {
+            "value": 30000,
+            "role": "participants",
+            "qualifier": null
+          }
+        ],
+        "non_audience_number_used_as_crowd": true,
+        "qualifier_in_model_ambiguities": null
+      }
+    ],
+    "positive_crowd_matches": 2,
+    "participant_only_null_matches": 0,
+    "non_audience_substitutions": 1,
+    "human_review_complete": false,
+    "limitations": [
+      "AI-authored references, not human-reviewed truth",
+      "Two positive texts concern the same HOCR event and are correlated",
+      "Source-specific approximate/lower-bound audience figures are not actual measured attendance",
+      "The integer schema cannot encode a quantity qualifier; visible source/reference annotations retain it",
+      "Supplemental cases never enter demand forecasts or staffing and do not duplicate event increments"
+    ]
+  }
+}
