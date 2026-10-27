@@ -44,6 +44,16 @@ EVENT_MODE = '__EVENT_MODE__'
 summary = run_analysis(ROOT, event_mode=EVENT_MODE)
 print('Analysis executed using real monthly aggregates; API mode =', EVENT_MODE)
 print(json.dumps({k:summary[k] for k in ['artifact_status','selected_model','live_llm_verified']}, indent=2))""".replace('__EVENT_MODE__',event_mode))
+    md("""## Shared data and decision flow
+
+The figure is generated from the single editable source `docs/diagrams/bluebikes_flow.mmd`. Python handles station-hour inventory, forecasting and constrained crew planning. The OpenAI API call uses prompt engineering to extract structured event JSON; Python validation and human confirmation precede an explicit user demand assumption and Apply action. January-September 2026 observations enter only held-out evaluation, with no feedback to training. Text labels identify roles without relying only on colors.
+
+This Notebook, README and local app reuse the same cached SVG. Displaying it requires no Mermaid CDN, Node runtime or model call. Regeneration instructions are in `docs/architecture.md`; the new UI/diagram evidence belongs in `docs/verification-ui-polish.json`.
+""")
+    code("""from IPython.display import SVG
+architecture_diagram = ROOT / 'docs/diagrams/bluebikes_flow.svg'
+assert architecture_diagram.exists(), 'Regenerate the canonical diagram with node scripts/render_architecture.mjs'
+display(SVG(filename=str(architecture_diagram)))""")
     md("""## Data and reproducibility
 
 Sources: [Bluebikes System Data](https://bluebikes.com/system-data), [official trip bucket](https://s3.amazonaws.com/hubway-data/index.html), and the station CSV linked by the System Data page. Per-file URLs, sizes, hashes, schemas, duplicate counts, time ranges and joins are saved in `data/metadata/`. The course brief was read without changing it; its SHA256 is recorded in `docs/reference_manifest.json`.
@@ -247,7 +257,7 @@ print('Video link: NOT RECORDED / NOT UPLOADED')
 print('Teaching-team access: must be granted and verified manually')""")
     md("""## Optional local Gradio app — off by default
 
-Install the current `requirements.txt` before opting in. Leave `LAUNCH_LOCAL_APP = False` for a normal top-to-bottom execution or submitted artifact: this cell starts no server and makes no live API call. To interact locally, set the flag to `True` and run the cell. It launches the same app as `python scripts/run_app.py --port 7860`, bound to **127.0.0.1**, with sharing and analytics disabled. If the port is occupied, choose `LOCAL_APP_PORT = 7861`. The standalone app and Notebook are two launchers for the same application.
+Install the current `requirements.txt` before opting in. Leave `LAUNCH_LOCAL_APP = False` for a normal top-to-bottom execution or submitted artifact: this cell starts no server and makes no live API call. To interact locally, set the flag to `True` and run the cell. The default port remains 7860; for this polished revision's review set `LOCAL_APP_PORT = 7872`, equivalent to `python scripts/run_app.py --port 7872`, to avoid an older process on 7860. It binds to **127.0.0.1**, with sharing and analytics disabled. The standalone app and Notebook are two launchers for the same application.
 
 The initial view uses saved real extraction/results. Only the explicit **実APIで抽出 / Extract with OpenAI** button can request a new model response; opening the app does not. Reviews are session-only and do not overwrite frozen API outputs, references or evaluation artifacts. Inspect the source, JSON, editable fields and ambiguities; explain corrections in review notes; click **Confirm reviewed values (this session only)** and then **計画に反映 / Apply to plan**. Edits to the event or assumptions invalidate the applied scenario and require another apply; stale results must not be treated as current. Source changes require replay/extraction and review again.
 

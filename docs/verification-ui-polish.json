@@ -1,0 +1,286 @@
+{
+  "status": "passed",
+  "verified_utc": "2026-10-27T07:58:58.378720+00:00",
+  "root": "C:\\dev\\university\\dads5250-bluebikes-planner",
+  "baseline_commit": "87b966b31039bb8bf48921d39cc974284c28b304",
+  "preservation_branch": "preserve/gradio-87b966b",
+  "scope": "Presentation-only Gradio polish using existing frozen forecasts, extraction evidence, scenarios and Python crew planner; no new framework, model or analysis method.",
+  "preservation": {
+    "baseline_manifest": "docs/ui-polish-baseline.json",
+    "protected_files": 105,
+    "unchanged_files": 104,
+    "expected_regenerated_file": "results/run_metadata.json",
+    "metadata_changed_fields": [
+      "executed_utc",
+      "code_sha256"
+    ],
+    "model_modules_unchanged": true,
+    "original_frozen_seven_unchanged": true,
+    "supplemental_artifacts_unchanged": true,
+    "all_analysis_result_hashes_match": true,
+    "all_current_python_module_hashes_match": true,
+    "human_reviews": {
+      "results/event_original_four_human_review.csv": {
+        "rows": 20,
+        "all_human_judgments_blank": true,
+        "status": "PENDING",
+        "sha256": "8a87d649f9d1c5d0bdf9e3bcb961fd9f8e0b6296f3792a4f1d3e583dcd6443a8"
+      },
+      "results/event_extraction_additional_review.csv": {
+        "rows": 3,
+        "all_human_judgments_blank": true,
+        "status": "PENDING",
+        "sha256": "035ff7cff70876936320610dbe66b07b2e72b9ed4d2803885da201b181b87d26"
+      }
+    }
+  },
+  "unit_tests": {
+    "passed": 93,
+    "evidence": "notebooks/bluebikes_submission.ipynb",
+    "captured_summary": "Ran 93 tests in 9.333s\n\nOK"
+  },
+  "notebooks": {
+    "bluebikes_submission.ipynb": {
+      "sha256": "b2e15337260712081cf86afe4dd97f066fbb6cb7f68c9eea45d046429d252942",
+      "code_cells": 16,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "code_cells_with_outputs": 16,
+      "cell_errors": 0,
+      "launch_default": false
+    },
+    "bluebikes_demo.ipynb": {
+      "sha256": "362401f666c2ced2630f81d7f09358a9b3ea619d91ba81cad69d01e49375d2c7",
+      "code_cells": 8,
+      "execution_counts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "code_cells_with_outputs": 8,
+      "cell_errors": 0,
+      "launch_default": false
+    }
+  },
+  "http": {
+    "report": "docs/verification-gradio-http.json",
+    "sha256": "865f06d41f67615607db9f64e4fa202d401959c8870fd46f6ab11f1ba09d0755",
+    "verified_utc": "2026-10-27T07:54:39.358513+00:00",
+    "checks_passed": 10,
+    "real_api_calls": 0,
+    "api_errors": "Mocked failure, explicitly reported; no silent saved-result fallback",
+    "server_closed_and_port_released": true
+  },
+  "notebook_launch": {
+    "report": "docs/verification-gradio-notebook.json",
+    "sha256": "c52050f2032e8b6e7a2f0046fb63c0acc9c8abb13c73f99ece02e2c5d8a83894",
+    "code_cells": 3,
+    "port": 7874,
+    "http_status": 200,
+    "app_close_called": true,
+    "port_released": true,
+    "new_real_api_calls": 0
+  },
+  "browser": {
+    "browser": "Chrome",
+    "url": "http://127.0.0.1:7872",
+    "desktop": {
+      "viewport": [
+        1366,
+        900
+      ],
+      "pageWidth": 1351,
+      "tableHeaderHeightPx": 37,
+      "tableHeaderWhiteSpace": "nowrap",
+      "mermaidNodes": 12
+    },
+    "narrow": {
+      "viewport": [
+        390,
+        844
+      ],
+      "pageWidth": 375,
+      "diagramWidth": 285,
+      "diagramScrollWidth": 1036,
+      "chartWidth": 309,
+      "chartScrollWidth": 900,
+      "chartImageLeftPx": 33,
+      "chartContainerLeftPx": 32,
+      "tableContainerWidth": 283,
+      "tableScrollWidth": 964,
+      "tableHeaderHeightPx": 37,
+      "tableHeaderWhiteSpace": "nowrap"
+    },
+    "observed": {
+      "savedRealMarathon": true,
+      "athletesNotSpectators": true,
+      "confirmBeforeApply": true,
+      "ftCrews": [
+        12,
+        13
+      ],
+      "monthlyCash": [
+        72000,
+        78000
+      ],
+      "decisionMonth": "2026-03",
+      "hires": [
+        3,
+        4
+      ],
+      "scenarioChangeClearedKpiPlots": true,
+      "zeroIncrementExplicitNoChange": {
+        "ft": [
+          12,
+          12
+        ],
+        "cash": [
+          72000,
+          72000
+        ],
+        "priorMonthHires": [
+          3,
+          3
+        ]
+      },
+      "sourceEditedToWhitespace": {
+        "extraction": "",
+        "kpis": "",
+        "visiblePlots": 0,
+        "applyDisabled": true
+      }
+    },
+    "newRealApiCalls": 0,
+    "viewportReset": true,
+    "old7860ProcessUntouched": true,
+    "screenshots": {
+      "docs/screenshots/ui-polish/desktop-flow.jpg": {
+        "sha256": "0fe60bafff52992e0a0cd470d22bb15d63be44907c5e42e198bb9533504386c9",
+        "format": "JPEG",
+        "pixels": [
+          1351,
+          890
+        ]
+      },
+      "docs/screenshots/ui-polish/desktop-extraction.jpg": {
+        "sha256": "df4dd7ed7f9a5e1256eb1df8df6caa2a5f5326c30d7d56b6bda6b2e443536d25",
+        "format": "JPEG",
+        "pixels": [
+          1351,
+          890
+        ]
+      },
+      "docs/screenshots/ui-polish/desktop-decisions.jpg": {
+        "sha256": "4947a513c036d7c872bd796ea5e959116777c9b35ffb1f1f381bdf2fce238489",
+        "format": "JPEG",
+        "pixels": [
+          1351,
+          890
+        ]
+      },
+      "docs/screenshots/ui-polish/desktop-capacity.jpg": {
+        "sha256": "c3af0a50e7c40f0771d0263802eaa141685b66479d837323e71a1244440ec453",
+        "format": "JPEG",
+        "pixels": [
+          1351,
+          890
+        ]
+      },
+      "docs/screenshots/ui-polish/narrow-decisions.jpg": {
+        "sha256": "b7e90a24ed8ef2a9b3c4a267fedff788c49aacb65d1888e990181de1a8687a23",
+        "format": "JPEG",
+        "pixels": [
+          375,
+          812
+        ]
+      },
+      "docs/screenshots/ui-polish/narrow-table.jpg": {
+        "sha256": "a71a2c379059da91fdad8788849522588d6859dd027c581675c3ed5ffd82c02b",
+        "format": "JPEG",
+        "pixels": [
+          375,
+          812
+        ]
+      }
+    }
+  },
+  "temporary_ports_released": {
+    "7872": true,
+    "7873": true,
+    "7874": true
+  },
+  "diagram": {
+    "rendered_at_utc": "2026-10-27T06:48:45.812Z",
+    "mermaid_cli_version": "12.0.0",
+    "source": "docs/diagrams/bluebikes_flow.mmd",
+    "source_sha256": "112dcc67236a8648e057db89e08653d44d10df7da565b282d8f40058444ed83b",
+    "browser_executable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "renderer_cache": "build/mermaid-cli (ignored)",
+    "external_assets_or_scripts": false,
+    "plain_svg_text_without_foreignObject": true,
+    "outputs": [
+      {
+        "path": "docs/diagrams/bluebikes_flow.svg",
+        "bytes": 45280,
+        "sha256": "e179d04c70e84fc00ded05f1ab84d9c161b814a6180bf001357298752259e6f2"
+      },
+      {
+        "path": "docs/diagrams/bluebikes_flow.png",
+        "bytes": 486924,
+        "sha256": "13d2e5c299a148e1ddc45431d7b0f6c441d97c7ee8f9bcabb3f205e088c11570"
+      }
+    ]
+  },
+  "api_evidence": {
+    "new_real_calls_in_this_revision": 0,
+    "original_real_calls_preserved": 4,
+    "original_provisional_agreement": "19/20 (95%), not human gold accuracy",
+    "separate_additional_real_calls_preserved": 3,
+    "additional_provisional_agreement": "11/15, separate evaluation-only cases",
+    "fixtures": "Separate contract tests; not real API results"
+  },
+  "interpretation": {
+    "event_increment": "Uncalibrated user-selected +3,000 handling-action retrospective scenario, not LLM demand or proven event effect",
+    "fixed_course_productivity": "120 bikes/shift; handling conversion is a separate assumption",
+    "result_scope": "Selected city/staffing-group event month on cards; all-city Jan-Dec forecast and Jan-Sep held-out evaluation in separate tabs",
+    "service_metric": "Estimated uncovered rebalancing work; not measured lost trips or guaranteed station-hour service",
+    "hiring": "Decision month precedes active month; January remains fixed",
+    "evidence_updates": "UI session confirmation does not alter human evaluation files",
+    "offline_saved_mode": "Local cached SVG/assets and saved actual responses; no new model calls. No browser network-disconnect emulation claimed."
+  },
+  "commands": [
+    ".venv/Scripts/python.exe scripts/build_notebook.py --execute",
+    ".venv/Scripts/python.exe scripts/build_demo_notebook.py --execute",
+    ".venv/Scripts/python.exe scripts/verify_app_http.py",
+    ".venv/Scripts/python.exe scripts/verify_app_notebook.py --port 7874"
+  ],
+  "pending": [
+    "TA confirmation (not approved)",
+    "Human extraction/reference and assumption review",
+    "Verified all-member contributions/review",
+    "Actual timed rehearsal, video recording and upload",
+    "Teaching-team repository/video access confirmation",
+    "Manual Canvas submission and receipt"
+  ]
+}

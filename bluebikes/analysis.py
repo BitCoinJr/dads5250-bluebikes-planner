@@ -311,38 +311,39 @@ def _demo(s,root):
     factor2=next(r for r in rows if r["scenario"]=="replanned_no_event_factor2" and r["period"]==period)
     focused=s["demo_context"]["focused_event_april_boston"][0]
     extra=s.get("additional_event_evaluation") or {}
-    text=f"""# Three-minute Gradio recording script
+    text=f"""# Three-minute screen demonstration
 
-AI-assisted English draft. Speak the five paragraphs; directions are not spoken. Rehearse to three minutes. **Video is NOT recorded or uploaded.** All numbers come from the same saved results as the Notebooks. Launch `python scripts/run_app.py --port 7860` and open `http://127.0.0.1:7860`, or use the optional local-app cell in either executed Notebook.
+AI-assisted English draft; rehearse timing before recording. Video is **NOT recorded or uploaded**. Speak the five paragraphs below; screen directions are not spoken. Start the revised app on `python scripts/run_app.py --port 7872` so an older review on 7860 can remain untouched. The same generated Mermaid diagram is used in the app, README, Notebooks and presentation.
 
-## 0:00-0:25 Problem and evidence
+## 0:00-0:20 Problem and value
 
-We plan Bluebikes crews across thirteen municipalities, using 2024 and 2025 for training. Our ordinary January-to-September 2026 backtest leaves {proposed['uncovered_handling_actions']:,.0f} proxy actions uncovered at a same-period crew cost of ${proposed['crew_cash_cost_in_period']:,.0f}. This screen explores an event scenario; it is separate from that backtest. The proxy is neither measured operator work nor lost trips.
+This prototype turns an event headline into a conditional crew decision. Historical trips establish the baseline; OpenAI structures event facts; a reviewer checks them; and Python plans staffing. The question is when and where crews might need to change.
 
-## 0:25-1:00 Real extraction and review
+## 0:20-0:55 Event text and readable extraction
 
-I select the Marathon announcement. This label says saved real API result: a genuine OpenAI response, replayed without a new call. Dates, city, location, crowd and ambiguities are visible. Crowd is unknown; thirty thousand athletes are not spectators. The separate live button calls OpenAI only when pressed. I review the Boston endpoint convention, then confirm. Confirmation is session-only and does not mark the evaluation files human reviewed.
+The Marathon announcement sits beside readable extracted facts. Saved real API result means a genuine recorded response, without a new model call. The cards show the date, Boston endpoint, venue and spectators: Not stated. Thirty thousand athletes are not spectators. The evidence excerpt and Needs review section make that distinction visible; raw JSON and model details remain available underneath.
 
-## 1:00-1:55 Explicit plan change and timing
+## 0:55-1:20 Confirm facts and choose the assumption
 
-Only now do I press Apply to plan. Three thousand extra handling actions is an uncalibrated assumption, not LLM-estimated demand. This retrospective scenario does not demonstrate forecast improvement. Boston's April full-time crews change from {int(focused['full_time_base'])} to {int(focused['full_time_scenario'])}, and April city cash cost from ${focused['crew_cost_base']:,.0f} to ${focused['crew_cost_scenario']:,.0f}. The table shows the preceding March hire decision changing from three to four; it does not assume instant April hiring. Annual forecast and nine-month observed-proxy comparisons keep cost and shortage within their own matching periods. Contract changes can affect other months.
+I verify the city allocation, dates and ambiguity, then confirm. My corrections stay separate from the original response and do not mark evaluation files human reviewed. Three thousand added handling actions is my uncalibrated scenario assumption, not OpenAI's demand estimate. Only Apply sends the reviewed event to planning. Unknown cities or dates block it.
 
-## 1:55-2:35 A visible failure and human correction
+## 1:20-2:15 The staffing decision and why it changes
 
-I select the participant-only challenge. Its actual model output wrongly treats thirty thousand participants as crowd and guesses absent dates. I clear those fields instead of inventing replacements. Missing dates or an unsupported city block planning. The original four cases retain nineteen-of-twenty provisional agreement; three supplemental cases score {extra.get('correct_fields','pending')} of {extra.get('total_fields','pending')} separately. None is human-gold accuracy. Changing source input clears old extraction and plans; changing reviewed fields requires confirmation again.
+Boston's April full-time crews change from {int(focused['full_time_base'])} to {int(focused['full_time_scenario'])}, and monthly crew cash cost from ${focused['crew_cost_base']:,.0f} to ${focused['crew_cost_scenario']:,.0f}. The hiring decision belongs in March. The first graph separates full-time and seasonal crews, comparing baseline with scenario. The demand graph shows added demand crossing prior-plan capacity, then the replanned capacity responding. Red fill is estimated uncovered rebalancing work, not measured lost trips. Monthly capacity does not guarantee station-hour service. These are retrospective scenario results, not demonstrated forecasting improvement.
 
-## 2:35-3:00 Units, architecture and handoff
+## 2:15-3:00 Architecture, evaluation and limits
 
-The course's one hundred twenty bikes per shift stays fixed. The conversion selector distinguishes separate pickup and delivery actions from paired relocations. Existing Python modules perform extraction and constrained planning on cached aggregates. Human and team review, TA confirmation, video recording and upload, grader access and manual submission remain.
+The architecture uses three course techniques: API calls reach OpenAI, prompt engineering defines extraction and unknowns, and structured output supports validation and reviewed planning input. Python handles costs, capacity, hiring and seasonal constraints. Training uses 2024-2025; January-September 2026 evaluates frozen plans. Annual forecast and nine-month evaluation have separate cost tabs. Original responses retain nineteen-of-twenty provisional agreement; added cases score {extra.get('correct_fields','pending')} of {extra.get('total_fields','pending')} separately. The participant-count and guessed-date failure remains visible. Human review, verified contributions, recording, access checks and submission remain pending.
 
 ## Screen directions (not spoken)
 
-1. Begin with the Marathon selected. Point to source excerpt, saved-real label, null crowd and disabled Apply button. Optional: expand details or use the full submission Notebook for data audit.
-2. Confirm unchanged values, or enter a note explaining a deliberate correction. Original model JSON and session-confirmed JSON remain separate. Press Apply explicitly.
-3. Show system comparison and selected Boston monthly rows. April FT is 12 to 13; April cost is $72,000 to $78,000. `hire_decision_month_for_active_month` is March; prior-month hires are 3 to 4. Do not sum separate peak FT/seasonal counts from different months.
-4. Show the participant-only source and original failure. Clear spectator count and both dates, add a correction note, and confirm; Apply must be blocked for missing date/city. This is a demo interaction, not a persisted human evaluation.
-5. Keep +3,000/retrospective, nominal 120 and conversion assumptions visible. The hand-count audit is `docs/handling_unit_walkthrough.md`: 8 handling actions versus 4 assumed paired relocations; unbalanced depot flows cannot automatically be halved.
-6. Optional reliability demonstration: edit the source excerpt; old extraction/plan clears and saved reload requires an exact match. API failure must remain a visible failure; use the separate saved button to recover. Do not make a paid live call merely to replay the demo.
-7. Record/upload manually, test teaching-team access and insert the video URL. Stop CLI with Ctrl+C; stop a Notebook-owned app with `app.close()`. No public share link or deployment is created.
+1. Show the title and canonical Mermaid flow. Identify OpenAI, reviewer and Python roles; no held-out data arrow returns to training.
+2. Choose Marathon. Compare the left-hand source with right-hand readable cards, null spectators and evidence; avoid opening raw JSON unless asked. Saved mode has no fake extraction animation or new API call.
+3. Confirm unchanged values or note a correction, then Apply explicitly. Show the city/event-month KPI cards and March hiring decision.
+4. Show both graphs with April highlighted. Full-time/seasonal markers and baseline/scenario line styles differ. The demand graph keeps handling units consistent, distinguishes prior-plan from replanned capacity, and shades current estimated uncovered work.
+5. Open detail tabs only if needed: Jan-Dec forecast totals cover all cities for twelve months, Jan-Sep held-out totals cover the same nine months as their cash costs, and monthly details cover the selected staffing group. Do not compare a city-month cash cost with all-city annual cost.
+6. Optional short failure check: select the participant-only challenge, inspect its warning, clear unsupported dates/crowd and confirm; planning must stay blocked. Changing any source or reviewed fields must clear earlier decisions/charts.
+7. The single diagram editing source is `docs/diagrams/bluebikes_flow.mmd`; regenerate its SVG/PNG with `node scripts/render_architecture.mjs`. The app displays the local SVG without a CDN. For presentation, use the same generated asset rather than editing a copy.
+8. Keep the uncalibrated increment, 120 bikes/shift and conditional handling conversion visible where needed. Rehearse, record/upload manually and verify grader access. Only verified member contributions may be reported. Stop only the server started for this demo; leave another chat's 7860 review untouched.
 """
     (root/"docs/DEMO_SCRIPT.md").write_text(text,encoding="utf-8")

@@ -1,12 +1,12 @@
 {
-  "executed_utc": "2026-10-27T01:52:27.699781+00:00",
+  "executed_utc": "2026-10-27T07:51:17.336077+00:00",
   "python": "3.13.2",
   "event_mode": "recorded",
   "input_monthly_sha256": "30c1fd3cc1e07e94cd30c74a9482dc669c4fdc8e05ee714c945386012be7fa00",
   "code_sha256": {
     "__init__.py": "e2988a20cd11d488c5d0d3cc42fac26fe249187152d42ece6ba32766416d6a9e",
-    "analysis.py": "5f1f03f2f989b83b6e914f19f9fde85d142cf435bff0884a9704a2bbe7d4a6e4",
-    "app.py": "73e36b8d36e132567ffb384f802b6608876b2fb5cf39025c9a9bcf1483ba0cbf",
+    "analysis.py": "0677e99e4f472ba87edf04071a568fc9b6cfd8ee935e0ce309e725bf47f5b1c2",
+    "app.py": "ab3d82fcd74a773614999204accd4aa04469191419c48897bc839f61d771f510",
     "app_service.py": "76737fc24a509604b534060effb9e9edddc9c3c1d883250527cf7b8056432063",
     "data.py": "989eb135819da3a4fd7c170fdec5cfa49a0a5ea08795771306750c6b43d27c1d",
     "event_validation.py": "ff47e66f8da8f5bfc4b01d630bd987be7d83ba8f6432e21ea8005a5f47b72729",
@@ -14,6 +14,7 @@
     "forecast.py": "7df6e6f5e0f19b1093b87ce2824b0630d1aa929d387864e24361a2c8b66cd2b4",
     "inventory.py": "0f36162af641dfb6cf550c04c28c3a6f903c43611cb1152b3cf9fd64cc2814d0",
     "planner.py": "6562385491e9da298c0db5cbef264b07aba28d0cbe707c999316345fb6e4055d",
+    "presentation.py": "7b5461d198992bc8a811d09ef429e58dad3d8ad7938a47790835c23783314f82",
     "review_tables.py": "acc15c91880a4675692993542baa277e884cbe69585c621cbc6c33c50c09578c",
     "scenarios.py": "4c3c2d495cf6a096d2a5a4b1ff0f1c145eeda678a37254592a4cc35cbc1cb1bd",
     "unit_examples.py": "ba338a02b886d7236b3366bfdeec889f03f884eba278fed6b270e197d0e52499"

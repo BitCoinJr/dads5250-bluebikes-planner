@@ -1,0 +1,71 @@
+---
+config:
+  theme: base
+  htmlLabels: false
+  deterministicIds: true
+  deterministicIDSeed: bluebikes-flow
+  fontFamily: Arial, sans-serif
+  markdownAutoWrap: false
+  themeVariables:
+    fontFamily: Arial, sans-serif
+    fontSize: 19px
+    primaryTextColor: '#17302d'
+    lineColor: '#49635e'
+    edgeLabelBackground: '#ffffff'
+    clusterBkg: '#f8faf9'
+    clusterBorder: '#cbd8d3'
+  flowchart:
+    htmlLabels: false
+    curve: linear
+    nodeSpacing: 26
+    rankSpacing: 28
+    padding: 12
+    wrappingWidth: 175
+    minNodeWidth: 145
+---
+flowchart LR
+    accTitle: Bluebikes data, event review, crew planning and held-out evaluation
+    accDescr: Python builds station-hour inventory proxies from historical trips and current station metadata, then freezes a 2026 forecast trained on 2024 and 2025. OpenAI extracts structured event facts using a versioned prompt. Python validates them and a human confirms them. Only an explicit user demand assumption and Apply action connect reviewed event facts to Python crew optimization. January through September 2026 trips are used only for held-out backtesting, with no feedback to training.
+
+    subgraph HISTORY["HISTORICAL INPUTS AND FROZEN FORECAST"]
+        direction LR
+        DATA["2024–2025 DATA<br/>Trips + stations<br/>Cities + docks<br/>Current snapshot"]
+        PROXY["PYTHON PROXY<br/>Station-hour stock<br/>Half-full reset"]
+        FORECAST["PYTHON<br/>2026 forecast<br/>Train: 2024–2025<br/>Frozen monthly"]
+        DATA --> PROXY
+        PROXY --> FORECAST
+    end
+
+    subgraph EVENTS["EVENT FACTS AND THE MANUAL GATE"]
+        direction LR
+        TEXT["OFFICIAL EVENT<br/>Text + source URL"]
+        LLM["OPENAI API CALL<br/>Prompt engineering<br/>Structured JSON"]
+        GATE["PYTHON + HUMAN<br/>Validate + confirm<br/>Dates/city/venue<br/>Crowd or unknown"]
+        TEXT --> LLM --> GATE
+    end
+
+    ASSUME["USER: APPLY<br/>Baseline: 0<br/>+3,000 assumption<br/>Uncalibrated"]
+    CONSTRAINTS["CONSTRAINTS<br/>Capacity + costs<br/>Hire: next month<br/>Seasonal ≥3mo; ≤8"]
+    OPTIMIZE["PYTHON<br/>Crew optimization<br/>120 course bikes<br/>per shift"]
+    OUTPUT["RESULTS<br/>City/month crews<br/>Crew costs<br/>Uncovered proxy"]
+    FORECAST --> ASSUME
+    GATE --> ASSUME
+    ASSUME --> OPTIMIZE
+    CONSTRAINTS --> OPTIMIZE
+    OPTIMIZE --> OUTPUT
+
+    HELDOUT["HELD-OUT DATA<br/>Jan–Sep 2026 trips<br/>Same proxy rules<br/>Evaluation only"]
+    BACKTEST["PYTHON<br/>Backtest<br/>Matched periods<br/>No train feedback"]
+    HELDOUT --> BACKTEST
+    OPTIMIZE -->|frozen plan| BACKTEST
+
+    classDef data fill:#f0f4f3,stroke:#71877f,color:#17302d,stroke-width:1.5px;
+    classDef python fill:#e5f2ed,stroke:#236b59,color:#17302d,stroke-width:1.6px;
+    classDef openai fill:#efebfa,stroke:#766398,color:#302845,stroke-width:1.7px;
+    classDef manual fill:#fff1d8,stroke:#a67527,color:#513a16,stroke-width:1.8px;
+    classDef result fill:#e8eef7,stroke:#4f6e95,color:#213b59,stroke-width:1.6px;
+    class DATA,TEXT,HELDOUT,CONSTRAINTS data;
+    class PROXY,FORECAST,OPTIMIZE python;
+    class LLM openai;
+    class GATE,ASSUME manual;
+    class OUTPUT,BACKTEST result;

@@ -2,9 +2,13 @@
 
 DADS5250 — Generative AI in Practice, Group 8. This reviewable first version connects official trip data, a transparent inventory-demand proxy, an event extraction API, monthly crew planning, a reproducible submission Notebook, and an optional local Gradio app for reviewing event scenarios.
 
-**Submission is incomplete.** TA confirmation, human-reviewed extraction labels, team contributions/review, the recorded and uploaded three-minute demo, and Canvas submission remain outstanding. A working analysis is not a completed submission.
+**Submission is incomplete.** TA confirmation, human-reviewed extraction labels, team contributions/review, the recorded and uploaded three-minute demo, verified grader access, and Canvas submission remain outstanding. A working analysis is not a completed submission.
 
 Members: Satoshi Nakamura / Vinay Manikandan Nagarajan / Aditi Rao. Membership does not establish contribution; see the [review checklist](docs/REVIEW_CHECKLIST.md).
+
+![Bluebikes data, GenAI extraction, human review, Python planning and held-out evaluation](docs/diagrams/bluebikes_flow.svg)
+
+Python builds forecasts and crew plans; OpenAI extracts structured event facts through a versioned prompt and API call. Human confirmation and an explicit demand assumption gate their use in planning. The 2026 held-out trips feed evaluation only. The [editable Mermaid source](docs/diagrams/bluebikes_flow.mmd), [cached PNG](docs/diagrams/bluebikes_flow.png) and [architecture notes](docs/architecture.md) describe the same flow used in the app and both Notebooks.
 
 ## Review and authorization status
 
@@ -33,7 +37,11 @@ py -m venv .venv --system-site-packages
 
 For a clean environment, create the venv with `py -m venv .venv` instead; omit `--system-site-packages`. The option above reuses already installed packages in the implementation environment. Do not recreate an existing environment that contains unrelated work. On macOS/Linux, use `python3` and `.venv/bin/python` for the equivalent commands.
 
-Open [notebooks/bluebikes_submission.ipynb](notebooks/bluebikes_submission.ipynb) after execution. Also inspect the compact [demo Notebook](notebooks/bluebikes_demo.ipynb) before recording; its link alone is not execution evidence. Inspect the cell outputs and the generated artifacts below. Execution must finish without cell errors; evidence is recorded rather than inferred from the commands printed here. The historical revision before app integration passed **64 tests**, with **14/14** submission and **6/6** demo code cells executed, zero errors, and seven preserved original-artifact hashes matching: [baseline revision verification](docs/verification-demo-revision.json). App integration and regenerated Notebook execution are tracked separately in [Gradio verification](docs/verification-gradio.json). The Gradio revision passed **85 tests**; the submission **15/15** and demo **7/7** code cells ran with outputs and zero errors. Actual local HTTP workflow checks passed **9/9**; a separate real Notebook kernel started and stopped the same app successfully. API-error checks used mocks; this revision made zero new real API calls. The optional app cell is off by default in both Notebooks, and verification servers were stopped afterward.
+Open [notebooks/bluebikes_submission.ipynb](notebooks/bluebikes_submission.ipynb) after execution. Also inspect the compact [demo Notebook](notebooks/bluebikes_demo.ipynb) before recording; its link alone is not execution evidence. Inspect the cell outputs and the generated artifacts below. Execution must finish without cell errors; evidence is recorded rather than inferred from the commands printed here.
+
+The UI-polish revision has passed **93 tests**, **16/16** submission and **8/8** demo code cells with outputs and zero errors, **10/10** final local HTTP workflow checks, browser checks at desktop and narrow widths, and a **3-cell real-kernel app launch/stop** check with its local port released. The final checks and artifact preservation record are in [UI polish verification](docs/verification-ui-polish.json). These UI checks make **zero new real API calls**; API-error paths use mocks. Optional app cells remain off by default.
+
+Historical evidence is preserved separately: the pre-app revision passed **64 tests**, **14/14** submission and **6/6** demo code cells with zero errors, and seven original-artifact hash checks ([baseline verification](docs/verification-demo-revision.json)). The pre-polish Gradio revision passed **85 tests**, **15/15** submission and **7/7** demo code cells, **9/9** local HTTP workflow checks and a separate real-kernel launch/stop check ([Gradio verification](docs/verification-gradio.json)). These earlier counts do not establish the latest revision's final rerun status.
 
 Optional full acquisition and aggregation, with network access and enough local space for monthly raw archives and Parquet caches:
 
@@ -60,10 +68,10 @@ Update the environment from the current requirements before launching the app:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe scripts/run_app.py --port 7860
+.\.venv\Scripts\python.exe scripts/run_app.py --port 7872
 ```
 
-Open [http://127.0.0.1:7860](http://127.0.0.1:7860) on the same computer. The app binds to **127.0.0.1**, sets `share=False`, and disables analytics. It does not create a public link. Stop the standalone process with **Ctrl+C**. If port 7860 is occupied, launch with `--port 7861` and open `http://127.0.0.1:7861`.
+Open [http://127.0.0.1:7872](http://127.0.0.1:7872) on the same computer for this revision's review. The app's default port remains **7860**; the explicit **7872** review port avoids an older process that might still serve the prior UI on 7860. The app binds to **127.0.0.1**, sets `share=False`, and disables analytics. It does not create a public link. Stop the standalone process with **Ctrl+C**. If 7872 is occupied, choose another free local port and use the same port in the URL.
 
 Both Notebooks include the same optional launcher, with **`LAUNCH_LOCAL_APP = False`** by default. A normal execution starts no server and makes no new model call. To interact, set the flag to `True`; its launcher is equivalent to:
 
@@ -74,15 +82,21 @@ app = launch_local(ROOT, port=7860, inline=True, prevent_thread_lock=True)
 app.close()
 ```
 
-Use `LOCAL_APP_PORT = 7861` in the Notebook for a port collision. The CLI and Notebook launch the same application through [app.py](bluebikes/app.py). Restore `LAUNCH_LOCAL_APP = False` before saving/executing a submission; rerunning the disabled cell also closes a prior Notebook app handle.
+The optional cell keeps its default `LOCAL_APP_PORT = 7860`; set it to **7872** for the current visual review, or another free port for a collision. The CLI and Notebook launch the same application through [app.py](bluebikes/app.py). Restore `LAUNCH_LOCAL_APP = False` before saving/executing a submission; rerunning the disabled cell also closes a prior Notebook app handle.
 
-The initial view uses saved real inputs, model outputs and computed results. **Load saved real response** replays matching preserved evidence. Only **実APIで抽出 / Extract with OpenAI** requests a new model response, using a locally configured key; opening the app does not. Review the source, structured JSON, editable fields and ambiguities. Explain manual corrections in review notes, then click **Confirm reviewed values (this session only)** before **計画に反映 / Apply to plan**. Confirmation and scenario application are separate actions.
+The initial view uses saved real inputs, model outputs and computed results. Source text and its URL sit alongside extracted fact cards for dates, city, venue and crowd size or unknown; the structured JSON and ambiguity notes remain available for review. The architecture view reads the same cached local Mermaid image as this README and both Notebooks. **Load saved real response** replays matching preserved evidence. Only **実APIで抽出 / Extract with OpenAI** requests a new model response, using a locally configured key; opening the app does not. Explain manual corrections in review notes, then click **Confirm reviewed values (this session only)** before **計画に反映 / Apply to plan**. Confirmation and scenario application are separate actions.
 
 Review edits remain in the session and do not overwrite the frozen raw API outputs, reference labels or evaluation CSVs. Changing source text/URL, reviewed event fields or assumptions invalidates the applied scenario and requires another apply, so an earlier result is not presented as a result of new inputs. Source changes require matching saved replay or a new extraction followed by review again.
 
-The app keeps **120 course bikes/shift** fixed during counting-unit conversion and labels the **+3,000 handling-action** event increment as an uncalibrated retrospective assumption. A hiring decision is distinct from next-month active staffing. Compare January-December cash costs with annual forecast shortages, or January-September cash costs with nine-month observed-proxy shortages; mandatory 2027 seasonal obligations remain separate. Keep the original four-call **19/20 (95%)** agreement and separate three-call **11/15** challenge, including its participant/crowd and unsupported-date failures, visible. Human review remains pending; interacting with the app does not establish human gold labels or complete the video/submission.
+After explicit application, KPI cards and plots update from the computed scenario. Separate tabs compare **January–December planning** and **January–September backtest** results, keeping crew cash cost and shortage on the same horizon. Hiring-decision tables distinguish a decision from next-month active staffing. The app keeps **120 course bikes/shift** fixed during counting-unit conversion and labels the **+3,000 handling-action** event increment as an uncalibrated retrospective assumption; mandatory 2027 seasonal obligations remain separate. Keep the original four-call **19/20 (95%)** agreement and separate three-call **11/15** challenge, including its participant/crowd and unsupported-date failures, visible. Human review remains pending; interacting with the app does not establish human gold labels or complete the video/submission.
 
-Screens: [source and saved extraction](docs/screenshots/gradio_source_and_extraction.png), [plan comparison and prior hiring decision](docs/screenshots/gradio_plan_comparison.png). Reproduce the local endpoint checks with `python scripts/verify_app_http.py` and the real-kernel launch/stop check with `python scripts/verify_app_notebook.py --port 7868`; both make zero real API calls and close their temporary server. Use [Gradio verification](docs/verification-gradio.json) for recorded startup, interaction, cleanup, tests and Notebook execution evidence. [Architecture](docs/architecture.md) and the [review checklist](docs/REVIEW_CHECKLIST.md) describe this optional flow.
+The desktop layout is reviewed at **1366 px** and the narrow layout at **390 px**. Wide charts and tables scroll inside their own containers. Review captures: [desktop flow](docs/screenshots/ui-polish/desktop-flow.jpg), [source and extraction cards](docs/screenshots/ui-polish/desktop-extraction.jpg), [hiring decisions](docs/screenshots/ui-polish/desktop-decisions.jpg), [capacity plots](docs/screenshots/ui-polish/desktop-capacity.jpg), [narrow decisions](docs/screenshots/ui-polish/narrow-decisions.jpg) and [narrow table](docs/screenshots/ui-polish/narrow-table.jpg). Screenshots demonstrate presentation, not model accuracy or completed submission.
+
+Reproduce local endpoint checks with `python scripts/verify_app_http.py` and the real-kernel launch/stop check with `python scripts/verify_app_notebook.py --port 7874`; both make zero real API calls and close their temporary server. See [UI polish verification](docs/verification-ui-polish.json) for the latest recorded checks. The earlier [source/extraction](docs/screenshots/gradio_source_and_extraction.png) and [plan-comparison](docs/screenshots/gradio_plan_comparison.png) captures and [Gradio verification](docs/verification-gradio.json) remain historical evidence. [Architecture](docs/architecture.md) and the [review checklist](docs/REVIEW_CHECKLIST.md) describe this optional flow.
+
+### Regenerate the architecture image
+
+Edit only [docs/diagrams/bluebikes_flow.mmd](docs/diagrams/bluebikes_flow.mmd), then regenerate its SVG and PNG with `node scripts/render_architecture.mjs`. The [architecture notes](docs/architecture.md#regenerate-the-shared-diagram) provide the pinned local Mermaid CLI 12.0.0 installation command. Its Node/browser tooling lives in ignored `build/`; normal Python/app/Notebook use reads the committed images without Node or a CDN. Do not hand-edit a second diagram in Markdown or the generated image files. The current visual/diagram verification belongs in [verification-ui-polish.json](docs/verification-ui-polish.json).
 
 ## Artifacts and results
 
@@ -131,6 +145,7 @@ A **separate three-call evaluation** produced **11/15 (73.3%) exact agreement** 
 | [Focused event chain](results/focused_event_chain.csv) | Real extracted event to city/month increment and staffing/cost changes |
 | [Revision verification](docs/verification-demo-revision.json) | 64 tests, 14-cell submission and 6-cell demo execution, preserved original hashes |
 | [Gradio integration verification](docs/verification-gradio.json) | Separate app, cleanup and regenerated Notebook evidence; inspect actual status |
+| [UI polish verification](docs/verification-ui-polish.json) | Current visual review, canonical Mermaid rendering and regenerated Notebook evidence |
 | [Monthly real-data aggregates](data/processed/monthly.csv) | Auditable input for the cached analysis |
 | [Acquisition diagnostics](data/metadata/diagnostics.json) | Completed/missing periods, pilot, endpoint joins and processing audit |
 | [Station snapshot audit](data/metadata/station_source.json) | URL, retrieval check, effective date, hash and municipality counts |

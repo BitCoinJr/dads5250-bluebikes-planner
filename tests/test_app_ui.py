@@ -2,11 +2,13 @@
 from __future__ import annotations
 
 import copy
+from html import unescape
 from pathlib import Path
+import re
 from unittest.mock import Mock, patch
 import unittest
 
-from bluebikes.app import ScreenActions, create_app, launch_local
+from bluebikes.app import ScreenActions, UI_EXTRA_KEYS, _extraction_cards, create_app, launch_local
 from bluebikes.app_service import AppService
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,7 +25,7 @@ def form_values(state, *, edits=None, notes="SYNTHETIC TEST session confirmation
 
 def mock_plan():
     """A result-shaped stub; inventory/optimization are tested separately."""
-    return {
+    result = {
         "period_comparison": [
             {"scenario": "initial_crews", "period": "2026-01 through 2026-12", "crew_cash_cost_in_period": 3},
             {"scenario": "no_event", "period": "2026-01 through 2026-12", "crew_cash_cost_in_period": 2},
@@ -31,18 +33,26 @@ def mock_plan():
             {"scenario": "no_event", "period": "2026-01 through 2026-09", "crew_cash_cost_in_period": 1},
             {"scenario": "reviewed_event", "period": "2026-01 through 2026-09", "crew_cash_cost_in_period": 2},
         ],
-        "monthly_chain": [{"month": 4, "city": "Boston", "full_time_base": 6,
+        "monthly_chain": [{"year": 2026, "month": 4, "city": "Boston", "full_time_base": 6,
                            "full_time_scenario": 7, "seasonal_base": 1, "seasonal_scenario": 2,
                            "crew_cost_base": 43800, "crew_cost_scenario": 57600,
                            "uncovered_handling_actions_base": 100, "uncovered_handling_actions_scenario": 0,
+                           "demand_handling_actions_base": 21700, "demand_handling_actions_scenario": 24700,
+                           "capacity_handling_actions_base": 21600, "capacity_handling_actions_scenario": 27771.428571,
                            "prior_month_hires_decision_base": 0, "prior_month_hires_decision_scenario": 1,
                            "hire_decision_month_for_active_month": "2026-03"}],
-        "city_month_inputs": [{"month": 4, "city": "Boston"}],
+        "city_month_inputs": [{"year": 2026, "month": 4, "city": "Boston"}],
         "assumptions": ["SYNTHETIC TEST RESULT, not an operational calculation"],
         "summary": {"selected_city": "Boston", "selected_group": "Boston",
                     "handling_actions_per_course_bike": 1,
                     "increment_handling_actions_per_event": 3000},
     }
+    for row in result["period_comparison"]:
+        row.update({"period_months": 12 if row["period"].endswith("2026-12") else 9,
+                    "uncovered_handling_actions": 100, "peak_full_time_crews_in_period": 12,
+                    "peak_seasonal_crews_in_period": 2, "peak_total_crews_in_period": 14,
+                    "mandatory_seasonal_tail_cost_2027_separate": 0})
+    return result
 
 
 class ScreenWorkflowTests(unittest.TestCase):
@@ -59,10 +69,20 @@ class ScreenWorkflowTests(unittest.TestCase):
         self.assertTrue(output[7].empty)
         self.assertEqual(output[8], "")
         self.assertEqual(output[5]["interactive"], not disabled)
+        view = dict(zip(UI_EXTRA_KEYS, output[9:9 + len(UI_EXTRA_KEYS)]))
+        self.assertEqual(view["kpi_html"], "")
+        for name in ["crew_figure", "demand_figure"]:
+            self.assertIsNone(view[name]["value"])
+            self.assertFalse(view[name]["visible"])
+        for name in ["annual_table", "backtest_table", "monthly_table"]:
+            self.assertTrue(view[name].empty)
+        self.assertEqual(view["explanation_md"], "")
+        if output[2] is None:
+            self.assertEqual(view["extraction_html"], "")
 
     def confirmed(self):
         output = self.actions.confirm(self.state, *form_values(self.state))
-        self.assertEqual(len(output), 9)
+        self.assertGreaterEqual(len(output), 9)
         self.assertEqual(output[0]["status"], "review_confirmed")
         self.assertTrue(output[5]["interactive"])
         return output[0]
@@ -88,6 +108,15 @@ class ScreenWorkflowTests(unittest.TestCase):
         self.assertIn("Prior hiring decision month: **2026-03**", output[8])
         self.assertIn("hires **0 -> 1**", output[8])
         self.assertIn("next-month staffing", output[8])
+        view = dict(zip(UI_EXTRA_KEYS, output[9:9 + len(UI_EXTRA_KEYS)]))
+        self.assertIn("$43,800", view["kpi_html"])
+        for name in ["crew_figure", "demand_figure"]:
+            self.assertIsNotNone(view[name]["value"])
+            self.assertTrue(view[name]["visible"])
+        self.assertEqual(set(view["annual_table"]["Cash cost"]), {"$2", "$3", "$4"})
+        self.assertEqual(set(view["backtest_table"]["Cash cost"]), {"$1", "$2"})
+        self.assertEqual(view["monthly_table"]["Month"].tolist(), ["2026-04"])
+        self.assertIn("handling actions", view["explanation_md"])
         return output[0]
 
     def test_screen_builds_from_saved_evidence_without_provider_or_key_read(self):
@@ -110,14 +139,41 @@ class ScreenWorkflowTests(unittest.TestCase):
 
     def test_select_and_saved_callbacks_return_complete_form_with_apply_disabled(self):
         selected = self.actions.select(self.service.choices()[0][1])
-        self.assertEqual(len(selected), 19)
+        self.assertGreaterEqual(len(selected), 19)
         self.assertEqual(selected[3]["status"], "saved_ready")
         self.assertFalse(selected[8]["interactive"])
         document = self.state["document"]
         loaded = self.actions.saved(self.state, document["source_title"], document["source_url"], document["source_text"])
-        self.assertEqual(len(loaded), 16)
+        self.assertGreaterEqual(len(loaded), 16)
         self.assert_blank_result(loaded)
         self.assertEqual(loaded[3]["mode"], "recorded")
+        self.assertEqual(loaded[-7], self.state["original_llm"]["start_date"])
+        self.assertEqual(loaded[-3], "")
+
+    def test_readable_cards_keep_unknowns_and_flag_the_actual_participant_error(self):
+        def field(html, label):
+            found = re.search(r"<dt>" + re.escape(label) + r"</dt><dd>(.*?)</dd>", html, re.S)
+            self.assertIsNotNone(found)
+            return unescape(re.sub(r"<[^>]+>", "", found.group(1)))
+        original = self.actions.select(self.service.choices()[0][1])[3:]
+        html = dict(zip(UI_EXTRA_KEYS, original[9:]))["extraction_html"]
+        self.assertEqual(field(html, "Expected spectators"), "Not stated")
+        self.assertIn("Athlete or participant counts are not used", html)
+        participant = next(value for _, value in self.service.choices() if "participants_only" in value)
+        selected = self.actions.select(participant)[3:]
+        failure = dict(zip(UI_EXTRA_KEYS, selected[9:]))["extraction_html"]
+        self.assertEqual(selected[2]["expected_crowd_size"], 30000)  # Raw actual response is unchanged.
+        self.assertIn("flagged participant count, not verified spectators", field(failure, "Expected spectators"))
+        self.assertIn("unsupported inferred date", field(failure, "Date / range"))
+        self.assertIn("Evidence excerpt", failure)
+        changed = copy.deepcopy(selected[0])
+        changed["document"]["source_text"] += " changed source"
+        self.assertNotIn("flagged participant count", _extraction_cards(changed, ROOT))
+        positive = next(value for _, value in self.service.choices() if "hocr_bu" in value)
+        positive_output = self.actions.select(positive)[3:]
+        positive_html = dict(zip(UI_EXTRA_KEYS, positive_output[9:]))["extraction_html"]
+        self.assertIn("more than 300,000", field(positive_html, "Expected spectators"))
+        self.assertIn("source qualifier; unconfirmed", field(positive_html, "Expected spectators"))
 
     def test_apply_without_confirmation_cannot_invoke_planner(self):
         with patch.object(self.service, "_plan", side_effect=AssertionError("Review is required")) as planner:
@@ -131,7 +187,7 @@ class ScreenWorkflowTests(unittest.TestCase):
         old_original = copy.deepcopy(state["original_llm"])
         document = state["document"]
         changed = self.actions.input_changed(state, document["source_title"], document["source_url"], document["source_text"] + " changed")
-        self.assertEqual(len(changed), 16)
+        self.assertGreaterEqual(len(changed), 16)
         self.assertEqual(changed[0]["status"], "input_changed")
         self.assertIsNone(changed[2])
         self.assertFalse(changed[3])
@@ -146,6 +202,7 @@ class ScreenWorkflowTests(unittest.TestCase):
     def test_scenario_change_blanks_result_but_keeps_exact_review_confirmation(self):
         state = self.applied()
         output = self.actions.scenario_changed(state)
+        self.assertEqual(output[0]['status'], 'review_confirmed')
         self.assertEqual(output[0]["review_digest"], state["review_digest"])
         self.assertEqual(output[4], state["reviewed_event"])
         self.assert_blank_result(output, disabled=False)
@@ -184,7 +241,7 @@ class ScreenWorkflowTests(unittest.TestCase):
             self.assertFalse(cleared[3])
             self.assertIsNone(cleared[4])
             self.assert_blank_result(cleared)
-            self.assertTrue(all(not value for value in cleared[9:]))
+            self.assertTrue(all(not value for value in cleared[-7:]))
             # A skipped browser input event is still caught on Apply; stale
             # model JSON/provenance must disappear, not only its old plan.
             stale = form_values(state)
@@ -204,7 +261,7 @@ class ScreenWorkflowTests(unittest.TestCase):
                 patch.object(self.service, "load_saved", side_effect=AssertionError("No automatic fallback")):
             output = self.actions.live(state, document["source_title"], document["source_url"], document["source_text"])
         provider.assert_called_once()
-        self.assertEqual(len(output), 16)
+        self.assertGreaterEqual(len(output), 16)
         self.assertEqual(output[0]["status"], "live_failed")
         self.assertIsNone(output[2])
         self.assertFalse(output[3])

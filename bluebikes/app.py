@@ -2,6 +2,10 @@
 from __future__ import annotations
 
 import copy
+import csv
+import json
+from functools import lru_cache
+from html import escape
 import os
 from pathlib import Path
 
@@ -11,6 +15,8 @@ import gradio as gr
 import pandas as pd
 
 from .app_service import AppService
+from .events import _hash
+from .presentation import render_result
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SAVED_LABEL = '\u4fdd\u5b58\u6e08\u307f\u5b9fAPI\u7d50\u679c / Saved real OpenAI response'
@@ -37,7 +43,7 @@ def _frame(records):
     return pd.DataFrame(records or [])
 
 
-def _outputs(state):
+def _legacy_outputs(state):
     """Display state without changing the model record or any evaluation files."""
     original = state.get('original_llm')
     provenance = state.get('provenance') or {}
@@ -103,6 +109,118 @@ def _outputs(state):
             gr.update(interactive=confirmed), comparisons, chain, notes)
 
 
+UI_EXTRA_KEYS = ['extraction_html','kpi_html','crew_figure','demand_figure',
+                 'annual_table','backtest_table','monthly_table','explanation_md']
+
+APP_CSS = """
+.gradio-container {width:100%!important;min-width:0!important;max-width:1320px!important;margin:auto!important;}
+.gradio-container .main,.gradio-container .wrap,.gradio-container .contain {min-width:0!important;max-width:100%;}
+.bb-flow-scroll {overflow-x:auto;background:white;border:1px solid #d6dfdb;border-radius:12px;padding:12px;}
+.bb-flow-scroll svg {display:block;width:100%;height:auto;min-width:1020px;}
+.bb-flow-caption {font-size:.85rem;opacity:.8;margin:6px 0 16px;}
+.bb-extraction {border:1px solid var(--border-color-primary,#d6dfdb);border-radius:12px;padding:16px;}
+.bb-extraction dl {display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,2.3fr);gap:10px 16px;margin:0;}
+.bb-extraction dt {font-weight:650;font-size:.9rem;}
+.bb-extraction dd {margin:0;overflow-wrap:anywhere;}
+.bb-evidence {margin:14px 0 0;border-left:3px solid #766398;padding:8px 12px;font-size:.9rem;overflow-wrap:anywhere;}
+.bb-review-note {margin-top:12px;padding:9px;border:1px solid #b99a58;border-radius:8px;font-size:.88rem;}
+.bb-review-note ul {padding-left:18px;margin:4px 0;}
+.bb-muted {font-size:.86rem;opacity:.8;}
+.bb-kpis {padding:8px 0;}
+.bb-kpis section {box-sizing:border-box;}
+.bb-metric-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+.bb-kpis h3 {font-size:1.3rem!important;}
+.bb-null {font-style:italic;}
+.bb-detail-table th {white-space:nowrap!important;word-break:normal!important;}
+@media(max-width:640px) {
+ .bb-extraction dl {grid-template-columns:1fr;gap:4px;}
+ .bb-extraction dd {margin-bottom:10px;}
+ .bb-flow-scroll {padding:8px;}
+ .bb-kpis section {min-width:0!important;width:100%;}
+ .bb-metric-grid {grid-template-columns:1fr;}
+ .bb-chart {overflow-x:auto;}
+ .bb-chart .matplotlib {justify-content:flex-start!important;align-items:flex-start!important;min-width:760px;}
+ .bb-chart img {min-width:760px;max-width:none;}
+}
+"""
+
+
+@lru_cache(maxsize=4)
+def _saved_review_rows(root):
+    path=Path(root)/'results/event_extraction_additional_review.csv'
+    if not path.is_file():return []
+    with path.open(encoding='utf-8-sig',newline='') as handle:
+        return list(csv.DictReader(handle))
+
+
+def _extraction_cards(state, root=None):
+    """Readable ORIGINAL model fields; existing exact-match review flags only.
+
+    No new model inference or evaluation writes. Provisional automated notes are
+    attached only when source input and output hash match the saved review row.
+    """
+    record=state.get('original_llm')
+    if not record:return ''
+    document=state.get('document') or {}
+    flags=set(); qualifier=''
+    for row in _saved_review_rows(str(root or PROJECT_ROOT)):
+        if (row.get('source_url')==document.get('source_url') and
+            row.get('input_excerpt')==document.get('source_text') and
+            row.get('output_sha256')==_hash(record)):
+            flags={note['flag'] for note in json.loads(row.get('automated_quality_notes') or '[]')}
+            annotation=json.loads(row.get('crowd_qualifier_annotation') or '{}')
+            if annotation.get('value')==record.get('expected_crowd_size'):
+                qualifier=annotation.get('qualifier') or ''
+            break
+    def field(value): return escape(str(value),quote=True) if value is not None and value!='' else '<span class="bb-null">Not stated</span>'
+    dates=record.get('start_date')
+    if record.get('end_date') and record.get('end_date')!=dates:
+        dates=(dates or 'Not stated')+' to '+record['end_date']
+    date_html=field(dates)
+    if 'unsupported_date_inference' in flags:
+        date_html+=' <em>(unsupported inferred date; review required)</em>'
+    city_venue=field(record.get('city'))+' / '+field(record.get('location'))
+    count=record.get('expected_crowd_size')
+    crowd_html='<span class="bb-null">Not stated</span>' if count is None else escape(f'{count:,}')
+    if count is not None and qualifier:
+        crowd_html=escape(qualifier)+' '+crowd_html+' <em>(source qualifier; unconfirmed)</em>'
+    if 'non_audience_number_used_as_crowd' in flags:
+        crowd_html+=' <em>(flagged participant count, not verified spectators)</em>'
+    notes=list(record.get('ambiguities') or [])
+    messages={'non_audience_number_used_as_crowd':'The saved model output used participants as spectators. Correct it or leave it unknown.',
+              'unsupported_date_inference':'The saved output inferred an event day absent from the excerpt.',
+              'crowd_qualifier_omitted_from_ambiguities':'Keep the source quantity qualifier; the bare number is not exact attendance.',
+              'geographic_explanation_requires_review':'A geographic explanation goes beyond the supplied excerpt.'}
+    notes.extend(messages[flag] for flag in sorted(flags) if flag in messages)
+    if count is None and any(word in document.get('source_text','').lower() for word in ['athletes','participants']):
+        notes.append('Athlete or participant counts are not used as a spectator estimate.')
+    if not notes: notes=['Check the date, city allocation, spectator role and source evidence before confirming.']
+    needs='<ul>'+''.join('<li>'+escape(note)+'</li>' for note in notes)+'</ul>'
+    values=[('Event',field(record.get('event_name'))),('Date / range',date_html),('City / venue',city_venue),('Expected spectators',crowd_html)]
+    html='<section class="bb-extraction"><p class="bb-muted">Original OpenAI fields, not verified facts. Review or correct them below.</p><dl>'
+    html+=''.join('<dt>'+label+'</dt><dd>'+value+'</dd>' for label,value in values)+'</dl>'
+    html+='<div class="bb-review-note"><strong>Needs review</strong>'+needs+'</div>'
+    html+='<blockquote class="bb-evidence"><strong>Evidence excerpt</strong><br>'+escape(record.get('evidence_text') or '')+'</blockquote></section>'
+    return html
+
+
+def _diagram_html(root):
+    path=Path(root)/'docs/diagrams/bluebikes_flow.svg'
+    if not path.is_file():return '<p>Architecture image unavailable; see the README rendering command.</p>'
+    svg=path.read_text(encoding='utf-8')
+    return '<div class="bb-flow-scroll" aria-label="Data, reviewed event facts, explicit scenario and Python crew decisions">'+svg+'</div><p class="bb-flow-caption">OpenAI structures event facts; you confirm them. Python plans crews under an explicit demand scenario. The diagram scrolls horizontally on narrow screens.</p>'
+
+
+def _outputs(state):
+    legacy=_legacy_outputs(state)
+    view=render_result(state.get('result'))
+    extra=[_extraction_cards(state),view['kpi_html'],
+           gr.update(value=view['crew_figure'],visible=view['crew_figure'] is not None),
+           gr.update(value=view['demand_figure'],visible=view['demand_figure'] is not None),
+           view['annual_table'],view['backtest_table'],view['monthly_table'],view['explanation_md']]
+    return (*legacy,*extra)
+
+
 def _with_form(state):
     original = state.get('original_llm') or {}
     return (*_outputs(state), original.get('start_date') or '', original.get('end_date') or '',
@@ -134,6 +252,8 @@ class ScreenActions:
     def scenario_changed(self, state):
         updated = copy.deepcopy(state)
         updated['result'] = None
+        if updated.get('review_digest'):
+            updated.update(status='review_confirmed',error=None)
         return _outputs(updated)
 
     def confirm(self, state, title, url, text, start, end, city, location, crowd, ambiguities, notes):
@@ -151,69 +271,93 @@ class ScreenActions:
 
 
 def create_app(root=None, *, service=None):
-    """Build the same screen for Notebook and standalone local launch."""
-    service = service or AppService(root or PROJECT_ROOT)
-    actions = ScreenActions(service)
-    choices = service.choices()
-    initial = service.select(choices[0][1])
-    doc = initial['document']
-    values = _with_form(initial)
-    with gr.Blocks(title='Bluebikes: review an event, then plan', analytics_enabled=False) as app:
-        gr.Markdown('# Bluebikes: review an event, then plan\nLocal retrospective scenario. Human confirmation here is **session-only**, not a saved evaluation judgment. TA confirmation, team review, video and submission remain pending.')
-        state = gr.State(initial)
-        gr.Markdown('## 1. Event and original source')
-        event = gr.Dropdown(choices=choices,value=choices[0][1],label='Event excerpt (original four + separate challenge cases)')
+    """Build the one-screen workflow; calculations and review gates stay intact."""
+    root=Path(root or PROJECT_ROOT)
+    service=service or AppService(root)
+    actions=ScreenActions(service)
+    choices=service.choices()
+    initial=service.select(choices[0][1])
+    doc=initial['document']; values=_with_form(initial); form=values[-7:]
+    with gr.Blocks(title='From Event Headlines to Crew Decisions',analytics_enabled=False) as app:
+        gr.Markdown('# From Event Headlines to Crew Decisions\nReview an event, explore its demand impact, and compare staffing plans.')
+        gr.HTML(_diagram_html(root),css_template=APP_CSS)
+        state=gr.State(initial)
+        gr.Markdown('## 1. Choose an event announcement')
+        event=gr.Dropdown(choices=choices,value=choices[0][1],label='Event source')
         with gr.Row():
-            title = gr.Textbox(value=doc['source_title'],label='Source title')
-            url = gr.Textbox(value=doc['source_url'],label='Source URL')
-        text = gr.Textbox(value=doc['source_text'],label='Original source excerpt (editable; changes invalidate results)',lines=4)
+            with gr.Column(min_width=320):
+                gr.Markdown('### Read the original')
+                title=gr.Textbox(value=doc['source_title'],label='Source title')
+                url=gr.Textbox(value=doc['source_url'],label='Source URL')
+                text=gr.Textbox(value=doc['source_text'],label='Original source excerpt',lines=6)
+                with gr.Row():
+                    saved=gr.Button('Load saved real response')
+                    live=gr.Button('\u5b9fAPI\u3067\u62bd\u51fa / Extract with OpenAI')
+                gr.Markdown('Saved results require the exact source and input. The live button alone makes a new API call; failures do not fall back silently.')
+            with gr.Column(min_width=320):
+                gr.Markdown('### 2. See what OpenAI extracted')
+                status=gr.Markdown(values[1])
+                extraction=gr.HTML(value=values[9],label='Readable extraction',css_template=APP_CSS)
+                with gr.Accordion('Raw response, model and validation details',open=False):
+                    original=gr.JSON(value=values[2],label='Unedited LLM output: dates, city, location, crowd and ambiguities')
+                    provenance=gr.JSON(value=values[3],label='API provenance (no credentials)')
+                    gr.Markdown('Saved mode replays an actual recorded API response; it does not run a new model. Schema and literal-evidence checks do not establish semantic truth. Existing review flags are shown only for matching saved source/output evidence.')
+        gr.Markdown('## 3. Confirm or correct the facts\nYour fields below are separate from the original model output. Keep unknowns blank; check participants versus spectators and unsupported dates. Nothing reaches the plan automatically.')
         with gr.Row():
-            saved = gr.Button('Load saved real response')
-            live = gr.Button('\u5b9fAPI\u3067\u62bd\u51fa / Extract with OpenAI')
-        gr.Markdown('Saved mode requires the exact source/title/text and validated request/output hashes. Live extraction occurs **only** when its button is pressed; API failures never silently fall back. A missing key does not prevent saved mode.')
-        gr.Markdown('## 2. Extraction: original model output')
-        status = gr.Markdown(values[1])
-        original = gr.JSON(value=values[2],label='Unedited LLM output: dates, city, location, crowd and ambiguities')
-        provenance = gr.JSON(value=values[3],label='API provenance (no credentials)')
-        gr.Markdown('## 3. Confirm or correct the values\nCheck spectators versus participants, unsupported dates, city allocation and quantity qualifiers. Blank means unknown. Supply a correction note for manual changes; do not guess missing facts. Nothing is applied automatically.')
+            start=gr.Textbox(value=form[0],label='Start date (YYYY-MM-DD)',min_width=180)
+            end=gr.Textbox(value=form[1],label='End date (YYYY-MM-DD)',min_width=180)
+            city=gr.Textbox(value=form[2],label='City / municipality',min_width=180)
         with gr.Row():
-            start = gr.Textbox(value=values[9],label='Reviewed start date (YYYY-MM-DD or blank)')
-            end = gr.Textbox(value=values[10],label='Reviewed end date (YYYY-MM-DD or blank)')
-            city = gr.Textbox(value=values[11],label='Reviewed city (exact municipality or blank)')
-        with gr.Row():
-            location = gr.Textbox(value=values[12],label='Reviewed location or blank')
-            crowd = gr.Textbox(value=values[13],label='Reviewed spectator count (blank = unknown)')
-        ambiguities = gr.Textbox(value=values[14],label='Reviewed ambiguities (one per line)',lines=2)
-        notes = gr.Textbox(value='',label='Confirmation / correction note (required for edits; optional otherwise)',lines=2)
-        confirm = gr.Button('Confirm reviewed values (this session only)')
-        reviewed = gr.JSON(value=None,label='Session-confirmed record (separate from original LLM output)')
-        gr.Markdown('## 4. Explicitly apply the scenario\n**+3,000 handling actions is uncalibrated**, not LLM-estimated demand or a demonstrated event effect. This is a **retrospective scenario**, not evidence of forecast improvement. Nominal capacity stays **120 bikes/shift, 6 shifts/week**. Two actions per course-bike unit assumes pickup/delivery pairing; it is not measured productivity and can fail for unbalanced depot flows.')
-        with gr.Row():
-            increment = gr.Number(value=3000,minimum=0,label='Assumed added handling actions for this event')
-            conversion = gr.Radio(choices=[('1 handling action per course bike',1),('2 handling actions per course bike (pairing assumption)',2)],value=1,label='Counting convention; 120 bikes/shift stays fixed')
-        apply = gr.Button('\u8a08\u753b\u306b\u53cd\u6620 / Apply to plan',variant='primary',interactive=False)
-        gr.Markdown('## 5. Baseline versus reviewed-event scenario\nBaseline means the frozen no-event forecast plan. Annual rows pair **Jan-Dec cost with forecast-proxy shortage**; nine-month rows pair **Jan-Sep cost with observed-trip-proxy shortage**. These are not measured lost trips. Mandatory 2027 seasonal costs are separate. Replanning includes earlier hiring/seasonal decisions; it does not imply immediate hiring in the event month.')
-        result_notes = gr.Markdown('No plan applied. Confirm the reviewed values, then press Apply to plan.')
-        comparison = gr.Dataframe(value=pd.DataFrame(),label='Same-period system comparison',interactive=False,wrap=True)
-        chain = gr.Dataframe(value=pd.DataFrame(),label='Selected staffing group by month (forecast proxy shortages)',interactive=False,wrap=True)
-        out = [state,status,original,provenance,reviewed,apply,comparison,chain,result_notes]
-        form_out = out+[start,end,city,location,crowd,ambiguities,notes]
-        doc_inputs = [state,title,url,text]
-        review_inputs = doc_inputs+[start,end,city,location,crowd,ambiguities,notes]
-        # One workflow queue avoids simultaneous state mutations. Apply still checks
-        # current input/edits server-side even if a frontend invalidation was skipped.
-        options = dict(concurrency_id='event-workflow',concurrency_limit=1)
-        event.change(actions.select,event,[title,url,text]+form_out,api_name='select_event',**options)
+            location=gr.Textbox(value=form[3],label='Venue or location',min_width=220)
+            crowd=gr.Textbox(value=form[4],label='Spectators (blank = unknown)',min_width=220)
+        ambiguities=gr.Textbox(value=form[5],label='Ambiguities to retain (one per line)',lines=2)
+        notes=gr.Textbox(value='',label='Confirmation note (required for corrections)',lines=2)
+        confirm=gr.Button('Confirm reviewed values (this session only)')
+        gr.Markdown('Confirmation applies only to this scenario session. The saved model response and separate evaluation records remain unchanged.')
+        with gr.Accordion('Inspect the session-confirmed values',open=False):
+            reviewed=gr.JSON(value=None,label='Session-confirmed record (separate from original LLM output)')
+        gr.Markdown('## 4. Explore an explicit demand scenario\nThe increment is **your uncalibrated scenario assumption**, not demand estimated by OpenAI or a measured event effect. Comparisons are **retrospective scenarios**, not proof of forecast improvement.')
+        increment=gr.Number(value=3000,minimum=0,label='Added handling actions for this event (user assumption)')
+        with gr.Accordion('Capacity and handling-unit assumptions',open=False):
+            gr.Markdown('Nominal capacity stays **120 bikes/shift, 6 shifts/week**, prorated by calendar days / 7. A pickup and a delivery are two handling actions. Pairing them as one course bike is a conditional convention; unbalanced depot work cannot automatically be halved.')
+            conversion=gr.Radio(choices=[('1 handling action per course bike',1),('2 handling actions per course bike (pairing assumption)',2)],value=1,label='Handling actions per course bike')
+        apply=gr.Button('\u8a08\u753b\u306b\u53cd\u6620 / Apply to plan',variant='primary',interactive=False)
+        gr.Markdown('## 5. Compare crew decisions\nCards and charts use the frozen 2026 forecast plus your scenario increment, for the selected city or staffing group. Held-out evaluation is in a separate tab. Before/after means **no event increment -> reviewed event scenario**.')
+        kpis=gr.HTML(value='',label='Event-month decisions',css_template=APP_CSS)
+        crew_plot=gr.Plot(value=None,label='Monthly crew plan',visible=False,elem_classes=['bb-chart'])
+        demand_plot=gr.Plot(value=None,label='Demand and capacity',visible=False,elem_classes=['bb-chart'])
+        interpretation=gr.Markdown('')
+        with gr.Accordion('Detailed totals and monthly plan',open=False):
+            with gr.Tabs():
+                with gr.Tab('Jan-Dec forecast - all cities'):
+                    gr.Markdown('All-city **2026 annual forecast**: twelve-month cash cost and forecast-proxy shortfall. Mandatory 2027 seasonal cost is separate.')
+                    annual=gr.Dataframe(value=pd.DataFrame(),label='All-city annual forecast',interactive=False,wrap=False,elem_classes=['bb-detail-table'])
+                with gr.Tab('Jan-Sep backtest - all cities'):
+                    gr.Markdown('All-city **held-out Jan-Sep 2026 evaluation**: nine-month cash cost and observed-trip-derived proxy shortfall. The scenario remains retrospective; this is not an event-forecast improvement claim.')
+                    backtest=gr.Dataframe(value=pd.DataFrame(),label='All-city held-out backtest',interactive=False,wrap=False,elem_classes=['bb-detail-table'])
+                with gr.Tab('Selected group - monthly'):
+                    monthly=gr.Dataframe(value=pd.DataFrame(),label='Monthly group details',interactive=False,wrap=False,elem_classes=['bb-detail-table'])
+        # These hidden components retain the original local API response contract.
+        comparison=gr.Dataframe(value=pd.DataFrame(),label='Legacy same-period data',interactive=False,visible=False)
+        chain=gr.Dataframe(value=pd.DataFrame(),label='Legacy group data',interactive=False,visible=False)
+        result_notes=gr.Markdown('',visible=False)
+        out=[state,status,original,provenance,reviewed,apply,comparison,chain,result_notes,
+             extraction,kpis,crew_plot,demand_plot,annual,backtest,monthly,interpretation]
+        form_out=out+[start,end,city,location,crowd,ambiguities,notes]
+        doc_inputs=[state,title,url,text]
+        review_inputs=doc_inputs+[start,end,city,location,crowd,ambiguities,notes]
+        options=dict(concurrency_id='event-workflow',concurrency_limit=1)
+        event.change(actions.select,event,[title,url,text]+form_out,api_name='select_event',show_progress='hidden',**options)
         for component in [title,url,text]:
-            component.input(actions.input_changed,doc_inputs,form_out,api_name=None,api_visibility='private',**options)
-        saved.click(actions.saved,doc_inputs,form_out,api_name='load_saved',**options)
-        live.click(actions.live,doc_inputs,form_out,api_name='extract_live',**options)
+            component.input(actions.input_changed,doc_inputs,form_out,api_name=None,api_visibility='private',show_progress='hidden',**options)
+        saved.click(actions.saved,doc_inputs,form_out,api_name='load_saved',show_progress='hidden',**options)
+        live.click(actions.live,doc_inputs,form_out,api_name='extract_live',show_progress='minimal',**options)
         for component in [start,end,city,location,crowd,ambiguities,notes]:
-            component.input(actions.review_changed,state,out,api_name=None,api_visibility='private',**options)
+            component.input(actions.review_changed,state,out,api_name=None,api_visibility='private',show_progress='hidden',**options)
         for component in [increment,conversion]:
-            component.input(actions.scenario_changed,state,out,api_name=None,api_visibility='private',**options)
-        confirm.click(actions.confirm,review_inputs,out,api_name='confirm_review',**options)
-        apply.click(actions.apply,review_inputs+[increment,conversion],out,api_name='apply_plan',**options)
+            component.input(actions.scenario_changed,state,out,api_name=None,api_visibility='private',show_progress='hidden',**options)
+        confirm.click(actions.confirm,review_inputs,out,api_name='confirm_review',show_progress='hidden',**options)
+        apply.click(actions.apply,review_inputs+[increment,conversion],out,api_name='apply_plan',show_progress='minimal',**options)
     app.queue(default_concurrency_limit=1)
     return app
 
@@ -225,5 +369,5 @@ def launch_local(root=None, *, port=7860, inline=False, prevent_thread_lock=Fals
     app = create_app(root)
     app.launch(server_name='127.0.0.1',server_port=port,share=False,inbrowser=False,
                inline=inline,prevent_thread_lock=prevent_thread_lock,show_error=False,
-               quiet=True,enable_monitoring=False,footer_links=[])
+               quiet=True,enable_monitoring=False,footer_links=[],css=APP_CSS)
     return app

@@ -45,6 +45,14 @@ ordinary = periods[(periods.period_months == 9) & periods.scenario.isin(['initia
 columns = ['scenario','period','crew_cash_cost_in_period','uncovered_handling_actions','peak_total_crews_in_period']
 display(ordinary[columns].round(2))
 print('Ordinary frozen-plan backtest. Historical original API calls:', original['recorded_api_calls'], '; new API calls:', original['api_calls'])""")
+    md("""## Shared flow and visible roles
+
+Read the cached diagram from historical trip/station inputs to the frozen forecast, and from official event text through an OpenAI API call, prompt engineering and structured JSON extraction. Python validates; a human confirms; an explicit user demand assumption and Apply action gate the Python crew optimizer. Held-out 2026 January-September trips feed backtesting only, with no return path to training. The app and README use this same generated SVG from `docs/diagrams/bluebikes_flow.mmd`, without a Mermaid CDN or runtime Node requirement.
+""")
+    code("""from IPython.display import SVG
+architecture_diagram = ROOT / 'docs/diagrams/bluebikes_flow.svg'
+assert architecture_diagram.exists(), 'Regenerate the canonical diagram with node scripts/render_architecture.mjs'
+display(SVG(filename=str(architecture_diagram)))""")
     md("""## 2. Actual announcement to actual LLM extraction
 
 The input is a preserved real-source excerpt. The output below is a **recorded actual OpenAI response**, not the fixture. The model assigns the route to its named Boston endpoint; that city allocation is an explicit convention needing review. Crowd is null because the original announcement's 30,000 athletes are not a spectator estimate.
@@ -116,13 +124,13 @@ display(pd.DataFrame(metrics['disagreements']))
 print('All additional cases: evaluation only. Human review PENDING. Video NOT RECORDED / NOT UPLOADED.')""")
     md("""## Architecture and recording handoff
 
-Streaming trips -> station-hour inventory -> monthly proxy -> frozen seasonal forecast -> constrained crew plan. Event text -> strict-schema OpenAI call -> provenance/schema checks -> explicit city/month scenario -> same-period crew/cost comparison. Recorded-call hashes keep the demo reproducible; structural validation does not guarantee semantic correctness.
+Use the shared Mermaid figure displayed above for architecture and presentation. The API call reaches OpenAI, the versioned prompt defines fields and unknowns, and structured output supports Python validation and human-confirmed planning input. Recorded-call hashes keep the demo reproducible; structural validation does not guarantee semantic correctness.
 
 **Remaining:** human extraction/unit review, all-member contributions/review, TA confirmation, rehearse and record/upload the three-minute video, verify teaching-team access, and submit manually to Canvas. Do not mark submission complete until those requirements are met.
 """)
     md("""## Optional interactive local app — off by default
 
-The cells above remain the reproducible recording view. Install the current `requirements.txt` before using this optional app. Keep `LAUNCH_LOCAL_APP = False` for execution/submission: no server starts and no live API call is made. Opt in by setting it to `True` below. This is the same app as `python scripts/run_app.py --port 7860`, bound to **127.0.0.1**, with sharing and analytics disabled; use port 7861 if 7860 is occupied.
+The cells above remain the reproducible recording view. Install the current `requirements.txt` before using this optional app. Keep `LAUNCH_LOCAL_APP = False` for execution/submission: no server starts and no live API call is made. Opt in by setting it to `True` below. The default port remains 7860; set `LOCAL_APP_PORT = 7872` for this polished revision's review, matching `python scripts/run_app.py --port 7872` and avoiding an older process on 7860. The app binds to **127.0.0.1**, with sharing and analytics disabled.
 
 Start with the saved real input/output and results. A new model call happens only through **実APIで抽出 / Extract with OpenAI**. Review the editable fields and ambiguities, explain corrections in notes, click **Confirm reviewed values (this session only)**, then **計画に反映 / Apply to plan**. Review edits stay in the session. Source, reviewed event or assumption edits invalidate an applied scenario and require another apply; a source change requires replay/extraction and review again. The frozen original four calls/19-of-20 agreement and separate three-call/11-of-15 challenge are retained, with failures and human review still pending.
 

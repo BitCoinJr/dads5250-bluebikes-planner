@@ -1,12 +1,12 @@
 {
   "status": "passed",
-  "executed_utc": "2026-10-27T01:47:07.540280+00:00",
-  "command": ".venv/Scripts/python.exe -B scripts/verify_app_notebook.py --port 7868",
+  "executed_utc": "2026-10-27T07:53:29.632403+00:00",
+  "command": ".venv/Scripts/python.exe -B scripts/verify_app_notebook.py --port 7874",
   "kernel_executable": "C:\\dev\\university\\dads5250-bluebikes-planner\\.venv\\Scripts\\python.exe",
   "kernel_name": "bluebikes",
   "source_builder": "scripts/build_demo_notebook.py",
   "source_cell_sha256": "b3a2585d35ab59ed16cb810c72789529ce5ae65fc132d69da2e789f7908951c7",
-  "executed_cell_sha256": "52b9ff655cdeb497b5ee683a8d3312b42a9181057f95e862c28a27c3bfe3eefd",
+  "executed_cell_sha256": "5dc1b854a0305e8df134895afe2df2997881adb597c1d5fb417524acc3f480cc",
   "only_cell_changes": {
     "LAUNCH_LOCAL_APP": [
       false,
@@ -14,7 +14,7 @@
     ],
     "LOCAL_APP_PORT": [
       7860,
-      7868
+      7874
     ]
   },
   "notebook_artifact": "build/app_notebook_smoke.ipynb (ignored)",
@@ -29,14 +29,14 @@
   "actual_launch_and_close": {
     "analytics_enabled": false,
     "close_called": true,
-    "config_component_count": 44,
+    "config_component_count": 68,
     "config_enable_queue": true,
     "config_http_status": 200,
     "openai_adapter_request_attempts": 0,
-    "port": 7868,
+    "port": 7874,
     "port_released_before_kernel_shutdown": true,
     "server_name": "127.0.0.1",
-    "server_port": 7868,
+    "server_port": 7874,
     "share": false
   },
   "port_released_after_kernel_shutdown": true,
