@@ -11,6 +11,9 @@ from .events import _hash, extraction_payload
 ROOT = Path(__file__).resolve().parents[1]
 RECORD = "docs/human_review_decisions.json"
 METHOD = "AI-assisted review, explicitly adjudicated by Satoshi in chat"
+# METHOD is the provenance string stored in the review CSVs; keep it unchanged.
+# DISPLAY_METHOD is the shorter wording shown to readers in the app and notebooks.
+DISPLAY_METHOD = "AI-assisted review, confirmed by the reviewer"
 REVIEWER = "Satoshi Nakamura"
 TOPICS = (
     "crew_unit_review", "daily_inventory_reset_review", "hiring_and_contract_review",
@@ -98,9 +101,8 @@ def review_html(document, output, root=None):
     notes = annotation_lines(entry, review["record"])
     return ('<div class="bb-review-note bb-human-adjudication"><strong>Human adjudication — separate annotation</strong>'
             '<p>' + escape(decision["human_judgment"]) + '</p><p>'
-            + escape(REVIEWER + " — " + METHOD) + '<br>'
-            + escape("Record compiled " + review["record"]["record_compiled_date_jst"]
-                     + " JST; individual decision times not recorded.") + '</p>'
+            + escape("Reviewer: " + REVIEWER + " (" + DISPLAY_METHOD + "), "
+                     + review["record"]["record_compiled_date_jst"] + ".") + '</p>'
             + '<ul>' + ''.join('<li>' + escape(n) + '</li>' for n in notes) + '</ul>'
             + '<p>Saved-excerpt review only; not independent website verification. Session confirmation and Apply are still required.</p></div>')
 
@@ -114,7 +116,7 @@ def status_text(root=None):
             "Three accepted original cases, three HOCR cases with separate annotations, one participant/date grounding failure. "
             "Raw outputs and frozen 19/20 and 11/15 scores are unchanged. "
             "Not an all-pass, empirical validation, TA approval or all-member review. "
-            "Method: " + METHOD + ". Record compiled 2026-10-27 JST; individual decision times not recorded.")
+            "Method: " + DISPLAY_METHOD + ". Reviewed 2026-10-27.")
 
 
 def sync_review_csvs(root=None):

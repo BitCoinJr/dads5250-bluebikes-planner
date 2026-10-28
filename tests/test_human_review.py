@@ -7,7 +7,7 @@ import shutil
 import tempfile
 import unittest
 
-from bluebikes.human_review import load_reviews, matching_review, review_html, sync_review_csvs, METHOD
+from bluebikes.human_review import load_reviews, matching_review, review_html, sync_review_csvs, METHOD, DISPLAY_METHOD
 from bluebikes.review_tables import write_review_csv
 from bluebikes.event_validation import _export_review, evaluate_additional
 from bluebikes.app import _extraction_cards
@@ -73,7 +73,7 @@ class HumanReviewTests(unittest.TestCase):
             original = copy.deepcopy(state["original_llm"])
             html = _extraction_cards(state, ROOT)
             self.assertIn("Human adjudication", html)
-            self.assertIn(METHOD, html)
+            self.assertIn(DISPLAY_METHOD, html)
             self.assertIn("Raw API output is unchanged", html)
             self.assertEqual(state["original_llm"], original)
             self.assertIsNone(state["reviewed_event"])
