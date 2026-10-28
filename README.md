@@ -42,11 +42,11 @@ The [Mermaid source](docs/diagrams/bluebikes_flow.mmd) is the single editing sou
 
 ## Submission materials
 
-- **[Watch the 2:55 demo](deliverables/demo/bluebikes_demo.mp4)** — real app captures with local Zira narration and English subtitles. If GitHub shows a download page, use **View raw / Download**.
+- **[Watch the 2:55 demo](deliverables/demo/bluebikes_demo.mp4)** — real app captures with local Zira narration and English subtitles. GitHub shows a file page; choose **View raw / Download** to open the MP4.
 - **[Executed submission Notebook](notebooks/bluebikes_submission.ipynb)** — full analysis and outputs.
 - [Video script, subtitles and reproducible editing sources](deliverables/demo/README.md).
 
-**Group 8 registration is confirmed by the TA.** Canvas deadline: **28 October 2026, 11:59 PM EDT**. The TA requires a public repository; publication authorization, signed-out access checks and Canvas submission are still pending. See the concise [submission checklist](docs/SUBMISSION_PREP.md). The video uses a saved real OpenAI response; its narration is synthetic.
+**Group 8 registration is confirmed by the TA.** Canvas deadline: **28 October 2026, 11:59 PM EDT**. The repository is now **public**, and signed-out repository, Notebook and MP4 access has been verified. Final video/member review and Canvas submission remain pending. See the concise [submission checklist](docs/SUBMISSION_PREP.md). The video uses a saved real OpenAI response; its narration is synthetic.
 
 
 ## Course techniques used
@@ -59,7 +59,7 @@ The [Mermaid source](docs/diagrams/bluebikes_flow.mmd) is the single editing sou
 
 ## Quick start
 
-Developed and verified on **Python 3.13.2** with [pinned dependencies](requirements.txt). Other Python/platform combinations have not been independently verified in this integration. If reviewing before publication, clone with an invited GitHub account. No OpenAI key or raw-data download is needed for saved-response replay.
+Developed and verified on **Python 3.13.2** with [pinned dependencies](requirements.txt). Other Python/platform combinations have not been independently verified in this integration. No OpenAI key or raw-data download is needed for saved-response replay.
 
 **macOS / Linux**
 
@@ -137,7 +137,7 @@ See [planner assumptions](docs/planner_assumptions.md), [scenario assumptions](d
 
 The [175-second MP4](deliverables/demo/bluebikes_demo.mp4) shows the problem, architecture, saved Marathon extraction, Confirm → Apply, Boston's April decision and geographic comparison. It uses **Microsoft Zira**, synthesized continuously by paragraph on the local PC, with no paid speech service. The app interactions are genuine captures with explanatory still holds; this is an edited demonstration rather than a continuous live take.
 
-The [production package](deliverables/demo/README.md) includes the final script, synchronized subtitles and rebuilding sources. The six-paragraph narration is 307 written words. Aditi can propose a timestamped correction or PR; her contribution is still unconfirmed. Final full-video listening and signed-out access checks remain on the submission checklist.
+The [production package](deliverables/demo/README.md) includes the final script, synchronized subtitles and rebuilding sources. The six-paragraph narration is 307 written words. Aditi can propose a timestamped correction or PR; her contribution is still unconfirmed. Final full-video listening and member review remain on the submission checklist; signed-out download access has been verified.
 
 ## Repository layout and sources
 

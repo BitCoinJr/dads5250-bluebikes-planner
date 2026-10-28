@@ -2,7 +2,7 @@
 
 **[Play or download the MP4](bluebikes_demo.mp4)** · [English subtitles](bluebikes_demo_en.srt) · [Final timed script](SCRIPT.md)
 
-If GitHub shows a file page instead of a player, choose **View raw / Download**. The MP4 includes burned-in English captions and a selectable subtitle stream. Avoid enabling duplicate subtitles during playback.
+GitHub shows a file page rather than a player for this MP4. Choose **View raw / Download**; the public download was verified without signing in. The MP4 includes burned-in English captions and a selectable subtitle stream. Avoid enabling duplicate subtitles during playback.
 
 ## What this video contains
 
@@ -36,4 +36,4 @@ The result is `build/demo-video-rebuild/bluebikes_demo_candidate.mp4`. The compo
 
 ## Submission access
 
-The TA confirmed registration and requires a public repository. Publication and signed-out video access must be completed before Canvas submission; see [current checklist](../../docs/SUBMISSION_PREP.md). This production package does not claim a Canvas upload, all-member approval or acceptance by the teaching team.
+The TA confirmed registration and requires a public repository. Publication was authorized by Satoshi and completed; signed-out repository, Notebook and video downloads were verified. See [access evidence](../../docs/verification-public-access.json) and the [current checklist](../../docs/SUBMISSION_PREP.md). This production package does not claim a Canvas upload, all-member approval or acceptance by the teaching team.

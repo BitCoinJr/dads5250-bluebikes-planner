@@ -17,7 +17,7 @@ See [current submission status](SUBMISSION_PREP.md) for the authoritative comple
 - [ ] Keep April 12→13 full-time crews / $72,000→$78,000 / March hiring distinct from the all-city annual +$7,200.
 - [ ] Keep station points/centroids distinct from depots/routes; nine cities share one pool.
 - [ ] Record all members' actual work and responses without inventing agreement.
-- [ ] Obtain publication authorization, make the repository public as required by the TA, and verify signed-out access to the three deliverables.
+- [x] Publication authorized by Satoshi; repository public and signed-out Notebook/video access verified: [evidence](verification-public-access.json).
 - [ ] Submit on Canvas and retain the receipt.
 
 For a member revision, identify the timestamp or file, explain the issue, and open a PR. Preserve source/API provenance and the numerical safeguards. A corrected audio/video must be rechecked for full duration, captions and playback.

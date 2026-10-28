@@ -1,0 +1,61 @@
+{
+  "checked_at_utc": "2026-10-28T02:30:08.486000+00:00",
+  "authentication": "none; no cookies or Authorization header",
+  "repository_visibility": "public",
+  "checks": [
+    {
+      "label": "repository",
+      "status": 200,
+      "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner",
+      "final_url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner",
+      "bytes": 347993,
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "label": "readme",
+      "status": 200,
+      "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/blob/main/README.md",
+      "final_url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/blob/main/README.md",
+      "bytes": 329178,
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "label": "notebook_page",
+      "status": 200,
+      "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/blob/main/notebooks/bluebikes_submission.ipynb",
+      "final_url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/blob/main/notebooks/bluebikes_submission.ipynb",
+      "bytes": 215576,
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "label": "video_page",
+      "status": 200,
+      "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/blob/main/deliverables/demo/bluebikes_demo.mp4",
+      "final_url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/blob/main/deliverables/demo/bluebikes_demo.mp4",
+      "bytes": 212179,
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "label": "notebook_download",
+      "status": 200,
+      "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/raw/refs/heads/main/notebooks/bluebikes_submission.ipynb",
+      "final_url": "https://raw.githubusercontent.com/BitCoinJr/dads5250-bluebikes-planner/refs/heads/main/notebooks/bluebikes_submission.ipynb",
+      "bytes": 882598,
+      "content_type": "text/plain; charset=utf-8",
+      "sha256": "0ee8de74d91931a280e888875c65b26671792646bcefd237fb87763324eea4f7",
+      "matches_local": true
+    },
+    {
+      "label": "video_download",
+      "status": 200,
+      "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/raw/refs/heads/main/deliverables/demo/bluebikes_demo.mp4",
+      "final_url": "https://raw.githubusercontent.com/BitCoinJr/dads5250-bluebikes-planner/refs/heads/main/deliverables/demo/bluebikes_demo.mp4",
+      "bytes": 8495712,
+      "content_type": "application/octet-stream",
+      "sha256": "37703a0895569e3490ac33aa1e10435af28ac30b085cb13284a8f10e6acb4543",
+      "matches_local": true
+    }
+  ],
+  "browser_video_page": "Signed-out browser displays View raw / Download; inline GitHub preview unavailable at this size. Use the accessible MP4 download.",
+  "scope": "Access and byte integrity; not grading acceptance, auditory quality or Canvas submission."
+}
