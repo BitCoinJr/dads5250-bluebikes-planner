@@ -1,0 +1,52 @@
+{
+  "review_date_client_timezone": "2026-10-28 Asia/Tokyo",
+  "base_main": "a37333556f33f99082e543ce66747e253ef8a9ee",
+  "original_pr_head": "db79fb0351275d4fc26d53189826615ee2d700dd",
+  "pull_request": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1",
+  "verification_scope": "Integrated working tree before merge commit; no full Notebook rerun or timed spoken rehearsal",
+  "tests": {
+    "command": "python -B -m unittest discover -s tests -q",
+    "count": 118,
+    "elapsed_seconds": 26.563,
+    "exit_code": 0,
+    "result": "OK",
+    "non_failing_warnings": "ResourceWarning messages about unclosed asyncio event loops"
+  },
+  "additional_checks": {
+    "generated_notebook_failed_test_stops_execution": true,
+    "relative_links_checked": ["README.md", "docs/DEVELOPMENT_LOG.md", "docs/PR1_INTEGRATION.md"],
+    "relative_links_exist": true,
+    "git_diff_whitespace_check": "PASS with core.whitespace=cr-at-eol for Windows CRLF",
+    "notebook_preservation_record": "verification-pr1-notebook-preservation.json",
+    "saved_notebook_code_execution_counts_and_outputs_unchanged": true,
+    "protected_paths_unchanged_from_main": [
+      "results", "data", "fixtures", "prompts", "bluebikes/app_service.py",
+      "bluebikes/human_review.py", "docs/human_review_decisions.json",
+      "docs/HUMAN_REVIEW.md", "docs/MODEL_REVIEW.md", "docs/diagrams"
+    ]
+  },
+  "browser_checks": {
+    "surface": "in-app browser, desktop",
+    "local_port": 7883,
+    "bluebikes_definition_and_four_summary_cards_present": true,
+    "english_saved_response_extract_and_apply_labels": true,
+    "original_marathon_requires_confirmation_then_explicit_apply": true,
+    "boston_april_full_time_crews": [12, 13],
+    "boston_april_crew_cash_cost_usd": [72000, 78000],
+    "hiring_decision_month": "March 2026",
+    "geographic_comparison_month": "April 2026",
+    "supplemental_baa_selection_clears_previous_plan": true,
+    "supplemental_baa_city_edit_and_confirmation_still_disable_apply": true,
+    "all_supplemental_cases_and_server_gate": "Covered by the passing automated suite; manual browser spot-check used supplemental B.A.A."
+  },
+  "narration": {
+    "written_word_count": 307,
+    "approximate_expanded_word_count": 322,
+    "vinay_contribution_sentence": "Vinay reviewed documentation and usability.",
+    "new_timed_spoken_rehearsal": false,
+    "previous_operation_only_seconds": 14.424,
+    "previous_operation_timing_is_historical": true
+  },
+  "new_real_api_calls": 0,
+  "recording_upload_canvas_submission_or_external_messages": false
+}

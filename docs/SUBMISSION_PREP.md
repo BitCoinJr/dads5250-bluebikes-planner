@@ -57,7 +57,7 @@ Existing package pins were inspected; fresh clean-machine installation and indep
 | READY FOR REHEARSAL | [Script](DEMO_SCRIPT.md), [run sheet](RECORDING_RUNSHEET.md), [draft subtitles](recording_overlays.srt) | Spoken total ≤180s and map 10–15s in [blank log](rehearsal_log.csv): NOT MEASURED. Operation-only browser run: 14.424s; see [separate timing evidence](verification-recording-prep.json) |
 | VERIFIED AUTOMATED EVIDENCE | Executed Notebooks, source/results and pinned requirements | Existing full verification + differential audit; independent clean reproduction pending |
 | PENDING | TA confirmation and deadline verification | Actual reply/official course record, date and reference |
-| PENDING | Teammate acceptance, response and contributions across deliverables | Actual access and dated review/change evidence per member; invitation alone does not qualify |
+| PARTIAL — VINAY PR RECEIVED | Teammate response and contributions across deliverables | [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1) evidences Vinay’s README/UI changes and review; Aditi and remaining deliverable participation are pending |
 | PENDING | Video recording, upload, readable captions/map | Final file/URL, measured duration, playback check at submitted size |
 | PENDING | Grader private-repo and video access | Correct permitted viewer verifies both; owner success is insufficient |
 | PENDING | Final required submission files/link | Verified video URL in materials; preserve outputs and inspect revised artifact |

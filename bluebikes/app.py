@@ -22,8 +22,8 @@ from .presentation import render_result, executive_summary
 from .geography import load_stations, render_geography
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SAVED_LABEL = '\u4fdd\u5b58\u6e08\u307f\u5b9fAPI\u7d50\u679c / Saved real OpenAI response'
-LIVE_LABEL = '\u5b9fAPI\u7d50\u679c / New real OpenAI response'
+SAVED_LABEL = 'Saved real OpenAI response'
+LIVE_LABEL = 'New real OpenAI response'
 
 
 def _text(value):
@@ -358,7 +358,7 @@ def create_app(root=None, *, service=None):
                 text=gr.Textbox(value=doc['source_text'],label='Original source excerpt',lines=6)
                 with gr.Row():
                     saved=gr.Button('Load saved real response')
-                    live=gr.Button('\u5b9fAPI\u3067\u62bd\u51fa / Extract with OpenAI')
+                    live=gr.Button('Extract with OpenAI')
                 gr.Markdown('Saved results require the exact source and input. The live button alone makes a new API call; failures do not fall back silently.')
             with gr.Column(min_width=320):
                 gr.Markdown('### 2. See what OpenAI extracted')
@@ -387,7 +387,7 @@ def create_app(root=None, *, service=None):
         with gr.Accordion('Capacity and handling-unit assumptions',open=False):
             gr.Markdown('Nominal capacity stays **120 bikes/shift, 6 shifts/week**, prorated by calendar days / 7. A pickup and a delivery are two handling actions. Pairing them as one course bike is a conditional convention; unbalanced depot work cannot automatically be halved.')
             conversion=gr.Radio(choices=[('1 handling action per course bike',1),('2 handling actions per course bike (pairing assumption)',2)],value=1,label='Handling actions per course bike')
-        apply=gr.Button('\u8a08\u753b\u306b\u53cd\u6620 / Apply to plan',variant='primary',interactive=False)
+        apply=gr.Button('Apply to plan',variant='primary',interactive=False)
         gr.Markdown('## 5. Compare crew decisions\nCards and charts use the frozen 2026 forecast plus your scenario increment, for the selected city or staffing group. Held-out evaluation is in a separate tab. Before/after means **no event increment -> reviewed event scenario**. The no-event baseline is an optimized model plan, not observed Bluebikes staffing. Initial crews are course-provided starting conditions, not an audited current deployment.')
         kpis=gr.HTML(value='',label='Event-month decisions',css_template=APP_CSS)
         crew_plot=gr.Plot(value=None,label='Monthly crew plan',visible=False,elem_classes=['bb-chart'])

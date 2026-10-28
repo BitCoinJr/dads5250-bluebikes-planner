@@ -355,7 +355,7 @@ Both geographic panels show April. Dots mark stations; bubbles compare modeled c
 ## 2:20–2:55 F · Evaluation, contribution and close
 
 <!-- NARRATION_START -->
-Review found unsupported dates and participants mistaken for spectators. The three supplemental cases are evaluation only and cannot enter plans. Our strongest feature preserves failures while connecting text to staffing and hiring decisions. {human_line} Other members’ contributions remain unconfirmed. Uncovered proxy work is not measured lost trips.
+Review found unsupported dates and participants mistaken for spectators. The three supplemental cases are evaluation only and cannot enter plans. Our strongest feature preserves failures while connecting text to staffing and hiring decisions. {human_line} Vinay reviewed documentation and usability. Uncovered proxy work is not measured lost trips.
 <!-- NARRATION_END -->
 
 ## Timing and pronunciation (not spoken)
@@ -374,7 +374,7 @@ If the full take overruns, cut these exact optional sentences, then measure agai
 
 The original **19/20** and supplemental **11/15** are frozen agreement counts against reference labels, not general human-reviewed accuracy. They need not be spoken in this short video. Preserve unsupported-date and participant/spectator failures; all three supplemental cases remain excluded from plans even after editing and session confirmation.
 
-Satoshi's seven event adjudications and conditional acceptance of eight disclosed model topics are supported by [the human record](human_review_decisions.json). Do not infer code authorship, empirical validation, TA approval or other members' work. Vinay and Aditi's contribution evidence and narrator/operator assignments are still pending. Membership and invitations are not contribution.
+Satoshi's seven event adjudications and conditional acceptance of eight disclosed model topics are supported by [the human record](human_review_decisions.json). Do not infer code authorship, empirical validation, TA approval or other members' work. Vinay's README/UI review is evidenced by PR #1; Aditi's contribution and narrator/operator assignments remain pending. Membership and invitations alone are not contribution.
 
 The map uses station coordinates and city means, not actual crew bases, routes or geocoded event locations. Keep both April panels at the same extent/scale and the nine-city shared pool visible. Do not open annual-cost tabs during the April cash-cost explanation.
 
