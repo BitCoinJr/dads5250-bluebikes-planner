@@ -91,7 +91,7 @@ Available work includes checking a raw month against its aggregate, independentl
 
 ## Demo and submission completion
 
-- [ ] Review the generated `docs/DEMO_SCRIPT.md` against saved results and the current app. Follow problem → source/cards → confirmation/Apply → KPI and two graphs → thirteen-second geographic comparison → architecture/evaluation/limits. Its timecodes plan 2:55 plus five seconds of buffer; this is not a measured rehearsal. Use RECORDING_RUNSHEET.md for actual timing and synchronize recording_overlays.srt only after rehearsal. Correct interpretations in its generator before regenerating.
+- [ ] Review the generated [English narration](DEMO_SCRIPT.md) and matching [six-row run sheet](RECORDING_RUNSHEET.md): overview → Mermaid → saved source/extraction → Confirm/Apply and April KPI → fifteen-second geography → review/contribution/limits. Target 2:45–2:55; operation-only measurement is separate from narration estimates and an unmeasured spoken take. Synchronize draft overlays after recording. Update the existing analysis generator if narration changes.
 - [ ] Show the problem, recorded real event JSON, focused demand/crew/cost chain, shared-month/shared-scale geographic overview, matched-period validation, unit interpretation and architecture. Keep the shared pool separate and centroids distinct from depots; there are no event markers. Distinguish four original live calls, three supplemental calls, zero-call replay and fixtures; disclose Satoshi's adjudications and remaining other-member/empirical review.
 - [ ] Rehearse the English script and measure actual duration; target three minutes.
 - [ ] Record the demo. **Not recorded by the implementation.**

@@ -1,14 +1,48 @@
 # Bluebikes rebalancing and crew planning
 
-DADS5250 — Generative AI in Practice, Group 8. This reviewable first version connects official trip data, a transparent inventory-demand proxy, an event extraction API, monthly crew planning, a reproducible submission Notebook, and an optional local Gradio app for reviewing event scenarios.
+DADS5250 — Generative AI in Practice · Group 8
+
+## Where should rebalancing crews work—and when?
+
+Turn trip history and reviewed event information into monthly crew plans.
+
+### The problem
+
+Bluebikes is Greater Boston’s bike-share system. Rebalancing means moving bikes from stations with surplus bikes to stations running short. Trips move bikes unevenly across stations: some run short of bikes; others run short of empty docks.
+
+### The decision
+
+Plan full-time and seasonal crews by city or planning group for each month of **2026**, including hiring and contract starts. Four cities have dedicated crews; nine others share a pool. **One crew = a driver + van.**
+
+### AI + analytics
+
+- **Python:** 2024–2025 trips → an inventory-based rebalancing workload proxy → monthly crew plans.
+- **OpenAI:** API calls, prompt engineering and structured output extract dates, locations and audience information when stated.
+- **A person:** reviews facts and supplies an explicit demand scenario before applying it to the Python planner.
+- **Backtest:** January–September 2026 trips are held out for evaluation, separately from training.
+
+### Illustrative scenario — saved Marathon example
+
+This fixed explanation example is independent of your event selection in the app. Values are checked against the [saved focused calculation](results/focused_event_chain.csv).
+
+**Boston / April 2026**
+
+- **12 → 13 full-time crews**
+- **$72,000 → $78,000 monthly crew cash cost**
+- **Hiring decision: March 2026**
+- **Assumes +3,000 handling actions**
+
+This is an **uncalibrated retrospective scenario**, not a measured event effect or evidence of improved forecast accuracy. Baseline means a **model plan**, not actual Bluebikes crew deployment. OpenAI extracts text; it does not predict added demand or crew counts.
+
+## How it works
+
+![Bluebikes data, GenAI extraction, human review, Python planning and held-out evaluation](docs/diagrams/bluebikes_flow.svg)
+
+The [editable Mermaid source](docs/diagrams/bluebikes_flow.mmd), [cached PNG](docs/diagrams/bluebikes_flow.png) and [architecture notes](docs/architecture.md) describe the same flow used in the app and both Notebooks.
 
 **Submission is incomplete.** TA confirmation, other members' contributions/review, the recorded and uploaded three-minute demo, verified grader access, and Canvas submission remain outstanding. A working analysis is not a completed submission.
 
 Members: Satoshi Nakamura / Vinay Manikandan Nagarajan / Aditi Rao. Membership does not establish contribution; see the [review checklist](docs/REVIEW_CHECKLIST.md).
-
-![Bluebikes data, GenAI extraction, human review, Python planning and held-out evaluation](docs/diagrams/bluebikes_flow.svg)
-
-Python builds forecasts and crew plans; OpenAI extracts structured event facts through a versioned prompt and API call. Human confirmation and an explicit demand assumption gate their use in planning. The 2026 held-out trips feed evaluation only. The [editable Mermaid source](docs/diagrams/bluebikes_flow.mmd), [cached PNG](docs/diagrams/bluebikes_flow.png) and [architecture notes](docs/architecture.md) describe the same flow used in the app and both Notebooks.
 
 Submission preparation: [handoff and remaining conditions](docs/SUBMISSION_PREP.md), [short human review form](docs/HUMAN_REVIEW.md), [recording run sheet and timing log](docs/RECORDING_RUNSHEET.md). Feature additions are frozen. These include Satoshi's bounded adjudication record; they do not establish completed all-member review or submission.
 
@@ -44,6 +78,8 @@ For a clean environment, create the venv with `py -m venv .venv` instead; omit `
 
 Open [notebooks/bluebikes_submission.ipynb](notebooks/bluebikes_submission.ipynb) after execution. Also inspect the compact [demo Notebook](notebooks/bluebikes_demo.ipynb) before recording; its link alone is not execution evidence. Inspect the cell outputs and the generated artifacts below. Execution must finish without cell errors; evidence is recorded rather than inferred from the commands printed here.
 
+The recording-preparation revision passed **118 tests** and four final wording/regeneration checks. App introductions were inspected at desktop/narrow widths and the README in a local Markdown preview. A continuous **operation-only** browser run took **14.424 seconds**; this excludes spoken narration and viewing pauses. The **307-word** script (about **322** after numeric expansion) targets **2:45–2:55**, but a spoken full take is **not measured**. See the [English script](docs/DEMO_SCRIPT.md), [one-to-one run sheet](docs/RECORDING_RUNSHEET.md), [draft overlays](docs/recording_overlays.srt) and [verification/timing evidence](docs/verification-recording-prep.json). The model, saved results, raw API evidence, review records and executed Notebook outputs are preserved.
+
 The submission-safety revision (review base `691ef6a`) passed **114 tests**, **6 local HTTP checks**, and real Chrome checks at **1366×900 / 390×844**, with **zero new API calls**. All three supplemental cases remain viewable but are excluded from staffing in both the UI and server. The Executive Summary uses the saved focused-Marathon calculation, independently of the selected event. Model calculations, frozen evidence, human adjudications and both executed Notebooks are unchanged. See [verification and screenshots](docs/EVALUATION_GATE_REVIEW.md).
 
 The earlier geographic revision passed **102 tests**, **17/17 submission** and **9/9 demo** code cells with outputs and zero errors, **13/13 local HTTP checks**, and a **3-cell real-kernel app launch/stop** check. Browser checks passed at **1366×900** and **390×844**. All temporary review servers were stopped and ports released; older reviews on 7860 and 7872 were left untouched. These checks made **zero new real API calls**; API-error paths use mocks. See the [final geographic verification](docs/verification-geography.json), [HTTP evidence](docs/verification-geography-http.json), and [Notebook launch evidence](docs/verification-geography-notebook.json). Optional app cells remain off by default.
@@ -77,10 +113,10 @@ Update the environment from the current requirements before launching the app:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe scripts/run_app.py --port 7879
+.\.venv\Scripts\python.exe scripts/run_app.py --port 7881
 ```
 
-Open [http://127.0.0.1:7879](http://127.0.0.1:7879) on the same computer for this revision's review. The app's default port remains **7860**; the explicit **7879** review port avoids older reviews on 7860 and 7872. The app binds to **127.0.0.1**, sets `share=False`, and disables analytics. It does not create a public link. Stop the standalone process with **Ctrl+C**. If 7879 is occupied, choose another free local port and use the same port in the URL.
+Open [http://127.0.0.1:7881](http://127.0.0.1:7881) on the same computer for this revision's review. The app's default port remains **7860**; the explicit **7881** review port avoids older reviews on 7860 and 7872. The app binds to **127.0.0.1**, sets `share=False`, and disables analytics. It does not create a public link. Stop the standalone process with **Ctrl+C**. If 7881 is occupied, choose another free local port and use the same port in the URL.
 
 Both Notebooks include the same optional launcher, with **`LAUNCH_LOCAL_APP = False`** by default. A normal execution starts no server and makes no new model call. To interact, set the flag to `True`; its launcher is equivalent to:
 
@@ -91,7 +127,7 @@ app = launch_local(ROOT, port=7860, inline=True, prevent_thread_lock=True)
 app.close()
 ```
 
-The optional cell keeps its default `LOCAL_APP_PORT = 7860`; set it to **7879** for the current visual review, or another free port for a collision. The CLI and Notebook launch the same application through [app.py](bluebikes/app.py). Restore `LAUNCH_LOCAL_APP = False` before saving/executing a submission; rerunning the disabled cell also closes a prior Notebook app handle.
+The optional cell keeps its default `LOCAL_APP_PORT = 7860`; set it to **7881** for the current visual review, or another free port for a collision. The CLI and Notebook launch the same application through [app.py](bluebikes/app.py). Restore `LAUNCH_LOCAL_APP = False` before saving/executing a submission; rerunning the disabled cell also closes a prior Notebook app handle.
 
 The initial view uses saved real inputs, model outputs and computed results. Source text and its URL sit alongside extracted fact cards for dates, city, venue and crowd size or unknown; the structured JSON and ambiguity notes remain available for review. The architecture view reads the same cached local Mermaid image as this README and both Notebooks. **Load saved real response** replays matching preserved evidence. Only **実APIで抽出 / Extract with OpenAI** requests a new model response, using a locally configured key; opening the app does not. Explain manual corrections in review notes, then click **Confirm reviewed values (this session only)** before **計画に反映 / Apply to plan**. Confirmation and scenario application are separate actions.
 
