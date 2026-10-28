@@ -240,7 +240,7 @@ def _diagram_html(root):
     path=Path(root)/'docs/diagrams/bluebikes_flow.svg'
     if not path.is_file():return '<p>Architecture image unavailable; see the README rendering command.</p>'
     svg=path.read_text(encoding='utf-8')
-    return '<div class="bb-flow-scroll" aria-label="Data, reviewed event facts, explicit scenario and Python crew decisions">'+svg+'</div><p class="bb-flow-caption">OpenAI structures event facts; you confirm them. Python plans crews under an explicit demand scenario.</p>'
+    return '<div class="bb-flow-scroll" aria-label="Data, reviewed event facts, explicit scenario and Python crew decisions">'+svg+'</div><p class="bb-flow-caption">OpenAI structures event facts; you confirm them. Python plans crews under an explicit demand scenario. The diagram scrolls horizontally on narrow screens.</p>'
 
 
 MAP_MONTHS = [(calendar.month_name[m] + ' 2026', m) for m in range(1, 13)]

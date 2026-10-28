@@ -1,28 +1,58 @@
 # Bluebikes Crew Planner: From Event Headlines to Crew Decisions
 
-**DADS5250 Generative AI in Practice, Fall 2026 · Group 8**
-Satoshi Nakamura · Vinay Manikandan Nagarajan · Aditi Rao
+DADS5250 — Generative AI in Practice · Group 8
 
-Bluebikes stations drift out of balance: some run out of bikes and others run out of empty docks, so crews with vans move bikes around. This project plans **how many rebalancing crews each Greater Boston city needs in each month of 2026**. It also shows how a public event announcement, such as the Boston Marathon, flows through to a staffing decision.
+## Where should rebalancing crews work—and when?
 
-- **Python** turns 12.9 million real Bluebikes trips (2024–2025) into a monthly rebalancing workload, forecasts 2026, and finds the lowest-cost full-time and seasonal crew plan under hiring, notice and contract rules.
-- **OpenAI** reads official event announcements and extracts structured facts (dates, city, venue, crowd size if stated) into a strict JSON schema.
-- **A person** reviews and confirms those facts and chooses an explicit demand assumption before anything reaches the plan.
-- **Held-out data** from January to September 2026 is used only to evaluate the frozen plan, never to train it.
+Turn trip history and reviewed event information into monthly crew plans.
 
-![Architecture: historical data and forecast, OpenAI event extraction with human review, Python crew optimization, held-out evaluation](docs/diagrams/bluebikes_flow.png)
+### The problem
+
+Bluebikes is Greater Boston’s bike-share system. Rebalancing means moving bikes from stations with surplus bikes to stations running short. Trips move bikes unevenly across stations: some run short of bikes; others run short of empty docks.
+
+### The decision
+
+Plan full-time and seasonal crews by city or planning group for each month of **2026**, including hiring and contract starts. Four cities have dedicated crews; nine others share a pool. **One crew = a driver + van.**
+
+### AI + analytics
+
+- **Python:** 2024–2025 trips → an inventory-based rebalancing workload proxy → monthly crew plans.
+- **OpenAI:** API calls, prompt engineering and structured output extract dates, locations and audience information when stated.
+- **A person:** reviews facts and supplies an explicit demand scenario before applying it to the Python planner.
+- **Backtest:** January–September 2026 trips are held out for evaluation, separately from training.
+
+### Illustrative scenario — saved Marathon example
+
+This fixed explanation example is independent of your event selection in the app. Values are checked against the [saved focused calculation](results/focused_event_chain.csv).
+
+**Boston / April 2026**
+
+- **12 → 13 full-time crews**
+- **$72,000 → $78,000 monthly crew cash cost**
+- **Hiring decision: March 2026**
+- **Assumes +3,000 handling actions**
+
+This is an **uncalibrated retrospective scenario**, not a measured event effect or evidence of improved forecast accuracy. Baseline means a **model plan**, not actual Bluebikes crew deployment. OpenAI extracts text; it does not predict added demand or crew counts.
+
+## How it works
+
+![Historical data, OpenAI event extraction, human review, Python crew planning and held-out evaluation](docs/diagrams/bluebikes_flow.svg)
+
+The [Mermaid source](docs/diagrams/bluebikes_flow.mmd) is the single editing source for the diagram shared by the app and both Notebooks. See [architecture](docs/architecture.md) for details.
+
+**Submission is incomplete.** Vinay's review and README/UI contribution are evidenced by [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1). Aditi's contribution, all-member review, TA confirmation, a spoken rehearsal, video recording/upload, grader access and Canvas submission remain pending. Keep the repository private; a link alone does not grant grader access. See [submission preparation](docs/SUBMISSION_PREP.md) and the [review checklist](docs/REVIEW_CHECKLIST.md).
 
 ## Course techniques used
 
-| Technique | Where |
+| Technique | Where and why |
 |---|---|
-| **API calls** | OpenAI Responses API called through `requests` in [`bluebikes/events.py`](bluebikes/events.py) |
-| **Prompt engineering** | Versioned extraction prompt in [`prompts/event_extraction_v1.txt`](prompts/event_extraction_v1.txt), with explicit rules for routes, unknown values and athletes vs. spectators |
-| **Structured output** | Strict JSON schema ([`prompts/event_schema.json`](prompts/event_schema.json)) enforced by the API, then re-checked by a local validator before any value can be used |
+| **API calls** | OpenAI Responses API through `requests` in [events.py](bluebikes/events.py) obtains event extractions. |
+| **Prompt engineering** | The [versioned prompt](prompts/event_extraction_v1.txt) defines route conventions, unknown values and participants versus spectators. |
+| **Structured output** | A [strict JSON schema](prompts/event_schema.json) constrains the response; local validation and human confirmation precede planning. Structural validation alone does not prove factual correctness. |
 
 ## Quick start
 
-Requires **Python 3.11+** (developed on 3.13). No OpenAI key is needed: saved real API responses are replayed by default.
+Developed and verified on **Python 3.13.2** with [pinned dependencies](requirements.txt). Other Python/platform combinations have not been independently verified in this integration. Clone with an account that has access to this private repository. No OpenAI key or raw-data download is needed for saved-response replay.
 
 **macOS / Linux**
 
@@ -30,8 +60,9 @@ Requires **Python 3.11+** (developed on 3.13). No OpenAI key is needed: saved re
 git clone https://github.com/BitCoinJr/dads5250-bluebikes-planner.git
 cd dads5250-bluebikes-planner
 python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python scripts/run_app.py --port 7881
 ```
 
 **Windows (PowerShell)**
@@ -39,92 +70,88 @@ pip install -r requirements.txt
 ```powershell
 git clone https://github.com/BitCoinJr/dads5250-bluebikes-planner.git
 cd dads5250-bluebikes-planner
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+py -3.13 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe scripts/run_app.py --port 7881
 ```
 
-Then, from the repository root:
+If already in the project, use the existing environment rather than cloning or recreating it. Open [the local app](http://127.0.0.1:7881) and stop it with Ctrl+C. If this port is occupied, choose a free port and use it in both the command and URL. The app binds to `127.0.0.1`, with sharing and analytics disabled; it creates no public link. The CLI default is still 7860.
 
-```bash
-python -m unittest discover -s tests          # run the test suite
-jupyter notebook notebooks/bluebikes_submission.ipynb   # main notebook (or open it in VS Code)
-```
+### Notebook submission
 
-The notebooks are committed already executed. To re-execute them from scratch, run `python scripts/build_notebook.py --execute` and `python scripts/build_demo_notebook.py --execute`. If `jupyter` is not installed, run `pip install notebook` first.
+Open the executed [submission Notebook](notebooks/bluebikes_submission.ipynb) or [compact demo Notebook](notebooks/bluebikes_demo.ipynb) in VS Code/Jupyter. To regenerate and execute, use the environment's Python with `scripts/build_notebook.py --execute` and `scripts/build_demo_notebook.py --execute`. Jupyter's browser interface is optional; install `notebook` if that interface is needed. Test failures stop submission verification; resolve them rather than treating failed checks as success.
 
-### Interactive app (optional)
+Both Notebooks keep `LAUNCH_LOCAL_APP = False` by default. Optional app launch uses the same implementation; call `app.close()` when finished and restore the flag to False before submission. Cached replay is the default; fixture tests are distinct from actual model results.
 
-```bash
-python scripts/run_app.py --port 7860
-```
+### App walkthrough
 
-Open http://127.0.0.1:7860 and stop the app with Ctrl+C. The app runs only on your machine and creates no public link. Try this flow:
+1. Select the **original Boston Marathon**; the initial view loads its saved real response. **Load saved real response** explicitly replays it again.
+2. Compare the source with dates, location, unknown spectators and separate human annotations.
+3. Click **Confirm reviewed values (this session only)**, retain the illustrative **+3,000 handling actions** and conversion **1**, then **Apply to plan**.
+4. Inspect Boston's April KPI, March hiring decision, monthly charts and the same-month geographic comparison. Set the geographic selector to **April 2026**.
 
-1. Choose the **Boston Marathon** announcement and click **Load saved real response**.
-2. Review the extracted facts, then click **Confirm reviewed values**.
-3. Keep or change the event assumption (default: +3,000 handling actions), then click **Apply to plan**.
-4. Compare crews, cost and the geographic view before and after the event.
+Changing source, reviewed fields or assumptions clears the prior result. Reviews stay in session and never overwrite frozen API outputs or evaluation records. **Evaluation only — excluded from staffing plans:** all three supplemental cases remain inspectable but cannot enter a plan, even after edits and confirmation; the server also enforces this restriction.
 
-### Live extraction with your own key (optional)
+The station-coordinate view is not a route map. Four core cities have dedicated whole crews; the nine-city pool is shown separately. Centroids are not actual bases or event locations.
 
-Copy `.env.example` to `.env` and set `OPENAI_API_KEY` (default model: `gpt-4.1-mini`). Then use **Extract with OpenAI** in the app. Without a key, the app reports that live extraction is unavailable; it does not substitute other data. Avoid running `python -m bluebikes.events --mode live` from the command line, because it overwrites the saved extraction results.
+### Optional new extraction
 
-## Results
+Only **Extract with OpenAI** makes a new call. Configure the Git-ignored project `.env` using [.env.example](.env.example) without overwriting an existing credential file. Set `OPENAI_API_KEY` locally; the default model is `gpt-4.1-mini`. Failed live calls do not silently substitute recorded results. A new app response stays in session memory. Do not use the legacy live CLI in this evidence checkout: it can overwrite the canonical saved response even with a different output argument. Never commit or display credentials.
 
-| Period | Plan | Crew cash cost | Uncovered rebalancing work (proxy) |
+## Results and their scope
+
+The pipeline retained **12,893,134 trips across January 2024–September 2026**, covering 33 requested months and 13 municipalities; this total includes the held-out period. Only **2024–2025** trains the forecast. Crew optimization balances cash cost and an assumed shortage penalty under capacity, hiring and contract constraints; it does not simply minimize payroll.
+
+| Period and service basis | Plan | Crew cash cost | Uncovered handling-action proxy |
 |---|---|---:|---:|
-| Jan–Dec 2026 (forecast) | Keep January's 14 crews | $1,008,000 | 365,295 |
-| Jan–Dec 2026 (forecast) | Optimized plan | $1,837,200 | 10,007 |
-| Jan–Sep 2026 (held-out trips) | Keep January's 14 crews | $756,000 | 326,681 |
-| Jan–Sep 2026 (held-out trips) | Optimized plan | $1,342,800 | 48,127 |
+| Jan–Dec 2026 forecast | Initial 14 crews held fixed | $1,008,000 | 365,295.14 |
+| Jan–Dec 2026 forecast | No-event optimized plan | $1,837,200 | 10,006.65 |
+| Jan–Sep 2026 observed-trip proxy | Initial 14 crews held fixed | $756,000 | 326,680.86 |
+| Jan–Sep 2026 observed-trip proxy | No-event optimized plan | $1,342,800 | 48,126.86 |
 
-- **Forecast accuracy:** 9.68% WAPE on held-out January–September 2026 data.
-- **Event extraction:** the model agreed with the draft reference labels on 19 of 20 fields for the four planning events, and 11 of 15 on three harder supplemental cases. The supplemental misses included confusing participants with spectators and an unsupported date.
-- **Marathon scenario:** adding the event to Boston in April 2026 raises Boston from 12 to 13 full-time crews ($72,000 → $78,000 that month), with the hire decided in March.
+- **Forecast:** 9.68% WAPE over January–September 2026; January–August is 10.29%. Boundary gaps/censoring and the retrospective station snapshot limit interpretation; see [data diagnostics](data/metadata/diagnostics.json) and the [development record](docs/DEVELOPMENT_LOG.md).
+- **Extraction:** original four-call agreement is **19/20**; the separate three-call challenge is **11/15**, against frozen AI-drafted references. Satoshi's seven later adjudications are separate annotations, not a replacement accuracy score. The participant/date failure remains visible. See [human review](docs/HUMAN_REVIEW.md).
+- **Marathon:** the assumed Boston April increment produces the fixed example above. April's **+$6,000** differs from the **+$7,200 all-city annual** cash change. Neither demonstrates measured event impact or forecasting improvement.
 
 ## Key assumptions and limitations
 
-- **Workload is a proxy.** Each station resets to half full daily, and the bikes moved to keep stations within capacity count as rebalancing work. This is not observed Bluebikes rebalancing or lost trips.
-- **One crew** (driver plus van) handles 120 bikes per shift, 6 shifts per week. Full-time crews cost $6,000/month and seasonal crews $7,800/month. Hiring takes effect the following month.
-- **The event demand increment is an assumption, not an estimate.** OpenAI extracts facts only; it does not predict demand. The +3,000 default is roughly one crew-month of capacity (about 3,086 in April), so the "+1 crew" Marathon result follows largely from that choice. The app lets you change it.
-- **City assignment for multi-city events:** the Marathon is assigned to Boston, its finish. The route also passes through Brookline and Newton, which are not allocated any event demand.
-- **Retrospective scenario:** event pages were retrieved in October 2026, so the event scenario is a what-if illustration, not a real-time forecast test.
-- **Reference labels** for the extraction evaluation were drafted with AI assistance and reviewed by a team member. They are not an independent gold standard.
+- **Workload is a proxy:** stations reset to half-full daily. Boundary supply/collection and reset handling are counted. This is not observed rebalancing, lost trips or customer loss.
+- **Capacity and units:** nominal capacity stays **120 course bikes/shift, 6 shifts/week**, prorated by calendar days/7. A pickup and delivery are two handling actions. The default conversion is one action per course bike; factor-two pairing is a separate conditional scenario. Full-time crews cost $6,000/month; seasonal crews cost $7,800/month. Hiring starts the following month; seasonal contracts last at least three months, with a system-wide cap of eight.
+- **The event increment is assumed:** under conversion **1**, April capacity per crew is `120 × 6 × 30 / 7 ≈ 3,086` handling actions. Thus +3,000 is close to one crew-month and helps explain the +1 result. It does not guarantee exactly one extra crew: baseline spare capacity and full-year hiring/contracts also matter. At conversion **2**, the handling-action comparison changes. OpenAI does not estimate this coefficient.
+- **Boston-only event allocation:** Boston is the named route endpoint convention. The [official 2026 B.A.A. course map](https://www.baa.org/wp-content/uploads/2026/03/2026-Course-Map.pdf) also includes Newton and Brookline, but this scenario assigns them no additional event demand. This route check is contextual evidence, not an addition to the frozen extraction input or evaluation labels.
+- **Retrospective scenario:** event evidence was collected in October 2026; the nonzero comparison is a what-if illustration, not a forecast available in January. Recurring events may already be represented in seasonality.
+- **Shared pool and geography:** other-city capacity sharing is an explicit policy assumption, not dedicated staffing or a route-feasibility guarantee. The current 613-station snapshot does not reconstruct historical station openings/capacities.
+- **Evaluation limits:** reference labels were AI-drafted; human review covered the supplied excerpts and disclosed assumptions. It does not establish independent gold-standard accuracy, empirical operational validity or TA approval.
 
-Full detail: [planner assumptions](docs/planner_assumptions.md), [scenario assumptions](docs/scenario_assumptions.md), [architecture](docs/architecture.md), and [event sources](docs/event_sources.md).
+See [planner assumptions](docs/planner_assumptions.md), [scenario assumptions](docs/scenario_assumptions.md), [model review](docs/MODEL_REVIEW.md) and [event sources](docs/event_sources.md).
 
-## Repository layout
+## Three-minute demo preparation
 
-```
-bluebikes/      core package: data, inventory proxy, forecast, planner, event extraction, app
-notebooks/      bluebikes_submission.ipynb (full analysis), bluebikes_demo.ipynb (short demo view)
-prompts/        versioned extraction prompt and JSON schema
-fixtures/       event announcement excerpts with source URLs
-data/           processed monthly aggregates and source metadata (raw trip files not committed)
-results/        generated tables, figures and saved API responses
-scripts/        data acquisition, analysis, notebook builders, app launcher
-tests/          unit tests
-docs/           assumptions, architecture, demo script, review records, development log
-```
+Use the [English script](docs/DEMO_SCRIPT.md), [one-to-one recording run sheet](docs/RECORDING_RUNSHEET.md) and [draft emphasis captions](docs/recording_overlays.srt). The current script is **307 written words**, approximately **322** with numeric expansion, targeting **2:45–2:55**. A spoken full take is **not measured**. The earlier **14.424-second operation-only** run excludes narration and viewing pauses; it does not establish video duration. Captions must be synchronized after recording. Vinay's evidenced PR contribution is now acknowledged; Aditi and narrator/operator assignments remain pending.
 
-To rebuild the processed data from the official Bluebikes trip archives (this downloads several GB): `python scripts/acquire_data.py --workers 4`, then `python scripts/run_analysis.py`.
+## Repository layout and sources
 
-## Data sources
-
-- [Bluebikes System Data](https://bluebikes.com/system-data) and the [official trip-data bucket](https://s3.amazonaws.com/hubway-data/index.html). File names, sizes and hashes are in `data/metadata/`.
-- Event announcements from the organizers' official pages, listed with retrieval dates in [docs/event_sources.md](docs/event_sources.md).
-
-## Team contributions
-
-| Member | Contributions |
+| Location | Contents |
 |---|---|
-| Satoshi Nakamura | Project lead; data pipeline, forecasting, crew optimization, OpenAI extraction, Gradio app and notebooks (AI-assisted development, see below); human adjudication of event cases |
-| Vinay Manikandan Nagarajan | Independent review of the prototype (AI-assisted, using Claude): set up a clean environment from the repository and ran the app end to end; verified the Marathon scenario (Boston April 12 → 13 crews, $72,000 → $78,000) and hand-checked the crew-capacity arithmetic behind it; identified review issues (README readability, mixed-language UI labels, notebook failing hard on test errors, the event assumption being about one crew-month of capacity, Marathon allocation to Boston only, AI-drafted evaluation labels); prepared the README rewrite |
-| Aditi Rao | _To be completed by the member_ |
+| `bluebikes/` | Data, inventory proxy, forecast, planner, event extraction and app |
+| `notebooks/` | Executed submission and demo Notebooks |
+| `prompts/`, `fixtures/` | Versioned prompt/schema and saved source excerpts |
+| `data/` | Small monthly aggregates and provenance; raw data/caches are excluded |
+| `results/` | Plans, figures, saved real API responses and evaluation |
+| `scripts/`, `tests/` | Reproducible commands and verification |
+| `docs/` | Assumptions, reviews, architecture and recording preparation |
 
-## AI use
+Official trip/station sources: [Bluebikes System Data](https://bluebikes.com/system-data) and the [trip-data bucket](https://s3.amazonaws.com/hubway-data/index.html). Object names and hashes are in `data/metadata/`. Event provenance is in [event_sources.md](docs/event_sources.md). Optional full reacquisition uses `scripts/acquire_data.py --workers 4`; it downloads large raw files and is unnecessary for cached review. Use a separate checkout/cache for intentional data or model experiments.
 
-AI coding assistants (Codex/ChatGPT and Claude) were used to help write code, tests, documentation, the extraction prompt, draft reference labels and the demo script. Team members are responsible for reviewing all AI-assisted output. The runtime GenAI feature is the OpenAI structured-extraction call described above.
+## Team contributions and AI use
 
-A detailed record of the development process, verification runs and review decisions is in [docs/DEVELOPMENT_LOG.md](docs/DEVELOPMENT_LOG.md) and [docs/DECISIONS.md](docs/DECISIONS.md).
+| Member | Evidence and scope |
+|---|---|
+| Satoshi Nakamura | Project lead directing AI-assisted development and integration; adjudicated seven event cases and eight conditional model topics in the [recorded review](docs/human_review_decisions.json). This does not imply independent authorship of every generated line. |
+| Vinay Manikandan Nagarajan | [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1) demonstrates a README rewrite, English UI changes and concrete review suggestions, including the capacity and route-allocation limitations. His clean-environment/app run and hand-checks are self-reported in the PR; they are not treated as an independently reproduced full Notebook run. |
+| Aditi Rao | Contribution and review evidence pending. |
+
+Codex/ChatGPT assisted initial implementation, tests, documentation, prompt, draft references and demo preparation. Vinay reports Claude assistance for his review. The runtime GenAI feature is OpenAI structured extraction. Members remain responsible for reviewing AI-assisted work; these records do not establish all-member contribution to every deliverable or completed submission.
+
+The [PR integration record](docs/PR1_INTEGRATION.md) explains accepted changes and safeguards retained. [DEVELOPMENT_LOG.md](docs/DEVELOPMENT_LOG.md) preserves the longer pre-PR README as a historical snapshot; [DECISIONS.md](docs/DECISIONS.md) and current submission/review documents retain the detailed audit trail.

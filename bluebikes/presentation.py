@@ -286,11 +286,12 @@ def executive_summary(chain):
                 f'<strong>{_money(row.crew_cost_base)} → {_money(row.crew_cost_scenario)}</strong><br>'
                 f'monthly crew cash cost<br>Hiring decision: <strong>{_safe(hire)}</strong></p>'
                 f'<p class="bb-summary-caveat">Assumes +{_number(row.event_increment_handling_actions)} handling actions. '
-                'This is an uncalibrated retrospective scenario, not a measured event effect.</p>')
+                'This is an uncalibrated retrospective scenario, not a measured event effect or evidence of improved forecast accuracy.</p>')
     return (
         '<section class="bb-summary" aria-label="Executive Summary">'
         '<h2>Where should rebalancing crews work—and when?</h2>'
-        '<p class="bb-summary-lead">Turn Bluebikes trip history and event information into monthly crew plans for Greater Boston.</p>'
+        '<p class="bb-summary-lead">Bluebikes is Greater Boston’s bike-share system. Rebalancing means moving bikes from stations with surplus bikes to stations running short.</p>'
+        '<p>Turn trip history and reviewed event information into monthly crew plans.</p>'
         '<div class="bb-summary-grid">'
         '<article><span class="bb-summary-step">01 · THE PROBLEM</span>'
         '<h3>Bikes and docks fall out of balance</h3>'

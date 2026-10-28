@@ -1,43 +1,63 @@
 # Three-minute screen demonstration
 
-AI-assisted English draft; rehearse timing before recording. Video is **NOT recorded or uploaded**. Speak the six paragraphs below; screen directions are not spoken. The timecodes below are a planned 2:55 with five seconds of buffer, not measured duration. Use the [recording run sheet](RECORDING_RUNSHEET.md) and its stopwatch log to measure actual delivery, clicks and waits. The [draft captions](recording_overlays.srt) require synchronization after rehearsal. Start the revised app on `python scripts/run_app.py --port 7876` so an older review on 7860 can remain untouched. The same generated Mermaid diagram is used in the app, README, Notebooks and presentation.
+AI-assisted English narration for the current local app. **Recording and a spoken end-to-end rehearsal are not complete.** Target final video: **2:45–2:55**, including clicks and waits; three minutes is the limit. Timecodes below are provisional pacing guides, not measured delivery. Read only the six narration paragraphs between the markers. Follow the matching [recording run sheet](RECORDING_RUNSHEET.md); [overlay timecodes](recording_overlays.srt) must be synchronized after recording.
 
-## 0:00-0:15 Problem and value
+The app uses a **saved response from a real OpenAI API call**, not a new call, fixture or mock. No fabricated loading sequence. Launch a fresh local server on an unused port (recommended 7881), as explained in the run sheet. Begin with the original Marathon, 3,000 handling actions and conversion 1, **not confirmed and not applied**.
 
-This prototype turns event announcements into conditional crew decisions. OpenAI structures event text; people confirm it; Python replans crews. The baseline is a model plan, not observed staffing.
+## 0:00–0:22 A · Bluebikes and the decision
 
-## 0:15-0:45 Event text and readable extraction
+<!-- NARRATION_START -->
+Bluebikes is Greater Boston’s bike-share system. Rebalancing moves bikes from surplus stations to stations running short. We plan monthly full-time and seasonal crews for 2026, including hiring dates and contract starts. A crew means a driver and van. Baseline means modeled staffing, not actual deployment.
+<!-- NARRATION_END -->
 
-Here is the Marathon source beside readable extraction cards. Saved real API result replays an actual response without another model call. The cards show dates, Boston endpoint and venue, but spectators are Not stated. Thirty thousand athletes are not spectators. Source evidence and Needs review expose uncertainties; raw JSON remains available.
+## 0:22–0:48 B · AI and analytics
 
-## 0:45-1:10 Confirm facts and choose the assumption
+<!-- NARRATION_START -->
+Python uses 2024–2025 trips to estimate workload and plan crews. January–September 2026 trips are held out for backtesting. API calls obtain OpenAI responses. Prompt engineering defines which event facts to extract. Structured output gives validated fields for human review; unknowns should stay unknown. People supply demand assumptions; Python calculates the plan.
+<!-- NARRATION_END -->
 
-I check dates, city allocation and ambiguities, then confirm. Session edits do not rewrite raw outputs or recorded human judgments. Three thousand added handling actions is my uncalibrated assumption. Only Apply runs planning. Unknown dates or cities block it. This is a retrospective scenario.
+## 0:48–1:23 C · Saved Marathon facts
 
-## 1:10-1:55 The staffing decision and why it changes
+<!-- NARRATION_START -->
+This demo uses a saved response from a real OpenAI API call. There is no new call now. Here is the original Marathon excerpt beside its extraction. April twentieth is stated. Boston is the route endpoint, not the whole event area. Thirty thousand refers to athletes. Spectators remain unknown. Evidence and human annotations stay visible.
+<!-- NARRATION_END -->
 
-Boston's April full-time crews rise from 12 to 13; monthly cash cost changes from $72,000 to $78,000. Hiring belongs in March. The crew graph separates full-time and seasonal staffing. The demand graph compares added demand, prior capacity and replanned capacity. Red fill means uncovered proxy work, not lost trips. Monthly capacity cannot guarantee station-hour service. Both graphs use handling actions. One action per course bike is our base convention; 120 bikes per shift stays fixed. Contract changes can affect other months.
+## 1:23–2:05 D · Confirm, Apply and the decision
 
-## 1:55-2:08 Geographic comparison
+<!-- NARRATION_START -->
+I confirm the reviewed facts, then explicitly apply 3,000 added handling actions. This is an uncalibrated retrospective scenario, not OpenAI’s demand prediction or a measured event effect. Boston’s April full-time crews change from 12 to 13. Monthly crew cash cost rises from $72,000 to $78,000. The hiring decision is in March. This is April’s cost, not an annual total. Our base conversion assumes one handling action per course bike; 120 bikes per shift stays fixed.
+<!-- NARRATION_END -->
 
-Offline geographic panels share one month and scale. Bubbles show whole core-city crews; the pool stays separate. Centroids are not depots; event markers are absent.
+## 2:05–2:20 E · Geographic comparison
 
-## 2:08-2:55 Architecture, evaluation and limits
+<!-- NARRATION_START -->
+Both geographic panels show April. Dots mark stations; bubbles compare modeled city crews, not bases or routes. Nine other cities share one pool, shown separately.
+<!-- NARRATION_END -->
 
-API calls obtain responses; prompt engineering defines extraction; structured output supports validation and review. Python optimizes crews. Training uses twenty twenty-four and twenty twenty-five; January through September twenty twenty-six is held out. Satoshi adjudicated seven saved cases and conditionally accepted eight assumptions. HOCR annotations are separate; participant and date failures remain. Frozen scores stay nineteen of twenty and eleven of fifteen against AI draft references. This establishes neither measured event effects, TA approval nor all-member review.
+## 2:20–2:55 F · Evaluation, contribution and close
 
-## 2:55-3:00 Buffer
+<!-- NARRATION_START -->
+Review found unsupported dates and participants mistaken for spectators. The three supplemental cases are evaluation only and cannot enter plans. Our strongest feature preserves failures while connecting text to staffing and hiring decisions. Satoshi reviewed seven cases and conditionally accepted eight disclosed assumptions. Vinay reviewed documentation and usability. Uncovered proxy work is not measured lost trips.
+<!-- NARRATION_END -->
 
-No additional spoken content; leave room for interface transitions.
+## Timing and pronunciation (not spoken)
 
-## Screen directions (not spoken)
+The six paragraphs contain **307 whitespace-delimited words**. Expanding numeric years, ranges, costs and quantities as below gives **322 spoken-word equivalents**; abbreviations such as API still count as one token, so this is an estimate, not an audio measurement.
 
-1. Show the title and canonical Mermaid flow. Identify OpenAI, reviewer and Python roles; no held-out data arrow returns to training.
-2. Choose Marathon. Compare the left-hand source with right-hand readable cards, null spectators and evidence; avoid opening raw JSON unless asked. Saved mode has no fake extraction animation or new API call.
-3. Confirm unchanged values or note a correction, then Apply explicitly. Show the city/event-month KPI cards and March hiring decision. Overlay Boston: +1 full-time crew / +$6,000 in April 2026. This is monthly crew cash cost, not annual or customer loss.
-4. Show both graphs with April highlighted. Full-time/seasonal markers and baseline/scenario line styles differ. The demand graph keeps handling units consistent, distinguishes prior-plan from replanned capacity, and shades current estimated uncovered work.
-5. Spend thirteen seconds on the geographic comparison (use the 1080p framing and legibility check in RECORDING_RUNSHEET.md): use the same selected month and shared bubble scale for no-event versus reviewed-event panels. The coordinate view works offline. Bubbles represent whole crews in the four core cities, not fractional city allocations; show the other-city shared pool separately. Station-coordinate centroids are geographic reference points, not depots or routes. Do not add event markers or imply event locations were geocoded.
-6. Open detail tabs only if needed: Jan-Dec forecast totals cover all cities for twelve months, Jan-Sep held-out totals cover the same nine months as their cash costs, and monthly details cover the selected staffing group. Do not compare a city-month cash cost with all-city annual cost.
-7. Optional failure check for review, outside the timed script: select the participant-only challenge, inspect its warning, clear unsupported dates/crowd and confirm; planning must stay blocked. Changing any source or reviewed fields must clear earlier decisions/charts.
-8. The single diagram editing source is `docs/diagrams/bluebikes_flow.mmd`; regenerate its SVG/PNG with `node scripts/render_architecture.mjs`. The app displays the local SVG without a CDN. For presentation, use the same generated asset rather than editing a copy.
-9. Keep the uncalibrated increment, 120 bikes/shift and conditional handling conversion visible where needed. Rehearse, record/upload manually and verify grader access. Only verified member contributions may be reported. Stop only the server started for this demo; leave another chat's 7860 review untouched.
+- Read 2024–2025 as “twenty twenty-four and twenty twenty-five”; January–September as “January through September”; 2026 as “twenty twenty-six”.
+- Read 3,000 as “three thousand”; $72,000/$78,000 as “seventy-two/seventy-eight thousand dollars”; 120 as “one hundred twenty”; 12/13 as “twelve/thirteen”.
+- At **120 expanded words/minute**, narration is about **161 seconds**. Allow **10–14 seconds of pauses not already covered by speech**: about **171–175 seconds**. At 110 words/minute plus ten seconds, about **186 seconds**, which exceeds the limit.
+- The operator can scroll/click while the narrator speaks. Do not add the entire operation-only run duration to speech time; do not subtract it either and call the result measured. The actual combined take must be timed.
+- Operation-only measurements, narration estimates and unmeasured spoken rehearsal are recorded separately in [the run sheet](RECORDING_RUNSHEET.md). The first two do not prove a sub-three-minute video.
+
+If the full take overruns, cut these exact optional sentences, then measure again: “There is no new call now.” (6 words); “Evidence and human annotations stay visible.” (6); “This is April’s cost, not an annual total.” (8). Keep the saved-real-response disclosure, human gate, +3,000 assumption, April cost label, March hiring, shared pool and review failures. Do not solve an overrun by reading faster than clearly understandable.
+
+## Evidence and contribution boundaries (not spoken)
+
+The original **19/20** and supplemental **11/15** are frozen agreement counts against reference labels, not general human-reviewed accuracy. They need not be spoken in this short video. Preserve unsupported-date and participant/spectator failures; all three supplemental cases remain excluded from plans even after editing and session confirmation.
+
+Satoshi's seven event adjudications and conditional acceptance of eight disclosed model topics are supported by [the human record](human_review_decisions.json). Do not infer code authorship, empirical validation, TA approval or other members' work. Vinay's README/UI review is evidenced by PR #1; Aditi's contribution and narrator/operator assignments remain pending. Membership and invitations alone are not contribution.
+
+The map uses station coordinates and city means, not actual crew bases, routes or geocoded event locations. Keep both April panels at the same extent/scale and the nine-city shared pool visible. Do not open annual-cost tabs during the April cash-cost explanation.
+
+Numerical narration is generated from the saved focused result by the existing `bluebikes.analysis._demo` function. Regeneration must preserve this script. The Mermaid editing source remains `docs/diagrams/bluebikes_flow.mmd`. No new API request, full computation, recording, upload, external contact or submission is part of this preparation.

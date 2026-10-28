@@ -54,10 +54,10 @@ Existing package pins were inspected; fresh clean-machine installation and indep
 | Status | Requirement | Completion evidence |
 |---|---|---|
 | SATOSHI ADJUDICATION RECORDED | [Short review form](HUMAN_REVIEW.md); scores preserved separately | Seven cases recorded with method, rationale and compiled date; three HOCR annotations applied separately, one participant/date failure; other members pending |
-| READY FOR REHEARSAL | [Script](DEMO_SCRIPT.md), [run sheet](RECORDING_RUNSHEET.md), [draft subtitles](recording_overlays.srt) | Actual total ≤180s and map 10–15s in [blank log](rehearsal_log.csv); NOT MEASURED |
+| READY FOR REHEARSAL | [Script](DEMO_SCRIPT.md), [run sheet](RECORDING_RUNSHEET.md), [draft subtitles](recording_overlays.srt) | Spoken total ≤180s and map 10–15s in [blank log](rehearsal_log.csv): NOT MEASURED. Operation-only browser run: 14.424s; see [separate timing evidence](verification-recording-prep.json) |
 | VERIFIED AUTOMATED EVIDENCE | Executed Notebooks, source/results and pinned requirements | Existing full verification + differential audit; independent clean reproduction pending |
 | PENDING | TA confirmation and deadline verification | Actual reply/official course record, date and reference |
-| PENDING | Teammate acceptance, response and contributions across deliverables | Actual access and dated review/change evidence per member; invitation alone does not qualify |
+| PARTIAL — VINAY PR RECEIVED | Teammate response and contributions across deliverables | [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1) evidences Vinay’s README/UI changes and review; Aditi and remaining deliverable participation are pending |
 | PENDING | Video recording, upload, readable captions/map | Final file/URL, measured duration, playback check at submitted size |
 | PENDING | Grader private-repo and video access | Correct permitted viewer verifies both; owner success is insufficient |
 | PENDING | Final required submission files/link | Verified video URL in materials; preserve outputs and inspect revised artifact |
@@ -75,7 +75,7 @@ Preserve/submit course-required items manually; this is not a claim that Canvas 
 
 - [Executed submission Notebook](../notebooks/bluebikes_submission.ipynb), [demo Notebook](../notebooks/bluebikes_demo.ipynb), [README](../README.md), `bluebikes/`, scripts and [requirements.txt](../requirements.txt).
 - Committed `data/processed/monthly.csv`, small station/diagnostic metadata, `fixtures/`, `prompts/`, saved real API/evaluation records, `results/` and shared diagram assets. Ignored raw trips and station-hour caches are unnecessary for cached replay.
-- Follow README setup, then `scripts/run_app.py --port 7876`. Use `scripts/build_notebook.py --execute` / `scripts/build_demo_notebook.py --execute` when a rerun is needed. Notebook launcher stays `LAUNCH_LOCAL_APP = False`; stop an opted-in app with `app.close()`, standalone with Ctrl+C.
+- Follow README setup, then `scripts/run_app.py --port 7881`. Use `scripts/build_notebook.py --execute` / `scripts/build_demo_notebook.py --execute` when a rerun is needed. Notebook launcher stays `LAUNCH_LOCAL_APP = False`; stop an opted-in app with `app.close()`, standalone with Ctrl+C.
 - New API extraction only: set `OPENAI_API_KEY` locally in ignored `C:\dev\university\dads5250-bluebikes-planner\.env`; optional `OPENAI_MODEL` is configurable. Never put secrets in `.env.example`, Notebook, recording or logs. Saved mode needs no key. Live errors are explicit, without silent saved-result substitution.
 - Before final handoff, inspect Git diff/status for secrets, missing files and unsent changes. Associate Notebook/video with the final reviewed commit. The preparation and human-review integration are authorized for a normal commit/non-force push after verification; use the reported final commit for handoff.
 

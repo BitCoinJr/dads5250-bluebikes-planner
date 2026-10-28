@@ -20,13 +20,13 @@ def build(event_mode='recorded'):
 **DADS5250 Generative AI in Practice — Group 8**  
 Satoshi Nakamura / Vinay Manikandan Nagarajan / Aditi Rao
 
-**Reviewable initial version; submission is incomplete.** Initial code, prose, figures and draft event annotations were AI-assisted. Satoshi's seven event adjudications and eight conditional model topics are recorded separately; other members' review/contributions remain pending and are not implied by the member list. TA confirmation is **not received** as of 26 October 2026. The user directed work despite the TA's reported instruction to wait; this is not approval from the TA.
+**Reviewable initial version; submission is incomplete.** Initial code, prose, figures and draft event annotations were AI-assisted. Satoshi's seven event adjudications and eight conditional model topics are recorded separately; Vinay’s README/UI review is evidenced by PR #1; Aditi’s contribution and remaining all-member review are pending. TA confirmation is **not received** as of 26 October 2026. The user directed work despite the TA's reported instruction to wait; this is not approval from the TA.
 
 User-supplied deadline: **28 October 2026, 23:59 ET = 29 October 2026, 12:59 JST**. The older Canvas 25 October display is reported outdated. No contact with the TA or members and no Canvas submission was automated.
 
 Demo video URL: **NOT RECORDED OR UPLOADED — required before submission.**
 
-User reports GitHub invitations and review requests sent to teammates' university email addresses. Reply deadline: **28 October 2026 10:00 AM EDT / 23:00 JST**. Other members' acceptance, replies and contributions remain unverified. See the [submission preparation checklist](../docs/SUBMISSION_PREP.md) and [short human review form](../docs/HUMAN_REVIEW.md).
+User reports GitHub invitations and review requests sent to teammates' university email addresses. Reply deadline: **28 October 2026 10:00 AM EDT / 23:00 JST**. Vinay’s reply and README/UI contribution are evidenced by PR #1; Aditi’s status and remaining deliverable contributions are pending. See the [submission preparation checklist](../docs/SUBMISSION_PREP.md) and [short human review form](../docs/HUMAN_REVIEW.md).
 
 This notebook reruns the analysis from small, committed **real-data aggregates**. Full raw-data acquisition is a separate reproducible command because the monthly trip files are large. Synthetic data appears only in explicitly labelled hand-count tests. Runtime API status is reported below; the frozen AI draft references remain unchanged while Satoshi's separate adjudications are shown below.
 """)
@@ -244,15 +244,10 @@ Synthetic, hand-checkable examples exercise station inventory, daily reset conse
 """)
     code("""check = subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-v'],cwd=ROOT,capture_output=True,text=True)
 print(check.stdout + check.stderr)
-if check.returncode == 0:
-    print('All unit tests passed.')
-else:
-    print('WARNING: some unit tests failed in this environment (see output above). '
-          'A missing optional package such as gradio is the usual cause; '
-          'the analysis results above are read from saved files and are unaffected.')
+assert check.returncode == 0, 'Test failure: do not submit'
 assert (plan.groupby('month').seasonal.sum() <= 8).all()
 assert plan[plan.month==1].full_time.sum() == 14
-print('Plan constraint checks passed.')""")
+print('Notebook verification PASS. Submission remains incomplete; see required remaining items below.')""")
     md("""## Demo, sources, AI use and remaining work
 
 `notebooks/bluebikes_demo.ipynb` is the short recording view. `docs/DEMO_SCRIPT.md` is an English three-minute draft regenerated from the same `results/summary.json` used for these figures. `docs/architecture.md` contains the diagram/storyboard. The demo still needs a team-reviewed script, rehearsal, screen recording, upload and a teaching-team-accessible link. No recording or upload is claimed.

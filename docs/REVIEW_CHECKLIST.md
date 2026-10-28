@@ -1,13 +1,14 @@
 # First-review checklist and remaining submission work
 
-Status: reviewable implementation in progress; **submission incomplete**. Check items only after inspecting evidence. Initial implementation and drafting are AI-assisted. Names below are group membership, not attributed contributions.
+Status: reviewable implementation in progress; **submission incomplete**. Check items only after inspecting evidence. Initial implementation and drafting are AI-assisted. Vinay’s README/UI contribution is now evidenced by PR #1; remaining contribution claims require their own evidence.
 
 Start with the [short human review form](HUMAN_REVIEW.md), [submission handoff](SUBMISSION_PREP.md), and [recording run sheet](RECORDING_RUNSHEET.md). Existing automated evidence is retained. Satoshi's bounded seven-case and eight-topic decisions are recorded below; other unchecked items remain outside that approval.
 
 ## Administrative facts
 
 - [x] Communication status recorded from the user's report: GitHub invitations and review requests sent to teammates' university emails; reply deadline **28 October 2026 10:00 AM EDT / 23:00 JST**. This is not verified delivery, acceptance, reply, review or contribution.
-- [ ] Verify invitation acceptance and actual access separately; record any reply and contribution evidence without treating silence or the deadline as approval.
+- [x] Vinay’s repository access and reply are evidenced by PR #1 on 2026-10-28. This does not establish Aditi’s access or all-member approval.
+- [ ] Verify remaining member access/contribution evidence without treating silence or the deadline as approval.
 
 - [ ] Record TA confirmation if received. Until then retain **not received / not TA-approved**. The user explicitly directed building despite the reported TA instruction to wait.
 - [ ] Verify the user-supplied final deadline: **28 October 2026 23:59 ET / 29 October 2026 12:59 JST**. The older Canvas 25 October display is reported outdated, not independently verified here.
@@ -84,14 +85,14 @@ Each member should make and review substantive contributions to **all** delivera
 | Member | Code/data and tests | Notebook and results | README/assumptions and sources | Demo script, figures and recording |
 |---|---|---|---|---|
 | Satoshi Nakamura | Eight disclosed model topics adjudicated; no code/test authorship inferred | Forecast/backtest and proxy interpretation reviewed in chat; independent Notebook execution not established | Seven extraction decisions and model assumptions: [record](human_review_decisions.json) | Interpretation decisions support demo; rehearsal/recording contribution pending |
-| Vinay Manikandan Nagarajan | Pending evidence | Pending evidence | Pending evidence | Pending evidence |
+| Vinay Manikandan Nagarajan | English UI changes and prototype review in [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1); app/clean-environment run self-reported | Builder review submitted; independent full Notebook rerun not evidenced | README rewrite and capacity/route-allocation review in PR #1 | Contribution now acknowledged in script; rehearsal/recording role pending |
 | Aditi Rao | Pending evidence | Pending evidence | Pending evidence | Pending evidence |
 
 Available work includes checking a raw month against its aggregate, independently hand-counting an inventory example, reviewing a crew lifecycle/cost example, inspecting an event annotation, reproducing the Notebook, explaining one sensitivity result, correcting README limitations, and rehearsing the complete demo. Contributions should span artifacts rather than imply exclusive ownership of only one deliverable.
 
 ## Demo and submission completion
 
-- [ ] Review the generated `docs/DEMO_SCRIPT.md` against saved results and the current app. Follow problem → source/cards → confirmation/Apply → KPI and two graphs → thirteen-second geographic comparison → architecture/evaluation/limits. Its timecodes plan 2:55 plus five seconds of buffer; this is not a measured rehearsal. Use RECORDING_RUNSHEET.md for actual timing and synchronize recording_overlays.srt only after rehearsal. Correct interpretations in its generator before regenerating.
+- [ ] Review the generated [English narration](DEMO_SCRIPT.md) and matching [six-row run sheet](RECORDING_RUNSHEET.md): overview → Mermaid → saved source/extraction → Confirm/Apply and April KPI → fifteen-second geography → review/contribution/limits. Target 2:45–2:55; operation-only measurement is separate from narration estimates and an unmeasured spoken take. Synchronize draft overlays after recording. Update the existing analysis generator if narration changes.
 - [ ] Show the problem, recorded real event JSON, focused demand/crew/cost chain, shared-month/shared-scale geographic overview, matched-period validation, unit interpretation and architecture. Keep the shared pool separate and centroids distinct from depots; there are no event markers. Distinguish four original live calls, three supplemental calls, zero-call replay and fixtures; disclose Satoshi's adjudications and remaining other-member/empirical review.
 - [ ] Rehearse the English script and measure actual duration; target three minutes.
 - [ ] Record the demo. **Not recorded by the implementation.**
