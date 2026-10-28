@@ -46,7 +46,7 @@ The [Mermaid source](docs/diagrams/bluebikes_flow.mmd) is the single editing sou
 - **[Executed submission Notebook](notebooks/bluebikes_submission.ipynb)** — full analysis and outputs.
 - [Video script, subtitles and reproducible editing sources](deliverables/demo/README.md).
 
-**Group 8 registration is confirmed by the TA.** Canvas deadline: **28 October 2026, 11:59 PM EDT**. The repository is now **public**, and signed-out repository, Notebook and MP4 access has been verified. Final video/member review and Canvas submission remain pending. See the concise [submission checklist](docs/SUBMISSION_PREP.md). The video uses a saved real OpenAI response; its narration is synthetic.
+**Group 8 registration is confirmed by the TA.** Canvas deadline: **28 October 2026, 11:59 PM EDT**. The repository is now **public**, and signed-out repository, Notebook and MP4 access has been verified. **Initial Canvas submission is complete**, as reported by Satoshi and supported by the submission-details screenshot shared in the project chat. The Notebook and demo from the preserved submission baseline `e8059cc` remain unchanged. Final video/member review is recorded separately. See the concise [submission checklist](docs/SUBMISSION_PREP.md). The video uses a saved real OpenAI response; its narration is synthetic.
 
 
 ## Course techniques used
@@ -162,6 +162,6 @@ Official trip/station sources: [Bluebikes System Data](https://bluebikes.com/sys
 | Vinay Manikandan Nagarajan | [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1) demonstrates a README rewrite, English UI changes and concrete review suggestions, including the capacity and route-allocation limitations. His clean-environment/app run and hand-checks are self-reported in the PR; they are not treated as an independently reproduced full Notebook run. |
 | Aditi Rao | Contribution and review evidence pending. |
 
-Codex/ChatGPT assisted initial implementation, tests, documentation, prompt, draft references and demo preparation. Vinay reports Claude assistance for his review. The runtime GenAI feature is OpenAI structured extraction. Members remain responsible for reviewing AI-assisted work; these records do not establish all-member contribution to every deliverable or completed submission.
+Codex/ChatGPT assisted initial implementation, tests, documentation, prompt, draft references and demo preparation. Vinay reports Claude assistance for his review. The runtime GenAI feature is OpenAI structured extraction. Members remain responsible for reviewing AI-assisted work; these records do not establish all-member contribution to every deliverable. Initial Canvas submission is recorded separately in the submission checklist.
 
 The [documentation index](docs/README.md) separates current technical explanations from historical implementation and verification records. Earlier status statements in those records are not the current submission checklist.
