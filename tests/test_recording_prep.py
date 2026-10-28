@@ -57,7 +57,7 @@ class RecordingPreparationTests(unittest.TestCase):
         for short, long in expansions.items():
             speech = speech.replace(short, long)
         self.assertEqual(len(speech.split()), 322)
-        self.assertIn("Spoken end-to-end actual:** **NOT MEASURED", sheet)
+        self.assertIn("Human spoken end-to-end rehearsal:** NOT MEASURED", sheet)
 
     def test_existing_generator_preserves_current_script_without_calculation(self):
         reviews = load_reviews(ROOT)
@@ -74,13 +74,13 @@ class RecordingPreparationTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         titles = ["### The problem", "### The decision", "### AI + analytics",
                   "### Illustrative scenario", "## How it works",
-                  "docs/diagrams/bluebikes_flow.svg", "**Submission is incomplete.**"]
+                  "docs/diagrams/bluebikes_flow.svg", "## Submission materials"]
         positions = [readme.index(title) for title in titles]
         self.assertEqual(positions, sorted(positions))
         srt = (ROOT / "docs/recording_overlays.srt").read_text(encoding="utf-8")
-        self.assertIn("00:02:05,000 --> 00:02:20,000", srt)
-        self.assertIn("Boston: +1 crew / +$6,000 in April", srt)
-        self.assertIn("nine other cities share one pool", srt)
+        self.assertEqual(srt, (ROOT / "deliverables/demo/bluebikes_demo_en.srt").read_text(encoding="utf-8"))
+        self.assertEqual(len(srt.strip().split("\n\n")), 35)
+        self.assertIn("Nine other cities share one pool", srt)
         sheet = (ROOT / "docs/RECORDING_RUNSHEET.md").read_text(encoding="utf-8")
-        self.assertIn("DRAFT / UNSYNCHRONIZED", sheet)
+        self.assertIn("Rendered output:** 175.00 seconds", sheet)
         self.assertIn("No API click", sheet)

@@ -1,0 +1,36 @@
+{
+  "duration_seconds": 175.0,
+  "size_bytes": 8495712,
+  "pixels": [
+    1920,
+    1080
+  ],
+  "frames": 4375,
+  "full_audio_video_decode": "passed",
+  "captions": 35,
+  "caption_text_and_measured_boundaries": "passed",
+  "voice": "Microsoft Zira Desktop; rate -1; paragraph-continuous",
+  "tts_pcm_sample_rate": 16000,
+  "source_narration_seconds": 172.365,
+  "new_api_calls": 0,
+  "additional_service_charges": 0,
+  "protected_numerical_and_api_files_unchanged": 100,
+  "earlier_candidate_sha256_unchanged": "94a65d01a865032ba9f6ba7393b56f36b86922443a353ed9a890b2cba6466c36",
+  "notebooks": {
+    "bluebikes_demo.ipynb": {
+      "code_cells": 10,
+      "executed_cells": 10,
+      "errors": 0,
+      "scope": "Prior computation retained; one status/review display cell executed in this update."
+    },
+    "bluebikes_submission.ipynb": {
+      "code_cells": 18,
+      "executed_cells": 18,
+      "errors": 0,
+      "scope": "Prior computation retained; one status/review display cell executed in this update."
+    }
+  },
+  "mp4_sha256": "37703a0895569e3490ac33aa1e10435af28ac30b085cb13284a8f10e6acb4543",
+  "full_human_listening_review": "pending; Satoshi approved the sample voice only",
+  "canvas_submission": "not performed"
+}

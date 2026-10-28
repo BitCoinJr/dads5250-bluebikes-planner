@@ -1,0 +1,53 @@
+{
+  "base_commit": "c9583c809bf0c7add65239ceb6d4be981ab10fc2",
+  "voice": "Microsoft Zira Desktop",
+  "rate": -1,
+  "synthesis": "continuous paragraphs; measured sentence boundaries",
+  "written_words": 307,
+  "narration_source_seconds": 172.365,
+  "opening_seconds": 1.5,
+  "planned_output_seconds": 175.0,
+  "sections": {
+    "A": {
+      "start": 1.5,
+      "end": 26.565
+    },
+    "B": {
+      "start": 26.565,
+      "end": 59.42
+    },
+    "C": {
+      "start": 59.42,
+      "end": 88.13
+    },
+    "D": {
+      "start": 88.13,
+      "end": 128.825
+    },
+    "E": {
+      "start": 128.825,
+      "end": 142.965
+    },
+    "F": {
+      "start": 142.965,
+      "end": 173.865
+    }
+  },
+  "caption_count": 35,
+  "requested_browser_viewport": [
+    1440,
+    720
+  ],
+  "captured_pixels": [
+    1425,
+    713
+  ],
+  "output_pixels": [
+    1920,
+    1080
+  ],
+  "screen_presentation": "Real browser captures scaled to 1800x900; separate top disclosure and bottom captions",
+  "continuous_live_take": false,
+  "app_source_unchanged": true,
+  "new_openai_calls": 0
+}

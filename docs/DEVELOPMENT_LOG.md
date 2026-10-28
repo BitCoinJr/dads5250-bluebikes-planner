@@ -1,3 +1,5 @@
+> Historical record. For current registration, deliverables and remaining actions, see [submission status](SUBMISSION_PREP.md). Earlier status statements below are preserved as recorded.
+
 # Historical development record
 
 Snapshot of README at `a373335`, before PR #1 integration. Historical counts, labels, dates and pending-member statements describe that revision; use the current [README](../README.md), [PR integration](PR1_INTEGRATION.md), and [submission checklist](SUBMISSION_PREP.md) for current status. This snapshot is retained, not a claim of a new run.

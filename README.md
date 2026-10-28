@@ -40,7 +40,14 @@ This is an **uncalibrated retrospective scenario**, not a measured event effect 
 
 The [Mermaid source](docs/diagrams/bluebikes_flow.mmd) is the single editing source for the diagram shared by the app and both Notebooks. See [architecture](docs/architecture.md) for details.
 
-**Submission is incomplete.** Vinay's review and README/UI contribution are evidenced by [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1). Aditi's contribution, all-member review, TA confirmation, a spoken rehearsal, video recording/upload, grader access and Canvas submission remain pending. Keep the repository private; a link alone does not grant grader access. See [submission preparation](docs/SUBMISSION_PREP.md) and the [review checklist](docs/REVIEW_CHECKLIST.md).
+## Submission materials
+
+- **[Watch the 2:55 demo](deliverables/demo/bluebikes_demo.mp4)** — real app captures with local Zira narration and English subtitles. If GitHub shows a download page, use **View raw / Download**.
+- **[Executed submission Notebook](notebooks/bluebikes_submission.ipynb)** — full analysis and outputs.
+- [Video script, subtitles and reproducible editing sources](deliverables/demo/README.md).
+
+**Group 8 registration is confirmed by the TA.** Canvas deadline: **28 October 2026, 11:59 PM EDT**. The TA requires a public repository; publication authorization, signed-out access checks and Canvas submission are still pending. See the concise [submission checklist](docs/SUBMISSION_PREP.md). The video uses a saved real OpenAI response; its narration is synthetic.
+
 
 ## Course techniques used
 
@@ -52,7 +59,7 @@ The [Mermaid source](docs/diagrams/bluebikes_flow.mmd) is the single editing sou
 
 ## Quick start
 
-Developed and verified on **Python 3.13.2** with [pinned dependencies](requirements.txt). Other Python/platform combinations have not been independently verified in this integration. Clone with an account that has access to this private repository. No OpenAI key or raw-data download is needed for saved-response replay.
+Developed and verified on **Python 3.13.2** with [pinned dependencies](requirements.txt). Other Python/platform combinations have not been independently verified in this integration. If reviewing before publication, clone with an invited GitHub account. No OpenAI key or raw-data download is needed for saved-response replay.
 
 **macOS / Linux**
 
@@ -126,9 +133,11 @@ The pipeline retained **12,893,134 trips across January 2024–September 2026**,
 
 See [planner assumptions](docs/planner_assumptions.md), [scenario assumptions](docs/scenario_assumptions.md), [model review](docs/MODEL_REVIEW.md) and [event sources](docs/event_sources.md).
 
-## Three-minute demo preparation
+## Three-minute demo
 
-Use the [English script](docs/DEMO_SCRIPT.md), [one-to-one recording run sheet](docs/RECORDING_RUNSHEET.md) and [draft emphasis captions](docs/recording_overlays.srt). The current script is **307 written words**, approximately **322** with numeric expansion, targeting **2:45–2:55**. A spoken full take is **not measured**. The earlier **14.424-second operation-only** run excludes narration and viewing pauses; it does not establish video duration. Captions must be synchronized after recording. Vinay's evidenced PR contribution is now acknowledged; Aditi and narrator/operator assignments remain pending.
+The [175-second MP4](deliverables/demo/bluebikes_demo.mp4) shows the problem, architecture, saved Marathon extraction, Confirm → Apply, Boston's April decision and geographic comparison. It uses **Microsoft Zira**, synthesized continuously by paragraph on the local PC, with no paid speech service. The app interactions are genuine captures with explanatory still holds; this is an edited demonstration rather than a continuous live take.
+
+The [production package](deliverables/demo/README.md) includes the final script, synchronized subtitles and rebuilding sources. The six-paragraph narration is 307 written words. Aditi can propose a timestamped correction or PR; her contribution is still unconfirmed. Final full-video listening and signed-out access checks remain on the submission checklist.
 
 ## Repository layout and sources
 
@@ -140,7 +149,8 @@ Use the [English script](docs/DEMO_SCRIPT.md), [one-to-one recording run sheet](
 | `data/` | Small monthly aggregates and provenance; raw data/caches are excluded |
 | `results/` | Plans, figures, saved real API responses and evaluation |
 | `scripts/`, `tests/` | Reproducible commands and verification |
-| `docs/` | Assumptions, reviews, architecture and recording preparation |
+| `docs/` | Assumptions, reviews, architecture and current submission checklist |
+| `deliverables/demo/` | MP4, synchronized subtitles, script and rebuilding sources |
 
 Official trip/station sources: [Bluebikes System Data](https://bluebikes.com/system-data) and the [trip-data bucket](https://s3.amazonaws.com/hubway-data/index.html). Object names and hashes are in `data/metadata/`. Event provenance is in [event_sources.md](docs/event_sources.md). Optional full reacquisition uses `scripts/acquire_data.py --workers 4`; it downloads large raw files and is unnecessary for cached review. Use a separate checkout/cache for intentional data or model experiments.
 
@@ -148,10 +158,10 @@ Official trip/station sources: [Bluebikes System Data](https://bluebikes.com/sys
 
 | Member | Evidence and scope |
 |---|---|
-| Satoshi Nakamura | Project lead directing AI-assisted development and integration; adjudicated seven event cases and eight conditional model topics in the [recorded review](docs/human_review_decisions.json). This does not imply independent authorship of every generated line. |
+| Satoshi Nakamura | Project lead directing AI-assisted development, integration and video preparation; selected the continuous Zira sample; adjudicated seven event cases and eight conditional model topics in the [recorded review](docs/human_review_decisions.json). This does not imply independent authorship of every generated line. |
 | Vinay Manikandan Nagarajan | [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1) demonstrates a README rewrite, English UI changes and concrete review suggestions, including the capacity and route-allocation limitations. His clean-environment/app run and hand-checks are self-reported in the PR; they are not treated as an independently reproduced full Notebook run. |
 | Aditi Rao | Contribution and review evidence pending. |
 
 Codex/ChatGPT assisted initial implementation, tests, documentation, prompt, draft references and demo preparation. Vinay reports Claude assistance for his review. The runtime GenAI feature is OpenAI structured extraction. Members remain responsible for reviewing AI-assisted work; these records do not establish all-member contribution to every deliverable or completed submission.
 
-The [PR integration record](docs/PR1_INTEGRATION.md) explains accepted changes and safeguards retained. [DEVELOPMENT_LOG.md](docs/DEVELOPMENT_LOG.md) preserves the longer pre-PR README as a historical snapshot; [DECISIONS.md](docs/DECISIONS.md) and current submission/review documents retain the detailed audit trail.
+The [documentation index](docs/README.md) separates current technical explanations from historical implementation and verification records. Earlier status statements in those records are not the current submission checklist.

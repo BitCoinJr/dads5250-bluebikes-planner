@@ -1,0 +1,26 @@
+{
+  "base_commit": "c9583c809bf0c7add65239ceb6d4be981ab10fc2",
+  "date": "2026-10-28",
+  "tests_passed": 118,
+  "video": "../deliverables/demo/verification.json",
+  "new_api_calls": 0,
+  "additional_service_charges": 0,
+  "notebooks": {
+    "bluebikes_submission.ipynb": {
+      "builder_matches_all_sources": true,
+      "code_cells": 18
+    },
+    "bluebikes_demo.ipynb": {
+      "builder_matches_all_sources": true,
+      "code_cells": 10
+    }
+  },
+  "notebook_execution_scope": "One status/review cell per Notebook was refreshed; earlier computational source and outputs retained. No full numerical rerun.",
+  "protected_results_fixture_prompt_metadata_files": 100,
+  "immutable_human_decisions_and_raw_api_records": "unchanged",
+  "model_review_change": "Current submission-status footer only; eight judgments unchanged",
+  "generator_change": "Submission/status wording only; numerical calculation logic unchanged",
+  "prior_video": "unchanged",
+  "repository_visibility": "private; publication awaits separate user approval",
+  "canvas_submission": "not performed"
+}

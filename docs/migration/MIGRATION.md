@@ -1,3 +1,5 @@
+> Historical record. For current registration, deliverables and remaining actions, see [submission status](../SUBMISSION_PREP.md). Earlier status statements below are preserved as recorded.
+
 # University workspace migration
 
 Historical migration checkpoint. The blank-key and blocked-API observations below were true at migration time. A later verified live API run is documented in `../event_extraction_review.md`; do not interpret the historical key state as current.

@@ -1,0 +1,143 @@
+1
+00:00:01,610 --> 00:00:05,315
+Bluebikes is Greater Boston’s bike-share system.
+
+2
+00:00:05,365 --> 00:00:10,780
+Rebalancing moves bikes from surplus stations to stations running short.
+
+3
+00:00:10,830 --> 00:00:19,000
+We plan monthly full-time and seasonal crews for 2026, including hiring dates and contract
+starts.
+
+4
+00:00:19,050 --> 00:00:21,805
+A crew means a driver and van.
+
+5
+00:00:21,855 --> 00:00:26,515
+Baseline means modeled staffing, not actual deployment.
+
+6
+00:00:26,675 --> 00:00:33,575
+Python uses 2024–2025 trips to estimate workload and plan crews.
+
+7
+00:00:33,625 --> 00:00:39,240
+January–September 2026 trips are held out for backtesting.
+
+8
+00:00:39,290 --> 00:00:43,200
+API calls obtain OpenAI responses.
+
+9
+00:00:43,250 --> 00:00:47,560
+Prompt engineering defines which event facts to extract.
+
+10
+00:00:47,610 --> 00:00:54,125
+Structured output gives validated fields for human review; unknowns should stay unknown.
+
+11
+00:00:54,175 --> 00:00:59,370
+People supply demand assumptions; Python calculates the plan.
+
+12
+00:00:59,530 --> 00:01:04,845
+This demo uses a saved response from a real OpenAI API call.
+
+13
+00:01:04,895 --> 00:01:07,240
+There is no new call now.
+
+14
+00:01:07,290 --> 00:01:11,790
+Here is the original Marathon excerpt beside its extraction.
+
+15
+00:01:11,840 --> 00:01:14,300
+April twentieth is stated.
+
+16
+00:01:14,350 --> 00:01:18,775
+Boston is the route endpoint, not the whole event area.
+
+17
+00:01:18,825 --> 00:01:21,940
+Thirty thousand refers to athletes.
+
+18
+00:01:21,990 --> 00:01:24,720
+Spectators remain unknown.
+
+19
+00:01:24,770 --> 00:01:28,080
+Evidence and human annotations stay visible.
+
+20
+00:01:28,240 --> 00:01:34,840
+I confirm the reviewed facts, then explicitly apply 3,000 added handling actions.
+
+21
+00:01:34,890 --> 00:01:42,480
+This is an uncalibrated retrospective scenario, not OpenAI’s demand prediction or a measured
+event effect.
+
+22
+00:01:42,530 --> 00:01:47,250
+Boston’s April full-time crews change from 12 to 13.
+
+23
+00:01:47,300 --> 00:01:54,120
+Monthly crew cash cost rises from $72,000 to $78,000.
+
+24
+00:01:54,170 --> 00:01:56,920
+The hiring decision is in March.
+
+25
+00:01:56,970 --> 00:02:00,905
+This is April’s cost, not an annual total.
+
+26
+00:02:00,955 --> 00:02:08,775
+Our base conversion assumes one handling action per course bike; 120 bikes per shift stays
+fixed.
+
+27
+00:02:08,935 --> 00:02:12,095
+Both geographic panels show April.
+
+28
+00:02:12,145 --> 00:02:18,595
+Dots mark stations; bubbles compare modeled city crews, not bases or routes.
+
+29
+00:02:18,645 --> 00:02:22,915
+Nine other cities share one pool, shown separately.
+
+30
+00:02:23,075 --> 00:02:28,280
+Review found unsupported dates and participants mistaken for spectators.
+
+31
+00:02:28,330 --> 00:02:33,745
+The three supplemental cases are evaluation only and cannot enter plans.
+
+32
+00:02:33,795 --> 00:02:40,135
+Our strongest feature preserves failures while connecting text to staffing and hiring
+decisions.
+
+33
+00:02:40,185 --> 00:02:46,185
+Satoshi reviewed seven cases and conditionally accepted eight disclosed assumptions.
+
+34
+00:02:46,235 --> 00:02:49,840
+Vinay reviewed documentation and usability.
+
+35
+00:02:49,890 --> 00:02:53,815
+Uncovered proxy work is not measured lost trips.

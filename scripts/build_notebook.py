@@ -20,13 +20,13 @@ def build(event_mode='recorded'):
 **DADS5250 Generative AI in Practice — Group 8**  
 Satoshi Nakamura / Vinay Manikandan Nagarajan / Aditi Rao
 
-**Reviewable initial version; submission is incomplete.** Initial code, prose, figures and draft event annotations were AI-assisted. Satoshi's seven event adjudications and eight conditional model topics are recorded separately; Vinay’s README/UI review is evidenced by PR #1; Aditi’s contribution and remaining all-member review are pending. TA confirmation is **not received** as of 26 October 2026. The user directed work despite the TA's reported instruction to wait; this is not approval from the TA.
+**Submission Notebook.** Implementation, prose and draft annotations were AI-assisted. Satoshi's seven event adjudications and eight conditional model topics are recorded; Vinay's README/UI contribution is evidenced by PR #1. Aditi's contribution remains unconfirmed. The TA has confirmed Group 8's Bluebikes registration; this does not certify the model assumptions or final submission.
 
 User-supplied deadline: **28 October 2026, 23:59 ET = 29 October 2026, 12:59 JST**. The older Canvas 25 October display is reported outdated. No contact with the TA or members and no Canvas submission was automated.
 
-Demo video URL: **NOT RECORDED OR UPLOADED — required before submission.**
+Demo video: [2:55 AI-narrated walkthrough](https://github.com/BitCoinJr/dads5250-bluebikes-planner/blob/main/deliverables/demo/bluebikes_demo.mp4). [Final script, subtitles and rebuilding sources](../deliverables/demo/README.md).
 
-User reports GitHub invitations and review requests sent to teammates' university email addresses. Reply deadline: **28 October 2026 10:00 AM EDT / 23:00 JST**. Vinay’s reply and README/UI contribution are evidenced by PR #1; Aditi’s status and remaining deliverable contributions are pending. See the [submission preparation checklist](../docs/SUBMISSION_PREP.md) and [short human review form](../docs/HUMAN_REVIEW.md).
+See the [current submission checklist](../docs/SUBMISSION_PREP.md) for confirmed registration, access requirements and remaining member/Canvas actions, and the [human review](../docs/HUMAN_REVIEW.md) for evidence-based judgments.
 
 This notebook reruns the analysis from small, committed **real-data aggregates**. Full raw-data acquisition is a separate reproducible command because the monthly trip files are large. Synthetic data appears only in explicitly labelled hand-count tests. Runtime API status is reported below; the frozen AI draft references remain unchanged while Satoshi's separate adjudications are shown below.
 """)
@@ -182,7 +182,7 @@ for measure in ['full_time','seasonal']:
 display(plan[['city','month','hires_decision','fires_notice','seasonal_start_decision','seasonal_starts','crew_cost','terminal_seasonal_cost']].loc[lambda t:(t.hires_decision+t.fires_notice+t.seasonal_start_decision+t.seasonal_starts+t.terminal_seasonal_cost)>0])
 print('Proposed summary:', json.dumps(summary['proposed'], indent=2))
 display(Image(filename=str(ROOT / 'results/figures/crew_plan.png')))""")
-    md('## Current human adjudication — separate from the frozen run\n\nSatoshi Nakamura explicitly adjudicated seven saved-excerpt cases and conditionally accepted eight model topics. Method: **AI-assisted review, explicitly adjudicated by Satoshi in chat**. Record compiled **2026-10-27 JST**; individual decision times were not recorded. Three accepted original cases, three HOCR annotation cases, and one participant/date failure are distinguished. **Adjudicated does not mean output corrected or all passed.**\n\nOriginal raw responses, frozen inputs/references and 19/20 and 11/15 scores are unchanged. Prior automatic summary flags and execution evidence describe the earlier pre-adjudication run, not the current human-review status. This Notebook preserves previous computational outputs and refreshes only review display cells for this integration; no full numerical rerun or new API call was performed.\n\nSee [full human annotations](../docs/HUMAN_REVIEW.md), [eight conditional model topics and shared/dedicated comparison](../docs/MODEL_REVIEW.md), and [unchanged decision record](../docs/human_review_decisions.json). Nominal 120 bikes/shift differs from the fixed-staffing e-bike stress of 108 equivalent bikes/shift. Forecast/backtest and stress tests are within the recorded interpretive scope, not empirical validation. Other-member review, TA confirmation, actual rehearsal/recording/upload, grader access and Canvas submission remain incomplete.\n')
+    md('## Current human adjudication — separate from the frozen run\n\nSatoshi Nakamura explicitly adjudicated seven saved-excerpt cases and conditionally accepted eight model topics. Method: **AI-assisted review, explicitly adjudicated by Satoshi in chat**. Record compiled **2026-10-27 JST**; individual decision times were not recorded. Three accepted original cases, three HOCR annotation cases, and one participant/date failure are distinguished. **Adjudicated does not mean output corrected or all passed.**\n\nOriginal raw responses, frozen inputs/references and 19/20 and 11/15 scores are unchanged. Prior automatic summary flags and execution evidence describe the earlier pre-adjudication run, not the current human-review status. This Notebook preserves previous computational outputs and refreshes only review display cells for this integration; no full numerical rerun or new API call was performed.\n\nSee [full human annotations](../docs/HUMAN_REVIEW.md), [eight conditional model topics and shared/dedicated comparison](../docs/MODEL_REVIEW.md), and [unchanged decision record](../docs/human_review_decisions.json). Nominal 120 bikes/shift differs from the fixed-staffing e-bike stress of 108 equivalent bikes/shift. Forecast/backtest and stress tests are within the recorded interpretive scope, not empirical validation. TA registration is confirmed and the AI-narrated video is available. The [current submission checklist](../docs/SUBMISSION_PREP.md) identifies the remaining listening, member, access and Canvas actions.\n')
     code("from bluebikes.human_review import load_reviews, annotation_lines, status_text\nadjudications = load_reviews(ROOT)\nprint(status_text(ROOT))\ndisplay(pd.DataFrame([\n    {'Source ID': source_id,\n     'Human case judgment': entry['decision']['human_judgment'],\n     'Separate human annotation (raw output unchanged)': ' '.join(annotation_lines(entry, adjudications['record'])),\n     'Reviewer': entry['decision']['human_reviewer'],\n     'Compiled date (not decision time)': adjudications['record']['record_compiled_date_jst'] + ' JST',\n     'Output SHA256': entry['decision']['output_sha256']}\n    for source_id, entry in adjudications['events'].items()\n]).style.set_properties(**{'white-space':'pre-wrap','text-align':'left','vertical-align':'top','max-width':'360px'}).hide(axis='index'))\n")
     md("""## Demo checkpoint: event text to city-month and crew cost
 
@@ -250,21 +250,24 @@ assert plan[plan.month==1].full_time.sum() == 14
 print('Notebook verification PASS. Submission remains incomplete; see required remaining items below.')""")
     md("""## Demo, sources, AI use and remaining work
 
-`notebooks/bluebikes_demo.ipynb` is the short recording view. `docs/DEMO_SCRIPT.md` is an English three-minute draft regenerated from the same `results/summary.json` used for these figures. `docs/architecture.md` contains the diagram/storyboard. The demo still needs a team-reviewed script, rehearsal, screen recording, upload and a teaching-team-accessible link. No recording or upload is claimed.
+The compact `notebooks/bluebikes_demo.ipynb` presents the same analysis. [Watch the 2:55 demo](../deliverables/demo/bluebikes_demo.mp4); [production sources and synchronized subtitles](../deliverables/demo/README.md) disclose the local synthetic narration and real app capture. `docs/architecture.md` explains the diagram. Final full-video/member review and signed-out access are tracked separately.
 
 The implementation, explanations, draft annotations and script were developed with an AI coding assistant. The team is responsible for reviewing their accuracy and compliance with Northeastern's Academic Integrity and Use of AI policy. Every member should participate in reviewing code/data, notebook/report, demo and repository; suggested review tasks are in `docs/REVIEW_CHECKLIST.md`.
 
 Primary data sources and hashes: `data/metadata/station_source.json`, `bucket_manifest.json`, `trip_*.json`, cross-archive audit metadata; event URLs, retrieval/publication dates and excerpts: `fixtures/event_documents.json`, `docs/event_sources.md`, and the separate `fixtures/event_documents_additional.json` / `docs/event_sources_additional.md`; API reference: [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs). The course brief SHA256 is recorded without redistributing or modifying synchronized source materials.
 
-Private repository: https://github.com/BitCoinJr/dads5250-bluebikes-planner . The teaching team needs access before submission. README explains inviting confirmed grader accounts; no invitations are sent automatically. Cached real aggregates allow code/Notebook reruns without raw trip downloads or an API key. Live LLM demonstration needs the local credential.
+Repository: https://github.com/BitCoinJr/dads5250-bluebikes-planner . The TA requires public access before submission; current publication/access status is in the submission checklist. Cached real aggregates and saved responses allow replay without raw trip downloads or an API key.
 
-Highest-value next work: (1) other members' reviews/contributions; (2) resolve TA/course permissions and unreviewed data/operational limitations beyond the eight conditional topics; (3) time an actual rehearsal and record/upload the three-minute demo. Satoshi's seven case decisions and eight topics are recorded separately. TA confirmation and manual Canvas submission remain separate unresolved requirements.
+Remaining actions: final full-video review, truthful member contributions, authorized publication and signed-out access verification, followed by Canvas submission. TA registration is confirmed. Numerical results remain conditional on the disclosed data and operating assumptions.
 """)
-    code("""print('Required remaining items:')
-for item in summary['unfinished']:
-    print('-', item)
-print('Video link: NOT RECORDED / NOT UPLOADED')
-print('Teaching-team access: must be granted and verified manually')""")
+    code(r"""from pathlib import Path
+from IPython.display import Markdown, display
+status_root = Path.cwd()
+if not (status_root / 'docs').exists(): status_root = status_root.parent
+import re
+status_markdown = (status_root / 'docs/SUBMISSION_PREP.md').read_text(encoding='utf-8')
+status_markdown = re.sub(r'\]\((?![a-zA-Z]+:|#|/)', '](../docs/', status_markdown)
+display(Markdown(status_markdown))""")
     md("""## Optional local Gradio app — off by default
 
 Install the current `requirements.txt` before opting in. Leave `LAUNCH_LOCAL_APP = False` for a normal top-to-bottom execution or submitted artifact: this cell starts no server and makes no live API call. To interact locally, set the flag to `True` and run the cell. The default port remains 7860; for this polished revision's review set `LOCAL_APP_PORT = 7876`, equivalent to `python scripts/run_app.py --port 7876`, to avoid an older process on 7860. It binds to **127.0.0.1**, with sharing and analytics disabled. The standalone app and Notebook are two launchers for the same application.

@@ -1,3 +1,5 @@
+> Historical record. For current registration, deliverables and remaining actions, see [submission status](SUBMISSION_PREP.md). Earlier status statements below are preserved as recorded.
+
 # Submission safety and Executive Summary review
 
 Review base: `691ef6a`. This revision changes the local app's source eligibility gate and introduction only. No new model, dependency, API call or data aggregation.

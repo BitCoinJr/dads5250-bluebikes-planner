@@ -1,6 +1,6 @@
 # Architecture and demo storyboard
 
-AI-assisted implementation. Satoshi's seven saved-excerpt decisions and eight conditional model topics are integrated; empirical validation and other-member review remain pending.
+AI-assisted implementation. Satoshi's seven saved-excerpt decisions and eight conditional model topics are integrated; empirical validation remains limited; Vinay’s documentation/UI review is evidenced by PR #1 and Aditi’s contribution remains unconfirmed.
 
 ![Bluebikes flow with explicit Python, OpenAI, human-review and user-assumption roles](diagrams/bluebikes_flow.svg)
 
@@ -44,4 +44,4 @@ The preservation audit verified 100 pre-existing data/prompt/fixture/result file
 
 Use the compact [demo Notebook](../notebooks/bluebikes_demo.ipynb) for the walkthrough and the [submission Notebook](../notebooks/bluebikes_submission.ipynb) for the full audit. Inspect both artifacts' generated cells before recording; a link is not execution evidence.
 
-Current recording storyboard and provisional pacing are in [DEMO_SCRIPT.md](DEMO_SCRIPT.md) and the [one-to-one run sheet](RECORDING_RUNSHEET.md): overview → architecture → saved source/extraction → confirmation/Apply → April decision → fifteen-second geography → evaluation/limits/contribution. Target 2:45–2:55, not a measured spoken duration. Operation-only browser timing and estimates are separate in [recording-preparation verification](verification-recording-prep.json). Other-member contributions, spoken rehearsal, recording/upload, TA confirmation, grader access and Canvas submission remain incomplete.
+The [2:55 edited video](../deliverables/demo/README.md) demonstrates the current architecture using genuine app captures and saved real OpenAI outputs. Local continuous-paragraph Zira supplies narration. The [source script](DEMO_SCRIPT.md) and [replay/editing guide](RECORDING_RUNSHEET.md) support revisions; [current submission status](SUBMISSION_PREP.md) records TA confirmation and remaining access/member/Canvas actions.

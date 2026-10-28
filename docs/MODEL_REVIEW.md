@@ -102,4 +102,4 @@ Source: [preserved summary](../results/summary.json), proposed/dedicated_city_sc
 - Exact-name station joining, DST/hourly ordering, missing trip boundaries, virtual-depot feasibility and all raw-data audit checks have not received separate blanket human sign-off here.
 - No measured capacity/productivity, rider-loss conversion, event effect, station-hour service or route feasibility is established.
 - **120 nominal bikes/shift** stays the course capacity. **108 equivalent bikes/shift = 120×0.9** applies only to the assumed e-bike productivity stress. Demand/e-bike stresses hold staffing and cash fixed; the separate unit-conversion experiment replans.
-- TA approval, other members' reviews/contributions, actual rehearsal/recording/upload, grader access and Canvas submission remain incomplete.
+- TA topic registration is confirmed and the narrated video exists; neither validates these assumptions. See [current submission status](SUBMISSION_PREP.md) for remaining member, access, listening and Canvas actions.

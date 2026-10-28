@@ -1,3 +1,5 @@
+> Historical record. For current registration, deliverables and remaining actions, see [submission status](SUBMISSION_PREP.md). Earlier status statements below are preserved as recorded.
+
 # Decision log and authorization status
 
 AI-assisted initial implementation, 26 October 2026 JST. Human review pending.

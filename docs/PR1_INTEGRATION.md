@@ -1,3 +1,5 @@
+> Historical record. For current registration, deliverables and remaining actions, see [submission status](SUBMISSION_PREP.md). Earlier status statements below are preserved as recorded.
+
 # PR #1 integration review
 
 Client review date: 2026-10-28 JST. Reviewed Vinay's [PR #1](https://github.com/BitCoinJr/dads5250-bluebikes-planner/pull/1), original head `db79fb0`, against `a373335`. The PR contains two member-authored commits; integration retains their history. Its README conflicts with the new Executive Summary and recording preparation on main.
