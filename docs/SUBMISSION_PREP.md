@@ -18,10 +18,12 @@ TA Tanmayi Shurpali confirmed Group 8 (Satoshi Nakamura, Aditi Rao and Vinay Man
 
 The TA specifically requests a **public repository**. Satoshi explicitly authorized publication on 28 October 2026 JST. The repository is now **public**. Repository, README, Notebook and MP4 were accessible without cookies or authentication; downloaded Notebook and MP4 hashes matched local files. See [access verification](verification-public-access.json). GitHub does not preview this MP4 inline; choose **View raw / Download**.
 
-## Remaining actions
+## Submission decision and remaining actions
+
+Satoshi intends to make an initial Canvas submission now and incorporate any later feedback in a revised submission where permitted. This records the user’s plan; no Canvas receipt or actual submission is claimed. [Final technical check](verification-final-preflight.json) re-executed the complete Notebooks in an isolated tracked-file snapshot without credentials or new OpenAI calls.
 
 - Review the complete new continuous-Zira video for pronunciation, synchronization and readability. Satoshi selected the sample voice and accepted the earlier video's pace; this is not approval of the new complete render.
-- Invite Aditi to review the video and submit concrete corrections/contribution evidence by **28 October 2026, 12:00 noon EDT / 29 October 2026, 01:00 JST**. This is a proposed follow-up deadline; the follow-up has not been sent by this task. The earlier 10:00 AM EDT request is historical.
+- **Review request sent (Satoshi-reported):** Satoshi reports sending Aditi the video review request, with corrections/contribution evidence requested by **28 October 2026, 12:00 noon EDT / 29 October 2026, 01:00 JST**. As of this pre-submission check, Satoshi reports no reply. Sending and delivery were not independently verified; silence is not approval or contribution. The earlier 10:00 AM EDT request is historical.
 - Record any additional member contribution honestly. Vinay's PR #1 is evidenced; Aditi's contribution is not yet confirmed. Silence does not establish approval or contribution.
 - Use the verified public [video link](../deliverables/demo/bluebikes_demo.mp4) for review/submission. The MP4 downloads via **View raw / Download**; no GitHub account is needed. If a reviewer requires browser streaming, arrange a separate approved host rather than assuming GitHub provides a player.
 - One member submits all three links/files to Canvas and saves the receipt. No Canvas submission is claimed here.

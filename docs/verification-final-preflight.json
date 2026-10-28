@@ -1,0 +1,113 @@
+{
+  "checked_at_utc": "2026-10-28T05:37:53.460799+00:00",
+  "verified_source_commit": "ab8b9f62ff6535df09023c5ac4fa9399952bae65",
+  "conclusion": "No technical submission blocker found; final listening/member review and actual Canvas submission remain separate.",
+  "execution_environment": "Isolated git archive of tracked files using the existing verified Python environment; no .env copied; not a fresh package-install or other-platform certification.",
+  "notebook_reproduction": {
+    "bluebikes_demo.ipynb": {
+      "executed_cells": 10,
+      "errors": 0,
+      "test_result": []
+    },
+    "bluebikes_submission.ipynb": {
+      "executed_cells": 18,
+      "errors": 0,
+      "test_result": [
+        "Ran 118 tests in 7.925s"
+      ]
+    },
+    "new_api_calls": 0,
+    "recomputed_metrics_equal": [
+      "forecast_backtest",
+      "proposed",
+      "initial_crews",
+      "event_scenario",
+      "backtest_comparison"
+    ],
+    "recomputed_tables_equal": [
+      "results/focused_event_chain.csv",
+      "results/scenario_period_comparison.csv",
+      "results/unit_interpretation_comparison.csv",
+      "results/sensitivity.csv"
+    ],
+    "raw_api_inputs_and_decisions_unchanged": [
+      "fixtures/event_documents.json",
+      "fixtures/event_documents_additional.json",
+      "results/event_extraction_live.json",
+      "results/event_extraction_additional_live.json",
+      "docs/human_review_decisions.json"
+    ]
+  },
+  "http_checks": [
+    {
+      "check": "edited_and_confirmed_evaluation_case_denied",
+      "source_id": "additional_hocr_bu_2026"
+    },
+    {
+      "check": "edited_and_confirmed_evaluation_case_denied",
+      "source_id": "additional_hocr_avive_2026"
+    },
+    {
+      "check": "edited_and_confirmed_evaluation_case_denied",
+      "source_id": "additional_baa_participants_only_2026"
+    },
+    {
+      "check": "original_marathon",
+      "april_ft": [
+        12,
+        13
+      ],
+      "april_cash": [
+        72000,
+        78000
+      ],
+      "hiring_decision": "2026-03"
+    },
+    {
+      "check": "zero_increment_matches_baseline_all_twelve_months"
+    },
+    {
+      "check": "source_change_clears_all_results_even_without_input_listener"
+    }
+  ],
+  "new_real_openai_calls": 0,
+  "new_data_downloads": 0,
+  "original_tracked_files_unchanged_during_audit": 235,
+  "after_audit_edits": "Aditi request status corrected from user report; submission decision documented; only Notebook status display refreshed. Numeric outputs and API/human decision records retained.",
+  "video": {
+    "seconds": 175.0,
+    "bytes": 8495712,
+    "sha256": "37703a0895569e3490ac33aa1e10435af28ac30b085cb13284a8f10e6acb4543",
+    "changed": false,
+    "full_continuous_zira_human_listening": "not confirmed"
+  },
+  "public_access_before_status_update": {
+    "checked_at": "2026-10-28T05:35:02.471015+00:00",
+    "authentication": "none",
+    "checks": [
+      {
+        "artifact": "readme",
+        "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/raw/ab8b9f62ff6535df09023c5ac4fa9399952bae65/README.md",
+        "status": 200,
+        "sha256": "2299306df35de2773f454169ff8a64abdc0115ed421da879f9a689a42ab961b3",
+        "matches_local": true
+      },
+      {
+        "artifact": "notebook",
+        "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/raw/ab8b9f62ff6535df09023c5ac4fa9399952bae65/notebooks/bluebikes_submission.ipynb",
+        "status": 200,
+        "sha256": "6e3e284ac527ae39998668c9142301619e41b615dc668142fcb95688697d8be4",
+        "matches_local": true
+      },
+      {
+        "artifact": "video",
+        "url": "https://github.com/BitCoinJr/dads5250-bluebikes-planner/raw/ab8b9f62ff6535df09023c5ac4fa9399952bae65/deliverables/demo/bluebikes_demo.mp4",
+        "status": 200,
+        "sha256": "37703a0895569e3490ac33aa1e10435af28ac30b085cb13284a8f10e6acb4543",
+        "matches_local": true
+      }
+    ]
+  },
+  "visibility": "public",
+  "canvas_submission": "not performed"
+}
